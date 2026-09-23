@@ -246,8 +246,73 @@
   <a href="#tiers" onclick="closeNav()">Free vs Pro</a>
   <a href="#api" onclick="closeNav()">API Reference</a>
   <a href="#analytics" onclick="closeNav()">Analytics</a>
+  <a href="#checker" onclick="closeNav()">LAWP Checker</a>
 </nav>
 
+<h2 id="checker">LAWP Checker</h2>
+<p>Check if a site has native LAWP support at <code>/.well-known/lawp.json</code>, or see how Actuent would represent it.</p>
+
+<div style="display:flex;gap:10px;margin:16px 0 24px">
+  <input
+    type="text"
+    id="checker-input"
+    placeholder="yoursite.com"
+    style="flex:1;background:#111;border:1px solid #222;color:#f0f0f0;padding:10px 14px;font-size:13px;font-family:'Courier New',monospace;border-radius:7px;outline:none;"
+    onkeydown="if(event.key==='Enter') checkLAWP()"
+  />
+  <button
+    onclick="checkLAWP()"
+    style="background:#f0f0f0;color:#0a0a0a;border:none;padding:10px 20px;font-size:13px;font-weight:700;border-radius:7px;cursor:pointer;white-space:nowrap;"
+  >Check</button>
+</div>
+<div id="checker-result"></div>
+
+<script>
+async function checkLAWP() {
+  const input = document.getElementById("checker-input").value.trim().toLowerCase().replace(/^https?:\/\//,"").replace(/\/.*/,"")
+  if (!input) return
+  const result = document.getElementById("checker-result")
+  result.innerHTML = '<p style="color:#555;font-size:13px">Checking...</p>'
+
+  let nativeLAWP = null
+  try {
+    const r = await fetch(`https://${input}/.well-known/lawp.json`)
+    if (r.ok) nativeLAWP = await r.json()
+  } catch {}
+
+  let actuentLAWP = null
+  try {
+    const r = await fetch(`https://api.actuent.ai/api/search?q=${encodeURIComponent(input)}`)
+    const data = await r.json()
+    actuentLAWP = data.results?.[0] || null
+  } catch {}
+
+  if (nativeLAWP) {
+    result.innerHTML = `
+      <div style="background:#111;border:1px solid #1a1a1a;border-left:3px solid #4ade80;border-radius:8px;padding:16px;margin-bottom:12px">
+        <div style="font-size:12px;font-weight:600;color:#4ade80;margin-bottom:4px">✓ Native LAWP found</div>
+        <div style="font-size:12px;color:#555">${input}/.well-known/lawp.json is live</div>
+      </div>
+      <pre style="background:#111;border:1px solid #1a1a1a;border-radius:8px;padding:16px;font-size:11px;color:#555;overflow-x:auto;white-space:pre">${JSON.stringify(nativeLAWP, null, 2)}</pre>
+    `
+  } else if (actuentLAWP) {
+    result.innerHTML = `
+      <div style="background:#111;border:1px solid #1a1a1a;border-left:3px solid #888;border-radius:8px;padding:16px;margin-bottom:12px">
+        <div style="font-size:12px;font-weight:600;color:#888;margin-bottom:4px">△ No native LAWP — using Actuent's crawled version</div>
+        <div style="font-size:12px;color:#555">Add <code style="background:#1a1a1a;padding:1px 5px;border-radius:3px">/.well-known/lawp.json</code> to your site for native support</div>
+      </div>
+      <pre style="background:#111;border:1px solid #1a1a1a;border-radius:8px;padding:16px;font-size:11px;color:#555;overflow-x:auto;white-space:pre">${JSON.stringify(actuentLAWP, null, 2)}</pre>
+    `
+  } else {
+    result.innerHTML = `
+      <div style="background:#111;border:1px solid #1a1a1a;border-left:3px solid #555;border-radius:8px;padding:16px">
+        <div style="font-size:12px;font-weight:600;color:#555;margin-bottom:4px">✗ Not on Actuent yet</div>
+        <div style="font-size:12px;color:#444">Use <code style="background:#1a1a1a;padding:1px 5px;border-radius:3px">@actuent/sdk</code> to list this site, or <a href="https://humans.actuent.ai/suggest" style="color:#888">suggest it</a></div>
+      </div>
+    `
+  }
+}
+</script>
 <main>
 
   <div class="badge">DOCS v0.2.0</div>
@@ -444,6 +509,7 @@ await register({
 
   <h2 id="lawp">LAWP Format</h2>
   <p>LAWP (Locali AI Web Protocol) is an open protocol for representing websites in a structured format that AI agents can read and act on. Think of it as HTML — but built for AI instead of browsers.</p>
+<a href="#checker" onclick="closeNav()">LAWP Checker</a>
 
   <h3>Full structure</h3>
   <pre><code>{
