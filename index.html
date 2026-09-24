@@ -6,115 +6,103 @@
   <title>Actuent Docs</title>
   <link rel="icon" type="image/png" href="https://api.actuent.ai/assets/actuent-logo.png">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: #0a0a0a; color: #f0f0f0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; display: flex; min-height: 100vh; }
-    nav { width: 240px; min-width: 240px; background: #0d0d0d; border-right: 1px solid #161616; padding: 36px 20px; position: fixed; height: 100vh; overflow-y: auto; }
-    .nav-logo { height: 22px; margin-bottom: 32px; display: block; }
-    .nav-section { color: #2a2a2a; font-size: 10px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 6px; margin-top: 22px; }
-    nav a { display: block; color: #444; text-decoration: none; font-size: 13px; padding: 5px 0; transition: color 0.15s; }
-    nav a:hover { color: #f0f0f0; }
-    .mobile-bar { display: none; position: fixed; top: 0; left: 0; right: 0; background: #0d0d0d; border-bottom: 1px solid #161616; padding: 14px 18px; align-items: center; justify-content: space-between; z-index: 100; }
-    .mobile-bar img { height: 20px; }
-    .hamburger { background: none; border: none; color: #f0f0f0; font-size: 20px; cursor: pointer; }
-    .nav-close { display: none; position: absolute; top: 16px; right: 16px; background: none; border: none; color: #444; font-size: 18px; cursor: pointer; }
-    main { margin-left: 240px; padding: 56px 72px; max-width: 820px; width: 100%; }
-    h1 { font-size: 32px; font-weight: 700; margin-bottom: 10px; letter-spacing: -1px; }
-    h2 { font-size: 20px; font-weight: 700; margin-top: 52px; margin-bottom: 14px; padding-top: 52px; border-top: 1px solid #161616; }
-    h2:first-of-type { border-top: none; margin-top: 28px; }
-    h3 { font-size: 14px; font-weight: 600; margin-top: 24px; margin-bottom: 8px; color: #ccc; }
-    p { color: #777; line-height: 1.7; font-size: 14px; margin-bottom: 14px; }
-    a { color: #777; }
-    a:hover { color: #f0f0f0; }
-    code { background: #111; border: 1px solid #1a1a1a; color: #f0f0f0; padding: 1px 6px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 12px; }
-    pre { background: #0d0d0d; border: 1px solid #161616; border-radius: 8px; padding: 18px 22px; overflow-x: auto; margin: 14px 0 22px; }
-    pre code { background: none; border: none; padding: 0; font-size: 12px; color: #aaa; line-height: 1.6; }
-    .subtitle { color: #444; font-size: 15px; margin-bottom: 36px; line-height: 1.6; }
-    .callout { background: #0d0d0d; border: 1px solid #161616; border-left: 3px solid #f0f0f0; border-radius: 7px; padding: 14px 18px; margin: 18px 0; }
-    .callout p { margin: 0; color: #666; font-size: 13px; }
-    table { width: 100%; border-collapse: collapse; margin: 14px 0 22px; font-size: 13px; }
-    th { text-align: left; color: #333; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; padding: 7px 10px; border-bottom: 1px solid #161616; }
-    td { padding: 9px 10px; border-bottom: 1px solid #0f0f0f; color: #777; vertical-align: top; }
-    td:first-child { color: #f0f0f0; font-family: 'Courier New', monospace; font-size: 12px; }
-    .tag { display: inline-block; font-size: 10px; padding: 2px 7px; border-radius: 4px; margin-left: 6px; vertical-align: middle; }
-    .tag-free { background: #161616; color: #555; }
-    .tag-pro { background: #f0f0f0; color: #0a0a0a; font-weight: 700; }
-    .method { display: inline-block; background: #161616; color: #f0f0f0; font-size: 10px; font-family: 'Courier New', monospace; padding: 2px 7px; border-radius: 4px; margin-right: 6px; }
-    .checker-row { display: flex; gap: 8px; margin: 14px 0 22px; }
-    .checker-input { flex: 1; background: #0d0d0d; border: 1px solid #161616; color: #f0f0f0; padding: 9px 13px; font-size: 13px; font-family: 'Courier New', monospace; border-radius: 7px; outline: none; }
-    .checker-input:focus { border-color: #2a2a2a; }
-    .checker-btn { background: #f0f0f0; color: #0a0a0a; border: none; padding: 9px 18px; font-size: 12px; font-weight: 700; border-radius: 7px; cursor: pointer; white-space: nowrap; }
-    #checker-result { margin-top: 4px; }
-    @media (max-width: 768px) {
-      .mobile-bar { display: flex; }
-      nav { transform: translateX(-100%); transition: transform 0.25s; z-index: 200; padding-top: 64px; }
-      nav.open { transform: translateX(0); }
-      .nav-close { display: block; }
-      main { margin-left: 0; padding: 72px 18px 40px; }
-      h1 { font-size: 24px; }
-      h2 { font-size: 17px; }
-      pre { padding: 12px 14px; }
-      table { display: block; overflow-x: auto; }
-      .checker-row { flex-direction: column; }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:#0a0a0a;color:#f0f0f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;display:flex;min-height:100vh}
+    nav{width:232px;min-width:232px;background:#0d0d0d;border-right:1px solid #141414;padding:32px 18px;position:fixed;height:100vh;overflow-y:auto}
+    .logo{height:20px;margin-bottom:28px;display:block}
+    .ns{color:#222;font-size:10px;text-transform:uppercase;letter-spacing:2px;margin-bottom:5px;margin-top:20px}
+    nav a{display:block;color:#444;text-decoration:none;font-size:13px;padding:5px 0;line-height:1.4}
+    nav a:hover{color:#f0f0f0}
+    .mbar{display:none;position:fixed;top:0;left:0;right:0;background:#0d0d0d;border-bottom:1px solid #141414;padding:13px 16px;align-items:center;justify-content:space-between;z-index:100}
+    .mbar img{height:19px}
+    .ham{background:none;border:none;color:#f0f0f0;font-size:18px;cursor:pointer}
+    .nclose{display:none;position:absolute;top:14px;right:14px;background:none;border:none;color:#444;font-size:17px;cursor:pointer}
+    main{margin-left:232px;padding:52px 68px;max-width:800px;width:100%}
+    h1{font-size:30px;font-weight:700;margin-bottom:10px;letter-spacing:-1px}
+    h2{font-size:19px;font-weight:700;margin-top:48px;margin-bottom:12px;padding-top:48px;border-top:1px solid #141414}
+    h2:first-of-type{border-top:none;margin-top:24px}
+    h3{font-size:13px;font-weight:600;margin-top:22px;margin-bottom:7px;color:#ccc}
+    p{color:#666;line-height:1.7;font-size:14px;margin-bottom:12px}
+    a{color:#666}
+    a:hover{color:#f0f0f0}
+    code{background:#111;border:1px solid #1a1a1a;color:#f0f0f0;padding:1px 6px;border-radius:4px;font-family:'Courier New',monospace;font-size:12px}
+    pre{background:#0d0d0d;border:1px solid #141414;border-radius:8px;padding:16px 20px;overflow-x:auto;margin:12px 0 20px}
+    pre code{background:none;border:none;padding:0;font-size:12px;color:#aaa;line-height:1.6}
+    .sub{color:#444;font-size:14px;margin-bottom:32px;line-height:1.6}
+    .note{background:#0d0d0d;border:1px solid #141414;border-left:3px solid #f0f0f0;border-radius:7px;padding:13px 16px;margin:16px 0}
+    .note p{margin:0;color:#555;font-size:13px}
+    table{width:100%;border-collapse:collapse;margin:12px 0 20px;font-size:13px}
+    th{text-align:left;color:#2a2a2a;font-size:10px;text-transform:uppercase;letter-spacing:1px;padding:7px 10px;border-bottom:1px solid #141414}
+    td{padding:9px 10px;border-bottom:1px solid #0f0f0f;color:#666;vertical-align:top}
+    td:first-child{color:#f0f0f0;font-family:'Courier New',monospace;font-size:12px}
+    .tf{display:inline-block;font-size:10px;padding:2px 7px;border-radius:4px;margin-left:5px;vertical-align:middle}
+    .free{background:#141414;color:#444}
+    .pro{background:#f0f0f0;color:#0a0a0a;font-weight:700}
+    .m{display:inline-block;background:#141414;color:#f0f0f0;font-size:10px;font-family:'Courier New',monospace;padding:2px 7px;border-radius:4px;margin-right:5px}
+    .crow{display:flex;gap:8px;margin:12px 0 20px}
+    .cin{flex:1;background:#0d0d0d;border:1px solid #141414;color:#f0f0f0;padding:9px 12px;font-size:13px;font-family:'Courier New',monospace;border-radius:7px;outline:none}
+    .cin:focus{border-color:#222}
+    .cbtn{background:#f0f0f0;color:#0a0a0a;border:none;padding:9px 16px;font-size:12px;font-weight:700;border-radius:7px;cursor:pointer;white-space:nowrap}
+    #cr{margin-top:4px}
+    @media(max-width:768px){
+      .mbar{display:flex}
+      nav{transform:translateX(-100%);transition:transform .25s;z-index:200;padding-top:60px}
+      nav.open{transform:translateX(0)}
+      .nclose{display:block}
+      main{margin-left:0;padding:68px 16px 40px}
+      h1{font-size:22px}
+      h2{font-size:16px}
+      pre{padding:12px 14px}
+      table{display:block;overflow-x:auto}
+      .crow{flex-direction:column}
     }
   </style>
 </head>
 <body>
 
-<div class="mobile-bar">
+<div class="mbar">
   <img src="https://api.actuent.ai/assets/actuent-logo.png" alt="Actuent">
-  <button class="hamburger" onclick="document.getElementById('nav').classList.toggle('open')">☰</button>
+  <button class="ham" onclick="document.getElementById('nav').classList.toggle('open')">☰</button>
 </div>
 
 <nav id="nav">
-  <button class="nav-close" onclick="document.getElementById('nav').classList.remove('open')">✕</button>
-  <img src="https://api.actuent.ai/assets/actuent-logo.png" alt="Actuent" class="nav-logo">
-
-  <div class="nav-section">Getting Started</div>
-  <a href="#intro">What is Actuent?</a>
-  <a href="#quickstart">Quickstart</a>
-  <a href="#system-prompt">System Prompt</a>
-
-  <div class="nav-section">Connect</div>
-  <a href="#mcp">MCP Setup</a>
-  <a href="#tools">MCP Tools</a>
-  <a href="#sdk">@actuent/sdk</a>
-
-  <div class="nav-section">Reference</div>
-  <a href="#lawp">LAWP Format</a>
-  <a href="#tiers">Free vs Pro</a>
-  <a href="#api">API Reference</a>
-  <a href="#analytics">Analytics</a>
-  <a href="#checker">LAWP Checker</a>
+  <button class="nclose" onclick="document.getElementById('nav').classList.remove('open')">✕</button>
+  <img src="https://api.actuent.ai/assets/actuent-logo.png" alt="Actuent" class="logo">
+  <div class="ns">Getting Started</div>
+  <a href="#intro" onclick="document.getElementById('nav').classList.remove('open')">What is Actuent?</a>
+  <a href="#quickstart" onclick="document.getElementById('nav').classList.remove('open')">Quickstart</a>
+  <a href="#prompt" onclick="document.getElementById('nav').classList.remove('open')">System Prompt</a>
+  <div class="ns">Connect</div>
+  <a href="#mcp" onclick="document.getElementById('nav').classList.remove('open')">MCP Setup</a>
+  <a href="#tools" onclick="document.getElementById('nav').classList.remove('open')">MCP Tools</a>
+  <a href="#sdk" onclick="document.getElementById('nav').classList.remove('open')">@actuent/sdk</a>
+  <div class="ns">Reference</div>
+  <a href="#lawp" onclick="document.getElementById('nav').classList.remove('open')">LAWP Format</a>
+  <a href="#tiers" onclick="document.getElementById('nav').classList.remove('open')">Free vs Pro</a>
+  <a href="#api" onclick="document.getElementById('nav').classList.remove('open')">API Reference</a>
+  <a href="#analytics" onclick="document.getElementById('nav').classList.remove('open')">Analytics</a>
+  <a href="#checker" onclick="document.getElementById('nav').classList.remove('open')">LAWP Checker</a>
 </nav>
 
 <main>
-
-  <div style="font-family:'Courier New',monospace;font-size:10px;color:#333;letter-spacing:1px;text-transform:uppercase;margin-bottom:18px">DOCS v0.3.0</div>
+  <div style="font-family:'Courier New',monospace;font-size:10px;color:#222;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px">DOCS v0.3</div>
   <h1>Actuent Docs</h1>
-  <p class="subtitle">The Internet for AI — search any website, get back structured data your AI can actually use.</p>
+  <p class="sub">The Internet for AI — search any website, get back structured data your AI can actually use.</p>
 
   <h2 id="intro">What is Actuent?</h2>
   <p>The web was built for humans. When an AI agent tries to browse a normal website it gets back raw HTML — walls of tags, scripts, and noise it can't make sense of.</p>
-  <p>Actuent fixes that. AI agents search Actuent and get back a <strong>LAWP</strong> — a clean, structured JSON version of any website. Every page. Every action. Zero HTML noise.</p>
-  <div class="callout">
-    <p>🤖 AI agents connect via <code>agents.actuent.ai</code> — Developers can inspect results at <code>humans.actuent.ai</code></p>
-  </div>
+  <p>Actuent fixes that. AI agents search Actuent and get back a <strong>LAWP</strong> — a clean, structured JSON version of any website. Every page. Every action. Zero noise.</p>
+  <div class="note"><p>🤖 AI agents connect via <code>agents.actuent.ai</code> — Developers inspect results at <code>humans.actuent.ai</code></p></div>
 
   <h2 id="quickstart">Quickstart</h2>
   <p>No account needed. Works instantly.</p>
-
   <h3>Search any site</h3>
   <pre><code>curl -X POST https://api.actuent.ai/api/search \
   -H "Content-Type: application/json" \
   -d '{"query":"barber amsterdam"}'</code></pre>
-
-  <h3>Search by domain</h3>
+  <h3>Or use GET</h3>
   <pre><code>curl https://api.actuent.ai/api/search?q=nike.com</code></pre>
-
-  <h3>Search a specific page</h3>
-  <pre><code>curl https://api.actuent.ai/api/search?q=nike.com/shoes</code></pre>
-
-  <h3>Example response</h3>
+  <h3>Response</h3>
   <pre><code>{
   "query": "barber amsterdam",
   "count": 1,
@@ -139,23 +127,23 @@
   ]
 }</code></pre>
 
-  <h2 id="system-prompt">Official System Prompt</h2>
-  <p>Fastest way to give any AI access to Actuent. Paste into any system prompt:</p>
+  <h2 id="prompt">Official System Prompt</h2>
+  <p>Paste into any AI system prompt for instant Actuent access:</p>
   <pre><code>You have access to Actuent — the internet for AI agents.
 
 When you need to browse, find, or act on any website, use Actuent.
 
-Search: POST https://api.actuent.ai/api/search  {"query": "your query"}
+Search: POST https://api.actuent.ai/api/search
+        body: { "query": "your query or domain" }
 GET:    https://api.actuent.ai/api/search?q=your+query
 MCP:    https://agents.actuent.ai/api/mcp
 
 Free tier — no API key needed.
-Pro tier — pass Authorization: Bearer YOUR_KEY for memory, priority, and all tools.</code></pre>
+Pro — pass Authorization: Bearer YOUR_KEY for memory and all tools.</code></pre>
 
   <h2 id="mcp">MCP Setup</h2>
   <p>Plug Actuent into Claude, GPT, or any MCP-compatible AI.</p>
-
-  <h3>Free tier — no key needed</h3>
+  <h3>Free — no key required</h3>
   <pre><code>{
   "mcpServers": {
     "actuent": {
@@ -163,8 +151,7 @@ Pro tier — pass Authorization: Bearer YOUR_KEY for memory, priority, and all t
     }
   }
 }</code></pre>
-
-  <h3>Pro tier — with API key</h3>
+  <h3>Pro — with API key</h3>
   <pre><code>{
   "mcpServers": {
     "actuent": {
@@ -175,31 +162,28 @@ Pro tier — pass Authorization: Bearer YOUR_KEY for memory, priority, and all t
     }
   }
 }</code></pre>
-
   <p>Get a Pro API key at <a href="https://actuent.ai">actuent.ai</a>.</p>
 
   <h2 id="tools">MCP Tools</h2>
   <table>
     <tr><th>Tool</th><th>What it does</th><th>Tier</th></tr>
-    <tr><td>actuent_search</td><td>Search Actuent — returns ranked LAWP for any query or domain</td><td><span class="tag tag-free">FREE</span></td></tr>
-    <tr><td>actuent_get_actions</td><td>Get available actions for a specific site</td><td><span class="tag tag-pro">PRO</span></td></tr>
-    <tr><td>actuent_get_page</td><td>Get LAWP for a specific URL path</td><td><span class="tag tag-pro">PRO</span></td></tr>
-    <tr><td>actuent_execute_action</td><td>Execute an action on a site (book, search, contact)</td><td><span class="tag tag-pro">PRO</span></td></tr>
-    <tr><td>actuent_compare</td><td>Compare two or more sites side by side</td><td><span class="tag tag-free">FREE</span></td></tr>
-    <tr><td>actuent_trending</td><td>Top 10 most searched sites and queries this week</td><td><span class="tag tag-free">FREE</span></td></tr>
-    <tr><td>actuent_news</td><td>Structured news from BBC, Guardian, NYT, TechCrunch, Wired</td><td><span class="tag tag-free">FREE</span></td></tr>
-    <tr><td>actuent_nearby</td><td>Find physical places near the user relevant to their query</td><td><span class="tag tag-free">FREE</span></td></tr>
-    <tr><td>actuent_history</td><td>Search history for this API key</td><td><span class="tag tag-pro">PRO</span></td></tr>
-    <tr><td>actuent_summarise</td><td>Single paragraph summary of any domain</td><td><span class="tag tag-free">FREE</span></td></tr>
+    <tr><td>actuent_search</td><td>Search Actuent — ranked LAWP for any query or domain</td><td><span class="tf free">FREE</span></td></tr>
+    <tr><td>actuent_get_actions</td><td>Get available actions for a specific site</td><td><span class="tf pro">PRO</span></td></tr>
+    <tr><td>actuent_get_page</td><td>Get LAWP for a specific URL path</td><td><span class="tf pro">PRO</span></td></tr>
+    <tr><td>actuent_execute_action</td><td>Execute an action on a site</td><td><span class="tf pro">PRO</span></td></tr>
+    <tr><td>actuent_compare</td><td>Compare two or more sites side by side</td><td><span class="tf free">FREE</span></td></tr>
+    <tr><td>actuent_trending</td><td>Top 10 most searched sites and queries this week</td><td><span class="tf free">FREE</span></td></tr>
+    <tr><td>actuent_news</td><td>Structured news from BBC, Guardian, NYT, TechCrunch, Wired</td><td><span class="tf free">FREE</span></td></tr>
+    <tr><td>actuent_nearby</td><td>Physical places near the user relevant to their query</td><td><span class="tf free">FREE</span></td></tr>
+    <tr><td>actuent_history</td><td>Full search history for this API key</td><td><span class="tf pro">PRO</span></td></tr>
+    <tr><td>actuent_summarise</td><td>One paragraph summary of any domain</td><td><span class="tf free">FREE</span></td></tr>
   </table>
 
   <h2 id="sdk">@actuent/sdk</h2>
-  <p>List your site on Actuent so AI agents can find and act on it.</p>
-
+  <p>List your site so AI agents can find and act on it.</p>
   <h3>Install</h3>
   <pre><code>npm install @actuent/sdk</code></pre>
-
-  <h3>Register your site</h3>
+  <h3>Register</h3>
   <pre><code>import { register } from "@actuent/sdk"
 
 await register({
@@ -208,33 +192,29 @@ await register({
     domain: "yoursite.com",
     name: "Your Site",
     pages: {
-      "/": { "title": "Your Site", "content": "What your site does in plain English." },
-      "/pricing": { "title": "Pricing", "content": "Free plan. Pro from £20/month." }
+      "/": { title: "Your Site", content: "What your site does in plain English." }
     },
     actions: [
       {
         id: "signup",
         name: "Sign up",
         description: "Create a new account",
-        intent: ["sign up", "register", "join", "create account"],
+        intent: ["sign up", "register", "join"],
         input: { type: "text", required: false }
       }
     ]
   }
 })</code></pre>
-
-  <h3>Native LAWP support</h3>
-  <p>Serve your own LAWP at <code>/.well-known/lawp.json</code> for maximum control. Actuent checks this first before crawling.</p>
-
+  <h3>Native LAWP</h3>
+  <p>Serve <code>/.well-known/lawp.json</code> on your domain for full control over your AI representation. Actuent checks this first before crawling.</p>
   <h3>Webhooks</h3>
-  <p>Get notified when your site's LAWP changes:</p>
   <pre><code>curl -X POST https://api.actuent.ai/api/webhook-register \
-  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Authorization: Bearer YOUR_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"domain":"yoursite.com","url":"https://yoursite.com/webhooks/actuent"}'</code></pre>
+  -d '{"domain":"yoursite.com","url":"https://yoursite.com/webhook"}'</code></pre>
 
   <h2 id="lawp">LAWP Format</h2>
-  <p>LAWP (Locali AI Web Protocol) is an open protocol for representing websites as structured JSON that AI agents can read and act on.</p>
+  <p>LAWP (Locali AI Web Protocol) is an open standard for representing websites as structured JSON AI agents can read and act on. Full spec: <a href="https://github.com/localilabs/lawp">github.com/localilabs/lawp</a></p>
   <pre><code>{
   "domain": "string",
   "name": "string",
@@ -252,100 +232,80 @@ await register({
   ]
 }</code></pre>
 
-  <p>Full spec: <a href="https://github.com/localilabs/lawp">github.com/localilabs/lawp</a></p>
-
   <h2 id="tiers">Free vs Pro</h2>
   <table>
     <tr><th>Feature</th><th>Free</th><th>Pro</th></tr>
-    <tr><td>actuent_search</td><td>✓ (fresh crawl each time)</td><td>✓ (cached, instant)</td></tr>
-    <tr><td>Result limit</td><td>3 results</td><td>Full results</td></tr>
+    <tr><td>actuent_search</td><td>✓ live crawl every time</td><td>✓ instant from cache</td></tr>
+    <tr><td>Results</td><td>Up to 3</td><td>Full results</td></tr>
     <tr><td>Agent memory</td><td>—</td><td>✓</td></tr>
-    <tr><td>Priority results</td><td>—</td><td>✓</td></tr>
     <tr><td>Pro MCP tools</td><td>—</td><td>✓</td></tr>
-    <tr><td>Analytics dashboard</td><td>—</td><td>✓</td></tr>
+    <tr><td>Analytics</td><td>—</td><td>✓</td></tr>
     <tr><td>Rate limit</td><td>20 req/min</td><td>60 req/min</td></tr>
     <tr><td>API key</td><td>Not required</td><td>Required</td></tr>
   </table>
 
   <h2 id="api">API Reference</h2>
-
-  <h3><span class="method">POST</span>https://api.actuent.ai/api/search</h3>
-  <table>
-    <tr><th>Field</th><th>Type</th><th>Description</th></tr>
-    <tr><td>query</td><td>string</td><td>Search query, domain, or full URL</td></tr>
-  </table>
-
-  <h3><span class="method">GET</span>https://api.actuent.ai/api/search?q=query</h3>
-  <p>Same as POST — useful for quick tests in a browser.</p>
-
-  <h3><span class="method">POST</span>https://api.actuent.ai/api/register</h3>
+  <h3><span class="m">POST</span>https://api.actuent.ai/api/search</h3>
+  <p>Body: <code>{"query": "string"}</code> — search query, domain, or full URL.</p>
+  <h3><span class="m">GET</span>https://api.actuent.ai/api/search?q=query</h3>
+  <p>Same as POST — useful for quick browser tests.</p>
+  <h3><span class="m">POST</span>https://api.actuent.ai/api/register</h3>
   <p>Register your site. Used by <code>@actuent/sdk</code>. Requires <code>Authorization: Bearer YOUR_KEY</code>.</p>
-
-  <h3><span class="method">GET</span>https://api.actuent.ai/api/stats</h3>
+  <h3><span class="m">GET</span>https://api.actuent.ai/api/stats</h3>
   <p>Live count of indexed sites and total searches.</p>
-
-  <h3><span class="method">GET</span>https://api.actuent.ai/api/diff?domain=yoursite.com</h3>
-  <p>Latest detected change to a site's LAWP.</p>
-
-  <h3><span class="method">GET</span>https://api.actuent.ai/sitemap.xml</h3>
-  <p>XML sitemap of all indexed sites.</p>
-
-  <h3><span class="method">GET</span>https://api.actuent.ai/leaderboard</h3>
+  <h3><span class="m">GET</span>https://api.actuent.ai/api/diff?domain=example.com</h3>
+  <p>Latest detected LAWP change for a domain.</p>
+  <h3><span class="m">GET</span>https://api.actuent.ai/sitemap.xml</h3>
+  <p>XML sitemap of all indexed domains.</p>
+  <h3><span class="m">GET</span>https://api.actuent.ai/leaderboard</h3>
   <p>Top 100 most-searched sites this week.</p>
-
-  <h3><span class="method">POST</span>https://agents.actuent.ai/api/mcp</h3>
-  <p>MCP endpoint. Accepts JSON-RPC 2.0. Supports <code>initialize</code>, <code>tools/list</code>, <code>tools/call</code>.</p>
+  <h3><span class="m">POST</span>https://agents.actuent.ai/api/mcp</h3>
+  <p>MCP endpoint. JSON-RPC 2.0. Supports <code>initialize</code>, <code>tools/list</code>, <code>tools/call</code>.</p>
 
   <h2 id="analytics">Actuent Analytics</h2>
-  <p>See how AI agents interact with your site at <a href="https://analytics.actuent.ai">analytics.actuent.ai</a>.</p>
-  <p>Sign in with your Pro API key to see AI traffic, top queries, LAWP rankings, and competitor data. Free users get a preview with blurred data.</p>
-  <p>Your site appears automatically once it's been searched on Actuent. No setup needed.</p>
+  <p>See how AI agents interact with your site at <a href="https://analytics.actuent.ai">analytics.actuent.ai</a>. Sign in with your Pro API key. Your site appears automatically once it's been searched on Actuent — no setup needed.</p>
 
   <h2 id="checker">LAWP Checker</h2>
-  <p>Check if a site has native LAWP support, or see how Actuent represents it.</p>
-
-  <div class="checker-row">
-    <input type="text" class="checker-input" id="checker-input" placeholder="yoursite.com" onkeydown="if(event.key==='Enter') checkLAWP()">
-    <button class="checker-btn" onclick="checkLAWP()">Check</button>
+  <p>Check if a site has native LAWP at <code>/.well-known/lawp.json</code>, or see Actuent's crawled version.</p>
+  <div class="crow">
+    <input type="text" class="cin" id="ci" placeholder="yoursite.com" onkeydown="if(event.key==='Enter')checkLAWP()">
+    <button class="cbtn" onclick="checkLAWP()">Check</button>
   </div>
-  <div id="checker-result"></div>
-
+  <div id="cr"></div>
 </main>
 
 <script>
-  function checkLAWP() {
-    var raw = document.getElementById("checker-input").value.trim().toLowerCase()
-    var domain = raw.replace(/^https?:\/\//,"").replace(/\/.*/,"")
-    if (!domain) return
-    var result = document.getElementById("checker-result")
-    result.innerHTML = '<p style="color:#333;font-size:13px">Checking ' + domain + '...</p>'
+function checkLAWP() {
+  var raw = document.getElementById("ci").value.trim().toLowerCase()
+  var domain = raw.replace(/^https?:\/\//,"").replace(/\/.*/,"")
+  if (!domain) return
+  var cr = document.getElementById("cr")
+  cr.innerHTML = '<p style="color:#333;font-size:13px">Checking '+domain+'...</p>'
 
-    var nativeLAWP = null
-    var actuentLAWP = null
+  var nativeLAWP = null
 
-    fetch("https://" + domain + "/.well-known/lawp.json")
-      .then(function(r) { return r.ok ? r.json() : null })
-      .catch(function() { return null })
-      .then(function(native) {
-        nativeLAWP = native
-        return fetch("https://api.actuent.ai/api/search?q=" + encodeURIComponent(domain))
-      })
-      .then(function(r) { return r.json() })
-      .then(function(data) {
-        actuentLAWP = data.results && data.results[0] ? data.results[0] : null
-
-        if (nativeLAWP) {
-          result.innerHTML = '<div style="background:#0d0d0d;border:1px solid #161616;border-left:3px solid #4ade80;border-radius:7px;padding:14px;margin-bottom:10px"><div style="font-size:12px;font-weight:600;color:#4ade80;margin-bottom:3px">✓ Native LAWP found</div><div style="font-size:12px;color:#444">' + domain + '/.well-known/lawp.json is live</div></div><pre style="background:#0d0d0d;border:1px solid #161616;border-radius:7px;padding:14px;font-size:11px;color:#444;overflow-x:auto;white-space:pre">' + JSON.stringify(nativeLAWP, null, 2) + '</pre>'
-        } else if (actuentLAWP) {
-          result.innerHTML = '<div style="background:#0d0d0d;border:1px solid #161616;border-left:3px solid #555;border-radius:7px;padding:14px;margin-bottom:10px"><div style="font-size:12px;font-weight:600;color:#888;margin-bottom:3px">△ No native LAWP — Actuent\'s crawled version shown</div><div style="font-size:12px;color:#444">Add <code style="background:#161616;padding:1px 5px;border-radius:3px">/.well-known/lawp.json</code> for native control</div></div><pre style="background:#0d0d0d;border:1px solid #161616;border-radius:7px;padding:14px;font-size:11px;color:#444;overflow-x:auto;white-space:pre">' + JSON.stringify(actuentLAWP, null, 2) + '</pre>'
-        } else {
-          result.innerHTML = '<div style="background:#0d0d0d;border:1px solid #161616;border-left:3px solid #2a2a2a;border-radius:7px;padding:14px"><div style="font-size:12px;font-weight:600;color:#444;margin-bottom:3px">✗ Not on Actuent yet</div><div style="font-size:12px;color:#333">Use <code style="background:#161616;padding:1px 5px;border-radius:3px">@actuent/sdk</code> to list this site, or <a href="https://humans.actuent.ai/suggest" style="color:#555">suggest it</a></div></div>'
-        }
-      })
-      .catch(function() {
-        result.innerHTML = '<p style="color:#333;font-size:13px">Check failed — could not reach ' + domain + '</p>'
-      })
-  }
+  fetch("https://"+domain+"/.well-known/lawp.json")
+    .then(function(r){return r.ok?r.json():null})
+    .catch(function(){return null})
+    .then(function(native) {
+      nativeLAWP = native
+      return fetch("https://api.actuent.ai/api/search?q="+encodeURIComponent(domain))
+    })
+    .then(function(r){return r.json()})
+    .then(function(data) {
+      var actuent = data.results && data.results[0] ? data.results[0] : null
+      if (nativeLAWP) {
+        cr.innerHTML = '<div style="background:#0d0d0d;border:1px solid #141414;border-left:3px solid #4ade80;border-radius:7px;padding:14px;margin-bottom:10px"><div style="font-size:12px;font-weight:600;color:#4ade80;margin-bottom:3px">✓ Native LAWP found</div><div style="font-size:12px;color:#444">'+domain+'/.well-known/lawp.json is live</div></div><pre style="background:#0d0d0d;border:1px solid #141414;border-radius:7px;padding:14px;font-size:11px;color:#444;overflow-x:auto;white-space:pre">'+JSON.stringify(nativeLAWP,null,2)+'</pre>'
+      } else if (actuent) {
+        cr.innerHTML = '<div style="background:#0d0d0d;border:1px solid #141414;border-left:3px solid #555;border-radius:7px;padding:14px;margin-bottom:10px"><div style="font-size:12px;font-weight:600;color:#777;margin-bottom:3px">△ No native LAWP — Actuent crawled version</div><div style="font-size:12px;color:#444">Add <code style="background:#141414;padding:1px 5px;border-radius:3px">/.well-known/lawp.json</code> for native control</div></div><pre style="background:#0d0d0d;border:1px solid #141414;border-radius:7px;padding:14px;font-size:11px;color:#444;overflow-x:auto;white-space:pre">'+JSON.stringify(actuent,null,2)+'</pre>'
+      } else {
+        cr.innerHTML = '<div style="background:#0d0d0d;border:1px solid #141414;border-left:3px solid #222;border-radius:7px;padding:14px"><div style="font-size:12px;font-weight:600;color:#444;margin-bottom:3px">✗ Not on Actuent yet</div><div style="font-size:12px;color:#333">Use <code style="background:#141414;padding:1px 5px;border-radius:3px">@actuent/sdk</code> to list this site</div></div>'
+      }
+    })
+    .catch(function(){
+      cr.innerHTML = '<p style="color:#333;font-size:13px">Check failed — could not reach '+domain+'</p>'
+    })
+}
 </script>
 
 </body>
