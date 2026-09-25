@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Actuent Bot — Actuent</title>
+  <link rel="icon" type="image/png" href="https://api.actuent.ai/assets/actuent-logo.png">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:#0a0a0a;color:#f0f0f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;display:flex;min-height:100vh}
+    nav{width:232px;min-width:232px;background:#13131a;border-right:1px solid #2a2a34;padding:32px 18px;position:fixed;height:100vh;overflow-y:auto}
+    .logo{height:20px;margin-bottom:28px;display:block}
+    .ns{color:#8e8e9c;font-size:10px;text-transform:uppercase;letter-spacing:2px;margin-bottom:5px;margin-top:20px}
+    nav a{display:block;color:#a8a8b6;text-decoration:none;font-size:13px;padding:5px 0;line-height:1.4}
+    nav a:hover{color:#f0f0f0}
+    .mbar{display:none;position:fixed;top:0;left:0;right:0;background:#13131a;border-bottom:1px solid #2a2a34;padding:13px 16px;align-items:center;justify-content:space-between;z-index:100}
+    .mbar img{height:19px}
+    .ham{background:none;border:none;color:#f0f0f0;font-size:18px;cursor:pointer}
+    .nclose{display:none;position:absolute;top:14px;right:14px;background:none;border:none;color:#a8a8b6;font-size:17px;cursor:pointer}
+    main{margin-left:232px;padding:52px 68px;max-width:800px;width:100%}
+    h1{font-size:30px;font-weight:700;margin-bottom:10px;letter-spacing:-1px}
+    h2{font-size:19px;font-weight:700;margin-top:48px;margin-bottom:12px;padding-top:48px;border-top:1px solid #2a2a34}
+    h2:first-of-type{border-top:none;margin-top:24px}
+    h3{font-size:13px;font-weight:600;margin-top:22px;margin-bottom:7px;color:#eeeef2}
+    p{color:#c4c4cf;line-height:1.7;font-size:14px;margin-bottom:12px}
+    a{color:#ff8a3d}
+    a:hover{color:#f0f0f0}
+    code{background:#17171f;border:1px solid #2a2a34;color:#f0f0f0;padding:1px 6px;border-radius:4px;font-family:'Courier New',monospace;font-size:12px}
+    pre{background:#13131a;border:1px solid #2a2a34;border-radius:8px;padding:16px 20px;overflow-x:auto;margin:12px 0 20px}
+    pre code{background:none;border:none;padding:0;font-size:12px;color:#dcdce3;line-height:1.6}
+    .sub{color:#a8a8b6;font-size:14px;margin-bottom:32px;line-height:1.6}
+    .note{background:#13131a;border:1px solid #2a2a34;border-left:3px solid #ff8a3d;border-radius:7px;padding:13px 16px;margin:16px 0}
+    .note p{margin:0;color:#a8a8b6;font-size:13px}
+    table{width:100%;border-collapse:collapse;margin:12px 0 20px;font-size:13px}
+    th{text-align:left;color:#8e8e9c;font-size:10px;text-transform:uppercase;letter-spacing:1px;padding:7px 10px;border-bottom:1px solid #2a2a34}
+    td{padding:9px 10px;border-bottom:1px solid #2a2a34;color:#c4c4cf;vertical-align:top}
+    td:first-child{color:#f0f0f0;font-family:'Courier New',monospace;font-size:12px}
+    .tf{display:inline-block;font-size:10px;padding:2px 7px;border-radius:4px;margin-left:5px;vertical-align:middle}
+    .free{background:#1c1c25;color:#a8a8b6}
+    .pro{background:#ff8a3d;color:#0a0a0a;font-weight:700}
+    .m{display:inline-block;background:#1c1c25;color:#f0f0f0;font-size:10px;font-family:'Courier New',monospace;padding:2px 7px;border-radius:4px;margin-right:5px}
+    .crow{display:flex;gap:8px;margin:12px 0 20px}
+    .cin{flex:1;background:#13131a;border:1px solid #2a2a34;color:#f0f0f0;padding:9px 12px;font-size:13px;font-family:'Courier New',monospace;border-radius:7px;outline:none}
+    .cin:focus{border-color:#34343f}
+    .cbtn{background:#ff8a3d;color:#0a0a0a;border:none;padding:9px 16px;font-size:12px;font-weight:700;border-radius:7px;cursor:pointer;white-space:nowrap}
+    #cr{margin-top:4px}
+    @media(max-width:768px){
+      .mbar{display:flex}
+      nav{transform:translateX(-100%);transition:transform .25s;z-index:200;padding-top:60px}
+      nav.open{transform:translateX(0)}
+      .nclose{display:block}
+      main{margin-left:0;padding:68px 16px 40px}
+      h1{font-size:22px}
+      h2{font-size:16px}
+      pre{padding:12px 14px}
+      table{display:block;overflow-x:auto}
+      .crow{flex-direction:column}
+    }
+  </style>
+  <style>
+    body{display:block}
+    main{margin:0 auto;padding:52px 24px 80px;max-width:760px}
+    ul{margin:0 0 12px 20px}
+    li{color:#c4c4cf;line-height:1.7;font-size:14px;margin-bottom:4px}
+    .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:40px}
+    .top img{height:20px}
+    .top a{font-size:13px;text-decoration:none}
+  </style>
+</head>
+<body>
+<main>
+  <div class="top"><a href="https://actuent.ai"><img src="https://api.actuent.ai/assets/actuent-logo.png" alt="Actuent"></a><a href="https://docs.actuent.ai">Docs</a></div>
+
+  <h1>Actuent Bot</h1>
+  <p class="sub">The crawler behind Actuent, a search engine for AI agents</p>
+
+  <p>If you've seen this in your logs, it was Actuent:</p>
+  <pre><code>Mozilla/5.0 (compatible; Actuent/1.0; +https://docs.actuent.ai/bot)</code></pre>
+  <p>Actuent reads public websites and turns them into LAWP, a structured summary of a site's pages and the actions visitors can take, so AI assistants can understand sites without scraping raw HTML.</p>
+
+  <h2>What it fetches</h2>
+  <ul>
+    <li><code>/robots.txt</code>, which it always reads first.</li>
+    <li><code>/.well-known/lawp.json</code> if you publish one. When it exists, Actuent uses it instead of crawling.</li>
+    <li>Your homepage, and for popular sites <code>/pricing</code>, <code>/about</code> and <code>/contact</code>.</li>
+    <li>A page someone searches for directly, such as <code>yoursite.com/shoes</code>.</li>
+  </ul>
+  <p>It only reads public pages: no logins, no forms, and it doesn't follow every link.</p>
+
+  <h2>robots.txt</h2>
+  <p>Actuent follows <a href="https://www.rfc-editor.org/rfc/rfc9309">robots.txt (RFC 9309)</a>. It uses rules for <code>Actuent</code> if you have any, otherwise your <code>*</code> rules. To keep Actuent out completely:</p>
+  <pre><code>User-agent: Actuent
+Disallow: /</code></pre>
+  <p>To block only part of your site:</p>
+  <pre><code>User-agent: Actuent
+Disallow: /account/</code></pre>
+  <p>Changes are picked up within about an hour. If your robots.txt returns a server error, Actuent treats the site as off-limits until it's reachable again.</p>
+
+  <h2>Some fetches go through Jina Reader</h2>
+  <p>Some pages are fetched through <a href="https://jina.ai/reader">Jina Reader</a> so JavaScript-heavy sites can be read. Actuent checks your robots.txt before asking Jina for a page.</p>
+
+  <h2>Take control instead of being crawled</h2>
+  <p>Publish your own LAWP at <code>/.well-known/lawp.json</code>. You decide exactly what AI agents see, you rank higher in Actuent, and you can make actions like bookings executable. See <a href="https://docs.actuent.ai/#actions">LAWP Actions</a>.</p>
+
+  <h2>Contact</h2>
+  <p>Questions, or want your site's data corrected or removed? Email <a href="mailto:support@localilabs.com">support@localilabs.com</a>. Actuent is made by <a href="https://localilabs.com">localilabs</a>.</p>
+</main>
+</body>
+</html>

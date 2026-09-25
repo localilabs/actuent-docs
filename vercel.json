@@ -4,11 +4,13 @@
     { "src": "index.html", "use": "@vercel/static" },
     { "src": "privacy.html", "use": "@vercel/static" },
     { "src": "terms.html", "use": "@vercel/static" },
+    { "src": "bot.html", "use": "@vercel/static" },
     { "src": "actuent.mcpb", "use": "@vercel/static" }
   ],
   "routes": [
     { "src": "/privacy", "dest": "/privacy.html" },
     { "src": "/terms", "dest": "/terms.html" },
+    { "src": "/bot", "dest": "/bot.html" },
     { "src": "/actuent.mcpb", "dest": "/actuent.mcpb", "headers": { "Content-Type": "application/zip", "Content-Disposition": "attachment; filename=actuent.mcpb" } },
     { "src": "/(.*)", "dest": "/index.html" }
   ]

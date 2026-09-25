@@ -215,6 +215,8 @@ await register({
   <p>Registering needs proof you own the domain. If it isn't verified, <code>register()</code> returns a token. Add it as a DNS TXT record on the domain and register again:</p>
   <pre><code>yoursite.com  TXT  "actuent-site-verification=&lt;token from the error&gt;"</code></pre>
   <p>Alternatively, serve a valid <code>/.well-known/lawp.json</code>, which verifies you automatically. Verified sites unlock action stats in Actuent Analytics.</p>
+  <h3>How Actuent crawls</h3>
+  <p>Actuent respects robots.txt and identifies itself as <code>Actuent/1.0</code>. See <a href="https://docs.actuent.ai/bot">docs.actuent.ai/bot</a>.</p>
   <h3>Native LAWP</h3>
   <p>Serve <code>/.well-known/lawp.json</code> on your domain for full control over your AI representation. Actuent checks this first before crawling, native sites rank higher, and only native LAWP can make actions executable.</p>
   <h3>Webhooks</h3>
@@ -269,6 +271,8 @@ const ok = crypto.verify(null, Buffer.from(signed), publicKeyFromJwk, Buffer.fro
     <tr><th>Feature</th><th>Free</th><th>Pro</th></tr>
     <tr><td>actuent_search</td><td>✓ index search; domains crawled live</td><td>✓ index first, instant</td></tr>
     <tr><td>Results</td><td>Up to 3 (via MCP)</td><td>Full results</td></tr>
+    <tr><td>Semantic search</td><td>✓</td><td>✓</td></tr>
+    <tr><td>Priority access</td><td>Shared capacity; at peak times domain lookups come from the index</td><td>✓ Reserved AI capacity, and live crawls are never paused</td></tr>
     <tr><td>Execute site actions</td><td>—</td><td>✓</td></tr>
     <tr><td>Search &amp; action history</td><td>—</td><td>✓</td></tr>
     <tr><td>Agent memory</td><td>—</td><td>✓</td></tr>
