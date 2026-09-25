@@ -71,7 +71,7 @@
 <main>
   <div class="top"><a href="https://actuent.ai"><img src="https://api.actuent.ai/assets/actuent-logo.png" alt="Actuent"></a><a href="https://docs.actuent.ai">Docs</a></div>
   <h1>Privacy Policy</h1>
-  <p class="sub">Last updated: 25 September 2026 (rev. 2)</p>
+  <p class="sub">Last updated: 25 September 2026 (rev. 3)</p>
 
   <p>Actuent ("we", "us") is a search service for AI agents, made by localilabs (Alfred Murray) in Copenhagen, Denmark. This policy explains what data Actuent handles when you or your AI assistant use actuent.ai, api.actuent.ai, agents.actuent.ai (the Actuent MCP server, including the ChatGPT app and Claude connector), humans.actuent.ai, analytics.actuent.ai, docs.actuent.ai and the @actuent/sdk package. We are the data controller.</p>
 
@@ -80,22 +80,33 @@
     <li><strong>Search requests.</strong> The query or tool arguments your AI assistant sends (for example "barber amsterdam" or a domain), the domains returned, the plan tier and a timestamp. We do not receive your conversation with the assistant, only what it sends to our tools.</li>
     <li><strong>IP address.</strong> Used to apply per-minute rate limits to free usage. It is stored for about 10 minutes and then deleted.</li>
     <li><strong>Account data (Pro).</strong> Your email address and API key. Search history made with a Pro key is linked to that key so we can provide the history and memory features and your analytics.</li>
+    <li><strong>Connecting from ChatGPT or Claude (Pro).</strong> When you connect your Pro account, you paste your API key on our sign-in page. We give the app an encrypted access token linked to that key. We never see your ChatGPT or Claude password or conversations.</li>
+    <li><strong>Actions (Pro).</strong> When your assistant performs an action on a site (for example sending a message or making a booking), we send the action and the input it provides to that site's own endpoint. We keep an action log with the site, the action, the first 500 characters of the input, whether it succeeded, and the first 1,000 characters of the site's reply, so you can see what your agents did. The site receives the input and handles it under its own privacy policy.</li>
     <li><strong>Payment data (Pro).</strong> Payments are processed by Stripe. We do not see or store your card details.</li>
     <li><strong>Location (optional).</strong> If you use the nearby-places tool, the location and query your assistant provides are sent to OpenStreetMap (Nominatim), or Google Maps Platform where configured, to find places. We do not store them beyond the search log.</li>
-    <li><strong>Site registrations.</strong> If you register a site via @actuent/sdk or the suggestion form, we store the site information you submit.</li>
+    <li><strong>News topics (optional).</strong> If you use the news tool, the topic is sent to Google News to find articles.</li>
+    <li><strong>Site registrations.</strong> If you register a site via @actuent/sdk or the suggestion form, we store the site information you submit and which API key verified ownership of it.</li>
   </ul>
 
   <h2>How we use it</h2>
   <ul>
     <li>To answer searches and run the tools you call.</li>
     <li>To prevent abuse through rate limits.</li>
-    <li>To provide Pro features: memory, search history and analytics.</li>
+    <li>To provide Pro features: memory, search and action history, and analytics.</li>
+    <li>To show owners of verified sites how many actions agents ran on their site (counts only, never who or what was sent).</li>
     <li>To show aggregate, non-personal statistics such as total searches and trending sites.</li>
   </ul>
   <p>We do not sell personal data, use it for advertising, or use it to train AI models.</p>
 
   <h2>Website content</h2>
-  <p>Actuent reads publicly available web pages and stores structured summaries of them (LAWP). This content is about websites, not about you.</p>
+  <p>Actuent reads publicly available web pages and stores structured summaries of them (LAWP). This content is about websites, not about you. Our crawler respects robots.txt and identifies itself; see <a href="https://docs.actuent.ai/bot">docs.actuent.ai/bot</a>.</p>
+
+  <h2>For site owners</h2>
+  <ul>
+    <li>If you publish <code>/.well-known/lawp.json</code> (for example with our WordPress plugin), we read and index it like any public page.</li>
+    <li>Our WordPress plugin sends no data to us. It only downloads Actuent's public signing keys to check that incoming action requests really come from Actuent. Messages sent through its contact action go straight from your site to your admin email; Actuent's action log keeps only the short record described above.</li>
+    <li>You can ask us to correct or remove your site's data at any time.</li>
+  </ul>
 
   <h2>Service providers</h2>
   <p>We use these providers to run Actuent. They process data only on our behalf:</p>
@@ -113,7 +124,8 @@
   <h2>Retention</h2>
   <ul>
     <li>Rate-limit records: about 10 minutes.</li>
-    <li>Search logs and Pro search history: kept while needed to provide the service and analytics, and deleted on request.</li>
+    <li>Search logs, action logs and Pro history: kept while needed to provide the service and analytics, and deleted on request.</li>
+    <li>Sign-in tokens from ChatGPT or Claude: access tokens last 1 hour and refresh tokens 90 days. They stop working immediately if your Pro plan is cancelled.</li>
     <li>Account data: kept while your account is active, and deleted on request after cancellation.</li>
   </ul>
 

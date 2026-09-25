@@ -71,7 +71,7 @@
 <main>
   <div class="top"><a href="https://actuent.ai"><img src="https://api.actuent.ai/assets/actuent-logo.png" alt="Actuent"></a><a href="https://docs.actuent.ai">Docs</a></div>
   <h1>Terms of Service</h1>
-  <p class="sub">Last updated: 25 September 2026</p>
+  <p class="sub">Last updated: 25 September 2026 (rev. 2)</p>
 
   <p>These terms apply to your use of Actuent, including actuent.ai, api.actuent.ai, agents.actuent.ai (the Actuent MCP server, ChatGPT app and Claude connector), humans.actuent.ai, analytics.actuent.ai, docs.actuent.ai and @actuent/sdk. Actuent is made by localilabs (Alfred Murray) in Copenhagen, Denmark. By using Actuent you agree to these terms.</p>
 
@@ -81,7 +81,15 @@
   <h2>Plans</h2>
   <ul>
     <li><strong>Free</strong> needs no account and is limited to 20 requests per minute.</li>
-    <li><strong>Pro</strong> costs €9 per month and is billed through Stripe on actuent.ai. It adds more results, memory, search history, extra tools, analytics and 60 requests per minute. You can cancel at any time and access continues until the end of the paid period.</li>
+    <li><strong>Pro</strong> costs €9 per month and is billed through Stripe on actuent.ai. It adds all search results, memory, search and action history, the ability to execute site actions, analytics, priority access (reserved AI capacity, and live crawls that aren't paused at busy times) and 60 requests per minute. You can cancel at any time and access continues until the end of the paid period.</li>
+  </ul>
+
+  <h2>Actions</h2>
+  <p>With Pro, your AI assistant can perform actions that websites publish for agents, such as sending a message or making a booking. Actuent passes the request to the site's own endpoint and returns the site's reply.</p>
+  <ul>
+    <li>You're responsible for actions your assistant performs on your behalf. Assistants should confirm with you first, and you should check the details before agreeing.</li>
+    <li>The website that receives an action is responsible for carrying it out and for its own terms, prices and policies. Actuent isn't a party to anything you agree with that website.</li>
+    <li>Actuent only calls endpoints a site publishes itself at <code>/.well-known/lawp.json</code>, and signs every request so the site can verify it came from Actuent.</li>
   </ul>
 
   <h2>Acceptable use</h2>
@@ -96,7 +104,11 @@
   <p>We may suspend keys or block traffic that breaks these terms.</p>
 
   <h2>Website content</h2>
-  <p>Content about third-party websites belongs to their owners. Actuent provides summaries and links for reference. Site owners can contact us to correct or remove their site's data.</p>
+  <p>Content about third-party websites belongs to their owners. Actuent provides summaries and links for reference. Site owners can contact us to correct or remove their site's data. Our crawler respects robots.txt; see <a href="https://docs.actuent.ai/bot">docs.actuent.ai/bot</a>.</p>
+  <p>News results are headlines and links from Google News; the articles belong to their publishers. Nearby places come from OpenStreetMap (© OpenStreetMap contributors, available under the Open Database License) or Google Maps where configured.</p>
+
+  <h2>For site owners</h2>
+  <p>You can control how Actuent represents your site by publishing <code>/.well-known/lawp.json</code>, for example with our free WordPress plugin (licensed GPL-2.0-or-later). If you publish action endpoints, you're responsible for what they do with requests, and you should verify Actuent's signatures before acting on them.</p>
 
   <h2>Your API key</h2>
   <p>Keep your key secret. You are responsible for usage made with it.</p>
