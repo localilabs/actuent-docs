@@ -206,8 +206,12 @@ await register({
     ]
   }
 })</code></pre>
+  <h3>Verify your domain</h3>
+  <p>Registering needs proof you own the domain. If it isn't verified, <code>register()</code> returns a token. Add it as a DNS TXT record on the domain and register again:</p>
+  <pre><code>yoursite.com  TXT  "actuent-site-verification=&lt;token from the error&gt;"</code></pre>
+  <p>Alternatively, serve a valid <code>/.well-known/lawp.json</code>, which verifies you automatically. Verified sites unlock action stats in Actuent Analytics.</p>
   <h3>Native LAWP</h3>
-  <p>Serve <code>/.well-known/lawp.json</code> on your domain for full control over your AI representation. Actuent checks this first before crawling.</p>
+  <p>Serve <code>/.well-known/lawp.json</code> on your domain for full control over your AI representation. Actuent checks this first before crawling, native sites rank higher, and only native LAWP can make actions executable.</p>
   <h3>Webhooks</h3>
   <pre><code>curl -X POST https://api.actuent.ai/api/webhook-register \
   -H "Authorization: Bearer YOUR_KEY" \
@@ -245,6 +249,14 @@ await register({
   "endpoint": { "url": "https://yoursite.com/api/lawp/book", "method": "POST" }
 }</code></pre>
   <p>Actuent POSTs <code>{ "lawp_version": "0.2", "action": "book", "input": "Saturday 2pm", "request_id": "…" }</code> with the headers <code>X-LAWP-Action</code> and <code>X-Actuent-Request-Id</code>. Reply with a 2xx and a short JSON result, or a 4xx with <code>{ "error": "…" }</code>.</p>
+  <h3>Verify requests come from Actuent</h3>
+  <p>Every request is signed with Ed25519. Check it before doing anything:</p>
+  <pre><code>// Headers: X-Actuent-Timestamp, X-Actuent-Key-Id, X-Actuent-Signature: v1=&lt;base64url&gt;
+// Public keys: https://agents.actuent.ai/.well-known/actuent-signing-keys.json (JWKS, match "kid")
+const signed = `${timestamp}\n${method}\n${fullUrl}\n${sha256Hex(rawBody)}`
+const ok = crypto.verify(null, Buffer.from(signed), publicKeyFromJwk, Buffer.from(signature, "base64url"))
+// Reject if !ok or the timestamp is more than 5 minutes old.</code></pre>
+  <p>Test requests from the <a href="#checker">LAWP Checker</a> include <code>"test": true</code> (and the <code>X-LAWP-Test</code> header). Validate the input and respond, but don't perform the action.</p>
   <div class="note"><p>Endpoints are only used when they come from your own <code>/.well-known/lawp.json</code>, are <code>https://</code>, and are on your domain or a subdomain. Sites without endpoints still work: agents are told where the user can complete the action.</p></div>
 
   <h2 id="tiers">Free vs Pro</h2>
@@ -281,7 +293,7 @@ await register({
   <p>See how AI agents interact with your site at <a href="https://analytics.actuent.ai">analytics.actuent.ai</a>. Sign in with your Pro API key. Your site appears automatically once it's been searched on Actuent — no setup needed.</p>
 
   <h2 id="checker">LAWP Checker</h2>
-  <p>Check if a site has native LAWP at <code>/.well-known/lawp.json</code>, or see Actuent's crawled version.</p>
+  <p>Validate your <code>/.well-known/lawp.json</code> and action endpoints, then send a signed test request (<code>test: true</code>). Sites without native LAWP show Actuent's crawled version.</p>
   <div class="crow">
     <input type="text" class="cin" id="ci" placeholder="yoursite.com" onkeydown="if(event.key==='Enter')checkLAWP()">
     <button class="cbtn" onclick="checkLAWP()">Check</button>
@@ -290,36 +302,46 @@ await register({
 </main>
 
 <script>
+var CHECK_API = "https://agents.actuent.ai/api/lawp-check"
+function escH(v) { return String(v == null ? "" : v).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c] }) }
+function box(color, title, body) {
+  return '<div style="background:#0d0d0d;border:1px solid #141414;border-left:3px solid '+color+';border-radius:7px;padding:14px;margin-bottom:10px"><div style="font-size:12px;font-weight:600;color:'+color+';margin-bottom:3px">'+title+'</div><div style="font-size:12px;color:#555;line-height:1.6">'+body+'</div></div>'
+}
 function checkLAWP() {
-  var raw = document.getElementById("ci").value.trim().toLowerCase()
-  var domain = raw.replace(/^https?:\/\//,"").replace(/\/.*/,"")
+  var domain = document.getElementById("ci").value.trim().toLowerCase().replace(/^https?:\/\//,"").replace(/\/.*/,"")
   if (!domain) return
   var cr = document.getElementById("cr")
-  cr.innerHTML = '<p style="color:#333;font-size:13px">Checking '+domain+'...</p>'
-
-  var nativeLAWP = null
-
-  fetch("https://"+domain+"/.well-known/lawp.json")
-    .then(function(r){return r.ok?r.json():null})
-    .catch(function(){return null})
-    .then(function(native) {
-      nativeLAWP = native
-      return fetch("https://api.actuent.ai/api/search?q="+encodeURIComponent(domain))
+  cr.innerHTML = '<p style="color:#444;font-size:13px">Checking '+escH(domain)+'...</p>'
+  fetch(CHECK_API+"?domain="+encodeURIComponent(domain)).then(function(r){ return r.json() }).then(function(res) {
+    if (res.error) { cr.innerHTML = box("#f87171", "Check failed", escH(res.error)); return }
+    if (!res.found) {
+      return fetch("https://api.actuent.ai/api/search?q="+encodeURIComponent(domain)).then(function(r){ return r.json() }).then(function(data) {
+        var site = data.results && data.results[0]
+        cr.innerHTML = box("#777", "△ No native LAWP", escH(res.problems[0]) + '<br>Actuent uses its crawled version below. Publish <code>/.well-known/lawp.json</code> to take control and make actions executable.') +
+          (site ? '<pre><code>'+escH(JSON.stringify(site, null, 2))+'</code></pre>' : '')
+      })
+    }
+    var html = box("#4ade80", "✓ Native LAWP found", escH(res.domain)+'/.well-known/lawp.json is valid' + (res.problems.length ? '<br>'+res.problems.map(escH).join("<br>") : ''))
+    html += res.actions.map(function(a) {
+      var status = a.executable ? '<span class="tf pro">EXECUTABLE</span>' : '<span class="tf free">NO ENDPOINT</span>'
+      var issues = a.problems.length ? '<div style="color:#f0a0a0;font-size:12px;margin-top:4px">'+a.problems.map(escH).join("<br>")+'</div>' : ''
+      var test = a.executable ? '<div class="crow" style="margin:8px 0 0"><input class="cin" id="ti-'+escH(a.id)+'" placeholder="test input"><button class="cbtn" onclick="testAction(\''+escH(res.domain)+'\',\''+escH(a.id)+'\')">Send test request</button></div><div id="tr-'+escH(a.id)+'"></div>' : ''
+      return '<div style="border:1px solid #141414;border-radius:7px;padding:12px 14px;margin-bottom:8px"><div style="font-size:13px;color:#ccc"><code>'+escH(a.id)+'</code> '+escH(a.name||"")+' '+status+'</div>'+issues+test+'</div>'
+    }).join("")
+    cr.innerHTML = html
+  }).catch(function() {
+    cr.innerHTML = box("#f87171", "Check failed", "Could not reach the checker — try again.")
+  })
+}
+function testAction(domain, id) {
+  var out = document.getElementById("tr-"+id)
+  out.innerHTML = '<p style="color:#444;font-size:12px;margin-top:8px">Sending signed test request...</p>'
+  fetch(CHECK_API, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ domain: domain, action_id: id, input: document.getElementById("ti-"+id).value }) })
+    .then(function(r){ return r.json() })
+    .then(function(r) {
+      out.innerHTML = '<div style="margin-top:8px">' + box(r.executed ? "#4ade80" : "#f87171", r.executed ? "✓ Endpoint responded "+escH(r.status) : "✗ "+escH(r.error || ("HTTP "+r.status)), '<pre style="margin:6px 0 0"><code>'+escH(JSON.stringify(r.response == null ? r : r.response, null, 2))+'</code></pre>') + '</div>'
     })
-    .then(function(r){return r.json()})
-    .then(function(data) {
-      var actuent = data.results && data.results[0] ? data.results[0] : null
-      if (nativeLAWP) {
-        cr.innerHTML = '<div style="background:#0d0d0d;border:1px solid #141414;border-left:3px solid #4ade80;border-radius:7px;padding:14px;margin-bottom:10px"><div style="font-size:12px;font-weight:600;color:#4ade80;margin-bottom:3px">✓ Native LAWP found</div><div style="font-size:12px;color:#444">'+domain+'/.well-known/lawp.json is live</div></div><pre style="background:#0d0d0d;border:1px solid #141414;border-radius:7px;padding:14px;font-size:11px;color:#444;overflow-x:auto;white-space:pre">'+JSON.stringify(nativeLAWP,null,2)+'</pre>'
-      } else if (actuent) {
-        cr.innerHTML = '<div style="background:#0d0d0d;border:1px solid #141414;border-left:3px solid #555;border-radius:7px;padding:14px;margin-bottom:10px"><div style="font-size:12px;font-weight:600;color:#777;margin-bottom:3px">△ No native LAWP — Actuent crawled version</div><div style="font-size:12px;color:#444">Add <code style="background:#141414;padding:1px 5px;border-radius:3px">/.well-known/lawp.json</code> for native control</div></div><pre style="background:#0d0d0d;border:1px solid #141414;border-radius:7px;padding:14px;font-size:11px;color:#444;overflow-x:auto;white-space:pre">'+JSON.stringify(actuent,null,2)+'</pre>'
-      } else {
-        cr.innerHTML = '<div style="background:#0d0d0d;border:1px solid #141414;border-left:3px solid #222;border-radius:7px;padding:14px"><div style="font-size:12px;font-weight:600;color:#444;margin-bottom:3px">✗ Not on Actuent yet</div><div style="font-size:12px;color:#333">Use <code style="background:#141414;padding:1px 5px;border-radius:3px">@actuent/sdk</code> to list this site</div></div>'
-      }
-    })
-    .catch(function(){
-      cr.innerHTML = '<p style="color:#333;font-size:13px">Check failed — could not reach '+domain+'</p>'
-    })
+    .catch(function(){ out.innerHTML = '<p style="color:#f87171;font-size:12px">Test failed</p>' })
 }
 </script>
 
