@@ -78,6 +78,7 @@
   <a href="#sdk" onclick="document.getElementById('nav').classList.remove('open')">@actuent/sdk</a>
   <div class="ns">Reference</div>
   <a href="#lawp" onclick="document.getElementById('nav').classList.remove('open')">LAWP Format</a>
+  <a href="#actions" onclick="document.getElementById('nav').classList.remove('open')">LAWP Actions</a>
   <a href="#tiers" onclick="document.getElementById('nav').classList.remove('open')">Free vs Pro</a>
   <a href="#api" onclick="document.getElementById('nav').classList.remove('open')">API Reference</a>
   <a href="#analytics" onclick="document.getElementById('nav').classList.remove('open')">Analytics</a>
@@ -170,7 +171,7 @@ Pro — pass Authorization: Bearer YOUR_KEY for memory and all tools.</code></pr
     <tr><td>actuent_search</td><td>Search Actuent — ranked LAWP for any query or domain</td><td><span class="tf free">FREE</span></td></tr>
     <tr><td>actuent_get_actions</td><td>Get available actions for a specific site</td><td><span class="tf pro">PRO</span></td></tr>
     <tr><td>actuent_get_page</td><td>Get LAWP for a specific URL path</td><td><span class="tf pro">PRO</span></td></tr>
-    <tr><td>actuent_execute_action</td><td>Execute an action on a site</td><td><span class="tf pro">PRO</span></td></tr>
+    <tr><td>actuent_execute_action</td><td>Execute a site action (sites with <a href="#actions">LAWP action endpoints</a>)</td><td><span class="tf pro">PRO</span></td></tr>
     <tr><td>actuent_compare</td><td>Compare two or more sites side by side</td><td><span class="tf free">FREE</span></td></tr>
     <tr><td>actuent_trending</td><td>Top 10 most searched sites and queries this week</td><td><span class="tf free">FREE</span></td></tr>
     <tr><td>actuent_news</td><td>Structured news from BBC, Guardian, NYT, TechCrunch, Wired</td><td><span class="tf free">FREE</span></td></tr>
@@ -227,10 +228,24 @@ await register({
       "name": "string",
       "description": "string",
       "intent": ["string"],
-      "input": { "type": "text | number | none", "required": true | false }
+      "input": { "type": "text | number | none", "required": true | false },
+      "endpoint": { "url": "https://…", "method": "POST | GET" }
     }
   ]
 }</code></pre>
+
+  <h2 id="actions">LAWP Actions</h2>
+  <p>Make your site's actions executable by AI agents. Publish your LAWP at <code>https://yoursite.com/.well-known/lawp.json</code> and give each action an <code>endpoint</code> on your own domain. When an agent calls <code>actuent_execute_action</code>, Actuent sends the request to your endpoint and returns your response to the agent.</p>
+  <pre><code>{
+  "id": "book",
+  "name": "Book appointment",
+  "description": "Book a haircut",
+  "intent": ["book", "appointment", "haircut"],
+  "input": { "type": "text", "required": true },
+  "endpoint": { "url": "https://yoursite.com/api/lawp/book", "method": "POST" }
+}</code></pre>
+  <p>Actuent POSTs <code>{ "lawp_version": "0.2", "action": "book", "input": "Saturday 2pm", "request_id": "…" }</code> with the headers <code>X-LAWP-Action</code> and <code>X-Actuent-Request-Id</code>. Reply with a 2xx and a short JSON result, or a 4xx with <code>{ "error": "…" }</code>.</p>
+  <div class="note"><p>Endpoints are only used when they come from your own <code>/.well-known/lawp.json</code>, are <code>https://</code>, and are on your domain or a subdomain. Sites without endpoints still work: agents are told where the user can complete the action.</p></div>
 
   <h2 id="tiers">Free vs Pro</h2>
   <table>
