@@ -215,6 +215,8 @@ await register({
   <p>Registering needs proof you own the domain. If it isn't verified, <code>register()</code> returns a token. Add it as a DNS TXT record on the domain and register again:</p>
   <pre><code>yoursite.com  TXT  "actuent-site-verification=&lt;token from the error&gt;"</code></pre>
   <p>Alternatively, serve a valid <code>/.well-known/lawp.json</code>, which verifies you automatically. Verified sites unlock action stats in Actuent Analytics.</p>
+  <h3>WordPress</h3>
+  <p>On WordPress, install the <a href="https://github.com/localilabs/actuent-wordpress/releases/latest">Actuent LAWP plugin</a> (Plugins → Add New → Upload Plugin). It publishes your <code>/.well-known/lawp.json</code> automatically and gives AI agents two working actions: <strong>search your site</strong>, and <strong>contact you</strong> (messages are emailed to you and only accepted from Actuent).</p>
   <h3>How Actuent crawls</h3>
   <p>Actuent respects robots.txt and identifies itself as <code>Actuent/1.0</code>. See <a href="https://docs.actuent.ai/bot">docs.actuent.ai/bot</a>.</p>
   <h3>Native LAWP</h3>
