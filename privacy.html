@@ -71,7 +71,7 @@
 <main>
   <div class="top"><a href="https://actuent.ai"><img src="https://api.actuent.ai/assets/actuent-logo.png" alt="Actuent"></a><a href="https://docs.actuent.ai">Docs</a></div>
   <h1>Privacy Policy</h1>
-  <p class="sub">Last updated: 25 September 2026 (rev. 3)</p>
+  <p class="sub">Last updated: 25 September 2026 (rev. 4)</p>
 
   <p>Actuent ("we", "us") is a search service for AI agents, made by localilabs (Alfred Murray) in Copenhagen, Denmark. This policy explains what data Actuent handles when you or your AI assistant use actuent.ai, api.actuent.ai, agents.actuent.ai (the Actuent MCP server, including the ChatGPT app and Claude connector), humans.actuent.ai, analytics.actuent.ai, docs.actuent.ai and the @actuent/sdk package. We are the data controller.</p>
 
@@ -79,12 +79,13 @@
   <ul>
     <li><strong>Search requests.</strong> The query or tool arguments your AI assistant sends (for example "barber amsterdam" or a domain), the domains returned, the plan tier and a timestamp. We do not receive your conversation with the assistant, only what it sends to our tools.</li>
     <li><strong>IP address.</strong> Used to apply per-minute rate limits to free usage. It is stored for about 10 minutes and then deleted.</li>
-    <li><strong>Account data (Pro).</strong> Your email address and API key. Search history made with a Pro key is linked to that key so we can provide the history and memory features and your analytics.</li>
+    <li><strong>Account data (Pro).</strong> Your email address and API key. We store API keys only as one-way hashes in our logs and lookups. Search history made with a Pro key is linked to that key so we can provide the history and memory features and your analytics.</li>
     <li><strong>Connecting from ChatGPT or Claude (Pro).</strong> When you connect your Pro account, you paste your API key on our sign-in page. We give the app an encrypted access token linked to that key. We never see your ChatGPT or Claude password or conversations.</li>
     <li><strong>Actions (Pro).</strong> When your assistant performs an action on a site (for example sending a message or making a booking), we send the action and the input it provides to that site's own endpoint. We keep an action log with the site, the action, the first 500 characters of the input, whether it succeeded, and the first 1,000 characters of the site's reply, so you can see what your agents did. The site receives the input and handles it under its own privacy policy.</li>
     <li><strong>Payment data (Pro).</strong> Payments are processed by Stripe. We do not see or store your card details.</li>
     <li><strong>Location (optional).</strong> If you use the nearby-places tool, the location and query your assistant provides are sent to OpenStreetMap (Nominatim), or Google Maps Platform where configured, to find places. We do not store them beyond the search log.</li>
     <li><strong>News topics (optional).</strong> If you use the news tool, the topic is sent to Google News to find articles.</li>
+    <li><strong>Referrals (Pro).</strong> If you share your referral link, we record clicks and which checkout sessions used your code, and apply a Stripe account credit to your email's Stripe customer. The person you referred sees nothing about you.</li>
     <li><strong>Site registrations.</strong> If you register a site via @actuent/sdk or the suggestion form, we store the site information you submit and which API key verified ownership of it.</li>
   </ul>
 
@@ -117,7 +118,8 @@
     <li>Jina AI (fetching public web pages)</li>
     <li>OpenStreetMap Nominatim or Google Maps Platform (nearby places, only when that tool is used)</li>
     <li>Google News (news topics, only when the news tool is used)</li>
-    <li>Stripe (payments)</li>
+    <li>Stripe (payments and referral credits)</li>
+    <li>European Central Bank exchange rates via frankfurter.app (currency conversion; no personal data)</li>
   </ul>
   <p>Some of these providers may process data outside the EU/EEA under appropriate safeguards such as the EU Standard Contractual Clauses.</p>
 
@@ -130,7 +132,7 @@
   </ul>
 
   <h2>Your rights</h2>
-  <p>Under the GDPR you can ask to access, correct, delete or export your personal data, and object to or restrict its processing. Contact us at <a href="mailto:support@localilabs.com">support@localilabs.com</a>. You can also complain to the Danish Data Protection Agency (Datatilsynet).</p>
+  <p>You can erase your search history, action log and webhooks yourself in <a href="https://analytics.actuent.ai">Analytics → Account → Delete my data</a>. Under the GDPR you can also ask to access, correct, delete or export your personal data, and object to or restrict its processing. Contact us at <a href="mailto:support@localilabs.com">support@localilabs.com</a>. You can also complain to the Danish Data Protection Agency (Datatilsynet).</p>
 
   <h2>Changes</h2>
   <p>We will update this page if our practices change and revise the date at the top.</p>

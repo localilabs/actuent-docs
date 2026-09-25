@@ -76,7 +76,10 @@
   <a href="#mcp" onclick="document.getElementById('nav').classList.remove('open')">MCP Setup</a>
   <a href="#tools" onclick="document.getElementById('nav').classList.remove('open')">MCP Tools</a>
   <a href="#sdk" onclick="document.getElementById('nav').classList.remove('open')">@actuent/sdk</a>
+  <a href="#python" onclick="document.getElementById('nav').classList.remove('open')">Python &amp; frameworks</a>
+  <a href="#platforms" onclick="document.getElementById('nav').classList.remove('open')">WordPress &amp; Cloudflare</a>
   <div class="ns">Reference</div>
+  <a href="#search" onclick="document.getElementById('nav').classList.remove('open')">Search features</a>
   <a href="#lawp" onclick="document.getElementById('nav').classList.remove('open')">LAWP Format</a>
   <a href="#actions" onclick="document.getElementById('nav').classList.remove('open')">LAWP Actions</a>
   <a href="#tiers" onclick="document.getElementById('nav').classList.remove('open')">Free vs Pro</a>
@@ -227,6 +230,35 @@ await register({
   -H "Content-Type: application/json" \
   -d '{"domain":"yoursite.com","url":"https://yoursite.com/webhook"}'</code></pre>
 
+  <h2 id="python">Python &amp; frameworks</h2>
+  <pre><code>pip install actuent</code></pre>
+  <pre><code>from actuent import Actuent
+client = Actuent()                                   # or Actuent(api_key="ak_...")
+client.search("barber amsterdam")["results"]
+client.products("running shoes under €100")</code></pre>
+  <p><strong>LangChain:</strong> <code>pip install "actuent[langchain]"</code>, then <code>from actuent.langchain import get_tools</code>. <strong>LlamaIndex:</strong> <code>pip install "actuent[llamaindex]"</code>, then <code>from actuent.llama_index import get_tools</code>. Source: <a href="https://github.com/localilabs/actuent-python">github.com/localilabs/actuent-python</a>.</p>
+
+  <h2 id="platforms">WordPress &amp; Cloudflare</h2>
+  <p>Publish native LAWP without writing code:</p>
+  <ul style="margin:0 0 12px 20px;color:#c4c4cf;font-size:14px;line-height:1.8">
+    <li><strong>WordPress:</strong> the <a href="https://github.com/localilabs/actuent-wordpress/releases/latest">Actuent LAWP plugin</a> adds a search action and a contact action, and WooCommerce products are picked up automatically.</li>
+    <li><strong>Any site on Cloudflare:</strong> <a href="https://github.com/localilabs/actuent-cloudflare">one-click Worker</a>. Deploy it, then add the route <code>yoursite.com/.well-known/lawp.json</code>.</li>
+    <li><strong>Shopify:</strong> nothing to install. Actuent reads your public product catalogue automatically.</li>
+    <li><strong>No code at all:</strong> claim your site in <a href="https://analytics.actuent.ai">Analytics → My sites</a> and edit its pages and actions in a form.</li>
+  </ul>
+
+  <h2 id="search">Search features</h2>
+  <h3>Products with prices</h3>
+  <p>Shopping searches return a <code>products</code> list next to the sites: name, price, currency, a EUR price, link and image. Add a budget and Actuent filters by it, converting currencies: <code>running shoes under €100</code>, <code>leggings below 50 dollars</code>, <code>headphones under 1000 kr</code>. Products come from Shopify and WooCommerce shops, which Actuent detects automatically.</p>
+  <h3>Any language, answered in English</h3>
+  <p>Search in any language (<code>Laufschuhe</code>, <code>frisør københavn</code>). Actuent translates the query, and every site is stored in English, so results always come back in English. <code>language</code> tells you the site's original language.</p>
+  <h3>Freshness</h3>
+  <p>Each result has <code>last_updated</code> and <code>age_hours</code>, so agents know how current the information is.</p>
+  <h3>Rate limits</h3>
+  <p>Every response includes <code>X-RateLimit-Limit</code>, <code>X-RateLimit-Remaining</code> and <code>X-RateLimit-Reset</code>. Over the limit you get <code>429</code> with <code>Retry-After</code>. Free: 20 requests/minute. Pro: 60 requests/minute with priority access.</p>
+  <h3>OpenAPI</h3>
+  <p>The full API is described at <a href="https://api.actuent.ai/openapi.json">api.actuent.ai/openapi.json</a>. Import it into a Custom GPT (Actions), Postman, or any API tool.</p>
+
   <h2 id="lawp">LAWP Format</h2>
   <p>LAWP (Locali AI Web Protocol) is an open standard for representing websites as structured JSON AI agents can read and act on. Full spec: <a href="https://github.com/localilabs/lawp">github.com/localilabs/lawp</a></p>
   <pre><code>{
@@ -291,6 +323,12 @@ const ok = crypto.verify(null, Buffer.from(signed), publicKeyFromJwk, Buffer.fro
   <p>Same as POST — useful for quick browser tests. Add <code>Authorization: Bearer YOUR_KEY</code> for Pro. Results include <code>native</code> (the site publishes its own LAWP) and <code>executable</code> (it has action endpoints). Over the rate limit you get <code>429</code>.</p>
   <h3><span class="m">POST</span>https://api.actuent.ai/api/register</h3>
   <p>Register your site. Used by <code>@actuent/sdk</code>. Requires <code>Authorization: Bearer YOUR_KEY</code> and <a href="#sdk">proof you own the domain</a>. Unverified domains return <code>403</code> with a DNS token.</p>
+  <h3><span class="m">GET</span>https://api.actuent.ai/api/register?domain=example.com</h3>
+  <p>Ownership status for a domain, the DNS record to verify it, and its current LAWP (Pro key).</p>
+  <h3><span class="m">GET</span>https://api.actuent.ai/api/state</h3>
+  <p>"State of the AI web" statistics, shown at <a href="https://humans.actuent.ai/state">humans.actuent.ai/state</a>.</p>
+  <h3><span class="m">GET</span>https://api.actuent.ai/openapi.json</h3>
+  <p>OpenAPI 3.1 description of this API.</p>
   <h3><span class="m">GET</span>https://api.actuent.ai/api/stats</h3>
   <p>Live count of indexed sites and total searches.</p>
   <h3><span class="m">GET</span>https://api.actuent.ai/api/diff?domain=example.com</h3>
@@ -311,6 +349,8 @@ const ok = crypto.verify(null, Buffer.from(signed), publicKeyFromJwk, Buffer.fro
   <ul style="margin:0 0 12px 20px;color:#c4c4cf;font-size:14px;line-height:1.8">
     <li><strong>Overview, AI Traffic, Queries, Rankings:</strong> how often agents find your site and for which searches.</li>
     <li><strong>Actions:</strong> which of your LAWP actions agents ran on your site (verified sites only), and every action your own agents executed.</li>
+    <li><strong>My sites:</strong> claim a site with a DNS record, then edit its pages and actions without code. Claimed sites are never overwritten by the crawler.</li>
+    <li><strong>Account:</strong> your usage, your referral link (a free month for every friend who subscribes to Pro), and a button to delete your data.</li>
   </ul>
   <p>Sites you've <a href="#sdk">verified</a> are marked ✓. Other sites appear once your key has searched them.</p>
 
