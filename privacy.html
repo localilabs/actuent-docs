@@ -71,7 +71,7 @@
 <main>
   <div class="top"><a href="https://actuent.ai"><img src="https://api.actuent.ai/assets/actuent-logo.png" alt="Actuent"></a><a href="https://docs.actuent.ai">Docs</a></div>
   <h1>Privacy Policy</h1>
-  <p class="sub">Last updated: 25 September 2026</p>
+  <p class="sub">Last updated: 25 September 2026 (rev. 2)</p>
 
   <p>Actuent ("we", "us") is a search service for AI agents, made by localilabs (Alfred Murray) in Copenhagen, Denmark. This policy explains what data Actuent handles when you or your AI assistant use actuent.ai, api.actuent.ai, agents.actuent.ai (the Actuent MCP server, including the ChatGPT app and Claude connector), humans.actuent.ai, analytics.actuent.ai, docs.actuent.ai and the @actuent/sdk package. We are the data controller.</p>
 
@@ -81,7 +81,7 @@
     <li><strong>IP address.</strong> Used to apply per-minute rate limits to free usage. It is stored for about 10 minutes and then deleted.</li>
     <li><strong>Account data (Pro).</strong> Your email address and API key. Search history made with a Pro key is linked to that key so we can provide the history and memory features and your analytics.</li>
     <li><strong>Payment data (Pro).</strong> Payments are processed by Stripe. We do not see or store your card details.</li>
-    <li><strong>Location (optional).</strong> If you use the nearby-places tool, the location and query your assistant provides are sent to Google Maps Platform to find places. We do not store them beyond the search log.</li>
+    <li><strong>Location (optional).</strong> If you use the nearby-places tool, the location and query your assistant provides are sent to OpenStreetMap (Nominatim), or Google Maps Platform where configured, to find places. We do not store them beyond the search log.</li>
     <li><strong>Site registrations.</strong> If you register a site via @actuent/sdk or the suggestion form, we store the site information you submit.</li>
   </ul>
 
@@ -104,7 +104,8 @@
     <li>Supabase (database)</li>
     <li>Groq (AI processing of website content and search queries)</li>
     <li>Jina AI (fetching public web pages)</li>
-    <li>Google Maps Platform (nearby places, only when that tool is used)</li>
+    <li>OpenStreetMap Nominatim or Google Maps Platform (nearby places, only when that tool is used)</li>
+    <li>Google News (news topics, only when the news tool is used)</li>
     <li>Stripe (payments)</li>
   </ul>
   <p>Some of these providers may process data outside the EU/EEA under appropriate safeguards such as the EU Standard Contractual Clauses.</p>
