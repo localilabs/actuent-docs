@@ -8,41 +8,41 @@
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
     body{background:#0a0a0a;color:#f0f0f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;display:flex;min-height:100vh}
-    nav{width:232px;min-width:232px;background:#0d0d0d;border-right:1px solid #141414;padding:32px 18px;position:fixed;height:100vh;overflow-y:auto}
+    nav{width:232px;min-width:232px;background:#13131a;border-right:1px solid #2a2a34;padding:32px 18px;position:fixed;height:100vh;overflow-y:auto}
     .logo{height:20px;margin-bottom:28px;display:block}
-    .ns{color:#222;font-size:10px;text-transform:uppercase;letter-spacing:2px;margin-bottom:5px;margin-top:20px}
-    nav a{display:block;color:#444;text-decoration:none;font-size:13px;padding:5px 0;line-height:1.4}
+    .ns{color:#ff8a3d;font-size:10px;text-transform:uppercase;letter-spacing:2px;margin-bottom:5px;margin-top:20px}
+    nav a{display:block;color:#a8a8b6;text-decoration:none;font-size:13px;padding:5px 0;line-height:1.4}
     nav a:hover{color:#f0f0f0}
-    .mbar{display:none;position:fixed;top:0;left:0;right:0;background:#0d0d0d;border-bottom:1px solid #141414;padding:13px 16px;align-items:center;justify-content:space-between;z-index:100}
+    .mbar{display:none;position:fixed;top:0;left:0;right:0;background:#13131a;border-bottom:1px solid #2a2a34;padding:13px 16px;align-items:center;justify-content:space-between;z-index:100}
     .mbar img{height:19px}
     .ham{background:none;border:none;color:#f0f0f0;font-size:18px;cursor:pointer}
-    .nclose{display:none;position:absolute;top:14px;right:14px;background:none;border:none;color:#444;font-size:17px;cursor:pointer}
+    .nclose{display:none;position:absolute;top:14px;right:14px;background:none;border:none;color:#a8a8b6;font-size:17px;cursor:pointer}
     main{margin-left:232px;padding:52px 68px;max-width:800px;width:100%}
     h1{font-size:30px;font-weight:700;margin-bottom:10px;letter-spacing:-1px}
-    h2{font-size:19px;font-weight:700;margin-top:48px;margin-bottom:12px;padding-top:48px;border-top:1px solid #141414}
+    h2{font-size:19px;font-weight:700;margin-top:48px;margin-bottom:12px;padding-top:48px;border-top:1px solid #2a2a34}
     h2:first-of-type{border-top:none;margin-top:24px}
-    h3{font-size:13px;font-weight:600;margin-top:22px;margin-bottom:7px;color:#ccc}
-    p{color:#666;line-height:1.7;font-size:14px;margin-bottom:12px}
-    a{color:#666}
+    h3{font-size:13px;font-weight:600;margin-top:22px;margin-bottom:7px;color:#eeeef2}
+    p{color:#c4c4cf;line-height:1.7;font-size:14px;margin-bottom:12px}
+    a{color:#ff8a3d}
     a:hover{color:#f0f0f0}
-    code{background:#111;border:1px solid #1a1a1a;color:#f0f0f0;padding:1px 6px;border-radius:4px;font-family:'Courier New',monospace;font-size:12px}
-    pre{background:#0d0d0d;border:1px solid #141414;border-radius:8px;padding:16px 20px;overflow-x:auto;margin:12px 0 20px}
-    pre code{background:none;border:none;padding:0;font-size:12px;color:#aaa;line-height:1.6}
-    .sub{color:#444;font-size:14px;margin-bottom:32px;line-height:1.6}
-    .note{background:#0d0d0d;border:1px solid #141414;border-left:3px solid #f0f0f0;border-radius:7px;padding:13px 16px;margin:16px 0}
-    .note p{margin:0;color:#555;font-size:13px}
+    code{background:#17171f;border:1px solid #2a2a34;color:#f0f0f0;padding:1px 6px;border-radius:4px;font-family:'Courier New',monospace;font-size:12px}
+    pre{background:#13131a;border:1px solid #2a2a34;border-radius:8px;padding:16px 20px;overflow-x:auto;margin:12px 0 20px}
+    pre code{background:none;border:none;padding:0;font-size:12px;color:#dcdce3;line-height:1.6}
+    .sub{color:#a8a8b6;font-size:14px;margin-bottom:32px;line-height:1.6}
+    .note{background:#13131a;border:1px solid #2a2a34;border-left:3px solid #ff8a3d;border-radius:7px;padding:13px 16px;margin:16px 0}
+    .note p{margin:0;color:#a8a8b6;font-size:13px}
     table{width:100%;border-collapse:collapse;margin:12px 0 20px;font-size:13px}
-    th{text-align:left;color:#2a2a2a;font-size:10px;text-transform:uppercase;letter-spacing:1px;padding:7px 10px;border-bottom:1px solid #141414}
-    td{padding:9px 10px;border-bottom:1px solid #0f0f0f;color:#666;vertical-align:top}
+    th{text-align:left;color:#8e8e9c;font-size:10px;text-transform:uppercase;letter-spacing:1px;padding:7px 10px;border-bottom:1px solid #2a2a34}
+    td{padding:9px 10px;border-bottom:1px solid #2a2a34;color:#c4c4cf;vertical-align:top}
     td:first-child{color:#f0f0f0;font-family:'Courier New',monospace;font-size:12px}
     .tf{display:inline-block;font-size:10px;padding:2px 7px;border-radius:4px;margin-left:5px;vertical-align:middle}
-    .free{background:#141414;color:#444}
-    .pro{background:#f0f0f0;color:#0a0a0a;font-weight:700}
-    .m{display:inline-block;background:#141414;color:#f0f0f0;font-size:10px;font-family:'Courier New',monospace;padding:2px 7px;border-radius:4px;margin-right:5px}
+    .free{background:#1c1c25;color:#a8a8b6}
+    .pro{background:#ff8a3d;color:#0a0a0a;font-weight:700}
+    .m{display:inline-block;background:#1c1c25;color:#f0f0f0;font-size:10px;font-family:'Courier New',monospace;padding:2px 7px;border-radius:4px;margin-right:5px}
     .crow{display:flex;gap:8px;margin:12px 0 20px}
-    .cin{flex:1;background:#0d0d0d;border:1px solid #141414;color:#f0f0f0;padding:9px 12px;font-size:13px;font-family:'Courier New',monospace;border-radius:7px;outline:none}
-    .cin:focus{border-color:#222}
-    .cbtn{background:#f0f0f0;color:#0a0a0a;border:none;padding:9px 16px;font-size:12px;font-weight:700;border-radius:7px;cursor:pointer;white-space:nowrap}
+    .cin{flex:1;background:#13131a;border:1px solid #2a2a34;color:#f0f0f0;padding:9px 12px;font-size:13px;font-family:'Courier New',monospace;border-radius:7px;outline:none}
+    .cin:focus{border-color:#34343f}
+    .cbtn{background:#ff8a3d;color:#0a0a0a;border:none;padding:9px 16px;font-size:12px;font-weight:700;border-radius:7px;cursor:pointer;white-space:nowrap}
     #cr{margin-top:4px}
     @media(max-width:768px){
       .mbar{display:flex}
@@ -86,7 +86,7 @@
 </nav>
 
 <main>
-  <div style="font-family:'Courier New',monospace;font-size:10px;color:#222;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px">DOCS v0.3</div>
+  <div style="font-family:'Courier New',monospace;font-size:10px;color:#8e8e9c;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px">DOCS v0.3</div>
   <h1>Actuent Docs</h1>
   <p class="sub">The Internet for AI — search any website, get back structured data your AI can actually use.</p>
 
@@ -143,8 +143,13 @@ Free tier — no API key needed.
 Pro — pass Authorization: Bearer YOUR_KEY for memory and all tools.</code></pre>
 
   <h2 id="mcp">MCP Setup</h2>
-  <p>Plug Actuent into Claude, GPT, or any MCP-compatible AI.</p>
-  <h3>Free — no key required</h3>
+  <p>Plug Actuent into ChatGPT, Claude, or any MCP-compatible AI. Free tools work straight away. Pro users connect their account to unlock Pro tools.</p>
+  <h3>ChatGPT</h3>
+  <p>Add Actuent as an app or connector using the server URL <code>https://agents.actuent.ai/api/mcp</code>. Free tools work without signing in. When you use a Pro tool, ChatGPT asks you to <strong>Connect</strong>. Paste your Actuent Pro API key on the Actuent page and you're done.</p>
+  <h3>Claude</h3>
+  <p><strong>Claude.ai:</strong> Settings → Connectors → Add custom connector → <code>https://agents.actuent.ai/api/mcp</code>. Connect with your Pro API key the same way when prompted.</p>
+  <p><strong>Claude Desktop:</strong> download <a href="https://docs.actuent.ai/actuent.mcpb">actuent.mcpb</a> and double-click it. You can optionally paste a Pro API key during install.</p>
+  <h3>Other MCP clients: free, no key required</h3>
   <pre><code>{
   "mcpServers": {
     "actuent": {
@@ -152,7 +157,7 @@ Pro — pass Authorization: Bearer YOUR_KEY for memory and all tools.</code></pr
     }
   }
 }</code></pre>
-  <h3>Pro — with API key</h3>
+  <h3>Other MCP clients: Pro, with API key</h3>
   <pre><code>{
   "mcpServers": {
     "actuent": {
@@ -169,8 +174,8 @@ Pro — pass Authorization: Bearer YOUR_KEY for memory and all tools.</code></pr
   <table>
     <tr><th>Tool</th><th>What it does</th><th>Tier</th></tr>
     <tr><td>actuent_search</td><td>Search Actuent — ranked LAWP for any query or domain</td><td><span class="tf free">FREE</span></td></tr>
-    <tr><td>actuent_get_actions</td><td>Get available actions for a specific site</td><td><span class="tf pro">PRO</span></td></tr>
-    <tr><td>actuent_get_page</td><td>Get LAWP for a specific URL path</td><td><span class="tf pro">PRO</span></td></tr>
+    <tr><td>actuent_get_actions</td><td>Get available actions for a specific site</td><td><span class="tf free">FREE</span></td></tr>
+    <tr><td>actuent_get_page</td><td>Get LAWP for a specific URL path</td><td><span class="tf free">FREE</span></td></tr>
     <tr><td>actuent_execute_action</td><td>Execute a site action (sites with <a href="#actions">LAWP action endpoints</a>)</td><td><span class="tf pro">PRO</span></td></tr>
     <tr><td>actuent_compare</td><td>Compare two or more sites side by side</td><td><span class="tf free">FREE</span></td></tr>
     <tr><td>actuent_trending</td><td>Top 10 most searched sites and queries this week</td><td><span class="tf free">FREE</span></td></tr>
@@ -262,22 +267,24 @@ const ok = crypto.verify(null, Buffer.from(signed), publicKeyFromJwk, Buffer.fro
   <h2 id="tiers">Free vs Pro</h2>
   <table>
     <tr><th>Feature</th><th>Free</th><th>Pro</th></tr>
-    <tr><td>actuent_search</td><td>✓ live crawl every time</td><td>✓ instant from cache</td></tr>
-    <tr><td>Results</td><td>Up to 3</td><td>Full results</td></tr>
+    <tr><td>actuent_search</td><td>✓ index search; domains crawled live</td><td>✓ index first, instant</td></tr>
+    <tr><td>Results</td><td>Up to 3 (via MCP)</td><td>Full results</td></tr>
+    <tr><td>Execute site actions</td><td>—</td><td>✓</td></tr>
+    <tr><td>Search &amp; action history</td><td>—</td><td>✓</td></tr>
     <tr><td>Agent memory</td><td>—</td><td>✓</td></tr>
     <tr><td>Pro MCP tools</td><td>—</td><td>✓</td></tr>
     <tr><td>Analytics</td><td>—</td><td>✓</td></tr>
     <tr><td>Rate limit</td><td>20 req/min</td><td>60 req/min</td></tr>
-    <tr><td>API key</td><td>Not required</td><td>Required</td></tr>
+    <tr><td>Sign in</td><td>Not required</td><td>API key, or Connect in ChatGPT / Claude</td></tr>
   </table>
 
   <h2 id="api">API Reference</h2>
   <h3><span class="m">POST</span>https://api.actuent.ai/api/search</h3>
   <p>Body: <code>{"query": "string"}</code> — search query, domain, or full URL.</p>
   <h3><span class="m">GET</span>https://api.actuent.ai/api/search?q=query</h3>
-  <p>Same as POST — useful for quick browser tests.</p>
+  <p>Same as POST — useful for quick browser tests. Add <code>Authorization: Bearer YOUR_KEY</code> for Pro. Results include <code>native</code> (the site publishes its own LAWP) and <code>executable</code> (it has action endpoints). Over the rate limit you get <code>429</code>.</p>
   <h3><span class="m">POST</span>https://api.actuent.ai/api/register</h3>
-  <p>Register your site. Used by <code>@actuent/sdk</code>. Requires <code>Authorization: Bearer YOUR_KEY</code>.</p>
+  <p>Register your site. Used by <code>@actuent/sdk</code>. Requires <code>Authorization: Bearer YOUR_KEY</code> and <a href="#sdk">proof you own the domain</a>. Unverified domains return <code>403</code> with a DNS token.</p>
   <h3><span class="m">GET</span>https://api.actuent.ai/api/stats</h3>
   <p>Live count of indexed sites and total searches.</p>
   <h3><span class="m">GET</span>https://api.actuent.ai/api/diff?domain=example.com</h3>
@@ -287,10 +294,19 @@ const ok = crypto.verify(null, Buffer.from(signed), publicKeyFromJwk, Buffer.fro
   <h3><span class="m">GET</span>https://api.actuent.ai/leaderboard</h3>
   <p>Top 100 most-searched sites this week.</p>
   <h3><span class="m">POST</span>https://agents.actuent.ai/api/mcp</h3>
-  <p>MCP endpoint. JSON-RPC 2.0. Supports <code>initialize</code>, <code>tools/list</code>, <code>tools/call</code>.</p>
+  <p>MCP endpoint (Streamable HTTP, JSON-RPC 2.0). Supports <code>initialize</code>, <code>ping</code>, <code>tools/list</code> and <code>tools/call</code>. OAuth discovery: <code>/.well-known/oauth-protected-resource</code>.</p>
+  <h3><span class="m">GET</span>https://agents.actuent.ai/api/lawp-check?domain=example.com</h3>
+  <p>Validate a site's <code>/.well-known/lawp.json</code> and its action endpoints. <code>POST {"domain","action_id","input"}</code> sends a signed test request.</p>
+  <h3><span class="m">GET</span>https://agents.actuent.ai/.well-known/actuent-signing-keys.json</h3>
+  <p>Public keys (JWKS) for <a href="#actions">verifying signed action requests</a>.</p>
 
   <h2 id="analytics">Actuent Analytics</h2>
-  <p>See how AI agents interact with your site at <a href="https://analytics.actuent.ai">analytics.actuent.ai</a>. Sign in with your Pro API key. Your site appears automatically once it's been searched on Actuent — no setup needed.</p>
+  <p>See how AI agents interact with your site at <a href="https://analytics.actuent.ai">analytics.actuent.ai</a>. Sign in with your Pro API key.</p>
+  <ul style="margin:0 0 12px 20px;color:#c4c4cf;font-size:14px;line-height:1.8">
+    <li><strong>Overview, AI Traffic, Queries, Rankings:</strong> how often agents find your site and for which searches.</li>
+    <li><strong>Actions:</strong> which of your LAWP actions agents ran on your site (verified sites only), and every action your own agents executed.</li>
+  </ul>
+  <p>Sites you've <a href="#sdk">verified</a> are marked ✓. Other sites appear once your key has searched them.</p>
 
   <h2 id="checker">LAWP Checker</h2>
   <p>Validate your <code>/.well-known/lawp.json</code> and action endpoints, then send a signed test request (<code>test: true</code>). Sites without native LAWP show Actuent's crawled version.</p>
@@ -305,13 +321,13 @@ const ok = crypto.verify(null, Buffer.from(signed), publicKeyFromJwk, Buffer.fro
 var CHECK_API = "https://agents.actuent.ai/api/lawp-check"
 function escH(v) { return String(v == null ? "" : v).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c] }) }
 function box(color, title, body) {
-  return '<div style="background:#0d0d0d;border:1px solid #141414;border-left:3px solid '+color+';border-radius:7px;padding:14px;margin-bottom:10px"><div style="font-size:12px;font-weight:600;color:'+color+';margin-bottom:3px">'+title+'</div><div style="font-size:12px;color:#555;line-height:1.6">'+body+'</div></div>'
+  return '<div style="background:#13131a;border:1px solid #2a2a34;border-left:3px solid '+color+';border-radius:7px;padding:14px;margin-bottom:10px"><div style="font-size:12px;font-weight:600;color:'+color+';margin-bottom:3px">'+title+'</div><div style="font-size:12px;color:#a8a8b6;line-height:1.6">'+body+'</div></div>'
 }
 function checkLAWP() {
   var domain = document.getElementById("ci").value.trim().toLowerCase().replace(/^https?:\/\//,"").replace(/\/.*/,"")
   if (!domain) return
   var cr = document.getElementById("cr")
-  cr.innerHTML = '<p style="color:#444;font-size:13px">Checking '+escH(domain)+'...</p>'
+  cr.innerHTML = '<p style="color:#a8a8b6;font-size:13px">Checking '+escH(domain)+'...</p>'
   fetch(CHECK_API+"?domain="+encodeURIComponent(domain)).then(function(r){ return r.json() }).then(function(res) {
     if (res.error) { cr.innerHTML = box("#f87171", "Check failed", escH(res.error)); return }
     if (!res.found) {
@@ -326,7 +342,7 @@ function checkLAWP() {
       var status = a.executable ? '<span class="tf pro">EXECUTABLE</span>' : '<span class="tf free">NO ENDPOINT</span>'
       var issues = a.problems.length ? '<div style="color:#f0a0a0;font-size:12px;margin-top:4px">'+a.problems.map(escH).join("<br>")+'</div>' : ''
       var test = a.executable ? '<div class="crow" style="margin:8px 0 0"><input class="cin" id="ti-'+escH(a.id)+'" placeholder="test input"><button class="cbtn" onclick="testAction(\''+escH(res.domain)+'\',\''+escH(a.id)+'\')">Send test request</button></div><div id="tr-'+escH(a.id)+'"></div>' : ''
-      return '<div style="border:1px solid #141414;border-radius:7px;padding:12px 14px;margin-bottom:8px"><div style="font-size:13px;color:#ccc"><code>'+escH(a.id)+'</code> '+escH(a.name||"")+' '+status+'</div>'+issues+test+'</div>'
+      return '<div style="border:1px solid #2a2a34;border-radius:7px;padding:12px 14px;margin-bottom:8px"><div style="font-size:13px;color:#eeeef2"><code>'+escH(a.id)+'</code> '+escH(a.name||"")+' '+status+'</div>'+issues+test+'</div>'
     }).join("")
     cr.innerHTML = html
   }).catch(function() {
@@ -335,7 +351,7 @@ function checkLAWP() {
 }
 function testAction(domain, id) {
   var out = document.getElementById("tr-"+id)
-  out.innerHTML = '<p style="color:#444;font-size:12px;margin-top:8px">Sending signed test request...</p>'
+  out.innerHTML = '<p style="color:#a8a8b6;font-size:12px;margin-top:8px">Sending signed test request...</p>'
   fetch(CHECK_API, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ domain: domain, action_id: id, input: document.getElementById("ti-"+id).value }) })
     .then(function(r){ return r.json() })
     .then(function(r) {
