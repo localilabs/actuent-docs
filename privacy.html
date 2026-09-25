@@ -71,7 +71,7 @@
 <main>
   <div class="top"><a href="https://actuent.ai"><img src="https://api.actuent.ai/assets/actuent-logo.png" alt="Actuent"></a><a href="https://docs.actuent.ai">Docs</a></div>
   <h1>Privacy Policy</h1>
-  <p class="sub">Last updated: 25 September 2026 (rev. 4)</p>
+  <p class="sub">Last updated: 25 September 2026 (rev. 5)</p>
 
   <p>Actuent ("we", "us") is a search service for AI agents, made by localilabs (Alfred Murray) in Copenhagen, Denmark. This policy explains what data Actuent handles when you or your AI assistant use actuent.ai, api.actuent.ai, agents.actuent.ai (the Actuent MCP server, including the ChatGPT app and Claude connector), humans.actuent.ai, analytics.actuent.ai, docs.actuent.ai and the @actuent/sdk package. We are the data controller.</p>
 
@@ -101,12 +101,14 @@
 
   <h2>Website content</h2>
   <p>Actuent reads publicly available web pages and stores structured summaries of them (LAWP). This content is about websites, not about you. Our crawler respects robots.txt and identifies itself; see <a href="https://docs.actuent.ai/bot">docs.actuent.ai/bot</a>.</p>
+  <p>This includes business details that a site publishes as schema.org data (such as address, phone, opening hours and price range), and the public prices of products in online shops, including a history of price changes. Each indexed site has a public page at <code>api.actuent.ai/site/&lt;domain&gt;</code> showing this information.</p>
 
   <h2>For site owners</h2>
   <ul>
     <li>If you publish <code>/.well-known/lawp.json</code> (for example with our WordPress plugin), we read and index it like any public page.</li>
     <li>Our WordPress plugin sends no data to us. It only downloads Actuent's public signing keys to check that incoming action requests really come from Actuent. Messages sent through its contact action go straight from your site to your admin email; Actuent's action log keeps only the short record described above.</li>
-    <li>You can ask us to correct or remove your site's data at any time.</li>
+    <li>When you claim a site with a Pro key, we send one welcome email to your account's email address (via Resend). We send no marketing email.</li>
+    <li>You can ask us to correct or remove your site's data, including its public site page, at any time.</li>
   </ul>
 
   <h2>Service providers</h2>
@@ -119,6 +121,8 @@
     <li>OpenStreetMap Nominatim or Google Maps Platform (nearby places, only when that tool is used)</li>
     <li>Google News (news topics, only when the news tool is used)</li>
     <li>Stripe (payments and referral credits)</li>
+    <li>Resend (sending the welcome email when you claim a site)</li>
+    <li>Cloudflare Workers AI, Cohere, Hugging Face, Google Gemini and Mistral (backup AI processing of public website content only)</li>
     <li>European Central Bank exchange rates via frankfurter.app (currency conversion; no personal data)</li>
   </ul>
   <p>Some of these providers may process data outside the EU/EEA under appropriate safeguards such as the EU Standard Contractual Clauses.</p>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Actuent changelog</title>
+    <link>https://docs.actuent.ai/changelog</link>
+    <atom:link href="https://docs.actuent.ai/changelog.xml" rel="self" type="application/rss+xml"/>
+    <description>What's new in Actuent, the search engine for AI agents.</description>
+    <language>en</language>
+    <item>
+      <title>Business details, open now, price changes and site pages</title>
+      <link>https://docs.actuent.ai/changelog#2026-09-25-business-details--open-now--price-changes-and-site-pages</link>
+      <guid isPermaLink="false">2026-09-25-business-details--open-now--price-changes-and-site-pages</guid>
+      <pubDate>Fri, 25 Sep 2026 12:00:00 +0000</pubDate>
+      <description>&lt;ul&gt;&lt;li&gt;Search results include business details from a site&#x27;s schema.org data: address, phone, opening hours and price range, plus &lt;code&gt;open_now&lt;/code&gt;.&lt;/li&gt;&lt;li&gt;&lt;code&gt;actuent_nearby&lt;/code&gt; shows opening hours for each place and takes an &lt;code&gt;open_now&lt;/code&gt; filter.&lt;/li&gt;&lt;li&gt;Products show price changes: &lt;code&gt;previous_price_eur&lt;/code&gt; and &lt;code&gt;price_change_percent&lt;/code&gt; when a price moved.&lt;/li&gt;&lt;li&gt;LAWP 0.3: actions can describe their input as named fields (date, time, email, …). Actuent validates the input before calling the site and returns each action&#x27;s JSON Schema in &lt;code&gt;actuent_get_actions&lt;/code&gt;.&lt;/li&gt;&lt;li&gt;Every indexed site has a public page at &lt;code&gt;api.actuent.ai/site/&amp;lt;domain&amp;gt;&lt;/code&gt; with its readiness score, actions and business details.&lt;/li&gt;&lt;li&gt;The badge at &lt;code&gt;api.actuent.ai/badge.svg?domain=&lt;/code&gt; shows a live agent-readiness score out of 100.&lt;/li&gt;&lt;li&gt;Social preview images for Actuent pages.&lt;/li&gt;&lt;li&gt;Owners get a welcome email when they claim a site.&lt;/li&gt;&lt;li&gt;The crawler finds subpages from each site&#x27;s sitemap and uses more free AI providers.&lt;/li&gt;&lt;li&gt;Security headers on every Actuent site, plus Dependabot and CodeQL on the public repositories.&lt;/li&gt;&lt;li&gt;WordPress plugin 1.1.0: the contact action asks for name, email and message.&lt;/li&gt;&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>Rule-based conversion and a faster backlog</title>
+      <link>https://docs.actuent.ai/changelog#2026-09-25-rule-based-conversion-and-a-faster-backlog</link>
+      <guid isPermaLink="false">2026-09-25-rule-based-conversion-and-a-faster-backlog</guid>
+      <pubDate>Fri, 25 Sep 2026 12:00:00 +0000</pubDate>
+      <description>&lt;ul&gt;&lt;li&gt;Sites are converted to LAWP without an LLM when the free quota is used up, so fewer sites stay minimal.&lt;/li&gt;&lt;li&gt;Infrastructure hostnames (CDNs, DNS servers) are skipped instead of indexed.&lt;/li&gt;&lt;li&gt;New sites are paused until every existing minimal entry has been retried once.&lt;/li&gt;&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>Products, any-language search and site claiming</title>
+      <link>https://docs.actuent.ai/changelog#2026-09-25-products--any-language-search-and-site-claiming</link>
+      <guid isPermaLink="false">2026-09-25-products--any-language-search-and-site-claiming</guid>
+      <pubDate>Fri, 25 Sep 2026 12:00:00 +0000</pubDate>
+      <description>&lt;ul&gt;&lt;li&gt;Shopping searches return products with prices from Shopify and WooCommerce shops, with budgets like &lt;code&gt;under €100&lt;/code&gt; in any currency.&lt;/li&gt;&lt;li&gt;Search in any language; results always come back in English.&lt;/li&gt;&lt;li&gt;Claim your site in Analytics → My sites and edit its pages and actions without code.&lt;/li&gt;&lt;li&gt;OpenAPI description at &lt;code&gt;api.actuent.ai/openapi.json&lt;/code&gt;, a Python SDK and LangChain/LlamaIndex tools.&lt;/li&gt;&lt;li&gt;Rate-limit headers on every response, hashed API keys, usage and delete-my-data in Analytics.&lt;/li&gt;&lt;li&gt;Referrals: a free month of Pro for every friend who subscribes.&lt;/li&gt;&lt;li&gt;WordPress plugin and a one-click Cloudflare Worker for publishing native LAWP.&lt;/li&gt;&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>Executable actions and sign-in for ChatGPT and Claude</title>
+      <link>https://docs.actuent.ai/changelog#2026-09-25-executable-actions-and-sign-in-for-chatgpt-and-claude</link>
+      <guid isPermaLink="false">2026-09-25-executable-actions-and-sign-in-for-chatgpt-and-claude</guid>
+      <pubDate>Fri, 25 Sep 2026 12:00:00 +0000</pubDate>
+      <description>&lt;ul&gt;&lt;li&gt;&lt;code&gt;actuent_execute_action&lt;/code&gt; really performs actions on sites that publish LAWP action endpoints.&lt;/li&gt;&lt;li&gt;Action requests are signed with Ed25519, with a test mode and a LAWP Checker in the docs.&lt;/li&gt;&lt;li&gt;OAuth 2.1 sign-in so Pro works in ChatGPT and Claude connectors.&lt;/li&gt;&lt;li&gt;Priority access for Pro and semantic query expansion.&lt;/li&gt;&lt;li&gt;Actuent Bot identifies itself and respects robots.txt.&lt;/li&gt;&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>Vector search and webhooks</title>
+      <link>https://docs.actuent.ai/changelog#2026-09-23-vector-search-and-webhooks</link>
+      <guid isPermaLink="false">2026-09-23-vector-search-and-webhooks</guid>
+      <pubDate>Wed, 23 Sep 2026 12:00:00 +0000</pubDate>
+      <description>&lt;ul&gt;&lt;li&gt;Vector search, webhooks for site changes and a suggest-a-site form.&lt;/li&gt;&lt;li&gt;LAWP score contributes to search ranking.&lt;/li&gt;&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>Rate limits and multi-language LAWP</title>
+      <link>https://docs.actuent.ai/changelog#2026-09-21-rate-limits-and-multi-language-lawp</link>
+      <guid isPermaLink="false">2026-09-21-rate-limits-and-multi-language-lawp</guid>
+      <pubDate>Mon, 21 Sep 2026 12:00:00 +0000</pubDate>
+      <description>&lt;ul&gt;&lt;li&gt;Rate limits: 20 requests/minute free, 60 for Pro.&lt;/li&gt;&lt;li&gt;Sites in other languages are translated; a health endpoint for status monitoring.&lt;/li&gt;&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>All MCP tools</title>
+      <link>https://docs.actuent.ai/changelog#2026-09-20-all-mcp-tools</link>
+      <guid isPermaLink="false">2026-09-20-all-mcp-tools</guid>
+      <pubDate>Sun, 20 Sep 2026 12:00:00 +0000</pubDate>
+      <description>&lt;ul&gt;&lt;li&gt;News, nearby, trending, compare, execute, history and summarise tools.&lt;/li&gt;&lt;li&gt;LAWP score and change tracking (diffs).&lt;/li&gt;&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>Badges and native LAWP</title>
+      <link>https://docs.actuent.ai/changelog#2026-09-19-badges-and-native-lawp</link>
+      <guid isPermaLink="false">2026-09-19-badges-and-native-lawp</guid>
+      <pubDate>Sat, 19 Sep 2026 12:00:00 +0000</pubDate>
+      <description>&lt;ul&gt;&lt;li&gt;&lt;code&gt;/.well-known/lawp.json&lt;/code&gt; support, the Actuent badge and a live stats API.&lt;/li&gt;&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>Live crawling and full-text search</title>
+      <link>https://docs.actuent.ai/changelog#2026-09-16-live-crawling-and-full-text-search</link>
+      <guid isPermaLink="false">2026-09-16-live-crawling-and-full-text-search</guid>
+      <pubDate>Wed, 16 Sep 2026 12:00:00 +0000</pubDate>
+      <description>&lt;ul&gt;&lt;li&gt;Any site is crawled live the first time it&#x27;s searched and saved to the index.&lt;/li&gt;&lt;li&gt;Keyword search across every indexed site, including individual pages.&lt;/li&gt;&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>First release</title>
+      <link>https://docs.actuent.ai/changelog#2026-09-11-first-release</link>
+      <guid isPermaLink="false">2026-09-11-first-release</guid>
+      <pubDate>Fri, 11 Sep 2026 12:00:00 +0000</pubDate>
+      <description>&lt;ul&gt;&lt;li&gt;The Actuent MCP server with free and Pro tiers, the &lt;code&gt;@actuent/sdk&lt;/code&gt; register endpoint and the docs site.&lt;/li&gt;&lt;/ul&gt;</description>
+    </item>
+  </channel>
+</rss>

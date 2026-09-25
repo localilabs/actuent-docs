@@ -20,6 +20,14 @@
     {
       "src": "actuent.mcpb",
       "use": "@vercel/static"
+    },
+    {
+      "src": "changelog.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "changelog.xml",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
@@ -34,6 +42,17 @@
         "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src * data:; connect-src 'self' https://api.actuent.ai https://agents.actuent.ai; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
       },
       "continue": true
+    },
+    {
+      "src": "/changelog/?",
+      "dest": "/changelog.html"
+    },
+    {
+      "src": "/changelog.xml",
+      "dest": "/changelog.xml",
+      "headers": {
+        "Content-Type": "application/rss+xml; charset=utf-8"
+      }
     },
     {
       "src": "/privacy",

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Changelog — Actuent</title>
+  <meta name="description" content="What's new in Actuent, the search engine for AI agents.">
+  <link rel="icon" type="image/png" href="https://api.actuent.ai/assets/actuent-logo.png">
+  <link rel="alternate" type="application/rss+xml" title="Actuent changelog" href="https://docs.actuent.ai/changelog.xml">
+  <meta property="og:title" content="Actuent changelog">
+  <meta property="og:description" content="What's new in Actuent, the search engine for AI agents.">
+  <meta property="og:url" content="https://docs.actuent.ai/changelog">
+  <meta property="og:image" content="https://api.actuent.ai/og?title=Changelog&amp;subtitle=What%27s%20new%20in%20Actuent&amp;tag=docs.actuent.ai%2Fchangelog">
+  <meta name="twitter:card" content="summary_large_image">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:#0a0a0a;color:#f0f0f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+    main{max-width:720px;margin:0 auto;padding:56px 16px 80px}
+    .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:40px}
+    .top img{height:20px}
+    .top a{color:#a8a8b6;font-size:13px;text-decoration:none;margin-left:16px}
+    .top a:hover{color:#f0f0f0}
+    h1{font-size:30px;font-weight:700;letter-spacing:-1px;margin-bottom:10px}
+    .sub{color:#a8a8b6;font-size:14px;line-height:1.6;margin-bottom:36px}
+    .sub a{color:#ff8a3d}
+    section{border-top:1px solid #2a2a34;padding:28px 0}
+    .date{font-family:'Courier New',monospace;font-size:11px;color:#8e8e9c;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+    h2{font-size:18px;font-weight:700;margin-bottom:12px}
+    h2 a{color:#f0f0f0;text-decoration:none}
+    h2 a:hover{color:#ff8a3d}
+    ul{margin-left:20px;color:#c4c4cf;font-size:14px;line-height:1.75}
+    li{margin-bottom:4px}
+    code{background:#17171f;border:1px solid #2a2a34;color:#f0f0f0;padding:1px 6px;border-radius:4px;font-family:'Courier New',monospace;font-size:12px;overflow-wrap:anywhere}
+    @media(max-width:600px){h1{font-size:24px}main{padding-top:32px}}
+  </style>
+</head>
+<body>
+<main>
+  <div class="top">
+    <a href="/" style="margin:0"><img src="https://api.actuent.ai/assets/actuent-logo.png" alt="Actuent"></a>
+    <div><a href="/">Docs</a><a href="/changelog.xml">RSS</a></div>
+  </div>
+  <h1>Changelog</h1>
+  <p class="sub">What's new in Actuent. Follow along with the <a href="/changelog.xml">RSS feed</a>.</p>
+  <section id="2026-09-25-business-details--open-now--price-changes-and-site-pages">
+    <div class="date">25 September 2026</div>
+    <h2><a href="#2026-09-25-business-details--open-now--price-changes-and-site-pages">Business details, open now, price changes and site pages</a></h2>
+    <ul>
+      <li>Search results include business details from a site's schema.org data: address, phone, opening hours and price range, plus <code>open_now</code>.</li>
+      <li><code>actuent_nearby</code> shows opening hours for each place and takes an <code>open_now</code> filter.</li>
+      <li>Products show price changes: <code>previous_price_eur</code> and <code>price_change_percent</code> when a price moved.</li>
+      <li>LAWP 0.3: actions can describe their input as named fields (date, time, email, …). Actuent validates the input before calling the site and returns each action's JSON Schema in <code>actuent_get_actions</code>.</li>
+      <li>Every indexed site has a public page at <code>api.actuent.ai/site/&lt;domain&gt;</code> with its readiness score, actions and business details.</li>
+      <li>The badge at <code>api.actuent.ai/badge.svg?domain=</code> shows a live agent-readiness score out of 100.</li>
+      <li>Social preview images for Actuent pages.</li>
+      <li>Owners get a welcome email when they claim a site.</li>
+      <li>The crawler finds subpages from each site's sitemap and uses more free AI providers.</li>
+      <li>Security headers on every Actuent site, plus Dependabot and CodeQL on the public repositories.</li>
+      <li>WordPress plugin 1.1.0: the contact action asks for name, email and message.</li>
+    </ul>
+  </section>
+  <section id="2026-09-25-rule-based-conversion-and-a-faster-backlog">
+    <div class="date">25 September 2026</div>
+    <h2><a href="#2026-09-25-rule-based-conversion-and-a-faster-backlog">Rule-based conversion and a faster backlog</a></h2>
+    <ul>
+      <li>Sites are converted to LAWP without an LLM when the free quota is used up, so fewer sites stay minimal.</li>
+      <li>Infrastructure hostnames (CDNs, DNS servers) are skipped instead of indexed.</li>
+      <li>New sites are paused until every existing minimal entry has been retried once.</li>
+    </ul>
+  </section>
+  <section id="2026-09-25-products--any-language-search-and-site-claiming">
+    <div class="date">25 September 2026</div>
+    <h2><a href="#2026-09-25-products--any-language-search-and-site-claiming">Products, any-language search and site claiming</a></h2>
+    <ul>
+      <li>Shopping searches return products with prices from Shopify and WooCommerce shops, with budgets like <code>under €100</code> in any currency.</li>
+      <li>Search in any language; results always come back in English.</li>
+      <li>Claim your site in Analytics → My sites and edit its pages and actions without code.</li>
+      <li>OpenAPI description at <code>api.actuent.ai/openapi.json</code>, a Python SDK and LangChain/LlamaIndex tools.</li>
+      <li>Rate-limit headers on every response, hashed API keys, usage and delete-my-data in Analytics.</li>
+      <li>Referrals: a free month of Pro for every friend who subscribes.</li>
+      <li>WordPress plugin and a one-click Cloudflare Worker for publishing native LAWP.</li>
+    </ul>
+  </section>
+  <section id="2026-09-25-executable-actions-and-sign-in-for-chatgpt-and-claude">
+    <div class="date">25 September 2026</div>
+    <h2><a href="#2026-09-25-executable-actions-and-sign-in-for-chatgpt-and-claude">Executable actions and sign-in for ChatGPT and Claude</a></h2>
+    <ul>
+      <li><code>actuent_execute_action</code> really performs actions on sites that publish LAWP action endpoints.</li>
+      <li>Action requests are signed with Ed25519, with a test mode and a LAWP Checker in the docs.</li>
+      <li>OAuth 2.1 sign-in so Pro works in ChatGPT and Claude connectors.</li>
+      <li>Priority access for Pro and semantic query expansion.</li>
+      <li>Actuent Bot identifies itself and respects robots.txt.</li>
+    </ul>
+  </section>
+  <section id="2026-09-23-vector-search-and-webhooks">
+    <div class="date">23 September 2026</div>
+    <h2><a href="#2026-09-23-vector-search-and-webhooks">Vector search and webhooks</a></h2>
+    <ul>
+      <li>Vector search, webhooks for site changes and a suggest-a-site form.</li>
+      <li>LAWP score contributes to search ranking.</li>
+    </ul>
+  </section>
+  <section id="2026-09-21-rate-limits-and-multi-language-lawp">
+    <div class="date">21 September 2026</div>
+    <h2><a href="#2026-09-21-rate-limits-and-multi-language-lawp">Rate limits and multi-language LAWP</a></h2>
+    <ul>
+      <li>Rate limits: 20 requests/minute free, 60 for Pro.</li>
+      <li>Sites in other languages are translated; a health endpoint for status monitoring.</li>
+    </ul>
+  </section>
+  <section id="2026-09-20-all-mcp-tools">
+    <div class="date">20 September 2026</div>
+    <h2><a href="#2026-09-20-all-mcp-tools">All MCP tools</a></h2>
+    <ul>
+      <li>News, nearby, trending, compare, execute, history and summarise tools.</li>
+      <li>LAWP score and change tracking (diffs).</li>
+    </ul>
+  </section>
+  <section id="2026-09-19-badges-and-native-lawp">
+    <div class="date">19 September 2026</div>
+    <h2><a href="#2026-09-19-badges-and-native-lawp">Badges and native LAWP</a></h2>
+    <ul>
+      <li><code>/.well-known/lawp.json</code> support, the Actuent badge and a live stats API.</li>
+    </ul>
+  </section>
+  <section id="2026-09-16-live-crawling-and-full-text-search">
+    <div class="date">16 September 2026</div>
+    <h2><a href="#2026-09-16-live-crawling-and-full-text-search">Live crawling and full-text search</a></h2>
+    <ul>
+      <li>Any site is crawled live the first time it's searched and saved to the index.</li>
+      <li>Keyword search across every indexed site, including individual pages.</li>
+    </ul>
+  </section>
+  <section id="2026-09-11-first-release">
+    <div class="date">11 September 2026</div>
+    <h2><a href="#2026-09-11-first-release">First release</a></h2>
+    <ul>
+      <li>The Actuent MCP server with free and Pro tiers, the <code>@actuent/sdk</code> register endpoint and the docs site.</li>
+    </ul>
+  </section>
+</main>
+</body>
+</html>

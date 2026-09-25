@@ -5,6 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Actuent Docs</title>
   <link rel="icon" type="image/png" href="https://api.actuent.ai/assets/actuent-logo.png">
+  <meta name="description" content="Docs for Actuent, the search engine for AI agents: MCP setup, tools, LAWP and the API.">
+  <link rel="alternate" type="application/rss+xml" title="Actuent changelog" href="https://docs.actuent.ai/changelog.xml">
+  <meta property="og:title" content="Actuent Docs">
+  <meta property="og:description" content="MCP setup, tools, LAWP and the API for Actuent, the search engine for AI agents.">
+  <meta property="og:url" content="https://docs.actuent.ai/">
+  <meta property="og:image" content="https://api.actuent.ai/og?title=Actuent%20Docs&amp;subtitle=MCP%20setup%2C%20tools%2C%20LAWP%20and%20the%20API&amp;tag=docs.actuent.ai">
+  <meta name="twitter:card" content="summary_large_image">
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
     body{background:#0a0a0a;color:#f0f0f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;display:flex;min-height:100vh}
@@ -40,6 +47,7 @@
     .pro{background:#ff8a3d;color:#0a0a0a;font-weight:700}
     .m{display:inline-block;background:#1c1c25;color:#f0f0f0;font-size:10px;font-family:'Courier New',monospace;padding:2px 7px;border-radius:4px;margin-right:5px}
     .crow{display:flex;gap:8px;margin:12px 0 20px}
+    .crow .cin{min-width:140px}
     .cin{flex:1;background:#13131a;border:1px solid #2a2a34;color:#f0f0f0;padding:9px 12px;font-size:13px;font-family:'Courier New',monospace;border-radius:7px;outline:none}
     .cin:focus{border-color:#34343f}
     .cbtn{background:#ff8a3d;color:#0a0a0a;border:none;padding:9px 16px;font-size:12px;font-weight:700;border-radius:7px;cursor:pointer;white-space:nowrap}
@@ -86,6 +94,7 @@
   <a href="#api" onclick="document.getElementById('nav').classList.remove('open')">API Reference</a>
   <a href="#analytics" onclick="document.getElementById('nav').classList.remove('open')">Analytics</a>
   <a href="#checker" onclick="document.getElementById('nav').classList.remove('open')">LAWP Checker</a>
+  <a href="/changelog">Changelog</a>
 </nav>
 
 <main>
@@ -177,13 +186,13 @@ Pro — pass Authorization: Bearer YOUR_KEY for memory and all tools.</code></pr
   <table>
     <tr><th>Tool</th><th>What it does</th><th>Tier</th></tr>
     <tr><td>actuent_search</td><td>Search Actuent — ranked LAWP for any query or domain</td><td><span class="tf free">FREE</span></td></tr>
-    <tr><td>actuent_get_actions</td><td>Get available actions for a specific site</td><td><span class="tf free">FREE</span></td></tr>
+    <tr><td>actuent_get_actions</td><td>Get a site's actions, whether each is executable, and the JSON Schema of its input</td><td><span class="tf free">FREE</span></td></tr>
     <tr><td>actuent_get_page</td><td>Get LAWP for a specific URL path</td><td><span class="tf free">FREE</span></td></tr>
     <tr><td>actuent_execute_action</td><td>Perform a site action, such as contact or booking, on sites with <a href="#actions">LAWP action endpoints</a> (including WordPress sites with our plugin)</td><td><span class="tf pro">PRO</span></td></tr>
     <tr><td>actuent_compare</td><td>Compare two or more sites side by side</td><td><span class="tf free">FREE</span></td></tr>
     <tr><td>actuent_trending</td><td>Top 10 most searched sites and queries this week</td><td><span class="tf free">FREE</span></td></tr>
     <tr><td>actuent_news</td><td>Latest articles on any topic: headlines, sources, links and dates</td><td><span class="tf free">FREE</span></td></tr>
-    <tr><td>actuent_nearby</td><td>Places near a location, sorted by distance (OpenStreetMap)</td><td><span class="tf free">FREE</span></td></tr>
+    <tr><td>actuent_nearby</td><td>Places near a location, sorted by distance, with opening hours and an <code>open_now</code> filter (OpenStreetMap)</td><td><span class="tf free">FREE</span></td></tr>
     <tr><td>actuent_history</td><td>Full search history for this API key</td><td><span class="tf pro">PRO</span></td></tr>
     <tr><td>actuent_summarise</td><td>One paragraph summary of any domain</td><td><span class="tf free">FREE</span></td></tr>
   </table>
@@ -250,6 +259,12 @@ client.products("running shoes under €100")</code></pre>
   <h2 id="search">Search features</h2>
   <h3>Products with prices</h3>
   <p>Shopping searches return a <code>products</code> list next to the sites: name, price, currency, a EUR price, link and image. Add a budget and Actuent filters by it, converting currencies: <code>running shoes under €100</code>, <code>leggings below 50 dollars</code>, <code>headphones under 1000 kr</code>. Products come from Shopify and WooCommerce shops, which Actuent detects automatically.</p>
+  <h3>Price changes</h3>
+  <p>When a product's price has changed, it includes <code>previous_price_eur</code>, <code>price_change_percent</code> (e.g. <code>-20</code> for 20% cheaper) and <code>price_changed_at</code>.</p>
+  <h3>Business details and open now</h3>
+  <p>Sites that publish schema.org business data (as most shops, restaurants and salons do for Google) get a <code>business</code> object: address, phone, email, opening hours, price range and location. Results with opening hours include <code>open_now</code>, in the business's own time zone.</p>
+  <h3>Site pages and badges</h3>
+  <p>Every indexed site has a public page at <code>https://api.actuent.ai/site/&lt;domain&gt;</code> showing what agents see and its agent-readiness score. Show your score on your own site with the live badge: <code>&lt;img src="https://api.actuent.ai/badge.svg?domain=yoursite.com"&gt;</code></p>
   <h3>Any language, answered in English</h3>
   <p>Search in any language (<code>Laufschuhe</code>, <code>frisør københavn</code>). Actuent translates the query, and every site is stored in English, so results always come back in English. <code>language</code> tells you the site's original language.</p>
   <h3>Freshness</h3>
@@ -273,7 +288,11 @@ client.products("running shoes under €100")</code></pre>
       "name": "string",
       "description": "string",
       "intent": ["string"],
-      "input": { "type": "text | number | none", "required": true | false },
+      "input": {
+        "type": "text | number | none | object",
+        "required": true | false,
+        "fields": [ { "name": "date", "type": "date", "required": true } ]
+      },
       "endpoint": { "url": "https://…", "method": "POST | GET" }
     }
   ]
@@ -289,7 +308,20 @@ client.products("running shoes under €100")</code></pre>
   "input": { "type": "text", "required": true },
   "endpoint": { "url": "https://yoursite.com/api/lawp/book", "method": "POST" }
 }</code></pre>
-  <p>Actuent POSTs <code>{ "lawp_version": "0.2", "action": "book", "input": "Saturday 2pm", "request_id": "…" }</code> with the headers <code>X-LAWP-Action</code> and <code>X-Actuent-Request-Id</code>. Reply with a 2xx and a short JSON result, or a 4xx with <code>{ "error": "…" }</code>.</p>
+  <p>Actuent POSTs <code>{ "lawp_version": "0.3", "action": "book", "input": "Saturday 2pm", "request_id": "…" }</code> with the headers <code>X-LAWP-Action</code> and <code>X-Actuent-Request-Id</code>. Reply with a 2xx and a short JSON result, or a 4xx with <code>{ "error": "…" }</code>.</p>
+  <h3>Structured inputs (LAWP 0.3)</h3>
+  <p>Instead of free text, an action can list the exact fields it needs. Agents then send an object, and Actuent checks it before calling you: missing or invalid fields go back to the agent so it can ask the user.</p>
+  <pre><code>"input": {
+  "type": "object",
+  "required": true,
+  "fields": [
+    { "name": "date", "type": "date", "required": true, "description": "Day of the appointment" },
+    { "name": "time", "type": "time", "required": true },
+    { "name": "service", "type": "enum", "options": ["Haircut", "Skin fade"] },
+    { "name": "email", "type": "email", "required": true }
+  ]
+}</code></pre>
+  <p>Field types: <code>string</code>, <code>number</code>, <code>integer</code>, <code>boolean</code>, <code>date</code>, <code>time</code>, <code>datetime</code>, <code>email</code>, <code>phone</code>, <code>url</code>, <code>enum</code> (with <code>options</code>). Your endpoint receives <code>"input": { "date": "2026-10-03", "time": "14:00", … }</code>; <code>GET</code> endpoints also get each field as a query parameter. <a href="https://github.com/localilabs/lawp/blob/main/LAWP.md#structured-inputs-v03">Full spec</a>.</p>
   <h3>Verify requests come from Actuent</h3>
   <p>Every request is signed with Ed25519. Check it before doing anything:</p>
   <pre><code>// Headers: X-Actuent-Timestamp, X-Actuent-Key-Id, X-Actuent-Signature: v1=&lt;base64url&gt;
@@ -387,7 +419,16 @@ function checkLAWP() {
     html += res.actions.map(function(a) {
       var status = a.executable ? '<span class="tf pro">EXECUTABLE</span>' : '<span class="tf free">NO ENDPOINT</span>'
       var issues = a.problems.length ? '<div style="color:#f0a0a0;font-size:12px;margin-top:4px">'+a.problems.map(escH).join("<br>")+'</div>' : ''
-      var test = a.executable ? '<div class="crow" style="margin:8px 0 0"><input class="cin" id="ti-'+escH(a.id)+'" placeholder="test input"><button class="cbtn" onclick="testAction(\''+escH(res.domain)+'\',\''+escH(a.id)+'\')">Send test request</button></div><div id="tr-'+escH(a.id)+'"></div>' : ''
+      var fields = a.input && a.input.type === "object" && Array.isArray(a.input.fields) ? a.input.fields : null
+      var inputs = fields
+        ? fields.map(function(f) {
+            var ph = escH(f.name) + (f.required ? " *" : "") + (f.type && f.type !== "string" ? " (" + escH(f.type) + ")" : "")
+            return f.type === "enum" && Array.isArray(f.options)
+              ? '<select class="cin" data-field="'+escH(f.name)+'" data-for="'+escH(a.id)+'"><option value="">'+ph+'</option>'+f.options.map(function(o){ return '<option>'+escH(o)+'</option>' }).join("")+'</select>'
+              : '<input class="cin" data-field="'+escH(f.name)+'" data-type="'+escH(f.type||"string")+'" data-for="'+escH(a.id)+'" placeholder="'+ph+'">'
+          }).join("")
+        : '<input class="cin" id="ti-'+escH(a.id)+'" placeholder="test input">'
+      var test = a.executable ? '<div class="crow" style="margin:8px 0 0;flex-wrap:wrap">'+inputs+'<button class="cbtn" onclick="testAction(\''+escH(res.domain)+'\',\''+escH(a.id)+'\')">Send test request</button></div><div id="tr-'+escH(a.id)+'"></div>' : ''
       return '<div style="border:1px solid #2a2a34;border-radius:7px;padding:12px 14px;margin-bottom:8px"><div style="font-size:13px;color:#eeeef2"><code>'+escH(a.id)+'</code> '+escH(a.name||"")+' '+status+'</div>'+issues+test+'</div>'
     }).join("")
     cr.innerHTML = html
@@ -398,10 +439,22 @@ function checkLAWP() {
 function testAction(domain, id) {
   var out = document.getElementById("tr-"+id)
   out.innerHTML = '<p style="color:#a8a8b6;font-size:12px;margin-top:8px">Sending signed test request...</p>'
-  fetch(CHECK_API, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ domain: domain, action_id: id, input: document.getElementById("ti-"+id).value }) })
+  // Structured actions have one box per field; they're sent as an object.
+  var single = document.getElementById("ti-"+id), input
+  if (single) input = single.value
+  else {
+    input = {}
+    document.querySelectorAll('[data-for="'+id+'"]').forEach(function(el) {
+      if (el.value === "") return
+      var t = el.getAttribute("data-type")
+      input[el.getAttribute("data-field")] = (t === "number" || t === "integer") && !isNaN(Number(el.value)) ? Number(el.value) : t === "boolean" ? /^(true|yes|1)$/i.test(el.value) : el.value
+    })
+  }
+  fetch(CHECK_API, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ domain: domain, action_id: id, input: input }) })
     .then(function(r){ return r.json() })
     .then(function(r) {
-      out.innerHTML = '<div style="margin-top:8px">' + box(r.executed ? "#4ade80" : "#f87171", r.executed ? "✓ Endpoint responded "+escH(r.status) : "✗ "+escH(r.error || ("HTTP "+r.status)), '<pre style="margin:6px 0 0"><code>'+escH(JSON.stringify(r.response == null ? r : r.response, null, 2))+'</code></pre>') + '</div>'
+      var body = r.input_errors ? r.input_errors.map(escH).join("<br>") : '<pre style="margin:6px 0 0"><code>'+escH(JSON.stringify(r.response == null ? r : r.response, null, 2))+'</code></pre>'
+      out.innerHTML = '<div style="margin-top:8px">' + box(r.executed ? "#4ade80" : "#f87171", r.executed ? "✓ Endpoint responded "+escH(r.status) : "✗ "+escH(r.input_errors ? "Input isn't valid" : (r.error || ("HTTP "+r.status))), body) + '</div>'
     })
     .catch(function(){ out.innerHTML = '<p style="color:#f87171;font-size:12px">Test failed</p>' })
 }
