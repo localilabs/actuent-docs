@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Platform Guides — Actuent</title>
+  <meta name="description" content="Make your site agent-ready on Shopify, Squarespace, Wix, Webflow, WordPress, static hosts and your own server.">
+  <link rel="icon" type="image/png" href="https://api.actuent.ai/assets/actuent-logo.png">
+  <meta property="og:title" content="Platform Guides — Actuent">
+  <meta property="og:description" content="Make your site agent-ready on Shopify, Squarespace, Wix, Webflow, WordPress and more.">
+  <meta property="og:url" content="https://docs.actuent.ai/guides">
+  <meta property="og:image" content="https://api.actuent.ai/og?title=Platform%20Guides&amp;subtitle=Make%20your%20site%20agent-ready%20on%20any%20platform&amp;tag=docs.actuent.ai%2Fguides">
+  <meta name="twitter:card" content="summary_large_image">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:#0a0a0a;color:#f0f0f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+    main{max-width:760px;margin:0 auto;padding:48px 16px 80px}
+    .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:36px}
+    .top img{height:20px}.top a{color:#a8a8b6;font-size:13px;text-decoration:none;margin-left:16px}.top a:hover{color:#f0f0f0}
+    h1{font-size:30px;font-weight:700;letter-spacing:-1px;margin-bottom:10px}
+    h2{font-size:19px;font-weight:700;margin:44px 0 12px;padding-top:36px;border-top:1px solid #2a2a34}
+    h3{font-size:14px;font-weight:600;margin:20px 0 6px;color:#eeeef2}
+    p,li{color:#c4c4cf;line-height:1.7;font-size:14px}
+    p{margin-bottom:12px}
+    ul,ol{margin:0 0 12px 20px}
+    a{color:#ff8a3d}a:hover{color:#f0f0f0}
+    .sub{color:#a8a8b6;font-size:14px;line-height:1.6;margin-bottom:24px}
+    .toc{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+    .toc a{border:1px solid #2a2a34;border-radius:20px;padding:4px 12px;font-size:12px;text-decoration:none;color:#c4c4cf}
+    .toc a:hover{border-color:#ff8a3d;color:#f0f0f0}
+    code{background:#17171f;border:1px solid #2a2a34;color:#f0f0f0;padding:1px 6px;border-radius:4px;font-family:'Courier New',monospace;font-size:12px;overflow-wrap:anywhere}
+    pre{background:#13131a;border:1px solid #2a2a34;border-radius:8px;padding:14px 16px;overflow-x:auto;margin:10px 0 16px}
+    pre code{background:none;border:none;padding:0;font-size:12px;color:#dcdce3;line-height:1.6}
+    .note{background:#13131a;border:1px solid #2a2a34;border-left:3px solid #ff8a3d;border-radius:7px;padding:12px 16px;margin:14px 0}
+    .note p{margin:0;color:#a8a8b6;font-size:13px}
+    table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0 18px}
+    th{text-align:left;color:#8e8e9c;font-size:10px;text-transform:uppercase;letter-spacing:1px;padding:7px 8px;border-bottom:1px solid #2a2a34}
+    td{padding:8px;border-bottom:1px solid #2a2a34;color:#c4c4cf;vertical-align:top}
+    @media(max-width:600px){h1{font-size:24px}table{display:block;overflow-x:auto}}
+  </style>
+</head>
+<body>
+<main>
+  <div class="top">
+    <a href="/" style="margin:0"><img src="https://api.actuent.ai/assets/actuent-logo.png" alt="Actuent"></a>
+    <div><a href="/">Docs</a><a href="/generator">Generator</a><a href="/#checker">Checker</a></div>
+  </div>
+  <h1>Platform guides</h1>
+  <p class="sub">How to make your site agent-ready, whatever it's built with. Three things help AI agents most, and each raises your <a href="https://api.actuent.ai/site">agent-readiness score</a>:</p>
+  <ol>
+    <li><strong>Your own LAWP</strong> at <code>/.well-known/lawp.json</code>: your pages and actions, in your words. Make it with the <a href="/generator">LAWP Generator</a>.</li>
+    <li><strong>Business details</strong> as schema.org data: address, opening hours, phone, prices. Google uses these too.</li>
+    <li><strong>Actions</strong> agents can take: contact, book, order. A booking system like Calendly, OpenTable or Fresha counts; Actuent links straight to it.</li>
+  </ol>
+  <p>Some platforms don't let you put files at <code>/.well-known/</code>. For those, <strong>claim your site</strong> in <a href="https://analytics.actuent.ai">Analytics → My sites</a> and edit what agents see in a form. Claimed sites are never overwritten by the crawler.</p>
+  <div class="toc">
+    <a href="#overview">At a glance</a><a href="#wordpress">WordPress</a><a href="#shopify">Shopify</a><a href="#squarespace">Squarespace</a><a href="#wix">Wix</a><a href="#webflow">Webflow</a><a href="#static">Static hosts</a><a href="#cloudflare">Cloudflare</a><a href="#server">Your own server</a>
+  </div>
+
+  <h2 id="overview">At a glance</h2>
+  <table>
+    <tr><th>Platform</th><th>Own lawp.json</th><th>Business details</th><th>Easiest route</th></tr>
+    <tr><td>WordPress</td><td>Yes (plugin)</td><td>Your SEO plugin</td><td><a href="#wordpress">Actuent plugin</a></td></tr>
+    <tr><td>Shopify</td><td>No</td><td>Theme code</td><td>Products are automatic; <a href="#shopify">claim your site</a></td></tr>
+    <tr><td>Squarespace</td><td>No</td><td>Code injection</td><td><a href="#squarespace">Claim your site</a></td></tr>
+    <tr><td>Wix</td><td>No</td><td>SEO settings</td><td><a href="#wix">Claim your site</a></td></tr>
+    <tr><td>Webflow</td><td>No</td><td>Custom code</td><td><a href="#webflow">Claim your site</a></td></tr>
+    <tr><td>Netlify, Vercel, Cloudflare Pages, GitHub Pages</td><td>Yes</td><td>In your HTML</td><td><a href="#static">Add the file</a></td></tr>
+    <tr><td>Any site on Cloudflare</td><td>Yes (Worker)</td><td>In your HTML</td><td><a href="#cloudflare">One-click Worker</a></td></tr>
+  </table>
+
+  <h2 id="wordpress">WordPress</h2>
+  <p>Install the <a href="https://github.com/localilabs/actuent-wordpress/releases/latest">Actuent LAWP plugin</a> (Plugins → Add New → Upload Plugin). It publishes <code>/.well-known/lawp.json</code> and <code>/llms.txt</code> from your pages, with a search action and a contact action that emails you. WooCommerce products are picked up automatically.</p>
+  <p>Business details: most SEO plugins (Yoast, Rank Math, All in One SEO) have a "local business" or "organization" setting that outputs schema.org data. Fill in your address, phone and opening hours there.</p>
+
+  <h2 id="shopify">Shopify</h2>
+  <p><strong>Products:</strong> nothing to do. Actuent reads your public catalogue (<code>/products.json</code>) with prices, stock and barcodes, so your products show up in shopping searches and price comparisons.</p>
+  <p><strong>Your own lawp.json:</strong> Shopify doesn't allow files at <code>/.well-known/</code>, and Actuent doesn't follow redirects there (only you should control that address). Instead, <a href="https://analytics.actuent.ai">claim your site</a> and edit your pages and actions in Analytics → My sites.</p>
+  <h3>Business details</h3>
+  <p>Online Store → Themes → ⋯ → Edit code → <code>theme.liquid</code>, and paste before <code>&lt;/head&gt;</code> (edit the values):</p>
+  <pre><code>&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "Store",
+  "name": "{{ shop.name }}",
+  "url": "{{ shop.url }}",
+  "telephone": "+45 12 34 56 78",
+  "address": { "@type": "PostalAddress", "streetAddress": "Street 1", "postalCode": "1000", "addressLocality": "Copenhagen", "addressCountry": "DK" },
+  "openingHoursSpecification": [{ "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "10:00", "closes": "18:00" }]
+}
+&lt;/script&gt;</code></pre>
+  <p>Online-only shop? Use <code>"@type": "OnlineStore"</code> and leave out the address and hours.</p>
+
+  <h2 id="squarespace">Squarespace</h2>
+  <p>Squarespace doesn't allow files at <code>/.well-known/</code>, so <a href="https://analytics.actuent.ai">claim your site</a> and edit what agents see in Analytics → My sites.</p>
+  <h3>Business details</h3>
+  <p>Fill in Settings → Business information (address, phone, hours). To add more, such as services with prices, go to Settings → Developer tools → Code injection → Header (on plans that include it) and paste a schema.org snippet like the one for <a href="#shopify">Shopify</a>, with <code>"@type"</code> set to your business type (for example <code>"HairSalon"</code> or <code>"Restaurant"</code>).</p>
+  <p>Squarespace Scheduling (Acuity) links on your site are detected as a booking action automatically.</p>
+
+  <h2 id="wix">Wix</h2>
+  <p>Wix doesn't allow files at <code>/.well-known/</code>, so <a href="https://analytics.actuent.ai">claim your site</a> and edit what agents see in Analytics → My sites.</p>
+  <h3>Business details</h3>
+  <p>Fill in your business info in the Wix dashboard (Settings → Business info). For custom structured data, open a page's SEO settings → Advanced SEO → Structured data markup, and add a schema.org snippet like the one for <a href="#shopify">Shopify</a>.</p>
+
+  <h2 id="webflow">Webflow</h2>
+  <p>Webflow doesn't allow files at <code>/.well-known/</code>, so <a href="https://analytics.actuent.ai">claim your site</a>, or, if your domain's DNS is on Cloudflare with the proxy on, use the <a href="#cloudflare">Cloudflare Worker</a>.</p>
+  <h3>Business details</h3>
+  <p>Site settings → Custom code → Head code: paste a schema.org snippet like the one for <a href="#shopify">Shopify</a>.</p>
+
+  <h2 id="static">Static hosts</h2>
+  <p>Make your file with the <a href="/generator">LAWP Generator</a>, then add it to your site as <code>.well-known/lawp.json</code> (a folder named <code>.well-known</code> at the root of your published site).</p>
+  <ul>
+    <li><strong>Netlify, Vercel, Cloudflare Pages:</strong> put it in your publish folder (often <code>public/</code> or <code>dist/</code>). Done.</li>
+    <li><strong>GitHub Pages:</strong> Jekyll skips folders starting with a dot. Add an empty <code>.nojekyll</code> file to the root, or add <code>include: [".well-known"]</code> to <code>_config.yml</code>.</li>
+  </ul>
+  <p>Add the schema.org snippet (like the one for <a href="#shopify">Shopify</a>) to your homepage's <code>&lt;head&gt;</code>, and optionally an <a href="https://llmstxt.org">llms.txt</a> at the root.</p>
+
+  <h2 id="cloudflare">Any site on Cloudflare</h2>
+  <p>If your domain uses Cloudflare with the proxy (orange cloud) on, deploy the <a href="https://github.com/localilabs/actuent-cloudflare">Actuent Worker</a> in one click. It serves <code>/.well-known/lawp.json</code> and <code>/llms.txt</code> built from your pages, without touching your site, and can count AI bot visits for Analytics.</p>
+
+  <h2 id="server">Your own server</h2>
+  <p>Serve the file at <code>/.well-known/lawp.json</code> as JSON, without a redirect.</p>
+  <pre><code># nginx
+location = /.well-known/lawp.json {
+  alias /var/www/lawp.json;
+  default_type application/json;
+  add_header Access-Control-Allow-Origin *;
+}</code></pre>
+  <pre><code>// Express
+app.get("/.well-known/lawp.json", (req, res) => res.set("Access-Control-Allow-Origin", "*").sendFile("/srv/lawp.json"))</code></pre>
+  <p>Want agents to actually do things, like book or send a message? Add an <code>endpoint</code> to an action: see <a href="/#actions">LAWP Actions</a>.</p>
+
+  <div class="note"><p>After any of these, check your site with the <a href="/#checker">LAWP Checker</a> and see your score at <code>https://api.actuent.ai/site/yoursite.com</code>. Changes show up after the next crawl, or right away for claimed sites.</p></div>
+</main>
+</body>
+</html>

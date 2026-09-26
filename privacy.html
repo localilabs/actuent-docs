@@ -77,7 +77,7 @@
 <main>
   <div class="top"><a href="https://actuent.ai"><img src="https://api.actuent.ai/assets/actuent-logo.png" alt="Actuent"></a><a href="https://docs.actuent.ai">Docs</a></div>
   <h1>Privacy Policy</h1>
-  <p class="sub">Last updated: 26 September 2026 (rev. 6)</p>
+  <p class="sub">Last updated: 26 September 2026 (rev. 7)</p>
 
   <p>Actuent ("we", "us") is a search service for AI agents, made by localilabs (Alfred Murray) in Copenhagen, Denmark. This policy explains what data Actuent handles when you or your AI assistant use actuent.ai, api.actuent.ai, agents.actuent.ai (the Actuent MCP server, including the ChatGPT app and Claude connector), humans.actuent.ai, analytics.actuent.ai, docs.actuent.ai and the @actuent/sdk package. We are the data controller.</p>
 
@@ -88,7 +88,8 @@
     <li><strong>Account data (Pro).</strong> Your email address and API key. We store API keys only as one-way hashes in our logs and lookups. Search history made with a Pro key is linked to that key so we can provide the history and memory features and your analytics.</li>
     <li><strong>Connecting from ChatGPT or Claude (Pro).</strong> When you connect your Pro account, you paste your API key on our sign-in page. We give the app an encrypted access token linked to that key. We never see your ChatGPT or Claude password or conversations.</li>
     <li><strong>Actions (Pro).</strong> When your assistant performs an action on a site (for example sending a message or making a booking), we send the action and the input it provides to that site's own endpoint. We keep an action log with the site, the action, the first 500 characters of the input, whether it succeeded, and the first 1,000 characters of the site's reply, so you can see what your agents did. The site receives the input and handles it under its own privacy policy.</li>
-    <li><strong>Price watches (Pro).</strong> When you ask to watch a price, we store the product, your target price and optional webhook URL, linked to your hashed key. When the price drops we email your account's address and, if you gave one, POST the product and prices to your webhook. Remove a watch at any time by asking your assistant.</li>
+    <li><strong>Plans (optional).</strong> If you use the outing planner, the location, date and times your assistant sends go to OpenStreetMap (Nominatim) to find places, like the nearby tool.</li>
+    <li><strong>Price watches (Pro).</strong> When you ask to watch a price or stock, we store the product, your target price and optional webhook URL, linked to your hashed key. When the price drops we email your account's address and, if you gave one, POST the product and prices to your webhook. Remove a watch at any time by asking your assistant.</li>
     <li><strong>Payment data (Pro).</strong> Payments are processed by Stripe. We do not see or store your card details.</li>
     <li><strong>Location (optional).</strong> If you use the nearby-places tool, the location and query your assistant provides are sent to OpenStreetMap (Nominatim), or Google Maps Platform where configured, to find places. We do not store them beyond the search log.</li>
     <li><strong>News topics (optional).</strong> If you use the news tool, the topic is sent to Google News to find articles.</li>
@@ -116,6 +117,8 @@
     <li>Our WordPress plugin sends no data to us unless you turn on AI bot visits. It downloads Actuent's public signing keys to check that incoming action requests really come from Actuent. Messages sent through its contact action go straight from your site to your admin email; Actuent's action log keeps only the short record described above.</li>
     <li><strong>AI bot visits (optional).</strong> If you add your Pro key to our WordPress plugin or Cloudflare Worker, it sends us your domain, the names of AI bots that visited (such as GPTBot) and daily counts. Nothing about human visitors, no IP addresses and no page URLs. Only you, as the site's verified owner, can see them.</li>
     <li>When you claim a site with a Pro key, we send one welcome email and then a weekly score email to your account's address (via Resend). Every weekly email has a one-click unsubscribe. We send no marketing email.</li>
+    <li>If your site publishes executable actions, we send it a signed test request (<code>test: true</code>, no personal data) once a day and keep the results (success, status code, response time) for 30 days to show its reliability.</li>
+    <li>We automatically assign each site a category, compare its public score with similar sites, and flag parked domains and duplicates. This uses only public website content.</li>
     <li>You can ask us to correct or remove your site's data, including its public site page, at any time.</li>
   </ul>
 

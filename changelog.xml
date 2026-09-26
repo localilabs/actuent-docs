@@ -7,6 +7,13 @@
     <description>What's new in Actuent, the search engine for AI agents.</description>
     <language>en</language>
     <item>
+      <title>Plan an outing, compare products, badge widget and city pages</title>
+      <link>https://docs.actuent.ai/changelog#2026-09-26-plan-an-outing--compare-products--badge-widget-and-city-pages</link>
+      <guid isPermaLink="false">2026-09-26-plan-an-outing--compare-products--badge-widget-and-city-pages</guid>
+      <pubDate>Sat, 26 Sep 2026 18:00:00 +0000</pubDate>
+      <description>&lt;ul&gt;&lt;li&gt;&lt;code&gt;actuent_plan&lt;/code&gt;: a timed outing (e.g. coffee, lunch, museum) with places open when you&#x27;d arrive, walking times and events that day.&lt;/li&gt;&lt;li&gt;&lt;code&gt;actuent_compare&lt;/code&gt; compares products too: price, stock, 90-day price range and cheaper shops.&lt;/li&gt;&lt;li&gt;&lt;code&gt;actuent_watch_price&lt;/code&gt; can alert when a sold-out product is back in stock.&lt;/li&gt;&lt;li&gt;Pre-filled booking links: for Calendly, Cal.com, OpenTable, Resy and SevenRooms, the user&#x27;s date, time, party size, name and email are filled in.&lt;/li&gt;&lt;li&gt;The badge grows up: a card style, &lt;code&gt;badge.json&lt;/code&gt; and an embeddable widget, &lt;code&gt;&amp;lt;script src=&quot;https://api.actuent.ai/badge.js&quot; data-domain=&quot;yoursite.com&quot;&amp;gt;&lt;/code&gt;.&lt;/li&gt;&lt;li&gt;Site pages compare you with similar sites nearby and show what they have that you don&#x27;t; the weekly score email does too.&lt;/li&gt;&lt;li&gt;Executable endpoints are tested daily; site pages and the LAWP Checker show 30-day reliability.&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/guides&quot;&gt;Platform guides&lt;/a&gt; for Shopify, Squarespace, Wix, Webflow, static hosts and your own server.&lt;/li&gt;&lt;li&gt;Every site gets a category, and businesses are listed by city at &lt;code&gt;api.actuent.ai/site/in/&amp;lt;city&amp;gt;&lt;/code&gt;.&lt;/li&gt;&lt;li&gt;Popular sites are refreshed by how often agents actually ask for them.&lt;/li&gt;&lt;li&gt;Parked domains and duplicates are flagged and left out of search.&lt;/li&gt;&lt;/ul&gt;</description>
+    </item>
+    <item>
       <title>Events, price alerts, cheapest shop and AI bot visits</title>
       <link>https://docs.actuent.ai/changelog#2026-09-26-events--price-alerts--cheapest-shop-and-ai-bot-visits</link>
       <guid isPermaLink="false">2026-09-26-events--price-alerts--cheapest-shop-and-ai-bot-visits</guid>

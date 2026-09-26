@@ -94,6 +94,8 @@
   <a href="#api" onclick="document.getElementById('nav').classList.remove('open')">API Reference</a>
   <a href="#analytics" onclick="document.getElementById('nav').classList.remove('open')">Analytics</a>
   <a href="#checker" onclick="document.getElementById('nav').classList.remove('open')">LAWP Checker</a>
+  <a href="#badge" onclick="document.getElementById('nav').classList.remove('open')">Badge &amp; widget</a>
+  <a href="/guides">Platform guides</a>
   <a href="/generator">LAWP Generator</a>
   <a href="/changelog">Changelog</a>
 </nav>
@@ -190,12 +192,13 @@ Pro — pass Authorization: Bearer YOUR_KEY for memory and all tools.</code></pr
     <tr><td>actuent_get_actions</td><td>Get a site's actions, whether each is executable, and the JSON Schema of its input</td><td><span class="tf free">FREE</span></td></tr>
     <tr><td>actuent_get_page</td><td>Get LAWP for a specific URL path</td><td><span class="tf free">FREE</span></td></tr>
     <tr><td>actuent_execute_action</td><td>Perform a site action, such as contact or booking, on sites with <a href="#actions">LAWP action endpoints</a> (including WordPress sites with our plugin)</td><td><span class="tf pro">PRO</span></td></tr>
-    <tr><td>actuent_compare</td><td>Compare two or more sites side by side</td><td><span class="tf free">FREE</span></td></tr>
+    <tr><td>actuent_compare</td><td>Compare sites side by side, or products (price, stock, 90-day price range, cheaper shops)</td><td><span class="tf free">FREE</span></td></tr>
     <tr><td>actuent_trending</td><td>Top 10 most searched sites and queries this week</td><td><span class="tf free">FREE</span></td></tr>
     <tr><td>actuent_news</td><td>Latest articles on any topic: headlines, sources, links and dates</td><td><span class="tf free">FREE</span></td></tr>
     <tr><td>actuent_nearby</td><td>Places near a location, sorted by distance, with opening hours and an <code>open_now</code> filter (OpenStreetMap)</td><td><span class="tf free">FREE</span></td></tr>
+    <tr><td>actuent_plan</td><td>A timed outing (e.g. dinner 19:00, then drinks) with places open when you'd arrive, walking times and events that day</td><td><span class="tf free">FREE</span></td></tr>
     <tr><td>actuent_events</td><td>Upcoming events (concerts, classes, workshops) that websites publish, by city, dates and topic</td><td><span class="tf free">FREE</span></td></tr>
-    <tr><td>actuent_watch_price</td><td>Watch a product's price and get an email (or webhook) when it drops; list and remove watches</td><td><span class="tf pro">PRO</span></td></tr>
+    <tr><td>actuent_watch_price</td><td>Watch a product and get an email (or webhook) when its price drops or it's back in stock; list and remove watches</td><td><span class="tf pro">PRO</span></td></tr>
     <tr><td>actuent_history</td><td>Full search history for this API key</td><td><span class="tf pro">PRO</span></td></tr>
     <tr><td>actuent_summarise</td><td>One paragraph summary of any domain</td><td><span class="tf free">FREE</span></td></tr>
   </table>
@@ -277,7 +280,9 @@ client.products("running shoes under €100")</code></pre>
   <h3>Nearby places and events</h3>
   <p><code>actuent_nearby</code> returns OpenStreetMap places plus <code>from_websites</code>: businesses near you whose own websites Actuent has indexed, with rating, services, opening hours and their Actuent page. <code>actuent_events</code> finds events that websites publish as schema.org data.</p>
   <h3>Booking links</h3>
-  <p>When a site takes bookings or orders through a system like OpenTable, Calendly, Fresha, Booksy or Wolt, its <code>book</code> or <code>order</code> action has a <code>url</code> that goes straight to it.</p>
+  <p>When a site takes bookings or orders through a system like OpenTable, Calendly, Fresha, Booksy or Wolt, its <code>book</code> or <code>order</code> action has a <code>url</code> that goes straight to it. For Calendly, Cal.com, OpenTable, Resy and SevenRooms, <code>actuent_execute_action</code> returns a <code>prefilled_url</code> with the user's date, time, party size, name and email already filled in, so they only confirm.</p>
+  <h3>Categories and city pages</h3>
+  <p>Results have a <code>category</code> (for example <code>restaurant</code>, <code>hair_beauty</code>, <code>shop_fashion</code>, <code>software</code>). Businesses with an address are listed by city at <code>https://api.actuent.ai/site/in/&lt;city&gt;</code> and <code>/site/in/&lt;city&gt;/&lt;category&gt;</code>, e.g. <a href="https://api.actuent.ai/site/in/copenhagen/restaurant">/site/in/copenhagen/restaurant</a>. Parked domains and duplicates (a domain that redirects to another indexed site) are left out of search.</p>
   <h3>Site pages and badges</h3>
   <p>Every indexed site has a public page at <code>https://api.actuent.ai/site/&lt;domain&gt;</code> showing what agents see, its agent-readiness score, how to improve it, and a starter <code>lawp.json</code> and schema.org snippet. Owners who claim their site get a weekly score email with their next step. Show your score on your own site with the live badge: <code>&lt;img src="https://api.actuent.ai/badge.svg?domain=yoursite.com"&gt;</code></p>
   <h3>Any language, answered in English</h3>
@@ -288,6 +293,17 @@ client.products("running shoes under €100")</code></pre>
   <p>Every response includes <code>X-RateLimit-Limit</code>, <code>X-RateLimit-Remaining</code> and <code>X-RateLimit-Reset</code>. Over the limit you get <code>429</code> with <code>Retry-After</code>. Free: 20 requests/minute. Pro: 60 requests/minute with priority access.</p>
   <h3>OpenAPI</h3>
   <p>The full API is described at <a href="https://api.actuent.ai/openapi.json">api.actuent.ai/openapi.json</a>. Import it into a Custom GPT (Actions), Postman, or any API tool.</p>
+
+  <h2 id="badge">Badge &amp; widget</h2>
+  <p>Show your live agent-readiness score on your site or README. All three update hourly and link to your Actuent page, which shows how to improve the score and how you compare with similar sites nearby.</p>
+  <h3>Widget (recommended)</h3>
+  <pre><code>&lt;script src="https://api.actuent.ai/badge.js" data-domain="yoursite.com" async&gt;&lt;/script&gt;</code></pre>
+  <p>Add <code>data-theme="light"</code> for light backgrounds. Several on one page: put <code>&lt;div data-actuent-badge="yoursite.com"&gt;&lt;/div&gt;</code> where you want each, and load the script once.</p>
+  <h3>Images</h3>
+  <pre><code>https://api.actuent.ai/badge.svg?domain=yoursite.com             compact
+https://api.actuent.ai/badge.svg?domain=yoursite.com&amp;style=card  card with the checks</code></pre>
+  <h3>JSON</h3>
+  <p><code>GET https://api.actuent.ai/badge.json?domain=yoursite.com</code> returns the score, label, category and each check, to build your own.</p>
 
   <h2 id="lawp">LAWP Format</h2>
   <p>LAWP (Locali AI Web Protocol) is an open standard for representing websites as structured JSON AI agents can read and act on. Full spec: <a href="https://github.com/localilabs/lawp">github.com/localilabs/lawp</a></p>
@@ -314,6 +330,7 @@ client.products("running shoes under €100")</code></pre>
   ]
 }</code></pre>
 
+  <p>Building on Shopify, Squarespace, Wix, Webflow or a static host? See the <a href="/guides">platform guides</a>.</p>
   <p>Actuent also reads a site's <a href="https://llmstxt.org">llms.txt</a>, and uses its page list and summary when converting the site.</p>
 
   <h2 id="actions">LAWP Actions</h2>
@@ -406,7 +423,7 @@ const ok = crypto.verify(null, Buffer.from(signed), publicKeyFromJwk, Buffer.fro
   <p>Sites you've <a href="#sdk">verified</a> are marked ✓. Other sites appear once your key has searched them.</p>
 
   <h2 id="checker">LAWP Checker</h2>
-  <p>Validate your <code>/.well-known/lawp.json</code> and action endpoints, then send a signed test request (<code>test: true</code>). Sites without native LAWP show Actuent's crawled version.</p>
+  <p>Validate your <code>/.well-known/lawp.json</code> and action endpoints, then send a signed test request (<code>test: true</code>). Actuent also tests every executable endpoint daily; each action shows its reliability over the last 30 days. Sites without native LAWP show Actuent's crawled version.</p>
   <div class="crow">
     <input type="text" class="cin" id="ci" placeholder="yoursite.com" onkeydown="if(event.key==='Enter')checkLAWP()">
     <button class="cbtn" onclick="checkLAWP()">Check</button>
@@ -451,6 +468,13 @@ function checkLAWP() {
       return '<div style="border:1px solid #2a2a34;border-radius:7px;padding:12px 14px;margin-bottom:8px"><div style="font-size:13px;color:#eeeef2"><code>'+escH(a.id)+'</code> '+escH(a.name||"")+' '+status+'</div>'+issues+test+'</div>'
     }).join("")
     cr.innerHTML = html
+    // 30-day reliability from daily checks and earlier tests.
+    fetch(CHECK_API+"?history=1&domain="+encodeURIComponent(res.domain)).then(function(r){ return r.json() }).then(function(h) {
+      (h.actions || []).forEach(function(a) {
+        var el = document.getElementById("tr-"+a.action_id)
+        if (el) el.insertAdjacentHTML("beforebegin", '<div style="font-size:12px;color:#a8a8b6;margin-top:6px">Last 30 days: <strong style="color:'+(a.percent >= 95 ? "#4ade80" : a.percent >= 80 ? "#ff8a3d" : "#f87171")+'">'+escH(a.percent)+'% reliable</strong> · '+escH(a.checks)+' checks'+(a.avg_ms ? ' · '+escH(a.avg_ms)+' ms average' : '')+'</div>')
+      })
+    }).catch(function(){})
   }).catch(function() {
     cr.innerHTML = box("#f87171", "Check failed", "Could not reach the checker — try again.")
   })
