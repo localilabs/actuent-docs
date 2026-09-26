@@ -42,6 +42,22 @@
   </div>
   <h1>Changelog</h1>
   <p class="sub">What's new in Actuent. Follow along with the <a href="/changelog.xml">RSS feed</a>.</p>
+  <section id="2026-09-26-trips--service-search--ask-a-site-and-ai-bot-access">
+    <div class="date">26 September 2026</div>
+    <h2><a href="#2026-09-26-trips--service-search--ask-a-site-and-ai-bot-access">Trips, service search, ask a site and AI bot access</a></h2>
+    <ul>
+      <li><code>actuent_trip</code>: a 1–4 day city trip with where to stay and a timed plan for each day.</li>
+      <li><code>actuent_find_service</code>: find a service or dish with its price, e.g. "skin fade under €30" in Amsterdam.</li>
+      <li><code>actuent_ask_site</code>: answer a question from one site's own pages.</li>
+      <li>Filters for nearby places, plans and trips: vegan, vegetarian, gluten-free, wheelchair accessible, outdoor seating, wifi, kids, dogs.</li>
+      <li>"Open now" knows about public holidays.</li>
+      <li>What's on pages and calendar feeds for every city: <code>api.actuent.ai/site/in/&lt;city&gt;/whats-on.ics</code>.</li>
+      <li>Site pages show which AI bots a site's robots.txt blocks, with the fix.</li>
+      <li><code>visit_url</code> on every result: owners see the visits Actuent sends them in Analytics.</li>
+      <li>The crawlers try harder before saving a site as minimal: the rendered page, www and http addresses, llms.txt and the sitemap.</li>
+      <li>Python SDK 0.2 and @actuent/sdk 0.4 cover every tool; OpenAPI 1.1.</li>
+    </ul>
+  </section>
   <section id="2026-09-26-plan-an-outing--compare-products--badge-widget-and-city-pages">
     <div class="date">26 September 2026</div>
     <h2><a href="#2026-09-26-plan-an-outing--compare-products--badge-widget-and-city-pages">Plan an outing, compare products, badge widget and city pages</a></h2>

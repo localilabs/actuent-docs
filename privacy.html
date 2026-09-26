@@ -77,7 +77,7 @@
 <main>
   <div class="top"><a href="https://actuent.ai"><img src="https://api.actuent.ai/assets/actuent-logo.png" alt="Actuent"></a><a href="https://docs.actuent.ai">Docs</a></div>
   <h1>Privacy Policy</h1>
-  <p class="sub">Last updated: 26 September 2026 (rev. 7)</p>
+  <p class="sub">Last updated: 26 September 2026 (rev. 8)</p>
 
   <p>Actuent ("we", "us") is a search service for AI agents, made by localilabs (Alfred Murray) in Copenhagen, Denmark. This policy explains what data Actuent handles when you or your AI assistant use actuent.ai, api.actuent.ai, agents.actuent.ai (the Actuent MCP server, including the ChatGPT app and Claude connector), humans.actuent.ai, analytics.actuent.ai, docs.actuent.ai and the @actuent/sdk package. We are the data controller.</p>
 
@@ -118,6 +118,8 @@
     <li><strong>AI bot visits (optional).</strong> If you add your Pro key to our WordPress plugin or Cloudflare Worker, it sends us your domain, the names of AI bots that visited (such as GPTBot) and daily counts. Nothing about human visitors, no IP addresses and no page URLs. Only you, as the site's verified owner, can see them.</li>
     <li>When you claim a site with a Pro key, we send one welcome email and then a weekly score email to your account's address (via Resend). Every weekly email has a one-click unsubscribe. We send no marketing email.</li>
     <li>If your site publishes executable actions, we send it a signed test request (<code>test: true</code>, no personal data) once a day and keep the results (success, status code, response time) for 30 days to show its reliability.</li>
+    <li>Links Actuent gives to AI agents go through <code>api.actuent.ai/go</code>, which counts one visit for the site per click (the site and the day only; no IP address, cookie or anything about the person) and redirects.</li>
+    <li>We read each site's public robots.txt to show which AI bots it blocks.</li>
     <li>We automatically assign each site a category, compare its public score with similar sites, and flag parked domains and duplicates. This uses only public website content.</li>
     <li>You can ask us to correct or remove your site's data, including its public site page, at any time.</li>
   </ul>
@@ -135,6 +137,7 @@
     <li>Resend (sending the welcome email when you claim a site)</li>
     <li>Cloudflare Workers AI, Cohere, Hugging Face, Google Gemini and Mistral (backup AI processing of public website content only)</li>
     <li>European Central Bank exchange rates via frankfurter.app (currency conversion; no personal data)</li>
+    <li>Nager.Date (public holiday dates; no personal data)</li>
   </ul>
   <p>Some of these providers may process data outside the EU/EEA under appropriate safeguards such as the EU Standard Contractual Clauses.</p>
 

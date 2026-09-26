@@ -7,6 +7,13 @@
     <description>What's new in Actuent, the search engine for AI agents.</description>
     <language>en</language>
     <item>
+      <title>Trips, service search, ask a site and AI bot access</title>
+      <link>https://docs.actuent.ai/changelog#2026-09-26-trips--service-search--ask-a-site-and-ai-bot-access</link>
+      <guid isPermaLink="false">2026-09-26-trips--service-search--ask-a-site-and-ai-bot-access</guid>
+      <pubDate>Sat, 26 Sep 2026 21:00:00 +0000</pubDate>
+      <description>&lt;ul&gt;&lt;li&gt;&lt;code&gt;actuent_trip&lt;/code&gt;: a 1–4 day city trip with where to stay and a timed plan for each day.&lt;/li&gt;&lt;li&gt;&lt;code&gt;actuent_find_service&lt;/code&gt;: find a service or dish with its price, e.g. &quot;skin fade under €30&quot; in Amsterdam.&lt;/li&gt;&lt;li&gt;&lt;code&gt;actuent_ask_site&lt;/code&gt;: answer a question from one site&#x27;s own pages.&lt;/li&gt;&lt;li&gt;Filters for nearby places, plans and trips: vegan, vegetarian, gluten-free, wheelchair accessible, outdoor seating, wifi, kids, dogs.&lt;/li&gt;&lt;li&gt;&quot;Open now&quot; knows about public holidays.&lt;/li&gt;&lt;li&gt;What&#x27;s on pages and calendar feeds for every city: &lt;code&gt;api.actuent.ai/site/in/&amp;lt;city&amp;gt;/whats-on.ics&lt;/code&gt;.&lt;/li&gt;&lt;li&gt;Site pages show which AI bots a site&#x27;s robots.txt blocks, with the fix.&lt;/li&gt;&lt;li&gt;&lt;code&gt;visit_url&lt;/code&gt; on every result: owners see the visits Actuent sends them in Analytics.&lt;/li&gt;&lt;li&gt;The crawlers try harder before saving a site as minimal: the rendered page, www and http addresses, llms.txt and the sitemap.&lt;/li&gt;&lt;li&gt;Python SDK 0.2 and @actuent/sdk 0.4 cover every tool; OpenAPI 1.1.&lt;/li&gt;&lt;/ul&gt;</description>
+    </item>
+    <item>
       <title>Plan an outing, compare products, badge widget and city pages</title>
       <link>https://docs.actuent.ai/changelog#2026-09-26-plan-an-outing--compare-products--badge-widget-and-city-pages</link>
       <guid isPermaLink="false">2026-09-26-plan-an-outing--compare-products--badge-widget-and-city-pages</guid>
