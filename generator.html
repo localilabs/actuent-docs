@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LAWP Generator — Actuent</title>
+  <meta name="description" content="Make a valid lawp.json for your website in a minute: pages, actions and structured inputs, so AI agents can read and act on your site.">
+  <link rel="icon" type="image/png" href="https://api.actuent.ai/assets/actuent-logo.png">
+  <meta property="og:title" content="LAWP Generator">
+  <meta property="og:description" content="Make a lawp.json for your website so AI agents can read and act on it.">
+  <meta property="og:url" content="https://docs.actuent.ai/generator">
+  <meta property="og:image" content="https://api.actuent.ai/og?title=LAWP%20Generator&amp;subtitle=Make%20your%20site%20readable%20and%20actionable%20by%20AI%20agents&amp;tag=docs.actuent.ai%2Fgenerator">
+  <meta name="twitter:card" content="summary_large_image">
+  <style>
+    :root{--bg:#0a0a0a;--surface:#13131a;--raised:#17171f;--border:#2a2a34;--text:#f0f0f0;--muted:#a8a8b6;--soft:#c4c4cf;--accent:#ff8a3d;--good:#4ade80;--bad:#f87171}
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+    main{max-width:1180px;margin:0 auto;padding:40px 16px 80px}
+    .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}
+    .top img{height:20px}.top a{color:var(--muted);font-size:13px;text-decoration:none;margin-left:16px}.top a:hover{color:var(--text)}
+    h1{font-size:30px;letter-spacing:-1px;margin-bottom:8px}
+    .sub{color:var(--muted);font-size:14px;line-height:1.6;margin-bottom:28px;max-width:720px}
+    a{color:var(--accent)}
+    .cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
+    .panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px}
+    .out{position:sticky;top:16px}
+    h2{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin:18px 0 10px}
+    h2:first-child{margin-top:0}
+    label{display:block;font-size:12px;color:var(--muted);margin:10px 0 4px}
+    input,textarea,select{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:7px;padding:8px 10px;font-size:13px;font-family:inherit;outline:none}
+    input:focus,textarea:focus,select:focus{border-color:#44444f}
+    textarea{resize:vertical;min-height:56px}
+    .row{display:flex;gap:8px}.row>*{flex:1}
+    .block{border:1px solid var(--border);border-radius:9px;padding:10px 12px;margin-bottom:8px;background:var(--raised)}
+    .btn{background:var(--accent);color:#0a0a0a;border:none;padding:8px 14px;font-size:12px;font-weight:700;border-radius:7px;cursor:pointer}
+    .btn.ghost{background:transparent;color:var(--soft);border:1px solid var(--border);font-weight:500}
+    .btn.small{padding:4px 9px;font-size:11px}
+    .presets{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+    pre{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:14px;overflow:auto;max-height:70vh;font-size:12px;line-height:1.55;color:#dcdce3}
+    .muted{color:var(--muted);font-size:12px;line-height:1.6}
+    .ok{color:var(--good)}.bad{color:var(--bad)}
+    .check{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--soft);margin-top:8px}.check input{width:auto}
+    @media(max-width:860px){.cols{grid-template-columns:1fr}.out{position:static}}
+  </style>
+</head>
+<body>
+<main>
+  <div class="top">
+    <a href="/" style="margin:0"><img src="https://api.actuent.ai/assets/actuent-logo.png" alt="Actuent"></a>
+    <div><a href="/">Docs</a><a href="/#checker">Checker</a><a href="/changelog">Changelog</a></div>
+  </div>
+  <h1>LAWP Generator</h1>
+  <p class="sub">Make a <code>lawp.json</code> for your site in a minute. Publish it at <code>https://yoursite.com/.well-known/lawp.json</code> and AI agents using Actuent can read your pages and take your actions. Everything runs in your browser. On WordPress or Cloudflare? The <a href="https://github.com/localilabs/actuent-wordpress/releases/latest">plugin</a> and <a href="https://github.com/localilabs/actuent-cloudflare">Worker</a> do this for you.</p>
+
+  <div class="cols">
+    <div class="panel">
+      <h2>Your site</h2>
+      <div class="row">
+        <div><label for="domain">Domain</label><input id="domain" placeholder="yoursite.com"></div>
+        <div><label for="name">Name</label><input id="name" placeholder="Your business"></div>
+      </div>
+      <div class="row" style="margin-top:8px;align-items:end">
+        <button class="btn ghost" onclick="startFromActuent()" style="flex:0 0 auto">Start from what Actuent knows</button>
+        <span id="start-status" class="muted" style="align-self:center"></span>
+      </div>
+      <label for="home">What you do (the homepage summary)</label>
+      <textarea id="home" placeholder="Family-run barbershop in the Jordaan, Amsterdam. Walk-ins welcome. Fades, beard trims and traditional cuts since 2012."></textarea>
+      <div class="muted">Plain English, no HTML. Say what you do, where, and for whom.</div>
+
+      <h2>Pages</h2>
+      <div id="pages"></div>
+      <button class="btn ghost small" onclick="addPage()">+ Add page</button>
+
+      <h2>Actions</h2>
+      <div class="presets" id="presets"></div>
+      <div id="actions"></div>
+      <button class="btn ghost small" onclick="addAction({})">+ Custom action</button>
+    </div>
+
+    <div class="panel out">
+      <h2>Your lawp.json</h2>
+      <div id="problems" class="muted" style="margin-bottom:10px"></div>
+      <pre><code id="output"></code></pre>
+      <div class="row" style="margin-top:10px;flex-wrap:wrap">
+        <button class="btn" onclick="copyOut()" style="flex:0 0 auto">Copy</button>
+        <button class="btn ghost" onclick="download()" style="flex:0 0 auto">Download</button>
+        <span id="copy-status" class="muted" style="align-self:center"></span>
+      </div>
+      <p class="muted" style="margin-top:12px">Then publish it at <code>/.well-known/lawp.json</code> and test it with the <a href="/#checker">LAWP Checker</a>. Spec: <a href="https://github.com/localilabs/lawp/blob/main/LAWP.md">LAWP 0.3</a>.</p>
+    </div>
+  </div>
+</main>
+
+<script>
+var PRESETS = {
+  contact: { id: "contact", name: "Contact", description: "Send a message to {name}", intent: ["contact", "message", "email", "get in touch", "ask a question"],
+    input: { type: "object", required: true, fields: [{ name: "name", type: "string", required: true }, { name: "email", type: "email", required: true }, { name: "message", type: "string", required: true }] } },
+  book: { id: "book", name: "Book an appointment", description: "Book an appointment at {name}", intent: ["book", "booking", "appointment", "schedule", "reserve"],
+    input: { type: "object", required: true, fields: [{ name: "date", type: "date", required: true }, { name: "time", type: "time", required: true }, { name: "service", type: "string" }, { name: "name", type: "string", required: true }, { name: "email", type: "email", required: true }] } },
+  reserve_table: { id: "reserve_table", name: "Reserve a table", description: "Reserve a table at {name}", intent: ["reserve", "table", "book a table", "dinner", "reservation"],
+    input: { type: "object", required: true, fields: [{ name: "date", type: "date", required: true }, { name: "time", type: "time", required: true }, { name: "people", type: "integer", required: true }, { name: "name", type: "string", required: true }, { name: "phone", type: "phone", required: true }] } },
+  order: { id: "order", name: "Order online", description: "Order from {name} for delivery or pickup", intent: ["order", "delivery", "takeaway", "pickup", "buy"], input: { type: "text", required: false } },
+  get_quote: { id: "get_quote", name: "Get a quote", description: "Ask {name} for a price quote", intent: ["quote", "estimate", "price", "how much", "cost"],
+    input: { type: "object", required: true, fields: [{ name: "details", type: "string", required: true, description: "What you need" }, { name: "email", type: "email", required: true }] } },
+  view_pricing: { id: "view_pricing", name: "View prices", description: "See {name}'s prices", intent: ["pricing", "prices", "how much", "cost", "rates"], input: { type: "none", required: false } },
+  search: { id: "search", name: "Search", description: "Search {name}", intent: ["search", "find", "look up"], input: { type: "text", required: true } }
+}
+
+function esc(v) { return String(v == null ? "" : v).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c] }) }
+function $(id) { return document.getElementById(id) }
+
+function addPage(path, title, content) {
+  $("pages").insertAdjacentHTML("beforeend", '<div class="block" data-page><div class="row"><input data-f="path" placeholder="/services" value="' + esc(path || "") + '"><input data-f="title" placeholder="Services" value="' + esc(title || "") + '"><button class="btn ghost small" style="flex:0 0 auto" onclick="this.closest(\'[data-page]\').remove();render()">✕</button></div><textarea data-f="content" style="margin-top:6px" placeholder="Haircut €25. Beard trim €15. Kids cut €15.">' + esc(content || "") + '</textarea></div>')
+}
+
+function addAction(a) {
+  var fields = a.input && a.input.type === "object" ? JSON.stringify(a.input.fields || [], null, 0) : ""
+  $("actions").insertAdjacentHTML("beforeend",
+    '<div class="block" data-action data-desc-template="' + esc(a.description || "") + '">' +
+    '<div class="row"><input data-f="id" placeholder="id (snake_case)" value="' + esc(a.id || "") + '"><input data-f="name" placeholder="Name" value="' + esc(a.name || "") + '"><button class="btn ghost small" style="flex:0 0 auto" onclick="this.closest(\'[data-action]\').remove();render()">✕</button></div>' +
+    '<label>Description</label><input data-f="description" value="' + esc((a.description || "").replace("{name}", $("name").value || "us")) + '">' +
+    '<label>Phrases people use (comma separated, at least 3)</label><input data-f="intent" value="' + esc((a.intent || []).join(", ")) + '">' +
+    '<div class="row"><div><label>Input</label><select data-f="type">' + ["text", "number", "none", "object"].map(function (t) { return "<option" + (a.input && a.input.type === t ? " selected" : "") + ">" + t + "</option>" }).join("") + '</select></div>' +
+    '<div><label class="check" style="margin-top:26px"><input type="checkbox" data-f="required"' + (a.input && a.input.required ? " checked" : "") + '> required</label></div></div>' +
+    '<label>Fields (for "object": JSON array)</label><textarea data-f="fields" placeholder=\'[{"name":"date","type":"date","required":true}]\'>' + esc(fields) + '</textarea>' +
+    '<label>Endpoint (optional, makes it executable): https URL on your domain</label><div class="row"><input data-f="endpoint" placeholder="https://yoursite.com/api/lawp/' + esc(a.id || "action") + '"><select data-f="method" style="flex:0 0 90px"><option>POST</option><option>GET</option></select></div>' +
+    '</div>')
+  render()
+}
+
+function read() {
+  var domain = $("domain").value.trim().toLowerCase().replace(/^https?:\/\//, "").replace(/\/.*$/, "")
+  var name = $("name").value.trim()
+  var pages = {}
+  pages["/"] = { title: name || domain, content: $("home").value.trim() }
+  document.querySelectorAll("[data-page]").forEach(function (el) {
+    var path = el.querySelector('[data-f="path"]').value.trim()
+    if (!path) return
+    if (path.charAt(0) !== "/") path = "/" + path
+    pages[path] = { title: el.querySelector('[data-f="title"]').value.trim(), content: el.querySelector('[data-f="content"]').value.trim() }
+  })
+  var problems = []
+  var actions = [].map.call(document.querySelectorAll("[data-action]"), function (el) {
+    var v = function (f) { return el.querySelector('[data-f="' + f + '"]').value.trim() }
+    var type = v("type"), input = { type: type, required: el.querySelector('[data-f="required"]').checked }
+    if (type === "object") {
+      try { input.fields = JSON.parse(v("fields") || "[]") } catch (e) { input.fields = []; problems.push('Action "' + v("id") + '": fields aren\'t valid JSON') }
+      if (!input.fields.length) problems.push('Action "' + v("id") + '": an "object" input needs fields')
+    }
+    var a = { id: v("id").toLowerCase().replace(/[^a-z0-9_]+/g, "_"), name: v("name"), description: v("description"),
+      intent: v("intent").split(",").map(function (t) { return t.trim() }).filter(Boolean), input: input }
+    if (v("endpoint")) {
+      a.endpoint = { url: v("endpoint"), method: v("method") }
+      try {
+        var u = new URL(v("endpoint"))
+        if (u.protocol !== "https:" || (domain && u.hostname !== domain && !u.hostname.endsWith("." + domain.replace(/^www\./, "")) && u.hostname !== domain.replace(/^www\./, ""))) problems.push('Action "' + a.id + '": the endpoint must be https:// on ' + (domain || "your domain"))
+      } catch (e) { problems.push('Action "' + a.id + '": the endpoint isn\'t a valid URL') }
+    }
+    if (!a.id || !a.name) problems.push("Every action needs an id and a name")
+    if (a.intent.length < 3) problems.push('Action "' + (a.id || "?") + '": add at least 3 phrases')
+    return a
+  })
+  if (!domain) problems.unshift("Add your domain")
+  if (!name) problems.unshift("Add your site's name")
+  if (pages["/"].content.length < 40) problems.push("Describe what you do in a sentence or two")
+  if (!actions.length) problems.push("Add at least one action (contact is a good start)")
+  return { doc: { lawp_version: "0.3", domain: domain, name: name, language: "en", pages: pages, actions: actions }, problems: problems }
+}
+
+function render() {
+  var r = read()
+  $("output").textContent = JSON.stringify(r.doc, null, 2)
+  $("problems").innerHTML = r.problems.length ? r.problems.map(function (p) { return '<div class="bad">○ ' + esc(p) + "</div>" }).join("") : '<div class="ok">✓ Looks valid</div>'
+}
+
+function copyOut() {
+  navigator.clipboard.writeText($("output").textContent).then(function () { $("copy-status").textContent = "Copied" }, function () { $("copy-status").textContent = "Select the text and copy it" })
+}
+
+function download() {
+  var a = document.createElement("a")
+  a.href = URL.createObjectURL(new Blob([$("output").textContent], { type: "application/json" }))
+  a.download = "lawp.json"
+  a.click()
+}
+
+// Prefill from Actuent's index (the same data AI agents see today).
+function startFromActuent() {
+  var domain = $("domain").value.trim().toLowerCase().replace(/^https?:\/\//, "").replace(/\/.*$/, "")
+  if (!domain) { $("start-status").textContent = "Enter your domain first"; return }
+  $("start-status").textContent = "Loading…"
+  fetch("https://api.actuent.ai/api/search?q=" + encodeURIComponent(domain)).then(function (r) { return r.json() }).then(function (d) {
+    var site = (d.results || []).filter(function (s) { return s.domain === domain || s.domain === domain.replace(/^www\./, "") })[0] || (d.results || [])[0]
+    if (!site) { $("start-status").textContent = "Actuent doesn't know this site yet"; return }
+    $("name").value = site.name || ""
+    var pages = site.pages || {}
+    var home = pages["/"] || {}
+    if (home.content && !/^Website at /.test(home.content)) $("home").value = home.content
+    $("pages").innerHTML = ""
+    Object.keys(pages).filter(function (p) { return p !== "/" }).slice(0, 12).forEach(function (p) { addPage(p, pages[p].title, pages[p].content) })
+    $("actions").innerHTML = ""
+    ;(site.actions || []).forEach(function (a) { var copy = JSON.parse(JSON.stringify(a)); delete copy.endpoint; addAction(copy) })
+    $("start-status").textContent = "Loaded. Edit anything, then copy."
+    render()
+  }).catch(function () { $("start-status").textContent = "Could not reach Actuent" })
+}
+
+$("presets").innerHTML = Object.keys(PRESETS).map(function (k) { return '<button class="btn ghost small" onclick="addAction(PRESETS.' + k + ')">+ ' + esc(PRESETS[k].name) + "</button>" }).join("")
+document.addEventListener("input", render)
+addPage("/services", "", "")
+addAction(PRESETS.contact)
+var q = new URLSearchParams(location.search).get("domain")
+if (q) { $("domain").value = q; startFromActuent() }
+</script>
+</body>
+</html>

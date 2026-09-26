@@ -94,6 +94,7 @@
   <a href="#api" onclick="document.getElementById('nav').classList.remove('open')">API Reference</a>
   <a href="#analytics" onclick="document.getElementById('nav').classList.remove('open')">Analytics</a>
   <a href="#checker" onclick="document.getElementById('nav').classList.remove('open')">LAWP Checker</a>
+  <a href="/generator">LAWP Generator</a>
   <a href="/changelog">Changelog</a>
 </nav>
 
@@ -193,9 +194,14 @@ Pro — pass Authorization: Bearer YOUR_KEY for memory and all tools.</code></pr
     <tr><td>actuent_trending</td><td>Top 10 most searched sites and queries this week</td><td><span class="tf free">FREE</span></td></tr>
     <tr><td>actuent_news</td><td>Latest articles on any topic: headlines, sources, links and dates</td><td><span class="tf free">FREE</span></td></tr>
     <tr><td>actuent_nearby</td><td>Places near a location, sorted by distance, with opening hours and an <code>open_now</code> filter (OpenStreetMap)</td><td><span class="tf free">FREE</span></td></tr>
+    <tr><td>actuent_events</td><td>Upcoming events (concerts, classes, workshops) that websites publish, by city, dates and topic</td><td><span class="tf free">FREE</span></td></tr>
+    <tr><td>actuent_watch_price</td><td>Watch a product's price and get an email (or webhook) when it drops; list and remove watches</td><td><span class="tf pro">PRO</span></td></tr>
     <tr><td>actuent_history</td><td>Full search history for this API key</td><td><span class="tf pro">PRO</span></td></tr>
     <tr><td>actuent_summarise</td><td>One paragraph summary of any domain</td><td><span class="tf free">FREE</span></td></tr>
   </table>
+
+  <h3>Prompts and resources</h3>
+  <p>The MCP server also offers ready-made prompts, shown as slash commands or quick actions in Claude and ChatGPT: <code>plan_night_out</code>, <code>find_best_deal</code>, <code>book_appointment</code>, <code>whats_on</code> and <code>check_site</code>. Resources: the LAWP spec (<code>actuent://docs/lawp</code>) and an overview of Actuent (<code>actuent://docs/overview</code>).</p>
 
   <h2 id="sdk">@actuent/sdk</h2>
   <p>List your site so AI agents can find and act on it.</p>
@@ -251,7 +257,8 @@ client.products("running shoes under €100")</code></pre>
   <p>Publish native LAWP without writing code:</p>
   <ul style="margin:0 0 12px 20px;color:#c4c4cf;font-size:14px;line-height:1.8">
     <li><strong>WordPress:</strong> the <a href="https://github.com/localilabs/actuent-wordpress/releases/latest">Actuent LAWP plugin</a> adds a search action and a contact action, and WooCommerce products are picked up automatically.</li>
-    <li><strong>Any site on Cloudflare:</strong> <a href="https://github.com/localilabs/actuent-cloudflare">one-click Worker</a>. Deploy it, then add the route <code>yoursite.com/.well-known/lawp.json</code>.</li>
+    <li><strong>Any site on Cloudflare:</strong> <a href="https://github.com/localilabs/actuent-cloudflare">one-click Worker</a>. Deploy it, then add the routes <code>yoursite.com/.well-known/lawp.json</code> and <code>yoursite.com/llms.txt</code>.</li>
+    <li><strong>Any other site:</strong> make your file with the <a href="/generator">LAWP Generator</a> and upload it to <code>/.well-known/lawp.json</code>.</li>
     <li><strong>Shopify:</strong> nothing to install. Actuent reads your public product catalogue automatically.</li>
     <li><strong>No code at all:</strong> claim your site in <a href="https://analytics.actuent.ai">Analytics → My sites</a> and edit its pages and actions in a form.</li>
   </ul>
@@ -261,10 +268,18 @@ client.products("running shoes under €100")</code></pre>
   <p>Shopping searches return a <code>products</code> list next to the sites: name, price, currency, a EUR price, link and image. Add a budget and Actuent filters by it, converting currencies: <code>running shoes under €100</code>, <code>leggings below 50 dollars</code>, <code>headphones under 1000 kr</code>. Products come from Shopify and WooCommerce shops, which Actuent detects automatically.</p>
   <h3>Price changes</h3>
   <p>When a product's price has changed, it includes <code>previous_price_eur</code>, <code>price_change_percent</code> (e.g. <code>-20</code> for 20% cheaper) and <code>price_changed_at</code>.</p>
+  <h3>Same product, cheapest shop</h3>
+  <p>A product sold by several shops appears once, at its cheapest shop, with <code>other_shops</code> (domain, price and link) and <code>matched_by</code>: <code>barcode</code> when shops publish one, otherwise <code>name</code>.</p>
+  <h3>Price-drop alerts (Pro)</h3>
+  <p>Ask your assistant to watch a product (<code>actuent_watch_price</code>). Actuent checks watched prices daily and emails you, or POSTs to your webhook, when the price drops, optionally only at or below a target price.</p>
   <h3>Business details and open now</h3>
-  <p>Sites that publish schema.org business data (as most shops, restaurants and salons do for Google) get a <code>business</code> object: address, phone, email, opening hours, price range and location. Results with opening hours include <code>open_now</code>, in the business's own time zone.</p>
+  <p>Sites that publish schema.org business data (as most shops, restaurants and salons do for Google) get a <code>business</code> object: address, phone, email, opening hours, price range and location. Results with opening hours include <code>open_now</code>, in the business's own time zone. When sites publish them, <code>business</code> also has a star <code>rating</code> and <code>offers</code>: services, menu items and their prices (e.g. "Skin fade, 25 EUR").</p>
+  <h3>Nearby places and events</h3>
+  <p><code>actuent_nearby</code> returns OpenStreetMap places plus <code>from_websites</code>: businesses near you whose own websites Actuent has indexed, with rating, services, opening hours and their Actuent page. <code>actuent_events</code> finds events that websites publish as schema.org data.</p>
+  <h3>Booking links</h3>
+  <p>When a site takes bookings or orders through a system like OpenTable, Calendly, Fresha, Booksy or Wolt, its <code>book</code> or <code>order</code> action has a <code>url</code> that goes straight to it.</p>
   <h3>Site pages and badges</h3>
-  <p>Every indexed site has a public page at <code>https://api.actuent.ai/site/&lt;domain&gt;</code> showing what agents see and its agent-readiness score. Show your score on your own site with the live badge: <code>&lt;img src="https://api.actuent.ai/badge.svg?domain=yoursite.com"&gt;</code></p>
+  <p>Every indexed site has a public page at <code>https://api.actuent.ai/site/&lt;domain&gt;</code> showing what agents see, its agent-readiness score, how to improve it, and a starter <code>lawp.json</code> and schema.org snippet. Owners who claim their site get a weekly score email with their next step. Show your score on your own site with the live badge: <code>&lt;img src="https://api.actuent.ai/badge.svg?domain=yoursite.com"&gt;</code></p>
   <h3>Any language, answered in English</h3>
   <p>Search in any language (<code>Laufschuhe</code>, <code>frisør københavn</code>). Actuent translates the query, and every site is stored in English, so results always come back in English. <code>language</code> tells you the site's original language.</p>
   <h3>Freshness</h3>
@@ -293,10 +308,13 @@ client.products("running shoes under €100")</code></pre>
         "required": true | false,
         "fields": [ { "name": "date", "type": "date", "required": true } ]
       },
-      "endpoint": { "url": "https://…", "method": "POST | GET" }
+      "endpoint": { "url": "https://…", "method": "POST | GET" },
+      "url": "https://… (where a person can do this, e.g. a booking page)"
     }
   ]
 }</code></pre>
+
+  <p>Actuent also reads a site's <a href="https://llmstxt.org">llms.txt</a>, and uses its page list and summary when converting the site.</p>
 
   <h2 id="actions">LAWP Actions</h2>
   <p>Make your site's actions executable by AI agents. Publish your LAWP at <code>https://yoursite.com/.well-known/lawp.json</code> and give each action an <code>endpoint</code> on your own domain. When an agent calls <code>actuent_execute_action</code>, Actuent sends the request to your endpoint and returns your response to the agent.</p>
@@ -384,6 +402,7 @@ const ok = crypto.verify(null, Buffer.from(signed), publicKeyFromJwk, Buffer.fro
     <li><strong>My sites:</strong> claim a site with a DNS record, then edit its pages and actions without code. Claimed sites are never overwritten by the crawler.</li>
     <li><strong>Account:</strong> your usage, your referral link (a free month for every friend who subscribes to Pro), and a button to delete your data.</li>
   </ul>
+  <p><strong>AI bot visits:</strong> see how often GPTBot, ClaudeBot, PerplexityBot and other AI bots visit your claimed site. Turn it on in the WordPress plugin (Settings → Actuent) or the Cloudflare Worker (<code>ACTUENT_API_KEY</code>) with your Pro key. Only bot names and daily counts are sent.</p>
   <p>Sites you've <a href="#sdk">verified</a> are marked ✓. Other sites appear once your key has searched them.</p>
 
   <h2 id="checker">LAWP Checker</h2>

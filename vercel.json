@@ -28,6 +28,14 @@
     {
       "src": "changelog.xml",
       "use": "@vercel/static"
+    },
+    {
+      "src": "generator.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "llms.txt",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
@@ -42,6 +50,18 @@
         "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src * data:; connect-src 'self' https://api.actuent.ai https://agents.actuent.ai; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
       },
       "continue": true
+    },
+    {
+      "src": "/generator/?",
+      "dest": "/generator.html"
+    },
+    {
+      "src": "/llms.txt",
+      "dest": "/llms.txt",
+      "headers": {
+        "Content-Type": "text/markdown; charset=utf-8",
+        "Access-Control-Allow-Origin": "*"
+      }
     },
     {
       "src": "/changelog/?",
