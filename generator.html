@@ -41,10 +41,12 @@
     .ok{color:var(--good)}.bad{color:var(--bad)}
     .check{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--soft);margin-top:8px}.check input{width:auto}
     @media(max-width:860px){.cols{grid-template-columns:1fr}.out{position:static}}
+  :focus-visible{outline:2px solid #8b8bff;outline-offset:2px}.cin:focus{border-color:#8b8bff}.skip{position:absolute;left:-999px;top:8px;z-index:100;background:#fff;color:#000;padding:8px 12px;border-radius:6px}.skip:focus{left:8px}
   </style>
 </head>
 <body>
-<main>
+<a class="skip" href="#main">Skip to content</a>
+<main id="main">
   <div class="top">
     <a href="/" style="margin:0"><img src="https://api.actuent.ai/assets/actuent-logo.png" alt="Actuent"></a>
     <div><a href="/">Docs</a><a href="/#checker">Checker</a><a href="/changelog">Changelog</a></div>

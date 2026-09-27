@@ -64,9 +64,11 @@
       table{display:block;overflow-x:auto}
       .crow{flex-direction:column}
     }
+  :focus-visible{outline:2px solid #8b8bff;outline-offset:2px}.cin:focus{border-color:#8b8bff}.skip{position:absolute;left:-999px;top:8px;z-index:100;background:#fff;color:#000;padding:8px 12px;border-radius:6px}.skip:focus{left:8px}
   </style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 
 <div class="mbar">
   <img src="https://api.actuent.ai/assets/actuent-logo.png" alt="Actuent">
@@ -100,7 +102,7 @@
   <a href="/changelog">Changelog</a>
 </nav>
 
-<main>
+<main id="main">
   <div style="font-family:'Courier New',monospace;font-size:10px;color:#8e8e9c;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px">DOCS v0.3</div>
   <h1>Actuent Docs</h1>
   <p class="sub">The Internet for AI — search any website, get back structured data your AI can actually use.</p>
@@ -458,7 +460,7 @@ const ok = crypto.verify(null, Buffer.from(signed), publicKeyFromJwk, Buffer.fro
   <h2 id="checker">LAWP Checker</h2>
   <p>Validate your <code>/.well-known/lawp.json</code> and action endpoints, then send a signed test request (<code>test: true</code>). Actuent also tests every executable endpoint daily; each action shows its reliability over the last 30 days. Sites without native LAWP show Actuent's crawled version.</p>
   <div class="crow">
-    <input type="text" class="cin" id="ci" placeholder="yoursite.com" onkeydown="if(event.key==='Enter')checkLAWP()">
+    <input type="text" class="cin" id="ci" aria-label="Your website's domain" placeholder="yoursite.com" onkeydown="if(event.key==='Enter')checkLAWP()">
     <button class="cbtn" onclick="checkLAWP()">Check</button>
   </div>
   <div id="cr"></div>
@@ -498,9 +500,9 @@ function checkLAWP() {
             var ph = escH(f.name) + (f.required ? " *" : "") + (f.type && f.type !== "string" ? " (" + escH(f.type) + ")" : "")
             return f.type === "enum" && Array.isArray(f.options)
               ? '<select class="cin" data-field="'+escH(f.name)+'" data-for="'+escH(a.id)+'"><option value="">'+ph+'</option>'+f.options.map(function(o){ return '<option>'+escH(o)+'</option>' }).join("")+'</select>'
-              : '<input class="cin" data-field="'+escH(f.name)+'" data-type="'+escH(f.type||"string")+'" data-for="'+escH(a.id)+'" placeholder="'+ph+'">'
+              : '<input class="cin" aria-label="'+escH(f.name)+'" data-field="'+escH(f.name)+'" data-type="'+escH(f.type||"string")+'" data-for="'+escH(a.id)+'" placeholder="'+ph+'">'
           }).join("")
-        : '<input class="cin" id="ti-'+escH(a.id)+'" placeholder="test input">'
+        : '<input class="cin" id="ti-'+escH(a.id)+'" aria-label="Test input for '+escH(a.id)+'" placeholder="test input">'
       var test = a.executable ? '<div class="crow" style="margin:8px 0 0;flex-wrap:wrap">'+inputs+'<button class="cbtn" onclick="testAction(\''+escH(res.domain)+'\',\''+escH(a.id)+'\')">Send test request</button></div><div id="tr-'+escH(a.id)+'"></div>' : ''
       return '<div style="border:1px solid #2a2a34;border-radius:7px;padding:12px 14px;margin-bottom:8px"><div style="font-size:13px;color:#eeeef2"><code>'+escH(a.id)+'</code> '+escH(a.name||"")+' '+status+'</div>'+issues+test+'</div>'
     }).join("")
