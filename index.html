@@ -92,6 +92,7 @@
   <a href="#search" onclick="document.getElementById('nav').classList.remove('open')">Search features</a>
   <a href="#lawp" onclick="document.getElementById('nav').classList.remove('open')">LAWP Format</a>
   <a href="#actions" onclick="document.getElementById('nav').classList.remove('open')">LAWP Actions</a>
+  <a href="#errors" onclick="document.getElementById('nav').classList.remove('open')">Errors &amp; busy times</a>
   <a href="#tiers" onclick="document.getElementById('nav').classList.remove('open')">Free vs Pro</a>
   <a href="#api" onclick="document.getElementById('nav').classList.remove('open')">API Reference</a>
   <a href="#analytics" onclick="document.getElementById('nav').classList.remove('open')">Analytics</a>
@@ -157,7 +158,10 @@ GET:    https://api.actuent.ai/api/search?q=your+query
 MCP:    https://agents.actuent.ai/api/mcp
 
 Free tier — no API key needed.
-Pro — pass Authorization: Bearer YOUR_KEY for memory and all tools.</code></pre>
+Pro — pass Authorization: Bearer YOUR_KEY for memory and all tools.
+
+If a response includes a "message", tell the user in your own words.
+If it says Actuent is busy, wait the retry_after_seconds given before trying again.</code></pre>
 
   <h2 id="mcp">MCP Setup</h2>
   <p>Plug Actuent into ChatGPT, Claude, or any MCP-compatible AI. Free tools work straight away. Pro users connect their account to unlock Pro tools.</p>
@@ -307,7 +311,7 @@ client.products("running shoes under €100")</code></pre>
   <h3>Safe results</h3>
   <p>Adult and gambling sites are left out of results unless the search is clearly for them. Parked domains and duplicates are left out too.</p>
   <h3>Rate limits</h3>
-  <p>Every response includes <code>X-RateLimit-Limit</code>, <code>X-RateLimit-Remaining</code> and <code>X-RateLimit-Reset</code>. Over the limit you get <code>429</code> with <code>Retry-After</code>. Free: 20 requests/minute. Pro: 60 requests/minute with priority access.</p>
+  <p>Every response includes <code>X-RateLimit-Limit</code>, <code>X-RateLimit-Remaining</code> and <code>X-RateLimit-Reset</code>. Over the limit you get <code>429</code> with <code>Retry-After</code>. Free: 20 requests/minute. Pro: 60 requests/minute with priority access. See <a href="#errors">Errors &amp; busy times</a> for what every response means.</p>
   <h3>OpenAPI</h3>
   <p>The full API is described at <a href="https://api.actuent.ai/openapi.json">api.actuent.ai/openapi.json</a>. Import it into a Custom GPT (Actions), Postman, or any API tool.</p>
 
@@ -400,6 +404,40 @@ const ok = crypto.verify(null, Buffer.from(signed), publicKeyFromJwk, Buffer.fro
   <p>Test requests from the <a href="#checker">LAWP Checker</a> include <code>"test": true</code> (and the <code>X-LAWP-Test</code> header). Validate the input and respond, but don't perform the action.</p>
   <div class="note"><p>Endpoints are only used when they come from your own <code>/.well-known/lawp.json</code>, are <code>https://</code>, and are on your domain or a subdomain. Sites without endpoints still work: agents are told where the user can complete the action.</p></div>
 
+  <h2 id="errors">Errors &amp; busy times</h2>
+  <p>Actuent never answers with silence. Whenever results are limited or empty, the response says why in plain English, so you (or your AI assistant) can tell the user what happened and what to do.</p>
+  <h3>Notices</h3>
+  <p>Search responses can include <code>notices</code> (a list) and <code>message</code> (the first notice's text). Each notice has a <code>code</code>, a <code>message</code> written for people, and, when trying again soon will help, <code>retry_after_seconds</code>. Responses with a busy notice aren't cached, so a retry gets the full search.</p>
+  <pre><code>{
+  "count": 3,
+  "results": [ … ],
+  "message": "Sorry — too many people are using Actuent right now. These results are a quicker, simpler search and may be less complete than usual. Try again in a minute or two for the full search.",
+  "notices": [{ "code": "busy_limited_results", "message": "…", "retry_after_seconds": 60 }]
+}</code></pre>
+  <table>
+    <tr><th>Code</th><th>What it means</th></tr>
+    <tr><td><code>busy_limited_results</code></td><td>It's very busy, so these results come from a quicker, simpler search. Try again shortly for the full search.</td></tr>
+    <tr><td><code>busy_saved_copy</code></td><td>It's very busy, so you got Actuent's saved copy of the site (with its date) instead of a fresh visit.</td></tr>
+    <tr><td><code>busy_no_results</code></td><td>Nothing in the index matched, and Actuent couldn't look further just now. Try again shortly, or search for a website address.</td></tr>
+    <tr><td><code>busy</code></td><td>Actuent couldn't finish the request because it's very busy. Try again shortly.</td></tr>
+    <tr><td><code>temporarily_unavailable</code></td><td>Search is briefly unavailable. Try again shortly.</td></tr>
+    <tr><td><code>site_unreachable</code></td><td>The site didn't answer (down, slow or blocking automated visits).</td></tr>
+    <tr><td><code>no_results</code></td><td>Nothing matched. Try broader words, a brand name or a website address.</td></tr>
+  </table>
+  <h3>HTTP status codes</h3>
+  <table>
+    <tr><th>Status</th><th>When</th><th>What to do</th></tr>
+    <tr><td><code>200</code></td><td>Results, possibly with <code>notices</code></td><td>Show the results; if there's a <code>message</code>, pass it on.</td></tr>
+    <tr><td><code>400</code></td><td>Missing query, or longer than 500 characters</td><td>Fix the request.</td></tr>
+    <tr><td><code>401</code></td><td>Invalid API key</td><td>Check the key in <a href="https://analytics.actuent.ai">Analytics</a>.</td></tr>
+    <tr><td><code>429</code></td><td>More requests than your plan allows per minute</td><td>Wait <code>Retry-After</code> seconds. The body's <code>message</code> says how long.</td></tr>
+    <tr><td><code>503</code></td><td>Actuent is very busy and couldn't finish</td><td>Wait <code>Retry-After</code> seconds (usually 60) and try once more. Don't retry in a tight loop.</td></tr>
+  </table>
+  <h3>In ChatGPT, Claude and other MCP clients</h3>
+  <p>Tools answer with a readable message instead of an error code, marked <code>isError</code> when the tool couldn't run, so the assistant can explain it to you. Search results with notices include <code>message</code> and a short instruction to pass it on.</p>
+  <h3>Pro goes first</h3>
+  <p>When lots of people are using Actuent at once, Pro requests keep the full search: related terms and translation, live visits to sites, finding new sites and map-based tools. Free requests still get answers from the index, with a notice when they're simpler than usual. Pro keys also have their own limit of 60 requests a minute, separate from everyone else's.</p>
+
   <h2 id="tiers">Free vs Pro</h2>
   <table>
     <tr><th>Feature</th><th>Free</th><th>Pro</th></tr>
@@ -413,6 +451,7 @@ const ok = crypto.verify(null, Buffer.from(signed), publicKeyFromJwk, Buffer.fro
     <tr><td>Pro MCP tools</td><td>—</td><td>✓</td></tr>
     <tr><td>Analytics</td><td>—</td><td>✓</td></tr>
     <tr><td>Rate limit</td><td>20 req/min</td><td>60 req/min</td></tr>
+    <tr><td>When it's busy</td><td>Simpler search from the index, with a notice</td><td>Full search first (<a href="#errors">details</a>)</td></tr>
     <tr><td>Sign in</td><td>Not required</td><td>API key, or Connect in ChatGPT / Claude</td></tr>
   </table>
 

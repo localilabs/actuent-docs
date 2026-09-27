@@ -7,6 +7,13 @@
     <description>What's new in Actuent, the search engine for AI agents.</description>
     <language>en</language>
     <item>
+      <title>Clear messages when it's busy, and Pro first</title>
+      <link>https://docs.actuent.ai/changelog#2026-09-28-busy-times</link>
+      <guid isPermaLink="false">2026-09-28-busy-times</guid>
+      <pubDate>Mon, 28 Sep 2026 00:00:00 +0000</pubDate>
+      <description>&lt;ul&gt;&lt;li&gt;Clear messages when it&#x27;s busy: limited or empty results now say why in plain English (a &lt;code&gt;message&lt;/code&gt; and &lt;code&gt;notices&lt;/code&gt;), and busy responses ask you to try again shortly instead of failing silently. &lt;a href=&quot;/#errors&quot;&gt;Errors &amp;amp; busy times&lt;/a&gt;.&lt;/li&gt;&lt;li&gt;Pro goes first: when lots of people are searching, Pro keeps the full search, live site visits and map tools; free searches get a simpler search from the index, with a notice.&lt;/li&gt;&lt;li&gt;MCP tools answer with a readable explanation instead of a bare error, and rate limits say how long to wait.&lt;/li&gt;&lt;li&gt;Better ranking: well-known sites are considered first, and a business&#x27;s city, type and category are searchable (&quot;barber amsterdam&quot;).&lt;/li&gt;&lt;li&gt;Faster, better index updates: sites are converted with a mix of rules and AI, popular sites first, and dead domains are removed from search.&lt;/li&gt;&lt;/ul&gt;</description>
+    </item>
+    <item>
       <title>Search in your language, local businesses and tool examples</title>
       <link>https://docs.actuent.ai/changelog#2026-09-27-search-in-your-language</link>
       <guid isPermaLink="false">2026-09-27-search-in-your-language</guid>
