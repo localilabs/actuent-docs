@@ -40,6 +40,10 @@
     {
       "src": "guides.html",
       "use": "@vercel/static"
+    },
+    {
+      "src": "examples.html",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
@@ -54,6 +58,10 @@
         "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src * data:; connect-src 'self' https://api.actuent.ai https://agents.actuent.ai; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
       },
       "continue": true
+    },
+    {
+      "src": "/examples/?",
+      "dest": "/examples.html"
     },
     {
       "src": "/guides/?",

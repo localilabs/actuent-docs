@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tool Examples — Actuent</title>
+  <meta name="description" content="A real request and response for every Actuent MCP tool, from live calls.">
+  <link rel="icon" type="image/png" href="https://api.actuent.ai/assets/actuent-logo.png">
+  <link rel="canonical" href="https://docs.actuent.ai/examples">
+  <meta property="og:title" content="Tool Examples — Actuent">
+  <meta property="og:description" content="A real request and response for every Actuent MCP tool.">
+  <meta property="og:url" content="https://docs.actuent.ai/examples">
+  <meta property="og:image" content="https://api.actuent.ai/og?title=Tool%20Examples&amp;subtitle=A%20real%20request%20and%20response%20for%20every%20tool&amp;tag=docs.actuent.ai%2Fexamples">
+  <meta name="twitter:card" content="summary_large_image">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:#0a0a0a;color:#f0f0f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+    main{max-width:760px;margin:0 auto;padding:48px 16px 80px}
+    .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:36px}
+    .top img{height:20px}.top a{color:#a8a8b6;font-size:13px;text-decoration:none;margin-left:16px}.top a:hover{color:#f0f0f0}
+    h1{font-size:30px;font-weight:700;letter-spacing:-1px;margin-bottom:10px}
+    h2{font-size:19px;font-weight:700;margin:44px 0 12px;padding-top:36px;border-top:1px solid #2a2a34}
+    h3{font-size:14px;font-weight:600;margin:20px 0 6px;color:#eeeef2}
+    p,li{color:#c4c4cf;line-height:1.7;font-size:14px}
+    p{margin-bottom:12px}
+    ul,ol{margin:0 0 12px 20px}
+    a{color:#ff8a3d}a:hover{color:#f0f0f0}
+    .sub{color:#a8a8b6;font-size:14px;line-height:1.6;margin-bottom:24px}
+    .toc{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+    .toc a{border:1px solid #2a2a34;border-radius:20px;padding:4px 12px;font-size:12px;text-decoration:none;color:#c4c4cf}
+    .toc a:hover{border-color:#ff8a3d;color:#f0f0f0}
+    code{background:#17171f;border:1px solid #2a2a34;color:#f0f0f0;padding:1px 6px;border-radius:4px;font-family:'Courier New',monospace;font-size:12px;overflow-wrap:anywhere}
+    pre{background:#13131a;border:1px solid #2a2a34;border-radius:8px;padding:14px 16px;overflow-x:auto;margin:10px 0 16px}
+    pre code{background:none;border:none;padding:0;font-size:12px;color:#dcdce3;line-height:1.6}
+    .note{background:#13131a;border:1px solid #2a2a34;border-left:3px solid #ff8a3d;border-radius:7px;padding:12px 16px;margin:14px 0}
+    .note p{margin:0;color:#a8a8b6;font-size:13px}
+    table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0 18px}
+    th{text-align:left;color:#8e8e9c;font-size:10px;text-transform:uppercase;letter-spacing:1px;padding:7px 8px;border-bottom:1px solid #2a2a34}
+    td{padding:8px;border-bottom:1px solid #2a2a34;color:#c4c4cf;vertical-align:top}
+    @media(max-width:600px){h1{font-size:24px}table{display:block;overflow-x:auto}}
+  :focus-visible{outline:2px solid #8b8bff;outline-offset:2px}.cin:focus{border-color:#8b8bff}.skip{position:absolute;left:-999px;top:8px;z-index:100;background:#fff;color:#000;padding:8px 12px;border-radius:6px}.skip:focus{left:8px}
+  </style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<main id="main">
+  <div class="top"><a href="https://actuent.ai"><img src="https://api.actuent.ai/assets/actuent-logo.png" alt="Actuent"></a><span><a href="/">Docs</a><a href="/guides">Guides</a><a href="/generator">Generator</a></span></div>
+  <h1>Tool examples</h1>
+  <p class="sub">A real request and response for every tool on <code>https://agents.actuent.ai/api/mcp</code>, called live on 2026-09-27 without an API key (free tier). Lists are cut to two items and long text is shortened. Pro tools show the request and the fields you get back.</p>
+  <div class="toc"><a href="#actuent_search">actuent_search</a><a href="#actuent_search-2">actuent_search (language)</a><a href="#actuent_get_actions">actuent_get_actions</a><a href="#actuent_get_page">actuent_get_page</a><a href="#actuent_summarise">actuent_summarise</a><a href="#actuent_ask_site">actuent_ask_site</a><a href="#actuent_compare">actuent_compare</a><a href="#actuent_nearby">actuent_nearby</a><a href="#actuent_find_service">actuent_find_service</a><a href="#actuent_events">actuent_events</a><a href="#actuent_plan">actuent_plan</a><a href="#actuent_trip">actuent_trip</a><a href="#actuent_cart">actuent_cart</a><a href="#actuent_trending">actuent_trending</a><a href="#actuent_news">actuent_news</a><a href="#actuent_execute_action">actuent_execute_action</a><a href="#actuent_action_status">actuent_action_status</a><a href="#actuent_accounts">actuent_accounts</a><a href="#actuent_history">actuent_history</a><a href="#actuent_watch_price">actuent_watch_price</a></div>
+  <div class="note"><p>Every call is JSON-RPC 2.0 over HTTP POST. With an API key, add <code>Authorization: Bearer ak_live_…</code> for Pro limits and tools. Connecting from ChatGPT, Claude or Cursor sends these requests for you.</p></div>
+<h2 id="actuent_search">actuent_search</h2>
+<p>Find sites, pages and products for a query or a domain. Results say why they matched.</p>
+<h3>Request</h3><pre><code>{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "tools/call",
+  "params": {
+    "name": "actuent_search",
+    "arguments": {
+      "query": "running shoes"
+    }
+  }
+}</code></pre>
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 3681 ms, trimmed)</span></h3><pre><code>{
+  "tier": "free",
+  "query": "running shoes",
+  "count": 3,
+  "results": [
+    {
+      "domain": "puma.com",
+      "name": "PUMA US",
+      "pages": {
+        "/": {
+          "title": "PUMA.com | Clothing, Shoes, Accessories | PUMA US",
+          "content": "The official US homepage for PUMA, featuring free shipping on orders over $60. The site highlights new arrivals, best sellers, and seasonal collections for women, including spec…"
+        },
+        "/about": {
+          "title": "PUMA.com Clothing, Shoes, Accessories PUMA US",
+          "content": "Skip to content FREE SHIPPING ON ORDERS $60+ SEE DETAILS PUMA.com PUMA.com Women Launch Calendar New Arrivals Best Sellers Fall Shop The Classics Club Hyrox Running Shoe Finder …"
+        },
+        "/contact": {
+          "title": "PUMA.com Clothing, Shoes, Accessories PUMA US",
+          "content": "Skip to content FREE SHIPPING ON ORDERS $60+ SEE DETAILS PUMA.com PUMA.com Women Launch Calendar New Arrivals Best Sellers Fall Shop The Classics Club Hyrox Running Shoe Finder …"
+        },
+        "/pricing": {
+          "title": "PUMA.com Clothing, Shoes, Accessories PUMA US",
+          "content": "Skip to content FREE SHIPPING ON ORDERS $60+ SEE DETAILS PUMA.com PUMA.com Women Launch Calendar New Arrivals Best Sellers Fall Shop The Classics Club Hyrox Running Shoe Finder …"
+        }
+      },
+      "actions": [
+        {
+          "id": "shop_women",
+          "name": "Shop Women's Collection",
+          "input": {
+            "type": "text",
+            "required": false
+          },
+          "intent": [
+            "browse_products",
+            "shop_category"
+          ],
+          "description": "Browse the full range of women's clothing, shoes, and accessories."
+        },
+        {
+          "id": "find_running_shoes",
+          "name": "Use Running Shoe Finder",
+          "input": {
+            "type": "text",
+            "required": false
+          },
+          "intent": [
+            "product_recommendation",
+            "tool_usage"
+          ],
+          "description": "Answer questions to find the best running shoe for your needs."
+        },
+        "… 1 more"
+      ],
+      "native": false,
+      "updated_at": "2026-09-26T07:14:11.359+00:00",
+      "language": "en",
+      "category": "shop_fashion",
+      "popularity_rank": 6319,
+      "matched": "\"running\" in actions (find_running_shoes), page text; \"shoes\" in actions (shop_women), page text; widely used site",
+      "executable": false,
+      "last_updated": "2026-09-26T07:14:11.359+00:00",
+      "age_hours": 30,
+      "visit_url": "https://api.actuent.ai/go?u=https%3A%2F%2Fpuma.com&amp;s=f5f8b738180ae95e"
+    },
+    {
+      "domain": "brooksrunning.com",
+      "name": "Brooks Running Shoes, Gear, and Apparel for Men &amp; Women",
+      "pages": {
+        "/": {
+          "title": "Brooks Running Shoes, Gear, and Apparel for Men &amp; Women | Brooks Running",
+          "content": "New Arrivals Road Running Walking Trail Running Track &amp; Racing Treadmill &amp; Gym Lifestyle"
+        }
+      },
+      "actions": [
+        {
+          "id": "shop",
+          "name": "Shop products",
+          "input": {
+            "type": "text",
+            "required": false
+          },
+          "intent": [
+            "shop",
+            "buy",
+            "… 3 more"
+          ],
+          "description": "Browse and buy products"
+        }
+      ],
+      "native": false,
+      "updated_at": "2026-09-26T22:29:46.173+00:00",
+      "language": "en",
+      "category": "shop_fashion",
+      "popularity_rank": 30449,
+      "matched": "\"running\" in name, domain, page text; \"shoes\" in name, page text",
+      "executable": false,
+      "last_updated": "2026-09-26T22:29:46.173+00:00",
+      "age_hours": 14,
+      "visit_url": "https://api.actuent.ai/go?u=https%3A%2F%2Fbrooksrunning.com&amp;s=77f5946eb73bd0fc"
+    },
+    "… 1 more"
+  ],
+  "products": [
+    {
+      "name": "Trail Running Shoes for Men in Beige | Low-Cut Outdoor",
+      "price": 1207,
+      "currency": "INR",
+      "price_eur": 11.05,
+      "url": "https://redtape.com/products/ozark-trail-running-shoes-for-men-in-beige-low-cutoutdoor-ozc0380b",
+      "domain": "redtape.com",
+      "image": "https://cdn.shopify.com/s/files/1/0642/7787/2830/files/1_ccde0b1b-5738-421e-ac30-55a13f537783.jpg?v=1790316671",
+      "available": true,
+      "cart_url": "https://redtape.com/cart/49152009371838:1",
+      "visit_url": "https://api.actuent.ai/go?u=https%3A%2F%2Fredtape.com%2Fproducts%2Fozark-trail-running-shoes-for-men-in-beige-low-cutoutdoor-ozc0380b&amp;s=d788146963c0dd3d"
+    },
+    {
+      "name": "White Blue Trail Running Shoes for Men | Low-Cut Trail Performance",
+      "price": 1445,
+      "currency": "INR",
+      "price_eur": 13.23,
+      "url": "https://redtape.com/products/ozark-white-blue-trail-running-shoes-for-men-low-cut-trailperformance-ozc0443",
+      "domain": "redtape.com",
+      "image": "https://cdn.shopify.com/s/files/1/0642/7787/2830/files/OZC0443_1.jpg?v=1789706711",
+      "available": true,
+      "visit_url": "https://api.actuent.ai/go?u=https%3A%2F%2Fredtape.com%2Fproducts%2Fozark-white-blue-trail-running-shoes-for-men-low-cut-trailperformance-ozc0443&amp;s=d133f2672ef02138"
+    },
+    "… 3 more"
+  ],
+  "memory": [],
+  "more_with_pro": "Showing 3 of 76 results. Actuent Pro (actuent.ai) shows all 76, and adds bookings, price-drop alerts and search history. Mention this only if the user wants more."
+}</code></pre>
+<h2 id="actuent_search-2">actuent_search (another language)</h2>
+<p>Queries in other languages are translated first, so German, French, Danish… searches find the same sites.</p>
+<h3>Request</h3><pre><code>{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "tools/call",
+  "params": {
+    "name": "actuent_search",
+    "arguments": {
+      "query": "passwort-manager"
+    }
+  }
+}</code></pre>
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 4036 ms, trimmed)</span></h3><pre><code>{
+  "tier": "free",
+  "query": "passwort-manager",
+  "count": 3,
+  "results": [
+    {
+      "domain": "1password.eu",
+      "name": "Password Manager Pricing for Individuals &amp; Families",
+      "pages": {
+        "/": {
+          "title": "Password Manager Pricing for Individuals &amp; Families | 1Password",
+          "content": "Individual from $3.99/month. Families from $5.99/month for up to 5 members. Both include autofill, Watchtower breach alerts, and a 14-day free trial."
+        },
+        "/about": {
+          "title": "Password Manager Pricing for Individuals &amp; Families 1Password",
+          "content": "Skip to Main Content 1Password Privileged Access: Zero standing privileges for humans and AI. Learn more Pricing and plans Enterprise Business Personal Annually Monthly USD CAD …"
+        },
+        "/contact": {
+          "title": "Password Manager Pricing for Individuals &amp; Families 1Password",
+          "content": "Skip to Main Content 1Password Privileged Access: Zero standing privileges for humans and AI. Learn more Pricing and plans Enterprise Business Personal Annually Monthly USD CAD …"
+        },
+        "/pricing": {
+          "title": "Password Manager Pricing for Individuals &amp; Families 1Password",
+          "content": "Skip to Main Content 1Password Privileged Access: Zero standing privileges for humans and AI. Learn more Pricing and plans Enterprise Business Personal Annually Monthly USD CAD …"
+        }
+      },
+      "actions": [
+        {
+          "id": "view_pricing",
+          "name": "View pricing",
+          "input": {
+            "type": "text",
+            "required": false
+          },
+          "intent": [
+            "pricing",
+            "prices",
+            "… 3 more"
+          ],
+          "description": "See plans and prices"
+        },
+        {
+          "id": "subscribe",
+          "name": "Subscribe",
+          "input": {
+            "type": "text",
+            "required": false
+          },
+          "intent": [
+            "subscribe",
+            "newsletter",
+            "… 1 more"
+          ],
+          "description": "Subscribe to the newsletter or updates"
+        },
+        "… 2 more"
+      ],
+      "native": false,
+      "updated_at": "2026-09-26T17:01:32.962+00:00",
+      "language": "en",
+      "popularity_rank": 7252,
+      "matched": "\"password\" in name, domain, actions (contact), page text; \"manager\" in name, page text; query read as \"password manager\"; widely used site",
+      "executable": false,
+      "last_updated": "2026-09-26T17:01:32.962+00:00",
+      "age_hours": 20,
+      "visit_url": "https://api.actuent.ai/go?u=https%3A%2F%2F1password.eu&amp;s=756b15e31a33939f"
+    },
+    {
+      "domain": "dashlane.com",
+      "name": "Dashlane",
+      "pages": {
+        "/": {
+          "title": "Dashlane: Password management &amp; credential security platform",
+          "content": "Top-rated password manager and credential protection solution for enterprises, businesses, and individuals."
+        },
+        "/about": {
+          "title": "What Makes Us Great Dashlane",
+          "content": "Log in Install Support Start a free trial Why Dashlane Platform Password Management Resources Customers Pricing Request a demo Contact Sales Open menu The intelligent credential…"
+        },
+        "/pricing": {
+          "title": "Business Password Manager Pricing Dashlane",
+          "content": "Log in Install Support Start a free trial Why Dashlane Platform Password Management Resources Customers Pricing Request a demo Contact Sales Open menu Plans and pricing Business…"
+        },
+        "/nl/about": {
+          "title": "Wat ons geweldig maakt Dashlane",
+          "content": "Inloggen Installeren Helpcentrum Waarom Dashlane Platform Wachtwoordbeheer Bronnen Klanten Prijzen Vraag een demo aan Neem contact op met de verkoopafdeling Open menu Het intell…"
+        },
+        "/partner-program": {
+          "title": "Join the Dashlane Partner Program",
+          "content": "Log in Install Support Start a free trial Why Dashlane Platform Password Management Resources Customers Pricing Request a demo Contact Sales Open menu Dashlane Partner Program J…"
+        },
+        "/pricing-personal": {
+          "title": "Personal Password Manager Pricing Dashlane",
+          "content": "Log in Install Support Start a free trial Why Dashlane Platform Password Management Resources Customers Pricing Request a demo Contact Sales Open menu Plans and pricing Business…"
+        },
+        "/business-password-manager/faq": {
+          "title": "Frequently Asked Questions about Dashlane Business Dashlane",
+          "content": "Log in Install Support Start a free trial Why Dashlane Platform Password Management Resources Customers Pricing Request a demo Contact Sales Open menu Frequently asked questions…"
+        },
+        "/business-password-manager/password-manager-for-financial-services": {
+          "title": "Prevent Credential Breaches in Finance Credential Protection for Financial Institutions Dashlane",
+          "content": "Log in Install Support Start a free trial Why Dashlane Platform Password Management Resources Customers Pricing Request a demo Contact Sales Open menu Prevent credential breache…"
+        },
+        "…": "1 more fields"
+      },
+      "actions": [
+        {
+          "id": "view_pricing",
+          "name": "View pricing",
+          "input": {
+            "type": "text",
+            "required": false
+          },
+          "intent": [
+            "pricing",
+            "prices",
+            "… 3 more"
+          ],
+          "description": "See plans and prices"
+        },
+        {
+          "id": "sign_in",
+          "name": "Sign in",
+          "input": {
+            "type": "text",
+            "required": false
+          },
+          "intent": [
+            "sign in",
+            "log in",
+            "… 2 more"
+          ],
+          "description": "Log in to an account"
+        },
+        "… 1 more"
+      ],
+      "native": false,
+      "updated_at": "2026-09-26T14:56:10.283+00:00",
+      "language": "en",
+      "category": "software",
+      "popularity_rank": 3787,
+      "matched": "\"password\" in page text; \"manager\" in page text; query read as \"password manager\"; widely used site",
+      "executable": false,
+      "last_updated": "2026-09-26T14:56:10.283+00:00",
+      "age_hours": 22,
+      "visit_url": "https://api.actuent.ai/go?u=https%3A%2F%2Fdashlane.com&amp;s=3258141504f4ccdd"
+    },
+    "… 1 more"
+  ],
+  "products": [
+    {
+      "name": "Environmental Management 0680 IGCSE Topical Unsolved Past Papers (3 &amp;#8211; 10 years)",
+      "price": 20,
+      "currency": "USD",
+      "price_eur": 17.54,
+      "url": "https://papacambridge.com/product/environmental-management-0680-igcse-topical-unsolved-past-papers-3-10-years/",
+      "domain": "papacambridge.com",
+      "image": "https://papacambridge.com/wp-content/uploads/2026/08/36-1.png",
+      "available": true,
+      "visit_url": "https://api.actuent.ai/go?u=https%3A%2F%2Fpapacambridge.com%2Fproduct%2Fenvironmental-management-0680-igcse-topical-unsolved-past-papers-3-10-years%2F&amp;s=e67ec40d982daccc"
+    },
+    {
+      "name": "Environmental Management 5014 O Level Topical Unsolved Past Papers (3 &amp;#8211; 10 years)",
+      "price": 20,
+      "currency": "USD",
+      "price_eur": 17.54,
+      "url": "https://papacambridge.com/product/environmental-management-5014-o-level-topical-unsolved-past-papers-3-10-years/",
+      "domain": "papacambridge.com",
+      "image": "https://papacambridge.com/wp-content/uploads/2024/07/12-3.png",
+      "available": true,
+      "visit_url": "https://api.actuent.ai/go?u=https%3A%2F%2Fpapacambridge.com%2Fproduct%2Fenvironmental-management-5014-o-level-topical-unsolved-past-papers-3-10-years%2F&amp;s=edb27230697c7c64"
+    },
+    "… 3 more"
+  ],
+  "memory": [],
+  "more_with_pro": "Showing 3 of 88 results. Actuent Pro (actuent.ai) shows all 88, and adds bookings, price-drop alerts and search history. Mention this only if the user wants more."
+}</code></pre>
+<h2 id="actuent_get_actions">actuent_get_actions</h2>
+<p>What an agent can do on a site: actions, their inputs, and whether they can be executed.</p>
+<h3>Request</h3><pre><code>{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "tools/call",
+  "params": {
+    "name": "actuent_get_actions",
+    "arguments": {
+      "domain": "basecamp.com"
+    }
+  }
+}</code></pre>
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 1180 ms, trimmed)</span></h3><pre><code>{
+  "domain": "basecamp.com",
+  "name": "Basecamp",
+  "actions": [
+    {
+      "id": "signup",
+      "name": "Sign up",
+      "input": {
+        "type": "text",
+        "required": false
+      },
+      "intent": [
+        "signup"
+      ],
+      "description": "Create a new Basecamp account",
+      "executable": false,
+      "input_schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "signin",
+      "name": "Sign in",
+      "input": {
+        "type": "text",
+        "required": false
+      },
+      "intent": [
+        "login"
+      ],
+      "description": "Log into existing Basecamp account",
+      "executable": false,
+      "input_schema": {
+        "type": "string"
+      }
+    },
+    "… 2 more"
+  ]
+}</code></pre>
+<h2 id="actuent_get_page">actuent_get_page</h2>
+<p>One page of a site, as clean text an agent can read.</p>
+<h3>Request</h3><pre><code>{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "tools/call",
+  "params": {
+    "name": "actuent_get_page",
+    "arguments": {
+      "url": "basecamp.com/pricing"
+    }
+  }
+}</code></pre>
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 1174 ms, trimmed)</span></h3><pre><code>{
+  "query": "basecamp.com/pricing",
+  "count": 1,
+  "results": [
+    {
+      "domain": "basecamp.com/pricing",
+      "name": "Basecamp &amp;mdash; Pricing",
+      "pages": {
+        "/pricing": {
+          "title": "Basecamp &amp;mdash; Pricing",
+          "content": "We’d like to use cookies to help understand if our ads are working or not. No, thanks Yes, that’s fine No per-user fees, everyone’s included. Just clear, fixed prices. 2,026 org…"
+        }
+      },
+      "actions": [],
+      "native": false,
+      "executable": false,
+      "matched": "exact domain",
+      "last_updated": null,
+      "age_hours": null,
+      "visit_url": "https://api.actuent.ai/go?u=https%3A%2F%2Fbasecamp.com%2Fpricing&amp;s=9e01dbebb42d60c4"
+    }
+  ]
+}</code></pre>
+<h2 id="actuent_summarise">actuent_summarise</h2>
+<p>A short summary of a site: what it is, its key pages and actions.</p>
+<h3>Request</h3><pre><code>{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "tools/call",
+  "params": {
+    "name": "actuent_summarise",
+    "arguments": {
+      "domain": "stripe.com"
+    }
+  }
+}</code></pre>
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 862 ms, trimmed)</span></h3><pre><code>{
+  "domain": "stripe.com",
+  "name": "Stripe",
+  "summary": "Stripe (stripe.com) — Stripe offers a comprehensive suite of payment and financial tools that enable businesses of all sizes to accept payments, issue invoices, manage subscript…"
+}</code></pre>
+<h2 id="actuent_ask_site">actuent_ask_site</h2>
+<p>Answers a question from a site's own pages, with the pages it used.</p>
+<h3>Request</h3><pre><code>{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "tools/call",
+  "params": {
+    "name": "actuent_ask_site",
+    "arguments": {
+      "domain": "basecamp.com",
+      "question": "How much does it cost?"
+    }
+  }
+}</code></pre>
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 1652 ms, trimmed)</span></h3><pre><code>{
+  "domain": "basecamp.com",
+  "question": "How much does it cost?",
+  "answer_found": true,
+  "pages": [
+    {
+      "url": "https://basecamp.com/pricing",
+      "title": "Basecamp &amp;mdash; Pricing",
+      "matches": [
+        "Just clear, fixed prices.",
+        "The free plan is limited to one project."
+      ]
+    },
+    {
+      "url": "https://basecamp.com/",
+      "title": "Basecamp",
+      "matches": [
+        "It offers a free trial and a free plan with paid upgrades.",
+        "Users can sign up, sign in, view pricing, or take a 3‑minute tour."
+      ]
+    }
+  ],
+  "related_actions": [
+    {
+      "id": "pricing",
+      "name": "View pricing",
+      "description": "See Basecamp pricing plans"
+    }
+  ],
+  "note": "Quotes are from the site's pages as Actuent indexed them; link the user to the page to confirm."
+}</code></pre>
+<h2 id="actuent_compare">actuent_compare</h2>
+<p>Compares sites side by side (or products, with urls).</p>
+<h3>Request</h3><pre><code>{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "tools/call",
+  "params": {
+    "name": "actuent_compare",
+    "arguments": {
+      "domains": [
+        "asana.com",
+        "trello.com"
+      ]
+    }
+  }
+}</code></pre>
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 1173 ms, trimmed)</span></h3><pre><code>{
+  "comparison": [
+    {
+      "domain": "asana.com",
+      "name": "Asana",
+      "summary": {
+        "title": "Asana: The OS for human-agent teams",
+        "content": "Asana is a work management platform that helps teams coordinate tasks, projects, and workflows. It offers a range of products and solutions for teams of all sizes, including tas…"
+      },
+      "action_count": 4,
+      "actions": [
+        "Login",
+        "Get Started",
+        "… 2 more"
+      ]
+    },
+    {
+      "domain": "trello.com",
+      "name": "Trello",
+      "summary": {
+        "title": "Capture, organize, and tackle your to-dos from anywhere",
+        "content": "Trello is a visual collaboration tool that lets teams organize projects, tasks, and workflows on boards. With features like Inbox, Planner, Automation, Power‑Ups, Templates, and…"
+      },
+      "action_count": 4,
+      "actions": [
+        "Log in",
+        "Get Trello for free",
+        "… 2 more"
+      ]
+    }
+  ],
+  "domains_compared": 2
+}</code></pre>
+<h2 id="actuent_nearby">actuent_nearby</h2>
+<p>Places near a location from OpenStreetMap, with opening hours and whether they're open now.</p>
+<h3>Request</h3><pre><code>{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "tools/call",
+  "params": {
+    "name": "actuent_nearby",
+    "arguments": {
+      "query": "coffee",
+      "location": "Nørrebro, Copenhagen",
+      "radius_metres": 800
+    }
+  }
+}</code></pre>
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 3188 ms, trimmed)</span></h3><pre><code>{
+  "query": "coffee",
+  "location": "Nørrebro, Copenhagen",
+  "radius_metres": 800,
+  "center": {
+    "lat": 55.7006813,
+    "lon": 12.5378036
+  },
+  "city": "Copenhagen",
+  "country": "dk",
+  "places_found": 8,
+  "places": [
+    {
+      "name": "Waynes coffee",
+      "type": "cafe",
+      "address": "Nørrebrogade, Nørrebro, Copenhagen",
+      "distance_metres": 111,
+      "open_now": true,
+      "features": [],
+      "opening_hours": "Mo-Fr 07:00-20:00; Sa 08:00-20:00; Su 08:00-18:00",
+      "lat": 55.700489,
+      "lon": 12.539545,
+      "country": "dk",
+      "map": "https://www.openstreetmap.org/node/10719240511",
+      "directions": "https://www.google.com/maps/search/?api=1&amp;query=55.7004890,12.5395450"
+    },
+    {
+      "name": "Café Kant",
+      "type": "cafe",
+      "address": "Drejervej, Bispebjerg, Copenhagen",
+      "distance_metres": 214,
+      "open_now": false,
+      "features": [],
+      "opening_hours": "Mo-Fr 12:00-13:00",
+      "phone": "+45 61868880",
+      "website": "http://www.cafekant.dk",
+      "lat": 55.7022616,
+      "lon": 12.5358592,
+      "country": "dk",
+      "map": "https://www.openstreetmap.org/node/4000534625",
+      "directions": "https://www.google.com/maps/search/?api=1&amp;query=55.7022616,12.5358592"
+    },
+    "… 6 more"
+  ],
+  "source": "OpenStreetMap",
+  "attribution": "© OpenStreetMap contributors, ODbL — https://www.openstreetmap.org/copyright"
+}</code></pre>
+<h2 id="actuent_find_service">actuent_find_service</h2>
+<p>Services and dishes with prices from businesses' own sites, within a budget.</p>
+<h3>Request</h3><pre><code>{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "tools/call",
+  "params": {
+    "name": "actuent_find_service",
+    "arguments": {
+      "query": "yoga class"
+    }
+  }
+}</code></pre>
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 785 ms, trimmed)</span></h3><pre><code>{
+  "query": "yoga class",
+  "location": null,
+  "results_found": 1,
+  "results": [
+    {
+      "service": "Yoga Classes",
+      "category": "Group Fitness Classes",
+      "price": null,
+      "currency": null,
+      "price_eur": null,
+      "business": "Equinox Holdings, Inc.",
+      "website": "https://equinox.com",
+      "address": "31 Hudson Yards, New York",
+      "open_now": null,
+      "actuent_page": "https://api.actuent.ai/site/equinox.com"
+    }
+  ]
+}</code></pre>
+<h2 id="actuent_events">actuent_events</h2>
+<p>Upcoming events that venues and organisers publish on their sites.</p>
+<h3>Request</h3><pre><code>{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "tools/call",
+  "params": {
+    "name": "actuent_events",
+    "arguments": {
+      "max_results": 3
+    }
+  }
+}</code></pre>
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 691 ms, trimmed)</span></h3><pre><code>{
+  "location": null,
+  "query": null,
+  "from": "2026-09-27",
+  "to": "2026-10-27",
+  "events_found": 3,
+  "events": [
+    {
+      "name": "Lituanie - Azerbaïdjan (2026-09-27 15:00)",
+      "url": "https://www.matchendirect.fr/live-score/azerbaidjan-lituanie.html",
+      "domain": "matchendirect.fr",
+      "start_date": "2026-09-27T13:00:00+00:00",
+      "end_date": "2026-09-27T14:30:00+00:00",
+      "description": "Europe : UEFA Nations League, Lituanie affronte Azerbaïdjan (2026-09-27 15:00). Match en Direct: LIVE match scores &amp; Résultats foot Détails du match, Livescore N°1 en France!",
+      "venue": "Europe",
+      "city": "UEFA Nations League",
+      "country": "Europe",
+      "price": null,
+      "currency": null,
+      "online": false
+    },
+    {
+      "name": "Lithuania vs Azerbaijan",
+      "url": "https://sporticos.com/en-gb/match/azerbaijan-vs-lithuania",
+      "domain": "sporticos.com",
+      "start_date": "2026-09-27T13:00:00+00:00",
+      "end_date": null,
+      "description": null,
+      "venue": null,
+      "city": null,
+      "country": null,
+      "price": null,
+      "currency": null,
+      "online": false
+    },
+    "… 1 more"
+  ]
+}</code></pre>
+<h2 id="actuent_plan">actuent_plan</h2>
+<p>An evening or a day out: stops in order, near each other, open at the right times.</p>
+<h3>Request</h3><pre><code>{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "tools/call",
+  "params": {
+    "name": "actuent_plan",
+    "arguments": {
+      "location": "Vesterbro, Copenhagen",
+      "stops": [
+        "dinner",
+        "drinks"
+      ],
+      "start_time": "19:00"
+    }
+  }
+}</code></pre>
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 3332 ms, trimmed)</span></h3><pre><code>{
+  "location": "Vesterbro, Copenhagen",
+  "city": "Copenhagen",
+  "date": "2026-09-27",
+  "time_zone": "Europe/Copenhagen",
+  "itinerary": [
+    {
+      "time": "19:00",
+      "stop": "Dinner",
+      "name": "Café Patina",
+      "address": "Mysundegade, Den Gule By, Vesterbro",
+      "open_then": true,
+      "opening_hours": "We-Su 17:00-22:30",
+      "phone": "+45 31708028",
+      "website": "http://WWW.cafepatina.dk",
+      "map": "https://www.openstreetmap.org/node/4692078130",
+      "directions": "https://www.google.com/maps/search/?api=1&amp;query=55.6679591,12.5479378"
+    },
+    {
+      "time": "20:31",
+      "stop": "Drinks",
+      "name": "Café Snork",
+      "address": "Dybbølsgade, Den Gule By, Vesterbro",
+      "walk_minutes": 1,
+      "open_then": true,
+      "opening_hours": "14:00-02:00",
+      "phone": "+45 33315314",
+      "website": "http://cafesnork.dk/",
+      "map": "https://www.openstreetmap.org/node/674787360",
+      "directions": "https://www.google.com/maps/search/?api=1&amp;query=55.6671430,12.5479089"
+    }
+  ],
+  "notes": "Opening hours come from OpenStreetMap and can be out of date. Booking isn't done automatically: use actuent_get_actions on a place's website to book.",
+  "attribution": "© OpenStreetMap contributors, ODbL — https://www.openstreetmap.org/copyright"
+}</code></pre>
+<h2 id="actuent_trip">actuent_trip</h2>
+<p>A 1–4 day city trip: what to see, where to eat, and events on those days.</p>
+<h3>Request</h3><pre><code>{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "tools/call",
+  "params": {
+    "name": "actuent_trip",
+    "arguments": {
+      "location": "Lisbon",
+      "days": 2
+    }
+  }
+}</code></pre>
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 8634 ms, trimmed)</span></h3><pre><code>{
+  "location": "Lisbon",
+  "city": "Lisbon",
+  "days": 2,
+  "start_date": "2026-09-27",
+  "time_zone": "Europe/Lisbon",
+  "where_to_stay": [
+    {
+      "name": "Andaz Lisbon",
+      "address": "136, Rua do Comércio, Santa Maria Maior",
+      "distance_to_centre_metres": 144,
+      "website": "https://www.hyatt.com/andaz/lisaz-andaz-lisbon",
+      "map": "https://www.openstreetmap.org/relation/19291170"
+    },
+    {
+      "name": "Lisboa Amazing Hostel",
+      "address": "Beco do Arco Escuro, Sé, Santa Maria Maior",
+      "distance_to_centre_metres": 283,
+      "map": "https://www.openstreetmap.org/way/96322172"
+    },
+    "… 1 more"
+  ],
+  "plan": [
+    {
+      "day": 1,
+      "date": "2026-09-27",
+      "stops": [
+        {
+          "time": "09:30",
+          "stop": "Coffee",
+          "name": "Starbucks",
+          "address": "79, Rua de Santa Justa, São Cristóvão e São Lourenço",
+          "walk_minutes": 5,
+          "open_then": true,
+          "opening_hours": "Mo-Su 08:00-20:00",
+          "website": "https://www.starbucks.pt/",
+          "…": "1 more fields"
+        },
+        {
+          "time": "10:30",
+          "stop": "Morning sight",
+          "name": "Museu Arqueológico do Carmo",
+          "address": "Largo do Carmo, Sacramento, Santa Maria Maior",
+          "walk_minutes": 2,
+          "open_then": null,
+          "opening_hours": "Oct-May: Tu-Su 10:00-18:00; Jun-Sep: Tu-Su 10:00-19:00; Jan 01,May 01,Dec 25 off",
+          "website": "https://www.museuarqueologicodocarmo.pt/",
+          "…": "1 more fields"
+        },
+        "… 4 more"
+      ]
+    },
+    {
+      "day": 2,
+      "date": "2026-09-28",
+      "stops": [
+        {
+          "time": "09:30",
+          "stop": "Coffee",
+          "name": "Matcha Kitchen",
+          "address": "9, Campo das Cebolas, Sé",
+          "walk_minutes": 4,
+          "open_then": true,
+          "opening_hours": "Mo-Su 09:00-18:00",
+          "website": "https://matcha.kitchen/",
+          "…": "1 more fields"
+        },
+        {
+          "time": "10:30",
+          "stop": "Morning sight",
+          "name": "Museu da Farmácia Lisboa",
+          "address": "1, Rua Marechal Saldanha, Santa Catarina",
+          "walk_minutes": 18,
+          "open_then": true,
+          "opening_hours": "Mo-Fr 10:00-19:00; Sa 14:00-19:00",
+          "website": "https://www.museudafarmacia.pt",
+          "…": "1 more fields"
+        },
+        "… 4 more"
+      ]
+    }
+  ],
+  "notes": "Places and opening hours come from OpenStreetMap and can be out of date. Book hotels and tables on their websites (actuent_get_actions finds booking links).",
+  "attribution": "© OpenStreetMap contributors, ODbL — https://www.openstreetmap.org/copyright"
+}</code></pre>
+<h2 id="actuent_cart">actuent_cart</h2>
+<p>A ready checkout link for Shopify products, so the user only confirms and pays.</p>
+<h3>Request</h3><pre><code>{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "tools/call",
+  "params": {
+    "name": "actuent_cart",
+    "arguments": {
+      "items": [
+        {
+          "url": "https://redtape.com/products/ozark-trail-running-shoes-for-men-in-beige-low-cutoutdoor-ozc0380b",
+          "quantity": 1
+        }
+      ]
+    }
+  }
+}</code></pre>
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 787 ms, trimmed)</span></h3><pre><code>{
+  "checkouts": [
+    {
+      "shop": "redtape.com",
+      "checkout_url": "https://redtape.com/cart/49152009371838:1",
+      "items": [
+        {
+          "name": "Trail Running Shoes for Men in Beige | Low-Cut Outdoor",
+          "quantity": 1,
+          "price": 1207,
+          "currency": "INR"
+        }
+      ],
+      "total": 1207,
+      "currency": "INR"
+    }
+  ],
+  "note": "Each link opens the shop's checkout with these items in the basket. The user checks the details and pays on the shop's site; nothing has been bought."
+}</code></pre>
+<h2 id="actuent_trending">actuent_trending</h2>
+<p>What agents are searching for, and the sites they find most, over the last 7 days.</p>
+<h3>Request</h3><pre><code>{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "tools/call",
+  "params": {
+    "name": "actuent_trending",
+    "arguments": {
+      "type": "sites"
+    }
+  }
+}</code></pre>
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 629 ms, trimmed)</span></h3><pre><code>{
+  "period": "last 7 days",
+  "trending_sites": [
+    {
+      "domain": "rejn.app",
+      "appearances": 95
+    },
+    {
+      "domain": "abdisbarber.com",
+      "appearances": 60
+    },
+    "… 8 more"
+  ]
+}</code></pre>
+<h2 id="actuent_news">actuent_news</h2>
+<p>Recent news on a topic from indexed news sites.</p>
+<h3>Request</h3><pre><code>{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "tools/call",
+  "params": {
+    "name": "actuent_news",
+    "arguments": {
+      "topic": "AI agents"
+    }
+  }
+}</code></pre>
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 737 ms, trimmed)</span></h3><pre><code>{
+  "topic": "AI agents",
+  "count": 10,
+  "articles": [
+    {
+      "title": "OpenAI halts training of latest models as reports mount of AI agents going rogue",
+      "source": "The Guardian",
+      "source_url": "https://www.theguardian.com",
+      "published": "2026-09-27T10:01:00.000Z",
+      "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxQdWZCRDBDd0E2YnBTeGJZNXhZLURBOXlJZTR2dGhwY0c1bWlNX3N6MkhWcVRiSF9oNjJLWmJfY0Nwcy05SFB0RGJ2ckhaNjdueWFxMjdnWHhodFM1MEJkRXVnUzJZ…"
+    },
+    {
+      "title": "Banks have profited from idle cash for years. AI agents could change that.",
+      "source": "Yahoo Finance",
+      "source_url": "https://finance.yahoo.com",
+      "published": "2026-09-26T15:42:15.000Z",
+      "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxPT2ZjR0IwRGpQSEdUUGJjYzVOaTRNZmNMc1lwYk5PcGo0NWFPY0c4Z0lnWTc4MVlydWxIc3hMa0VjZm5sR2xYY1hQV1RhemZ2STBsOEtzYUdDQ21ZdDg5YUhfc0J5…"
+    },
+    "… 8 more"
+  ]
+}</code></pre>
+<h2 id="actuent_execute_action">actuent_execute_action <span style="font-size:12px;color:#ff8a3d;font-weight:600">PRO</span></h2>
+<p>Runs an action on a site that publishes its own LAWP. Actions that cost money or can't be undone need <code>confirmed: true</code> after the user agrees; <code>mode: "quote"</code> gets a price without doing anything.</p>
+<h3>Request</h3><pre><code>{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "tools/call",
+  "params": {
+    "name": "actuent_execute_action",
+    "arguments": {
+      "domain": "api.actuent.ai",
+      "action_id": "suggest_site",
+      "input": {
+        "domain": "example.com"
+      },
+      "mode": "execute"
+    }
+  }
+}</code></pre>
+<h3>Response fields</h3><ul><li><code>executed</code></li><li><code>status</code></li><li><code>response</code></li><li><code>safety</code></li><li><code>status_url</code> (for actions that finish later)</li><li><code>needs_confirmation</code> (with a summary to show the user)</li></ul>
+<h2 id="actuent_action_status">actuent_action_status <span style="font-size:12px;color:#ff8a3d;font-weight:600">PRO</span></h2>
+<p>Checks an action that finishes later (HTTP 202).</p>
+<h3>Request</h3><pre><code>{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "tools/call",
+  "params": {
+    "name": "actuent_action_status",
+    "arguments": {
+      "domain": "example.com",
+      "status_url": "https://example.com/lawp/status/123"
+    }
+  }
+}</code></pre>
+<h3>Response fields</h3><ul><li><code>status</code> (pending, done, failed)</li><li><code>result</code></li></ul>
+<h2 id="actuent_accounts">actuent_accounts <span style="font-size:12px;color:#ff8a3d;font-weight:600">PRO</span></h2>
+<p>The user's accounts on sites (OAuth), for actions that need one.</p>
+<h3>Request</h3><pre><code>{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "tools/call",
+  "params": {
+    "name": "actuent_accounts",
+    "arguments": {
+      "action": "list"
+    }
+  }
+}</code></pre>
+<h3>Response fields</h3><ul><li><code>connections:</code> domain, connected_at</li><li><code>connect_url</code> (for action: connect)</li></ul>
+<h2 id="actuent_history">actuent_history <span style="font-size:12px;color:#ff8a3d;font-weight:600">PRO</span></h2>
+<p>Your recent searches.</p>
+<h3>Request</h3><pre><code>{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "tools/call",
+  "params": {
+    "name": "actuent_history",
+    "arguments": {
+      "limit": 5
+    }
+  }
+}</code></pre>
+<h3>Response fields</h3><ul><li><code>searches:</code> query, domains, created_at</li></ul>
+<h2 id="actuent_watch_price">actuent_watch_price <span style="font-size:12px;color:#ff8a3d;font-weight:600">PRO</span></h2>
+<p>Emails you (and optionally POSTs to a webhook) when a product's price drops or it's back in stock.</p>
+<h3>Request</h3><pre><code>{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "tools/call",
+  "params": {
+    "name": "actuent_watch_price",
+    "arguments": {
+      "action": "watch",
+      "url": "https://shop.example.com/products/trail-runner",
+      "target_price_eur": 90
+    }
+  }
+}</code></pre>
+<h3>Response fields</h3><ul><li><code>watching</code></li><li><code>current_price_eur</code></li><li><code>how</code></li></ul>
+</main>
+</body>
+</html>
