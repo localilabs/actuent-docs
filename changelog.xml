@@ -7,6 +7,13 @@
     <description>What's new in Actuent, the search engine for AI agents.</description>
     <language>en</language>
     <item>
+      <title>Faster search, checkout links and the Shopify app</title>
+      <link>https://docs.actuent.ai/changelog#2026-09-27-faster-search-checkout-shopify</link>
+      <guid isPermaLink="false">2026-09-27-faster-search-checkout-shopify</guid>
+      <pubDate>Sun, 27 Sep 2026 18:00:00 +0000</pubDate>
+      <description>&lt;ul&gt;&lt;li&gt;Search is much faster: known sites answer in about a second instead of up to 25, and keyword searches overlap their steps.&lt;/li&gt;&lt;li&gt;Better results: sites are ranked with real popularity data, and adult and gambling sites are left out unless asked for. A weekly benchmark tracks quality.&lt;/li&gt;&lt;li&gt;Checkout links: Shopify products come with a &lt;code&gt;cart_url&lt;/code&gt;, and &lt;code&gt;actuent_cart&lt;/code&gt; puts several items in one checkout.&lt;/li&gt;&lt;li&gt;Actuent for Shopify: publishes a store&#x27;s LAWP automatically (coming to the Shopify App Store).&lt;/li&gt;&lt;li&gt;&lt;code&gt;npx @actuent/lawp&lt;/code&gt;: check, validate, create and test LAWP files from the command line.&lt;/li&gt;&lt;li&gt;Several API keys per account, with labels, revoking and a key history (Analytics → Account).&lt;/li&gt;&lt;li&gt;Free results only mention Pro when something was actually held back.&lt;/li&gt;&lt;li&gt;Search engines hear about new site pages right away (IndexNow).&lt;/li&gt;&lt;li&gt;Abuse protection: clients that keep hammering the API are blocked for an hour.&lt;/li&gt;&lt;/ul&gt;</description>
+    </item>
+    <item>
       <title>Connected accounts and safer site claiming</title>
       <link>https://docs.actuent.ai/changelog#2026-09-27-connected-accounts</link>
       <guid isPermaLink="false">2026-09-27-connected-accounts</guid>

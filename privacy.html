@@ -77,14 +77,15 @@
 <main>
   <div class="top"><a href="https://actuent.ai"><img src="https://api.actuent.ai/assets/actuent-logo.png" alt="Actuent"></a><a href="https://docs.actuent.ai">Docs</a></div>
   <h1>Privacy Policy</h1>
-  <p class="sub">Last updated: 27 September 2026 (rev. 9)</p>
+  <p class="sub">Last updated: 27 September 2026 (rev. 10)</p>
 
   <p>Actuent ("we", "us") is a search service for AI agents, made by localilabs (Alfred Murray) in Copenhagen, Denmark. This policy explains what data Actuent handles when you or your AI assistant use actuent.ai, api.actuent.ai, agents.actuent.ai (the Actuent MCP server, including the ChatGPT app and Claude connector), humans.actuent.ai, analytics.actuent.ai, docs.actuent.ai and the @actuent/sdk package. We are the data controller.</p>
 
   <h2>What we collect</h2>
   <ul>
     <li><strong>Search requests.</strong> The query or tool arguments your AI assistant sends (for example "barber amsterdam" or a domain), the domains returned, the plan tier and a timestamp. We do not receive your conversation with the assistant, only what it sends to our tools.</li>
-    <li><strong>IP address.</strong> Used to apply per-minute rate limits to free usage. It is stored for about 10 minutes and then deleted.</li>
+    <li><strong>IP address.</strong> Used to apply per-minute rate limits to free usage. It is stored for about 10 minutes and then deleted. If a client keeps exceeding the limits, a one-way hash of its IP address (not the address itself) is kept on a block list for an hour.</li>
+    <li><strong>API key events (Pro).</strong> When you create or revoke an API key, we log the event, the key's label and last characters, and a hash of the IP address, so you can see your key history.</li>
     <li><strong>Account data (Pro).</strong> Your email address and API key. We store API keys only as one-way hashes in our logs and lookups. Search history made with a Pro key is linked to that key so we can provide the history and memory features and your analytics.</li>
     <li><strong>Connecting from ChatGPT or Claude (Pro).</strong> When you connect your Pro account, you paste your API key on our sign-in page. We give the app an encrypted access token linked to that key. We never see your ChatGPT or Claude password or conversations.</li>
     <li><strong>Actions (Pro).</strong> When your assistant performs an action on a site (for example sending a message or making a booking), we send the action and the input it provides to that site's own endpoint. We keep an action log with the site, the action, the first 500 characters of the input, whether it succeeded, and the first 1,000 characters of the site's reply, so you can see what your agents did. The site receives the input and handles it under its own privacy policy.</li>
@@ -121,6 +122,7 @@
     <li>If your site publishes executable actions, we send it a signed test request (<code>test: true</code>, no personal data) once a day and keep the results (success, status code, response time) for 30 days to show its reliability.</li>
     <li>Links Actuent gives to AI agents go through <code>api.actuent.ai/go</code>, which counts one visit for the site per click (the site and the day only; no IP address, cookie or anything about the person) and redirects.</li>
     <li>We read each site's public robots.txt to show which AI bots it blocks.</li>
+    <li><strong>Actuent for Shopify:</strong> the app reads your store's public description, pages, collections and policies (read-only) to build your LAWP. We store an encrypted access token and your store's domain, and delete them when you uninstall. We don't read or store customer or order data.</li>
     <li>We automatically assign each site a category, compare its public score with similar sites, and flag parked domains and duplicates. This uses only public website content.</li>
     <li>You can ask us to correct or remove your site's data, including its public site page, at any time.</li>
   </ul>

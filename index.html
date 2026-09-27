@@ -160,7 +160,7 @@ Pro — pass Authorization: Bearer YOUR_KEY for memory and all tools.</code></pr
   <h2 id="mcp">MCP Setup</h2>
   <p>Plug Actuent into ChatGPT, Claude, or any MCP-compatible AI. Free tools work straight away. Pro users connect their account to unlock Pro tools.</p>
   <h3>ChatGPT</h3>
-  <p>Add Actuent as an app or connector using the server URL <code>https://agents.actuent.ai/api/mcp</code>. Free tools work without signing in. When you use a Pro tool, ChatGPT asks you to <strong>Connect</strong>. Paste your Actuent Pro API key on the Actuent page and you're done.</p>
+  <p>In ChatGPT, turn on <strong>Settings → Apps &amp; Connectors → Advanced → Developer mode</strong>, then <strong>Create</strong> a connector with the server URL <code>https://agents.actuent.ai/api/mcp</code>. Free tools work without signing in. When you use a Pro tool, ChatGPT asks you to <strong>Connect</strong>. Paste your Actuent Pro API key on the Actuent page and you're done.</p>
   <h3>Claude</h3>
   <p><strong>Claude.ai:</strong> Settings → Connectors → Add custom connector → <code>https://agents.actuent.ai/api/mcp</code>. Connect with your Pro API key the same way when prompted.</p>
   <p><strong>Claude Desktop:</strong> download <a href="https://docs.actuent.ai/actuent.mcpb">actuent.mcpb</a> and double-click it. You can optionally paste a Pro API key during install.</p>
@@ -196,6 +196,7 @@ Pro — pass Authorization: Bearer YOUR_KEY for memory and all tools.</code></pr
     <tr><td>actuent_trending</td><td>Top 10 most searched sites and queries this week</td><td><span class="tf free">FREE</span></td></tr>
     <tr><td>actuent_news</td><td>Latest articles on any topic: headlines, sources, links and dates</td><td><span class="tf free">FREE</span></td></tr>
     <tr><td>actuent_nearby</td><td>Places near a location, sorted by distance, with opening hours and an <code>open_now</code> filter (OpenStreetMap)</td><td><span class="tf free">FREE</span></td></tr>
+    <tr><td>actuent_cart</td><td>A ready checkout link per shop for products from search (Shopify): the user reviews and pays on the shop's site</td><td><span class="tf free">FREE</span></td></tr>
     <tr><td>actuent_trip</td><td>A 1–4 day city trip: where to stay and a timed plan for each day, plus events</td><td><span class="tf free">FREE</span></td></tr>
     <tr><td>actuent_find_service</td><td>A service or dish with its price at local businesses, e.g. "skin fade under €30" in Amsterdam</td><td><span class="tf free">FREE</span></td></tr>
     <tr><td>actuent_ask_site</td><td>Answer a question from one site's own pages, in its own words</td><td><span class="tf free">FREE</span></td></tr>
@@ -278,6 +279,8 @@ client.products("running shoes under €100")</code></pre>
   <p>When a product's price has changed, it includes <code>previous_price_eur</code>, <code>price_change_percent</code> (e.g. <code>-20</code> for 20% cheaper) and <code>price_changed_at</code>.</p>
   <h3>Same product, cheapest shop</h3>
   <p>A product sold by several shops appears once, at its cheapest shop, with <code>other_shops</code> (domain, price and link) and <code>matched_by</code>: <code>barcode</code> when shops publish one, otherwise <code>name</code>.</p>
+  <h3>Checkout links</h3>
+  <p>Products from Shopify shops include a <code>cart_url</code> that opens the shop's checkout with the item in the basket. <code>actuent_cart</code> builds one link for several items. Nothing is bought until the user pays on the shop's site.</p>
   <h3>Price-drop alerts (Pro)</h3>
   <p>Ask your assistant to watch a product (<code>actuent_watch_price</code>). Actuent checks watched prices daily and emails you, or POSTs to your webhook, when the price drops, optionally only at or below a target price.</p>
   <h3>Business details and open now</h3>
@@ -298,6 +301,8 @@ client.products("running shoes under €100")</code></pre>
   <p>Search in any language (<code>Laufschuhe</code>, <code>frisør københavn</code>). Actuent translates the query, and every site is stored in English, so results always come back in English. <code>language</code> tells you the site's original language.</p>
   <h3>Freshness</h3>
   <p>Each result has <code>last_updated</code> and <code>age_hours</code>, so agents know how current the information is.</p>
+  <h3>Safe results</h3>
+  <p>Adult and gambling sites are left out of results unless the search is clearly for them. Parked domains and duplicates are left out too.</p>
   <h3>Rate limits</h3>
   <p>Every response includes <code>X-RateLimit-Limit</code>, <code>X-RateLimit-Remaining</code> and <code>X-RateLimit-Reset</code>. Over the limit you get <code>429</code> with <code>Retry-After</code>. Free: 20 requests/minute. Pro: 60 requests/minute with priority access.</p>
   <h3>OpenAPI</h3>
@@ -313,6 +318,11 @@ client.products("running shoes under €100")</code></pre>
 https://api.actuent.ai/badge.svg?domain=yoursite.com&amp;style=card  card with the checks</code></pre>
   <h3>JSON</h3>
   <p><code>GET https://api.actuent.ai/badge.json?domain=yoursite.com</code> returns the score, label, category and each check, to build your own.</p>
+
+  <h3>Command line</h3>
+  <pre><code>npx @actuent/lawp check yoursite.com      # find and validate your LAWP
+npx @actuent/lawp init yoursite.com > lawp.json
+npx @actuent/lawp test yoursite.com book  # signed test request to an action</code></pre>
 
   <h2 id="lawp">LAWP Format</h2>
   <p>LAWP (Locali AI Web Protocol) is an open standard for representing websites as structured JSON AI agents can read and act on. Full spec: <a href="https://github.com/localilabs/lawp">github.com/localilabs/lawp</a></p>
@@ -437,6 +447,7 @@ const ok = crypto.verify(null, Buffer.from(signed), publicKeyFromJwk, Buffer.fro
     <li><strong>Overview, AI Traffic, Queries, Rankings:</strong> how often agents find your site and for which searches.</li>
     <li><strong>Actions:</strong> which of your LAWP actions agents ran on your site (verified sites only), and every action your own agents executed.</li>
     <li><strong>My sites:</strong> claim a site with a DNS record, then edit its pages and actions without code. Claimed sites are never overwritten by the crawler.</li>
+    <li><strong>API keys:</strong> make separate keys for each app or teammate, label them, and revoke one without touching the others. Extra keys stop working if the account's subscription ends.</li>
     <li><strong>Account:</strong> your usage, your referral link (a free month for every friend who subscribes to Pro), and a button to delete your data.</li>
   </ul>
   <p><strong>Visits from Actuent:</strong> how many people opened a link to your site that an AI assistant gave them through Actuent.</p>
