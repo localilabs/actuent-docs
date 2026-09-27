@@ -404,6 +404,10 @@ const ok = crypto.verify(null, Buffer.from(signed), publicKeyFromJwk, Buffer.fro
   <p>Test requests from the <a href="#checker">LAWP Checker</a> include <code>"test": true</code> (and the <code>X-LAWP-Test</code> header). Validate the input and respond, but don't perform the action.</p>
   <div class="note"><p>Endpoints are only used when they come from your own <code>/.well-known/lawp.json</code>, are <code>https://</code>, and are on your domain or a subdomain. Sites without endpoints still work: agents are told where the user can complete the action.</p></div>
 
+  <h3>Local searches, brands and why a result came up</h3>
+  <p>Searches with a city ("barber amsterdam", "pizza london") put businesses whose address is in that city first. When Actuent has no websites there yet, the response includes <code>places</code>: places from OpenStreetMap (name, type, address, website, phone, opening hours, map link), labelled with <code>source: "OpenStreetMap"</code> and its attribution. They're map entries, not indexed websites.</p>
+  <p>Each brand appears once: the global site (say <code>nike.com</code>) with its country versions in <code>regional_sites</code>. Every result has <code>matched</code>, a short note on which words matched where.</p>
+
   <h2 id="errors">Errors &amp; busy times</h2>
   <p>Actuent never answers with silence. Whenever results are limited or empty, the response says why in plain English, so you (or your AI assistant) can tell the user what happened and what to do.</p>
   <h3>Notices</h3>
@@ -417,7 +421,9 @@ const ok = crypto.verify(null, Buffer.from(signed), publicKeyFromJwk, Buffer.fro
   <table>
     <tr><th>Code</th><th>What it means</th></tr>
     <tr><td><code>busy_limited_results</code></td><td>It's very busy, so these results come from a quicker, simpler search. Try again shortly for the full search.</td></tr>
-    <tr><td><code>busy_saved_copy</code></td><td>It's very busy, so you got Actuent's saved copy of the site (with its date) instead of a fresh visit.</td></tr>
+    <tr><td><code>busy_saved_copy</code></td><td>It's very busy, so you got Actuent's saved copy of the site (with its date) instead of a fresh visit. A fresh visit is queued for within the hour.</td></tr>
+    <tr><td><code>busy_queued</code></td><td>It's very busy and Actuent didn't have the site yet, so it's queued and will be added within the hour.</td></tr>
+    <tr><td><code>heavy_use</code></td><td>Lots of free searches from the same place in the last hour, so these are simpler results. Pro gets the full search however much it's used.</td></tr>
     <tr><td><code>busy_no_results</code></td><td>Nothing in the index matched, and Actuent couldn't look further just now. Try again shortly, or search for a website address.</td></tr>
     <tr><td><code>busy</code></td><td>Actuent couldn't finish the request because it's very busy. Try again shortly.</td></tr>
     <tr><td><code>temporarily_unavailable</code></td><td>Search is briefly unavailable. Try again shortly.</td></tr>
@@ -435,6 +441,8 @@ const ok = crypto.verify(null, Buffer.from(signed), publicKeyFromJwk, Buffer.fro
   </table>
   <h3>In ChatGPT, Claude and other MCP clients</h3>
   <p>Tools answer with a readable message instead of an error code, marked <code>isError</code> when the tool couldn't run, so the assistant can explain it to you. Search results with notices include <code>message</code> and a short instruction to pass it on.</p>
+  <h3>Is Actuent busy right now?</h3>
+  <p><code>GET https://api.actuent.ai/api/status</code> returns <code>{ "busy": true|false, "message": "…" }</code>, updated every 30 seconds. The search page shows a banner when it's busy.</p>
   <h3>Pro goes first</h3>
   <p>When lots of people are using Actuent at once, Pro requests keep the full search: related terms and translation, live visits to sites, finding new sites and map-based tools. Free requests still get answers from the index, with a notice when they're simpler than usual. Pro keys also have their own limit of 60 requests a minute, separate from everyone else's.</p>
 
