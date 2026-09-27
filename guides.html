@@ -80,6 +80,15 @@
   <p>The file's <code>"domain"</code> must be your site's domain. Actions can only be <em>executable</em> (have an <code>endpoint</code>) on your own domain, but everything else — pages, actions with booking links, business details, prices — works from a linked file. Check it with the <a href="/#checker">LAWP Checker</a>: it shows <em>found via html-link</em>.</p>
   <p>Can't edit the <code>&lt;head&gt;</code>? A line in <code>robots.txt</code> works too: <code>LAWP: https://…/lawp.json</code>.</p>
 
+  <h2 id="claim">Claim your site</h2>
+  <p>Claiming lets you edit what AI agents see in <a href="https://analytics.actuent.ai">Analytics → My sites</a>, see your AI traffic, and get the weekly score email. Enter your domain there to get your personal verification code, then add it in <strong>one</strong> of these places:</p>
+  <ul>
+    <li><strong>A tag in your homepage's &lt;head&gt;</strong> (works on every platform): <code>&lt;meta name="actuent-site-verification" content="YOUR-CODE"&gt;</code>. On WordPress, paste the code in Settings → Actuent instead.</li>
+    <li><strong>A DNS TXT record</strong>: <code>actuent-site-verification=YOUR-CODE</code></li>
+    <li><strong>A field in your lawp.json</strong> (at <code>/.well-known/</code> or <a href="#link">linked</a>): <code>"actuent_site_verification": "YOUR-CODE"</code></li>
+  </ul>
+  <p>The code is tied to your API key, so nobody else can use it to claim your site.</p>
+
   <h2 id="wordpress">WordPress</h2>
   <p>Install the <a href="https://github.com/localilabs/actuent-wordpress/releases/latest">Actuent LAWP plugin</a> (Plugins → Add New → Upload Plugin). It publishes <code>/.well-known/lawp.json</code> and <code>/llms.txt</code> from your pages, with a search action and a contact action that emails you. WooCommerce products are picked up automatically.</p>
   <p>Business details: most SEO plugins (Yoast, Rank Math, All in One SEO) have a "local business" or "organization" setting that outputs schema.org data. Fill in your address, phone and opening hours there.</p>

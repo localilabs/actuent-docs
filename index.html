@@ -202,6 +202,7 @@ Pro — pass Authorization: Bearer YOUR_KEY for memory and all tools.</code></pr
     <tr><td>actuent_plan</td><td>A timed outing (e.g. dinner 19:00, then drinks) with places open when you'd arrive, walking times and events that day</td><td><span class="tf free">FREE</span></td></tr>
     <tr><td>actuent_events</td><td>Upcoming events (concerts, classes, workshops) that websites publish, by city, dates and topic</td><td><span class="tf free">FREE</span></td></tr>
     <tr><td>actuent_watch_price</td><td>Watch a product and get an email (or webhook) when its price drops or it's back in stock; list and remove watches</td><td><span class="tf pro">PRO</span></td></tr>
+    <tr><td>actuent_accounts</td><td>Connect, list and disconnect the user's own accounts on sites, for actions like "reorder my last order"</td><td><span class="tf pro">PRO</span></td></tr>
     <tr><td>actuent_action_status</td><td>Check a long-running action that returned <code>pending</code></td><td><span class="tf pro">PRO</span></td></tr>
     <tr><td>actuent_history</td><td>Full search history for this API key</td><td><span class="tf pro">PRO</span></td></tr>
     <tr><td>actuent_summarise</td><td>One paragraph summary of any domain</td><td><span class="tf free">FREE</span></td></tr>
@@ -371,6 +372,7 @@ https://api.actuent.ai/badge.svg?domain=yoursite.com&amp;style=card  card with t
     <li><strong>Quotes:</strong> with <code>"modes": ["execute", "quote"]</code>, agents can send <code>"mode": "quote"</code> to get the price and free options without committing. Reply <code>{ "quote": { "available": true, "price": 25, "currency": "EUR" }, "options": [ … ] }</code>.</li>
     <li><strong>Results:</strong> describe your success response with <code>"output": { "fields": [ … ] }</code>, and return errors as <code>{ "error": { "code": "unavailable", "message": "…", "field": "time" } }</code>.</li>
     <li><strong>Long-running actions:</strong> reply <code>202</code> with <code>{ "status": "pending", "status_url": "https://yoursite.com/…", "retry_after_seconds": 60 }</code>; agents check it with <code>actuent_action_status</code>.</li>
+    <li><strong>User accounts:</strong> publish <code>"accounts"</code> (OAuth 2.1 URLs, with a <code>registration_url</code> for dynamic client registration) and mark actions <code>"account": "required"</code>. The first time, the agent gets a <code>connect_url</code> for the user to sign in to your site once; after that, requests carry <code>Authorization: Bearer &lt;the user's token&gt;</code>. Redirect URI: <code>https://agents.actuent.ai/accounts/callback</code>.</li>
     <li><strong>Business details:</strong> put your address, hours and prices in a <code>business</code> object in your LAWP; they're used directly.</li>
     <li><strong>Discovery:</strong> can't serve <code>/.well-known/</code>? Link your file with <code>&lt;link rel="lawp" href="…"&gt;</code> (<a href="/guides#link">how</a>).</li>
   </ul>
