@@ -52,22 +52,33 @@
     <li><strong>Business details</strong> as schema.org data: address, opening hours, phone, prices. Google uses these too.</li>
     <li><strong>Actions</strong> agents can take: contact, book, order. A booking system like Calendly, OpenTable or Fresha counts; Actuent links straight to it.</li>
   </ol>
-  <p>Some platforms don't let you put files at <code>/.well-known/</code>. For those, <strong>claim your site</strong> in <a href="https://analytics.actuent.ai">Analytics → My sites</a> and edit what agents see in a form. Claimed sites are never overwritten by the crawler.</p>
+  <p>Some platforms don't let you put files at <code>/.well-known/</code>. Since LAWP 0.4 that's fine: <a href="#link">host the file anywhere and link to it</a> from your homepage. Or <strong>claim your site</strong> in <a href="https://analytics.actuent.ai">Analytics → My sites</a> and edit what agents see in a form. Claimed sites are never overwritten by the crawler.</p>
   <div class="toc">
-    <a href="#overview">At a glance</a><a href="#wordpress">WordPress</a><a href="#shopify">Shopify</a><a href="#squarespace">Squarespace</a><a href="#wix">Wix</a><a href="#webflow">Webflow</a><a href="#static">Static hosts</a><a href="#cloudflare">Cloudflare</a><a href="#server">Your own server</a>
+    <a href="#overview">At a glance</a><a href="#link">Link your LAWP</a><a href="#wordpress">WordPress</a><a href="#shopify">Shopify</a><a href="#squarespace">Squarespace</a><a href="#wix">Wix</a><a href="#webflow">Webflow</a><a href="#static">Static hosts</a><a href="#cloudflare">Cloudflare</a><a href="#server">Your own server</a>
   </div>
 
   <h2 id="overview">At a glance</h2>
   <table>
     <tr><th>Platform</th><th>Own lawp.json</th><th>Business details</th><th>Easiest route</th></tr>
     <tr><td>WordPress</td><td>Yes (plugin)</td><td>Your SEO plugin</td><td><a href="#wordpress">Actuent plugin</a></td></tr>
-    <tr><td>Shopify</td><td>No</td><td>Theme code</td><td>Products are automatic; <a href="#shopify">claim your site</a></td></tr>
-    <tr><td>Squarespace</td><td>No</td><td>Code injection</td><td><a href="#squarespace">Claim your site</a></td></tr>
-    <tr><td>Wix</td><td>No</td><td>SEO settings</td><td><a href="#wix">Claim your site</a></td></tr>
-    <tr><td>Webflow</td><td>No</td><td>Custom code</td><td><a href="#webflow">Claim your site</a></td></tr>
+    <tr><td>Shopify</td><td>Yes (<a href="#link">linked</a>)</td><td>Theme code</td><td>Products are automatic; <a href="#link">link your LAWP</a></td></tr>
+    <tr><td>Squarespace</td><td>Yes (<a href="#link">linked</a>)</td><td>Code injection</td><td><a href="#link">Link your LAWP</a></td></tr>
+    <tr><td>Wix</td><td>Yes (<a href="#link">linked</a>)</td><td>SEO settings</td><td><a href="#link">Link your LAWP</a></td></tr>
+    <tr><td>Webflow</td><td>Yes (<a href="#link">linked</a>)</td><td>Custom code</td><td><a href="#link">Link your LAWP</a></td></tr>
     <tr><td>Netlify, Vercel, Cloudflare Pages, GitHub Pages</td><td>Yes</td><td>In your HTML</td><td><a href="#static">Add the file</a></td></tr>
     <tr><td>Any site on Cloudflare</td><td>Yes (Worker)</td><td>In your HTML</td><td><a href="#cloudflare">One-click Worker</a></td></tr>
   </table>
+
+  <h2 id="link">Link your LAWP (any platform)</h2>
+  <p>LAWP 0.4 lets a site point to its LAWP file instead of serving it at <code>/.well-known/lawp.json</code>. This works on Shopify, Squarespace, Wix, Webflow and anything else where you can edit the page's <code>&lt;head&gt;</code>.</p>
+  <ol>
+    <li>Make your file with the <a href="/generator">LAWP Generator</a>.</li>
+    <li>Put it online anywhere that serves the file as-is over https, without a redirect: your platform's file storage if it accepts <code>.json</code> files, or a free <a href="https://gist.github.com">GitHub Gist</a> (use its <strong>Raw</strong> link).</li>
+    <li>Add this to your homepage's <code>&lt;head&gt;</code> (the same place as the schema.org snippets below), with your file's address:</li>
+  </ol>
+  <pre><code>&lt;link rel="lawp" type="application/json" href="https://gist.githubusercontent.com/you/…/raw/lawp.json"&gt;</code></pre>
+  <p>The file's <code>"domain"</code> must be your site's domain. Actions can only be <em>executable</em> (have an <code>endpoint</code>) on your own domain, but everything else — pages, actions with booking links, business details, prices — works from a linked file. Check it with the <a href="/#checker">LAWP Checker</a>: it shows <em>found via html-link</em>.</p>
+  <p>Can't edit the <code>&lt;head&gt;</code>? A line in <code>robots.txt</code> works too: <code>LAWP: https://…/lawp.json</code>.</p>
 
   <h2 id="wordpress">WordPress</h2>
   <p>Install the <a href="https://github.com/localilabs/actuent-wordpress/releases/latest">Actuent LAWP plugin</a> (Plugins → Add New → Upload Plugin). It publishes <code>/.well-known/lawp.json</code> and <code>/llms.txt</code> from your pages, with a search action and a contact action that emails you. WooCommerce products are picked up automatically.</p>
@@ -75,7 +86,7 @@
 
   <h2 id="shopify">Shopify</h2>
   <p><strong>Products:</strong> nothing to do. Actuent reads your public catalogue (<code>/products.json</code>) with prices, stock and barcodes, so your products show up in shopping searches and price comparisons.</p>
-  <p><strong>Your own lawp.json:</strong> Shopify doesn't allow files at <code>/.well-known/</code>, and Actuent doesn't follow redirects there (only you should control that address). Instead, <a href="https://analytics.actuent.ai">claim your site</a> and edit your pages and actions in Analytics → My sites.</p>
+  <p><strong>Your own LAWP:</strong> Shopify doesn't allow files at <code>/.well-known/</code>, so <a href="#link">link your LAWP</a> from your homepage's <code>&lt;head&gt;</code>, or <a href="https://analytics.actuent.ai">claim your site</a> and edit what agents see in Analytics → My sites.</p>
   <h3>Business details</h3>
   <p>Online Store → Themes → ⋯ → Edit code → <code>theme.liquid</code>, and paste before <code>&lt;/head&gt;</code> (edit the values):</p>
   <pre><code>&lt;script type="application/ld+json"&gt;
@@ -92,18 +103,18 @@
   <p>Online-only shop? Use <code>"@type": "OnlineStore"</code> and leave out the address and hours.</p>
 
   <h2 id="squarespace">Squarespace</h2>
-  <p>Squarespace doesn't allow files at <code>/.well-known/</code>, so <a href="https://analytics.actuent.ai">claim your site</a> and edit what agents see in Analytics → My sites.</p>
+  <p>Squarespace doesn't allow files at <code>/.well-known/</code>, so <a href="#link">link your LAWP</a> from your homepage's <code>&lt;head&gt;</code>, or <a href="https://analytics.actuent.ai">claim your site</a> and edit what agents see in Analytics → My sites.</p>
   <h3>Business details</h3>
   <p>Fill in Settings → Business information (address, phone, hours). To add more, such as services with prices, go to Settings → Developer tools → Code injection → Header (on plans that include it) and paste a schema.org snippet like the one for <a href="#shopify">Shopify</a>, with <code>"@type"</code> set to your business type (for example <code>"HairSalon"</code> or <code>"Restaurant"</code>).</p>
   <p>Squarespace Scheduling (Acuity) links on your site are detected as a booking action automatically.</p>
 
   <h2 id="wix">Wix</h2>
-  <p>Wix doesn't allow files at <code>/.well-known/</code>, so <a href="https://analytics.actuent.ai">claim your site</a> and edit what agents see in Analytics → My sites.</p>
+  <p>Wix doesn't allow files at <code>/.well-known/</code>, so <a href="#link">link your LAWP</a> from your homepage's <code>&lt;head&gt;</code>, or <a href="https://analytics.actuent.ai">claim your site</a> and edit what agents see in Analytics → My sites.</p>
   <h3>Business details</h3>
   <p>Fill in your business info in the Wix dashboard (Settings → Business info). For custom structured data, open a page's SEO settings → Advanced SEO → Structured data markup, and add a schema.org snippet like the one for <a href="#shopify">Shopify</a>.</p>
 
   <h2 id="webflow">Webflow</h2>
-  <p>Webflow doesn't allow files at <code>/.well-known/</code>, so <a href="https://analytics.actuent.ai">claim your site</a>, or, if your domain's DNS is on Cloudflare with the proxy on, use the <a href="#cloudflare">Cloudflare Worker</a>.</p>
+  <p>Webflow doesn't allow files at <code>/.well-known/</code>, so <a href="#link">link your LAWP</a> from your homepage's <code>&lt;head&gt;</code>, or <a href="https://analytics.actuent.ai">claim your site</a> and edit what agents see in Analytics → My sites.</p>
   <h3>Business details</h3>
   <p>Site settings → Custom code → Head code: paste a schema.org snippet like the one for <a href="#shopify">Shopify</a>.</p>
 

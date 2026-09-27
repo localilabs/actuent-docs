@@ -202,6 +202,7 @@ Pro — pass Authorization: Bearer YOUR_KEY for memory and all tools.</code></pr
     <tr><td>actuent_plan</td><td>A timed outing (e.g. dinner 19:00, then drinks) with places open when you'd arrive, walking times and events that day</td><td><span class="tf free">FREE</span></td></tr>
     <tr><td>actuent_events</td><td>Upcoming events (concerts, classes, workshops) that websites publish, by city, dates and topic</td><td><span class="tf free">FREE</span></td></tr>
     <tr><td>actuent_watch_price</td><td>Watch a product and get an email (or webhook) when its price drops or it's back in stock; list and remove watches</td><td><span class="tf pro">PRO</span></td></tr>
+    <tr><td>actuent_action_status</td><td>Check a long-running action that returned <code>pending</code></td><td><span class="tf pro">PRO</span></td></tr>
     <tr><td>actuent_history</td><td>Full search history for this API key</td><td><span class="tf pro">PRO</span></td></tr>
     <tr><td>actuent_summarise</td><td>One paragraph summary of any domain</td><td><span class="tf free">FREE</span></td></tr>
   </table>
@@ -364,8 +365,18 @@ https://api.actuent.ai/badge.svg?domain=yoursite.com&amp;style=card  card with t
   ]
 }</code></pre>
   <p>Field types: <code>string</code>, <code>number</code>, <code>integer</code>, <code>boolean</code>, <code>date</code>, <code>time</code>, <code>datetime</code>, <code>email</code>, <code>phone</code>, <code>url</code>, <code>enum</code> (with <code>options</code>). Your endpoint receives <code>"input": { "date": "2026-10-03", "time": "14:00", … }</code>; <code>GET</code> endpoints also get each field as a query parameter. <a href="https://github.com/localilabs/lawp/blob/main/LAWP.md#structured-inputs-v03">Full spec</a>.</p>
+  <h3>LAWP 0.4: safety, quotes, results and long-running actions</h3>
+  <ul style="margin:0 0 12px 20px;color:#c4c4cf;font-size:14px;line-height:1.8">
+    <li><strong>Safety:</strong> add <code>"safety": { "requires_confirmation": true, "costs_money": { "amount": 25, "currency": "EUR" }, "reversible": true }</code>. Actions that cost money, can't be undone, ask for confirmation, or say nothing at all return <code>needs_confirmation</code> to the agent first; it must get the user's OK and call again with <code>confirmed: true</code>.</li>
+    <li><strong>Quotes:</strong> with <code>"modes": ["execute", "quote"]</code>, agents can send <code>"mode": "quote"</code> to get the price and free options without committing. Reply <code>{ "quote": { "available": true, "price": 25, "currency": "EUR" }, "options": [ … ] }</code>.</li>
+    <li><strong>Results:</strong> describe your success response with <code>"output": { "fields": [ … ] }</code>, and return errors as <code>{ "error": { "code": "unavailable", "message": "…", "field": "time" } }</code>.</li>
+    <li><strong>Long-running actions:</strong> reply <code>202</code> with <code>{ "status": "pending", "status_url": "https://yoursite.com/…", "retry_after_seconds": 60 }</code>; agents check it with <code>actuent_action_status</code>.</li>
+    <li><strong>Business details:</strong> put your address, hours and prices in a <code>business</code> object in your LAWP; they're used directly.</li>
+    <li><strong>Discovery:</strong> can't serve <code>/.well-known/</code>? Link your file with <code>&lt;link rel="lawp" href="…"&gt;</code> (<a href="/guides#link">how</a>).</li>
+  </ul>
+  <p>Full spec, JSON Schema and conformance tests: <a href="https://github.com/localilabs/lawp">github.com/localilabs/lawp</a>. Actuent's own <a href="https://api.actuent.ai/.well-known/lawp.json">lawp.json</a> is a complete 0.4 example.</p>
   <h3>Verify requests come from Actuent</h3>
-  <p>Every request is signed with Ed25519. Check it before doing anything:</p>
+  <p>Every request is signed twice with Ed25519. Use either. <strong>Recommended (LAWP 0.4):</strong> standard <a href="https://www.rfc-editor.org/rfc/rfc9421">HTTP Message Signatures</a> (as in Web Bot Auth): headers <code>Signature-Agent</code>, <code>Signature-Input</code>, <code>Signature</code> and <code>Content-Digest</code>, with keys at <a href="https://agents.actuent.ai/.well-known/http-message-signatures-directory">agents.actuent.ai/.well-known/http-message-signatures-directory</a>. Any RFC 9421 library can verify them; see the <a href="https://github.com/localilabs/lawp/blob/main/LAWP.md#action-endpoints">spec</a>. <strong>Original scheme:</strong></p>
   <pre><code>// Headers: X-Actuent-Timestamp, X-Actuent-Key-Id, X-Actuent-Signature: v1=&lt;base64url&gt;
 // Public keys: https://agents.actuent.ai/.well-known/actuent-signing-keys.json (JWKS, match "kid")
 const signed = `${timestamp}\n${method}\n${fullUrl}\n${sha256Hex(rawBody)}`
@@ -460,7 +471,11 @@ function checkLAWP() {
           (site ? '<pre><code>'+escH(JSON.stringify(site, null, 2))+'</code></pre>' : '')
       })
     }
-    var html = box("#4ade80", "✓ Native LAWP found", escH(res.domain)+'/.well-known/lawp.json is valid' + (res.problems.length ? '<br>'+res.problems.map(escH).join("<br>") : ''))
+    var via = { "well-known": "/.well-known/lawp.json", "link-header": "a Link header on the homepage", "html-link": "a <link rel=\"lawp\"> on the homepage", "robots": "a LAWP: line in robots.txt" }[res.discovered_via] || "/.well-known/lawp.json"
+    var schema = res.schema_errors && res.schema_errors.length
+      ? '<div style="color:#f0a0a0;margin-top:6px">Schema (LAWP 0.4): '+res.schema_errors.map(escH).join("<br>")+'</div>'
+      : '<div style="color:#4ade80;margin-top:6px">✓ Valid against the LAWP 0.4 JSON Schema</div>'
+    var html = box(res.schema_errors && res.schema_errors.length ? "#ff8a3d" : "#4ade80", "✓ Native LAWP found", 'Found via '+escH(via)+(res.lawp_version ? ' · LAWP '+escH(res.lawp_version) : '') + (res.problems.length ? '<br>'+res.problems.map(escH).join("<br>") : '') + schema)
     html += res.actions.map(function(a) {
       var status = a.executable ? '<span class="tf pro">EXECUTABLE</span>' : '<span class="tf free">NO ENDPOINT</span>'
       var issues = a.problems.length ? '<div style="color:#f0a0a0;font-size:12px;margin-top:4px">'+a.problems.map(escH).join("<br>")+'</div>' : ''

@@ -7,6 +7,13 @@
     <description>What's new in Actuent, the search engine for AI agents.</description>
     <language>en</language>
     <item>
+      <title>LAWP 0.4</title>
+      <link>https://docs.actuent.ai/changelog#2026-09-27-lawp-0-4</link>
+      <guid isPermaLink="false">2026-09-27-lawp-0-4</guid>
+      <pubDate>Sun, 27 Sep 2026 12:00:00 +0000</pubDate>
+      <description>&lt;ul&gt;&lt;li&gt;Link your LAWP from any page (&lt;code&gt;&amp;lt;link rel=&quot;lawp&quot;&amp;gt;&lt;/code&gt;, a Link header or robots.txt): Shopify, Squarespace, Wix and Webflow sites can publish their own now.&lt;/li&gt;&lt;li&gt;Safety labels: actions that cost money or can&#x27;t be undone need the user&#x27;s confirmation; Actuent enforces it.&lt;/li&gt;&lt;li&gt;Quotes (price and availability before committing), standard results and errors, and long-running actions with &lt;code&gt;actuent_action_status&lt;/code&gt;.&lt;/li&gt;&lt;li&gt;Business details, hours and offers in LAWP itself; user accounts via OAuth 2.1; translations and split files for big sites.&lt;/li&gt;&lt;li&gt;Requests are signed with standard HTTP Message Signatures (RFC 9421, as in Web Bot Auth) as well as Actuent&#x27;s original headers.&lt;/li&gt;&lt;li&gt;A JSON Schema and conformance tests for LAWP; the LAWP Checker validates against it.&lt;/li&gt;&lt;li&gt;WordPress plugin 1.3.0, Cloudflare Worker 1.2.0, @actuent/sdk 0.5.0 and Python 0.3.0 support 0.4.&lt;/li&gt;&lt;li&gt;The crawlers try harder before saving a site as minimal: the rendered page, www/http, llms.txt and the sitemap.&lt;/li&gt;&lt;/ul&gt;</description>
+    </item>
+    <item>
       <title>Trips, service search, ask a site and AI bot access</title>
       <link>https://docs.actuent.ai/changelog#2026-09-26-trips--service-search--ask-a-site-and-ai-bot-access</link>
       <guid isPermaLink="false">2026-09-26-trips--service-search--ask-a-site-and-ai-bot-access</guid>

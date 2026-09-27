@@ -71,6 +71,19 @@
       <div id="pages"></div>
       <button class="btn ghost small" onclick="addPage()">+ Add page</button>
 
+      <h2>Business details (optional)</h2>
+      <div class="row">
+        <div><label for="b-type">Type</label><select id="b-type"><option value="">Not a local business</option><option>LocalBusiness</option><option>Restaurant</option><option>CafeOrCoffeeShop</option><option>BarOrPub</option><option>HairSalon</option><option>BeautySalon</option><option>DaySpa</option><option>ExerciseGym</option><option>Dentist</option><option>MedicalClinic</option><option>Store</option><option>Hotel</option><option>ProfessionalService</option></select></div>
+        <div><label for="b-phone">Phone</label><input id="b-phone" placeholder="+45 12 34 56 78"></div>
+      </div>
+      <div class="row">
+        <div><label for="b-street">Street</label><input id="b-street" placeholder="Westerstraat 1"></div>
+        <div><label for="b-city">City</label><input id="b-city" placeholder="Amsterdam"></div>
+        <div style="flex:0 0 90px"><label for="b-country">Country</label><input id="b-country" placeholder="NL" maxlength="2"></div>
+      </div>
+      <label for="b-hours">Opening hours (one line per group, e.g. <code>Mo-Fr 09:00-18:00</code>)</label>
+      <textarea id="b-hours" placeholder="Tu-Fr 09:00-18:00&#10;Sa 09:00-16:00"></textarea>
+
       <h2>Actions</h2>
       <div class="presets" id="presets"></div>
       <div id="actions"></div>
@@ -86,7 +99,7 @@
         <button class="btn ghost" onclick="download()" style="flex:0 0 auto">Download</button>
         <span id="copy-status" class="muted" style="align-self:center"></span>
       </div>
-      <p class="muted" style="margin-top:12px">Then publish it at <code>/.well-known/lawp.json</code> and test it with the <a href="/#checker">LAWP Checker</a>. Spec: <a href="https://github.com/localilabs/lawp/blob/main/LAWP.md">LAWP 0.3</a>.</p>
+      <p class="muted" style="margin-top:12px">Then publish it at <code>/.well-known/lawp.json</code>, or if your platform can't (Shopify, Squarespace, Wix, Webflow), put it online anywhere and add <code>&lt;link rel="lawp" type="application/json" href="…"&gt;</code> to your homepage (<a href="/guides#link">how</a>). Test it with the <a href="/#checker">LAWP Checker</a>. Spec: <a href="https://github.com/localilabs/lawp/blob/main/LAWP.md">LAWP 0.4</a>.</p>
     </div>
   </div>
 </main>
@@ -124,6 +137,13 @@ function addAction(a) {
     '<div><label class="check" style="margin-top:26px"><input type="checkbox" data-f="required"' + (a.input && a.input.required ? " checked" : "") + '> required</label></div></div>' +
     '<label>Fields (for "object": JSON array)</label><textarea data-f="fields" placeholder=\'[{"name":"date","type":"date","required":true}]\'>' + esc(fields) + '</textarea>' +
     '<label>Endpoint (optional, makes it executable): https URL on your domain</label><div class="row"><input data-f="endpoint" placeholder="https://yoursite.com/api/lawp/' + esc(a.id || "action") + '"><select data-f="method" style="flex:0 0 90px"><option>POST</option><option>GET</option></select></div>' +
+    '<label>Or a link where people do it themselves (e.g. your booking page)</label><input data-f="url" placeholder="https://…" value="' + esc(a.url || "") + '">' +
+    '<div class="row" style="flex-wrap:wrap;margin-top:6px">' +
+      '<label class="check"><input type="checkbox" data-f="confirm"' + (a.safety ? (a.safety.requires_confirmation ? " checked" : "") : " checked") + '> ask the user first</label>' +
+      '<label class="check"><input type="checkbox" data-f="reversible"' + (a.safety && a.safety.reversible ? " checked" : "") + '> can be undone</label>' +
+      '<label class="check"><input type="checkbox" data-f="quote"' + (a.modes && a.modes.indexOf("quote") >= 0 ? " checked" : "") + '> can give a quote first</label>' +
+    '</div>' +
+    '<div class="row"><div><label>Costs (optional)</label><input data-f="cost" type="number" min="0" step="0.01" placeholder="25"></div><div><label>Currency</label><input data-f="currency" placeholder="EUR" maxlength="3"></div></div>' +
     '</div>')
   render()
 }
@@ -149,6 +169,14 @@ function read() {
     }
     var a = { id: v("id").toLowerCase().replace(/[^a-z0-9_]+/g, "_"), name: v("name"), description: v("description"),
       intent: v("intent").split(",").map(function (t) { return t.trim() }).filter(Boolean), input: input }
+    if (v("url")) a.url = v("url")
+    // LAWP 0.4 safety labels.
+    var cost = parseFloat(v("cost"))
+    a.safety = { requires_confirmation: el.querySelector('[data-f="confirm"]').checked, costs_money: cost > 0 ? { amount: cost, currency: (v("currency") || "EUR").toUpperCase() } : false, reversible: el.querySelector('[data-f="reversible"]').checked, destructive: false }
+    if (el.querySelector('[data-f="quote"]').checked) {
+      if (v("endpoint")) a.modes = ["execute", "quote"]
+      else problems.push('Action "' + (a.id || "?") + '": quotes need an endpoint')
+    }
     if (v("endpoint")) {
       a.endpoint = { url: v("endpoint"), method: v("method") }
       try {
@@ -164,7 +192,32 @@ function read() {
   if (!name) problems.unshift("Add your site's name")
   if (pages["/"].content.length < 40) problems.push("Describe what you do in a sentence or two")
   if (!actions.length) problems.push("Add at least one action (contact is a good start)")
-  return { doc: { lawp_version: "0.3", domain: domain, name: name, language: "en", pages: pages, actions: actions }, problems: problems }
+  var doc = { lawp_version: "0.4", domain: domain, name: name, language: "en", updated_at: new Date().toISOString().slice(0, 19) + "Z", pages: pages, actions: actions }
+  // LAWP 0.4 business details.
+  if ($("b-type").value) {
+    var hours = $("b-hours").value.split(/\n+/).map(function (line) {
+      var m = line.trim().match(/^((?:Mo|Tu|We|Th|Fr|Sa|Su)(?:\s*[-,]\s*(?:Mo|Tu|We|Th|Fr|Sa|Su))*)\s+(\d{1,2}:\d{2})\s*-\s*(\d{1,2}:\d{2})$/)
+      if (!m) { if (line.trim()) problems.push('Opening hours: write lines like "Mo-Fr 09:00-18:00"'); return null }
+      var order = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"], days = []
+      m[1].split(",").forEach(function (part) {
+        var ends = part.split("-").map(function (x) { return x.trim() })
+        var i = order.indexOf(ends[0]), j = order.indexOf(ends[1] || ends[0])
+        for (var k = i; k >= 0; k = (k + 1) % 7) { if (days.indexOf(order[k]) < 0) days.push(order[k]); if (k === j) break }
+      })
+      var pad = function (t) { return t.length === 4 ? "0" + t : t }
+      return { days: days, opens: pad(m[2]), closes: pad(m[3]) }
+    }).filter(Boolean)
+    var b = { type: $("b-type").value }
+    if ($("b-phone").value.trim()) b.telephone = $("b-phone").value.trim()
+    var address = {}
+    if ($("b-street").value.trim()) address.street = $("b-street").value.trim()
+    if ($("b-city").value.trim()) address.city = $("b-city").value.trim()
+    if ($("b-country").value.trim()) address.country = $("b-country").value.trim().toUpperCase()
+    if (Object.keys(address).length) b.address = address
+    if (hours.length) b.opening_hours = hours
+    doc.business = b
+  }
+  return { doc: doc, problems: problems }
 }
 
 function render() {
