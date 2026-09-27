@@ -79,7 +79,7 @@
 <main id="main">
   <div class="top"><a href="https://actuent.ai"><img src="https://api.actuent.ai/assets/actuent-logo.png" alt="Actuent"></a><a href="https://docs.actuent.ai">Docs</a></div>
   <h1>Privacy Policy</h1>
-  <p class="sub">Last updated: 27 September 2026 (rev. 10)</p>
+  <p class="sub">Last updated: 28 September 2026 (rev. 11)</p>
 
   <p>Actuent ("we", "us") is a search service for AI agents, made by localilabs (Alfred Murray) in Copenhagen, Denmark. This policy explains what data Actuent handles when you or your AI assistant use actuent.ai, api.actuent.ai, agents.actuent.ai (the Actuent MCP server, including the ChatGPT app and Claude connector), humans.actuent.ai, analytics.actuent.ai, docs.actuent.ai and the @actuent/sdk package. We are the data controller.</p>
 
@@ -146,11 +146,14 @@
   </ul>
   <p>Some of these providers may process data outside the EU/EEA under appropriate safeguards such as the EU Standard Contractual Clauses.</p>
 
-  <h2>Retention</h2>
+  <h2 id="retention">Retention</h2>
+  <p>Old records are deleted automatically every week.</p>
   <ul>
-    <li>Rate-limit records: about 10 minutes.</li>
+    <li>Rate-limit records: about 10 minutes. Usage counters (searches per hashed IP per hour, used to keep heavy automated use from crowding out other people): up to 2 days.</li>
     <li>Price watches: until you remove them or delete your data. AI bot visit counts: while the site is claimed.</li>
-    <li>Search logs, action logs and Pro history: kept while needed to provide the service and analytics, and deleted on request.</li>
+    <li>Search logs, action logs and Pro history: 12 months, or sooner if you delete your data.</li>
+    <li>Endpoint checks for sites' actions: 30 days. Changes to sites' LAWP: 180 days. Product price history: 12 months. Past events: 60 days after they start.</li>
+    <li>Sites people asked Actuent to visit while it was busy: 30 days after the visit. Only the site's domain is stored, not who asked.</li>
     <li>Sign-in tokens from ChatGPT or Claude: access tokens last 1 hour and refresh tokens 90 days. They stop working immediately if your Pro plan is cancelled.</li>
     <li>Account data: kept while your account is active, and deleted on request after cancellation.</li>
   </ul>
