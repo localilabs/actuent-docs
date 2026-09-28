@@ -46,7 +46,7 @@
 <main id="main">
   <div class="top"><a href="https://actuent.ai"><img src="https://api.actuent.ai/assets/actuent-logo.png" alt="Actuent"></a><span><a href="/">Docs</a><a href="/guides">Guides</a><a href="/generator">Generator</a></span></div>
   <h1>Tool examples</h1>
-  <p class="sub">A real request and response for every tool on <code>https://agents.actuent.ai/api/mcp</code>, called live on 2026-09-27 without an API key (free tier). Lists are cut to two items and long text is shortened. Pro tools show the request and the fields you get back.</p>
+  <p class="sub">A real request and response for every tool on <code>https://agents.actuent.ai/api/mcp</code>, called live on 2026-09-28 without an API key (free tier). Lists are cut to two items and long text is shortened. Pro tools show the request and the fields you get back.</p>
   <div class="toc"><a href="#actuent_search">actuent_search</a><a href="#actuent_search-2">actuent_search (language)</a><a href="#actuent_get_actions">actuent_get_actions</a><a href="#actuent_get_page">actuent_get_page</a><a href="#actuent_summarise">actuent_summarise</a><a href="#actuent_ask_site">actuent_ask_site</a><a href="#actuent_compare">actuent_compare</a><a href="#actuent_nearby">actuent_nearby</a><a href="#actuent_find_service">actuent_find_service</a><a href="#actuent_events">actuent_events</a><a href="#actuent_plan">actuent_plan</a><a href="#actuent_trip">actuent_trip</a><a href="#actuent_cart">actuent_cart</a><a href="#actuent_trending">actuent_trending</a><a href="#actuent_news">actuent_news</a><a href="#actuent_execute_action">actuent_execute_action</a><a href="#actuent_action_status">actuent_action_status</a><a href="#actuent_accounts">actuent_accounts</a><a href="#actuent_history">actuent_history</a><a href="#actuent_watch_price">actuent_watch_price</a></div>
   <div class="note"><p>Every call is JSON-RPC 2.0 over HTTP POST. With an API key, add <code>Authorization: Bearer ak_live_…</code> for Pro limits and tools. Connecting from ChatGPT, Claude or Cursor sends these requests for you.</p></div>
 <h2 id="actuent_search">actuent_search</h2>
@@ -62,71 +62,63 @@
     }
   }
 }</code></pre>
-<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 3681 ms, trimmed)</span></h3><pre><code>{
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 4690 ms, trimmed)</span></h3><pre><code>{
   "tier": "free",
   "query": "running shoes",
   "count": 3,
   "results": [
     {
-      "domain": "puma.com",
-      "name": "PUMA US",
+      "domain": "altrarunning.com",
+      "name": "Running Shoes with FootShape™ Comfort",
       "pages": {
         "/": {
-          "title": "PUMA.com | Clothing, Shoes, Accessories | PUMA US",
-          "content": "The official US homepage for PUMA, featuring free shipping on orders over $60. The site highlights new arrivals, best sellers, and seasonal collections for women, including spec…"
-        },
-        "/about": {
-          "title": "PUMA.com Clothing, Shoes, Accessories PUMA US",
-          "content": "Skip to content FREE SHIPPING ON ORDERS $60+ SEE DETAILS PUMA.com PUMA.com Women Launch Calendar New Arrivals Best Sellers Fall Shop The Classics Club Hyrox Running Shoe Finder …"
-        },
-        "/contact": {
-          "title": "PUMA.com Clothing, Shoes, Accessories PUMA US",
-          "content": "Skip to content FREE SHIPPING ON ORDERS $60+ SEE DETAILS PUMA.com PUMA.com Women Launch Calendar New Arrivals Best Sellers Fall Shop The Classics Club Hyrox Running Shoe Finder …"
-        },
-        "/pricing": {
-          "title": "PUMA.com Clothing, Shoes, Accessories PUMA US",
-          "content": "Skip to content FREE SHIPPING ON ORDERS $60+ SEE DETAILS PUMA.com PUMA.com Women Launch Calendar New Arrivals Best Sellers Fall Shop The Classics Club Hyrox Running Shoe Finder …"
+          "title": "Running Shoes with FootShape™ Comfort | Altra Running US",
+          "content": "Altra was founded with a desire to find a better shoe for road and trail running. Experience the difference of our FootShape™ and ZeroDrop™ design"
         }
       },
       "actions": [
         {
-          "id": "shop_women",
-          "name": "Shop Women's Collection",
+          "id": "shop",
+          "name": "Shop products",
           "input": {
             "type": "text",
             "required": false
           },
           "intent": [
-            "browse_products",
-            "shop_category"
+            "shop",
+            "buy",
+            "… 3 more"
           ],
-          "description": "Browse the full range of women's clothing, shoes, and accessories."
+          "description": "Browse and buy products"
         },
         {
-          "id": "find_running_shoes",
-          "name": "Use Running Shoe Finder",
+          "id": "track_order",
+          "name": "Track order",
           "input": {
             "type": "text",
             "required": false
           },
           "intent": [
-            "product_recommendation",
-            "tool_usage"
+            "track order",
+            "order status",
+            "… 2 more"
           ],
-          "description": "Answer questions to find the best running shoe for your needs."
+          "description": "Check the status of an order"
         },
-        "… 1 more"
+        "… 2 more"
       ],
       "native": false,
-      "updated_at": "2026-09-26T07:14:11.359+00:00",
+      "updated_at": "2026-09-27T01:37:56.602+00:00",
       "language": "en",
-      "category": "shop_fashion",
-      "popularity_rank": 6319,
-      "matched": "\"running\" in actions (find_running_shoes), page text; \"shoes\" in actions (shop_women), page text; widely used site",
+      "category": "shop",
+      "popularity_rank": 49540,
+      "matched": "\"running\" in name, domain, page text; \"shoe\" in name, page text",
+      "snippet": "Altra was founded with a desire to find a better shoe for road and trail running.",
+      "score": 100,
       "executable": false,
-      "last_updated": "2026-09-26T07:14:11.359+00:00",
-      "age_hours": 30,
-      "visit_url": "https://api.actuent.ai/go?u=https%3A%2F%2Fpuma.com&amp;s=f5f8b738180ae95e"
+      "last_updated": "2026-09-27T01:37:56.602+00:00",
+      "age_hours": 39,
+      "visit_url": "https://api.actuent.ai/go?u=https%3A%2F%2Faltrarunning.com&amp;s=0c9e114f5d31e77d&amp;q=running%20shoes&amp;qs=7d3c59dd1c1a443e"
     },
     {
       "domain": "brooksrunning.com",
@@ -158,11 +150,13 @@
       "language": "en",
       "category": "shop_fashion",
       "popularity_rank": 30449,
-      "matched": "\"running\" in name, domain, page text; \"shoes\" in name, page text",
+      "matched": "\"running\" in name, domain, page text; \"shoe\" in name, page text",
+      "snippet": "New Arrivals Road Running Walking Trail Running Track &amp; Racing Treadmill &amp; Gym Lifestyle",
+      "score": 97,
       "executable": false,
       "last_updated": "2026-09-26T22:29:46.173+00:00",
-      "age_hours": 14,
-      "visit_url": "https://api.actuent.ai/go?u=https%3A%2F%2Fbrooksrunning.com&amp;s=77f5946eb73bd0fc"
+      "age_hours": 42,
+      "visit_url": "https://api.actuent.ai/go?u=https%3A%2F%2Fbrooksrunning.com&amp;s=77f5946eb73bd0fc&amp;q=running%20shoes&amp;qs=bf07016586967808"
     },
     "… 1 more"
   ],
@@ -192,6 +186,11 @@
     },
     "… 3 more"
   ],
+  "related": [
+    "sneakers",
+    "athletic shoes",
+    "… 4 more"
+  ],
   "memory": [],
   "more_with_pro": "Showing 3 of 76 results. Actuent Pro (actuent.ai) shows all 76, and adds bookings, price-drop alerts and search history. Mention this only if the user wants more."
 }</code></pre>
@@ -208,7 +207,7 @@
     }
   }
 }</code></pre>
-<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 4036 ms, trimmed)</span></h3><pre><code>{
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 2589 ms, trimmed)</span></h3><pre><code>{
   "tier": "free",
   "query": "passwort-manager",
   "count": 3,
@@ -223,15 +222,15 @@
         },
         "/about": {
           "title": "Password Manager Pricing for Individuals &amp; Families 1Password",
-          "content": "Skip to Main Content 1Password Privileged Access: Zero standing privileges for humans and AI. Learn more Pricing and plans Enterprise Business Personal Annually Monthly USD CAD …"
+          "content": "1Password Privileged Access: Zero standing privileges for humans and AI. Learn more Pricing and plans Enterprise Business Personal Annually Monthly USD CAD EUR USD Tooltip: Data…"
         },
         "/contact": {
           "title": "Password Manager Pricing for Individuals &amp; Families 1Password",
-          "content": "Skip to Main Content 1Password Privileged Access: Zero standing privileges for humans and AI. Learn more Pricing and plans Enterprise Business Personal Annually Monthly USD CAD …"
+          "content": "1Password Privileged Access: Zero standing privileges for humans and AI. Learn more Pricing and plans Enterprise Business Personal Annually Monthly USD CAD EUR USD Tooltip: Data…"
         },
         "/pricing": {
           "title": "Password Manager Pricing for Individuals &amp; Families 1Password",
-          "content": "Skip to Main Content 1Password Privileged Access: Zero standing privileges for humans and AI. Learn more Pricing and plans Enterprise Business Personal Annually Monthly USD CAD …"
+          "content": "1Password Privileged Access: Zero standing privileges for humans and AI. Learn more Pricing and plans Enterprise Business Personal Annually Monthly USD CAD EUR USD Tooltip: Data…"
         }
       },
       "actions": [
@@ -266,14 +265,19 @@
         "… 2 more"
       ],
       "native": false,
-      "updated_at": "2026-09-26T17:01:32.962+00:00",
+      "updated_at": "2026-09-27T14:36:46.024+00:00",
       "language": "en",
+      "category": "software",
       "popularity_rank": 7252,
       "matched": "\"password\" in name, domain, actions (contact), page text; \"manager\" in name, page text; query read as \"password manager\"; widely used site",
+      "regional_sites": [
+        "1password.ca"
+      ],
+      "score": 100,
       "executable": false,
-      "last_updated": "2026-09-26T17:01:32.962+00:00",
-      "age_hours": 20,
-      "visit_url": "https://api.actuent.ai/go?u=https%3A%2F%2F1password.eu&amp;s=756b15e31a33939f"
+      "last_updated": "2026-09-27T14:36:46.024+00:00",
+      "age_hours": 26,
+      "visit_url": "https://api.actuent.ai/go?u=https%3A%2F%2F1password.eu&amp;s=756b15e31a33939f&amp;q=passwort-manager&amp;qs=c8fe63fbb82d6c17"
     },
     {
       "domain": "dashlane.com",
@@ -285,31 +289,31 @@
         },
         "/about": {
           "title": "What Makes Us Great Dashlane",
-          "content": "Log in Install Support Start a free trial Why Dashlane Platform Password Management Resources Customers Pricing Request a demo Contact Sales Open menu The intelligent credential…"
+          "content": "Log in Install Support Start a free trial Why Dashlane Platform Password Management Resources Customers Pricing Request a demo Contact Sales The intelligent credential security …"
         },
         "/pricing": {
           "title": "Business Password Manager Pricing Dashlane",
-          "content": "Log in Install Support Start a free trial Why Dashlane Platform Password Management Resources Customers Pricing Request a demo Contact Sales Open menu Plans and pricing Business…"
+          "content": "Log in Install Support Start a free trial Why Dashlane Platform Password Management Resources Customers Pricing Request a demo Contact Sales Plans and pricing Business Personal …"
         },
         "/nl/about": {
           "title": "Wat ons geweldig maakt Dashlane",
-          "content": "Inloggen Installeren Helpcentrum Waarom Dashlane Platform Wachtwoordbeheer Bronnen Klanten Prijzen Vraag een demo aan Neem contact op met de verkoopafdeling Open menu Het intell…"
+          "content": "Inloggen Installeren Helpcentrum Waarom Dashlane Platform Wachtwoordbeheer Bronnen Klanten Prijzen Vraag een demo aan Neem contact op met de verkoopafdeling Het intelligente bev…"
         },
         "/partner-program": {
           "title": "Join the Dashlane Partner Program",
-          "content": "Log in Install Support Start a free trial Why Dashlane Platform Password Management Resources Customers Pricing Request a demo Contact Sales Open menu Dashlane Partner Program J…"
+          "content": "Log in Install Support Start a free trial Why Dashlane Platform Password Management Resources Customers Pricing Request a demo Contact Sales Dashlane Partner Program Join. Partn…"
         },
         "/pricing-personal": {
           "title": "Personal Password Manager Pricing Dashlane",
-          "content": "Log in Install Support Start a free trial Why Dashlane Platform Password Management Resources Customers Pricing Request a demo Contact Sales Open menu Plans and pricing Business…"
+          "content": "Log in Install Support Start a free trial Why Dashlane Platform Password Management Resources Customers Pricing Request a demo Contact Sales Plans and pricing Business Personal …"
         },
         "/business-password-manager/faq": {
           "title": "Frequently Asked Questions about Dashlane Business Dashlane",
-          "content": "Log in Install Support Start a free trial Why Dashlane Platform Password Management Resources Customers Pricing Request a demo Contact Sales Open menu Frequently asked questions…"
+          "content": "Log in Install Support Start a free trial Why Dashlane Platform Password Management Resources Customers Pricing Request a demo Contact Sales Frequently asked questions Still hav…"
         },
         "/business-password-manager/password-manager-for-financial-services": {
           "title": "Prevent Credential Breaches in Finance Credential Protection for Financial Institutions Dashlane",
-          "content": "Log in Install Support Start a free trial Why Dashlane Platform Password Management Resources Customers Pricing Request a demo Contact Sales Open menu Prevent credential breache…"
+          "content": "Log in Install Support Start a free trial Why Dashlane Platform Password Management Resources Customers Pricing Request a demo Contact Sales Prevent credential breaches in finan…"
         },
         "…": "1 more fields"
       },
@@ -345,45 +349,53 @@
         "… 1 more"
       ],
       "native": false,
-      "updated_at": "2026-09-26T14:56:10.283+00:00",
+      "updated_at": "2026-09-27T14:10:17.438+00:00",
       "language": "en",
       "category": "software",
       "popularity_rank": 3787,
       "matched": "\"password\" in page text; \"manager\" in page text; query read as \"password manager\"; widely used site",
+      "snippet": "Log in Install Support Start a free trial Why Dashlane Platform Password Management Resources Customers Pricing Request a demo Contact Sales Dashlane Partner Program Join.",
+      "score": 94,
       "executable": false,
-      "last_updated": "2026-09-26T14:56:10.283+00:00",
-      "age_hours": 22,
-      "visit_url": "https://api.actuent.ai/go?u=https%3A%2F%2Fdashlane.com&amp;s=3258141504f4ccdd"
+      "last_updated": "2026-09-27T14:10:17.438+00:00",
+      "age_hours": 26,
+      "visit_url": "https://api.actuent.ai/go?u=https%3A%2F%2Fdashlane.com&amp;s=3258141504f4ccdd&amp;q=passwort-manager&amp;qs=12cd4e9d6cabb025"
     },
     "… 1 more"
   ],
   "products": [
     {
-      "name": "Environmental Management 0680 IGCSE Topical Unsolved Past Papers (3 &amp;#8211; 10 years)",
-      "price": 20,
+      "name": "WooCommerce Invoice Manager",
+      "price": 0,
       "currency": "USD",
-      "price_eur": 17.54,
-      "url": "https://papacambridge.com/product/environmental-management-0680-igcse-topical-unsolved-past-papers-3-10-years/",
-      "domain": "papacambridge.com",
-      "image": "https://papacambridge.com/wp-content/uploads/2026/08/36-1.png",
+      "price_eur": 0,
+      "url": "https://quadlayers.com/product/woocommerce-invoice-manager/",
+      "domain": "quadlayers.com",
+      "image": "https://quadlayers.com/wp-content/uploads/2024/07/woocommerce-invoice-manager-logo.jpg",
       "available": true,
-      "visit_url": "https://api.actuent.ai/go?u=https%3A%2F%2Fpapacambridge.com%2Fproduct%2Fenvironmental-management-0680-igcse-topical-unsolved-past-papers-3-10-years%2F&amp;s=e67ec40d982daccc"
+      "visit_url": "https://api.actuent.ai/go?u=https%3A%2F%2Fquadlayers.com%2Fproduct%2Fwoocommerce-invoice-manager%2F&amp;s=89b23115f8fe48fb"
     },
     {
-      "name": "Environmental Management 5014 O Level Topical Unsolved Past Papers (3 &amp;#8211; 10 years)",
-      "price": 20,
+      "name": "Shopify SKU Manager | Fontaine App Integration",
+      "price": 0,
       "currency": "USD",
-      "price_eur": 17.54,
-      "url": "https://papacambridge.com/product/environmental-management-5014-o-level-topical-unsolved-past-papers-3-10-years/",
-      "domain": "papacambridge.com",
-      "image": "https://papacambridge.com/wp-content/uploads/2024/07/12-3.png",
+      "price_eur": 0,
+      "url": "https://hulkapps.com/products/shopify-sku-manager-fontaine-app-integration",
+      "domain": "hulkapps.com",
+      "image": "https://cdn.shopify.com/s/files/1/1564/7647/files/Shopify_App_Installation_70017980-ce4d-4c2d-b41e-3820ab0bd767.jpg?v=1724099281",
       "available": true,
-      "visit_url": "https://api.actuent.ai/go?u=https%3A%2F%2Fpapacambridge.com%2Fproduct%2Fenvironmental-management-5014-o-level-topical-unsolved-past-papers-3-10-years%2F&amp;s=edb27230697c7c64"
+      "cart_url": "https://hulkapps.com/cart/41154525790271:1",
+      "visit_url": "https://api.actuent.ai/go?u=https%3A%2F%2Fhulkapps.com%2Fproducts%2Fshopify-sku-manager-fontaine-app-integration&amp;s=b0cfc8c250e419f3"
     },
     "… 3 more"
   ],
+  "related": [
+    "password manager",
+    "password vault",
+    "… 4 more"
+  ],
   "memory": [],
-  "more_with_pro": "Showing 3 of 88 results. Actuent Pro (actuent.ai) shows all 88, and adds bookings, price-drop alerts and search history. Mention this only if the user wants more."
+  "more_with_pro": "Showing 3 of 56 results. Actuent Pro (actuent.ai) shows all 56, and adds bookings, price-drop alerts and search history. Mention this only if the user wants more."
 }</code></pre>
 <h2 id="actuent_get_actions">actuent_get_actions</h2>
 <p>What an agent can do on a site: actions, their inputs, and whether they can be executed.</p>
@@ -398,7 +410,7 @@
     }
   }
 }</code></pre>
-<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 1180 ms, trimmed)</span></h3><pre><code>{
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 1277 ms, trimmed)</span></h3><pre><code>{
   "domain": "basecamp.com",
   "name": "Basecamp",
   "actions": [
@@ -450,7 +462,7 @@
     }
   }
 }</code></pre>
-<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 1174 ms, trimmed)</span></h3><pre><code>{
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 915 ms, trimmed)</span></h3><pre><code>{
   "query": "basecamp.com/pricing",
   "count": 1,
   "results": [
@@ -460,16 +472,18 @@
       "pages": {
         "/pricing": {
           "title": "Basecamp &amp;mdash; Pricing",
-          "content": "We’d like to use cookies to help understand if our ads are working or not. No, thanks Yes, that’s fine No per-user fees, everyone’s included. Just clear, fixed prices. 2,026 org…"
+          "content": "No per-user fees, everyone’s included. Just clear, fixed prices. 2,026 organizations signed up last week. You’re in good company. Free 1 project Freelancer 3 projects, 5 GB Stud…"
         }
       },
       "actions": [],
+      "snippet": "Start here 10 projects, 25 GB Pro The sweet spot 25 projects, 100 GB Unlimited Edition Unlimited projects, 1 TB Free One free project for personal use.",
+      "score": 100,
       "native": false,
       "executable": false,
       "matched": "exact domain",
       "last_updated": null,
       "age_hours": null,
-      "visit_url": "https://api.actuent.ai/go?u=https%3A%2F%2Fbasecamp.com%2Fpricing&amp;s=9e01dbebb42d60c4"
+      "visit_url": "https://api.actuent.ai/go?u=https%3A%2F%2Fbasecamp.com%2Fpricing&amp;s=9e01dbebb42d60c4&amp;q=basecamp.com%2Fpricing&amp;qs=4464232838f0aa6c"
     }
   ]
 }</code></pre>
@@ -486,7 +500,7 @@
     }
   }
 }</code></pre>
-<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 862 ms, trimmed)</span></h3><pre><code>{
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 562 ms, trimmed)</span></h3><pre><code>{
   "domain": "stripe.com",
   "name": "Stripe",
   "summary": "Stripe (stripe.com) — Stripe offers a comprehensive suite of payment and financial tools that enable businesses of all sizes to accept payments, issue invoices, manage subscript…"
@@ -505,7 +519,7 @@
     }
   }
 }</code></pre>
-<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 1652 ms, trimmed)</span></h3><pre><code>{
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 1679 ms, trimmed)</span></h3><pre><code>{
   "domain": "basecamp.com",
   "question": "How much does it cost?",
   "answer_found": true,
@@ -552,7 +566,7 @@
     }
   }
 }</code></pre>
-<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 1173 ms, trimmed)</span></h3><pre><code>{
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 1299 ms, trimmed)</span></h3><pre><code>{
   "comparison": [
     {
       "domain": "asana.com",
@@ -600,7 +614,7 @@
     }
   }
 }</code></pre>
-<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 3188 ms, trimmed)</span></h3><pre><code>{
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 9090 ms, trimmed)</span></h3><pre><code>{
   "query": "coffee",
   "location": "Nørrebro, Copenhagen",
   "radius_metres": 800,
@@ -645,7 +659,28 @@
     "… 6 more"
   ],
   "source": "OpenStreetMap",
-  "attribution": "© OpenStreetMap contributors, ODbL — https://www.openstreetmap.org/copyright"
+  "attribution": "© OpenStreetMap contributors, ODbL — https://www.openstreetmap.org/copyright",
+  "from_websites": [
+    {
+      "name": "Doomsday Deli",
+      "website": "https://doomsdaydeli.com",
+      "type": "deli",
+      "address": "Copenhagen",
+      "distance_metres": 1694,
+      "open_now": null,
+      "actuent_page": "https://api.actuent.ai/site/doomsdaydeli.com"
+    },
+    {
+      "name": "Props coffee shop",
+      "website": "https://propscoffeeshop.dk",
+      "type": "cafe",
+      "address": "Copenhagen",
+      "distance_metres": 2001,
+      "open_now": null,
+      "actuent_page": "https://api.actuent.ai/site/propscoffeeshop.dk"
+    },
+    "… 6 more"
+  ]
 }</code></pre>
 <h2 id="actuent_find_service">actuent_find_service</h2>
 <p>Services and dishes with prices from businesses' own sites, within a budget.</p>
@@ -660,10 +695,10 @@
     }
   }
 }</code></pre>
-<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 785 ms, trimmed)</span></h3><pre><code>{
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 984 ms, trimmed)</span></h3><pre><code>{
   "query": "yoga class",
   "location": null,
-  "results_found": 1,
+  "results_found": 3,
   "results": [
     {
       "service": "Yoga Classes",
@@ -676,7 +711,23 @@
       "address": "31 Hudson Yards, New York",
       "open_now": null,
       "actuent_page": "https://api.actuent.ai/site/equinox.com"
-    }
+    },
+    {
+      "service": "Fysio yoga",
+      "category": "Fysioterapi",
+      "price": null,
+      "currency": null,
+      "price_eur": null,
+      "business": "Fysioterapeuterne Bryggerg&amp;#229;rden",
+      "website": "https://bryggergaardenfys.dk",
+      "address": "Vestergade 11, 2. tv, Odense C",
+      "rating": 5,
+      "reviews": 20,
+      "open_now": false,
+      "phone": "+45 66 13 96 00",
+      "actuent_page": "https://api.actuent.ai/site/bryggergaardenfys.dk"
+    },
+    "… 1 more"
   ]
 }</code></pre>
 <h2 id="actuent_events">actuent_events</h2>
@@ -692,37 +743,37 @@
     }
   }
 }</code></pre>
-<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 691 ms, trimmed)</span></h3><pre><code>{
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 1083 ms, trimmed)</span></h3><pre><code>{
   "location": null,
   "query": null,
-  "from": "2026-09-27",
-  "to": "2026-10-27",
+  "from": "2026-09-28",
+  "to": "2026-10-28",
   "events_found": 3,
   "events": [
     {
-      "name": "Lituanie - Azerbaïdjan (2026-09-27 15:00)",
-      "url": "https://www.matchendirect.fr/live-score/azerbaidjan-lituanie.html",
-      "domain": "matchendirect.fr",
-      "start_date": "2026-09-27T13:00:00+00:00",
-      "end_date": "2026-09-27T14:30:00+00:00",
-      "description": "Europe : UEFA Nations League, Lituanie affronte Azerbaïdjan (2026-09-27 15:00). Match en Direct: LIVE match scores &amp; Résultats foot Détails du match, Livescore N°1 en France!",
-      "venue": "Europe",
-      "city": "UEFA Nations League",
-      "country": "Europe",
+      "name": "Blåmandag – allmennquiz",
+      "url": "https://goodknight.no/event/blamandag-allmennquiz/2026-09-28/",
+      "domain": "goodknight.no",
+      "start_date": "2026-09-28T16:30:00+00:00",
+      "end_date": "2026-09-28T19:00:00+00:00",
+      "description": "&lt;p&gt;Blåmandag, sa du? Vi inviterer til en forseggjort og variert quiz fra Thomas Kolåsæter, ti ganger individuell norgesmester i quiz! Her blir det litt færre planker og litt fle…",
+      "venue": null,
+      "city": null,
+      "country": null,
       "price": null,
       "currency": null,
       "online": false
     },
     {
-      "name": "Lithuania vs Azerbaijan",
-      "url": "https://sporticos.com/en-gb/match/azerbaijan-vs-lithuania",
-      "domain": "sporticos.com",
-      "start_date": "2026-09-27T13:00:00+00:00",
-      "end_date": null,
-      "description": null,
-      "venue": null,
-      "city": null,
-      "country": null,
+      "name": "Innebading høst, Ørskog skule",
+      "url": "https://www.naturist.no/event/innebading-host-orskog-skule/2026-09-28/",
+      "domain": "naturist.no",
+      "start_date": "2026-09-28T17:00:00+00:00",
+      "end_date": "2026-09-28T19:00:00+00:00",
+      "description": "&lt;p&gt;Innebadingen er endelig i gang igjen! Dette er et populært tilbud for badere i alle aldre som ønsker å trimme, leke, eller bare nyte det behagelige vannet i bassenget på [&amp;he…",
+      "venue": "Ørskog skule",
+      "city": "Ørskog",
+      "country": "Norway",
       "price": null,
       "currency": null,
       "online": false
@@ -748,36 +799,46 @@
     }
   }
 }</code></pre>
-<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 3332 ms, trimmed)</span></h3><pre><code>{
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 4729 ms, trimmed)</span></h3><pre><code>{
   "location": "Vesterbro, Copenhagen",
   "city": "Copenhagen",
-  "date": "2026-09-27",
+  "date": "2026-09-28",
   "time_zone": "Europe/Copenhagen",
   "itinerary": [
     {
       "time": "19:00",
       "stop": "Dinner",
-      "name": "Café Patina",
-      "address": "Mysundegade, Den Gule By, Vesterbro",
+      "name": "Je t’aime",
+      "address": "Dybbølsgade, Den Gule By, Meatpacking District",
       "open_then": true,
-      "opening_hours": "We-Su 17:00-22:30",
-      "phone": "+45 31708028",
-      "website": "http://WWW.cafepatina.dk",
-      "map": "https://www.openstreetmap.org/node/4692078130",
-      "directions": "https://www.google.com/maps/search/?api=1&amp;query=55.6679591,12.5479378"
+      "opening_hours": "Mo-Fr 08:00-24:00; Sa-Su 12:00-24:00",
+      "phone": "+45 31267069",
+      "website": "https://www.jetaime.dk/",
+      "map": "https://www.openstreetmap.org/node/677531067",
+      "directions": "https://www.google.com/maps/search/?api=1&amp;query=55.6653161,12.5576571"
     },
     {
-      "time": "20:31",
+      "time": "20:33",
       "stop": "Drinks",
-      "name": "Café Snork",
+      "name": "Bar 33 Vesterbro",
       "address": "Dybbølsgade, Den Gule By, Vesterbro",
-      "walk_minutes": 1,
+      "walk_minutes": 3,
       "open_then": true,
-      "opening_hours": "14:00-02:00",
-      "phone": "+45 33315314",
-      "website": "http://cafesnork.dk/",
-      "map": "https://www.openstreetmap.org/node/674787360",
-      "directions": "https://www.google.com/maps/search/?api=1&amp;query=55.6671430,12.5479089"
+      "opening_hours": "Fr,Sa 11:00-02:00, Su-Th 11:00-24:00",
+      "phone": "+45 25 55 55 25",
+      "website": "https://bar33.dk/",
+      "map": "https://www.openstreetmap.org/node/674777891",
+      "directions": "https://www.google.com/maps/search/?api=1&amp;query=55.6660602,12.5535057"
+    }
+  ],
+  "events_that_day": [
+    {
+      "name": "Tysklandssalon #29 &amp;#8211; delstatsvalg i Sachsen-Anhalt",
+      "time": "19:30",
+      "venue": "Salen",
+      "price": null,
+      "currency": null,
+      "url": "https://www.literaturhaus.dk/event/tysklandssalon/"
     }
   ],
   "notes": "Opening hours come from OpenStreetMap and can be out of date. Booking isn't done automatically: use actuent_get_actions on a place's website to book.",
@@ -797,39 +858,39 @@
     }
   }
 }</code></pre>
-<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 8634 ms, trimmed)</span></h3><pre><code>{
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 12741 ms, trimmed)</span></h3><pre><code>{
   "location": "Lisbon",
   "city": "Lisbon",
   "days": 2,
-  "start_date": "2026-09-27",
+  "start_date": "2026-09-28",
   "time_zone": "Europe/Lisbon",
   "where_to_stay": [
     {
-      "name": "Andaz Lisbon",
-      "address": "136, Rua do Comércio, Santa Maria Maior",
-      "distance_to_centre_metres": 144,
-      "website": "https://www.hyatt.com/andaz/lisaz-andaz-lisbon",
-      "map": "https://www.openstreetmap.org/relation/19291170"
+      "name": "Lisbon Arsenal Suites",
+      "address": "60, Rua do Arsenal, Cais do Sodré",
+      "distance_to_centre_metres": 311,
+      "website": "https://www.lisbonarsenalsuites.com",
+      "map": "https://www.openstreetmap.org/node/3913167701"
     },
     {
-      "name": "Lisboa Amazing Hostel",
-      "address": "Beco do Arco Escuro, Sé, Santa Maria Maior",
-      "distance_to_centre_metres": 283,
-      "map": "https://www.openstreetmap.org/way/96322172"
+      "name": "Hotel da Baixa",
+      "address": "229, Rua da Prata, Santa Maria Maior",
+      "distance_to_centre_metres": 495,
+      "map": "https://www.openstreetmap.org/way/1415008087"
     },
     "… 1 more"
   ],
   "plan": [
     {
       "day": 1,
-      "date": "2026-09-27",
+      "date": "2026-09-28",
       "stops": [
         {
           "time": "09:30",
           "stop": "Coffee",
           "name": "Starbucks",
           "address": "79, Rua de Santa Justa, São Cristóvão e São Lourenço",
-          "walk_minutes": 5,
+          "walk_minutes": 7,
           "open_then": true,
           "opening_hours": "Mo-Su 08:00-20:00",
           "website": "https://www.starbucks.pt/",
@@ -838,12 +899,12 @@
         {
           "time": "10:30",
           "stop": "Morning sight",
-          "name": "Museu Arqueológico do Carmo",
-          "address": "Largo do Carmo, Sacramento, Santa Maria Maior",
-          "walk_minutes": 2,
-          "open_then": null,
-          "opening_hours": "Oct-May: Tu-Su 10:00-18:00; Jun-Sep: Tu-Su 10:00-19:00; Jan 01,May 01,Dec 25 off",
-          "website": "https://www.museuarqueologicodocarmo.pt/",
+          "name": "Museu da Farmácia Lisboa",
+          "address": "1, Rua Marechal Saldanha, Santa Catarina",
+          "walk_minutes": 10,
+          "open_then": true,
+          "opening_hours": "Mo-Fr 10:00-19:00; Sa 14:00-19:00",
+          "website": "https://www.museudafarmacia.pt",
           "…": "1 more fields"
         },
         "… 4 more"
@@ -851,14 +912,14 @@
     },
     {
       "day": 2,
-      "date": "2026-09-28",
+      "date": "2026-09-29",
       "stops": [
         {
           "time": "09:30",
           "stop": "Coffee",
           "name": "Matcha Kitchen",
           "address": "9, Campo das Cebolas, Sé",
-          "walk_minutes": 4,
+          "walk_minutes": 5,
           "open_then": true,
           "opening_hours": "Mo-Su 09:00-18:00",
           "website": "https://matcha.kitchen/",
@@ -867,12 +928,12 @@
         {
           "time": "10:30",
           "stop": "Morning sight",
-          "name": "Museu da Farmácia Lisboa",
-          "address": "1, Rua Marechal Saldanha, Santa Catarina",
-          "walk_minutes": 18,
-          "open_then": true,
-          "opening_hours": "Mo-Fr 10:00-19:00; Sa 14:00-19:00",
-          "website": "https://www.museudafarmacia.pt",
+          "name": "Museu do Aljube - Resistência e Liberdade",
+          "address": "Rua Augusto Rosa, Sé, Santa Maria Maior",
+          "walk_minutes": 2,
+          "open_then": null,
+          "opening_hours": "Tu-Su 10:00-19:00; Jan 01,May 01,Dec 25 off",
+          "website": "http://www.museudoaljube.pt",
           "…": "1 more fields"
         },
         "… 4 more"
@@ -900,7 +961,7 @@
     }
   }
 }</code></pre>
-<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 787 ms, trimmed)</span></h3><pre><code>{
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 577 ms, trimmed)</span></h3><pre><code>{
   "checkouts": [
     {
       "shop": "redtape.com",
@@ -932,16 +993,16 @@
     }
   }
 }</code></pre>
-<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 629 ms, trimmed)</span></h3><pre><code>{
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 1522 ms, trimmed)</span></h3><pre><code>{
   "period": "last 7 days",
   "trending_sites": [
     {
       "domain": "rejn.app",
-      "appearances": 95
+      "appearances": 217
     },
     {
       "domain": "abdisbarber.com",
-      "appearances": 60
+      "appearances": 199
     },
     "… 8 more"
   ]
@@ -959,23 +1020,23 @@
     }
   }
 }</code></pre>
-<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 737 ms, trimmed)</span></h3><pre><code>{
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 819 ms, trimmed)</span></h3><pre><code>{
   "topic": "AI agents",
   "count": 10,
   "articles": [
     {
-      "title": "OpenAI halts training of latest models as reports mount of AI agents going rogue",
-      "source": "The Guardian",
-      "source_url": "https://www.theguardian.com",
-      "published": "2026-09-27T10:01:00.000Z",
-      "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxQdWZCRDBDd0E2YnBTeGJZNXhZLURBOXlJZTR2dGhwY0c1bWlNX3N6MkhWcVRiSF9oNjJLWmJfY0Nwcy05SFB0RGJ2ckhaNjdueWFxMjdnWHhodFM1MEJkRXVnUzJZ…"
+      "title": "Nvidia unveils security platform to stop AI agents from going rogue after new, troubling incidents",
+      "source": "ABC7 Los Angeles",
+      "source_url": "https://abc7.com",
+      "published": "2026-09-28T12:59:02.000Z",
+      "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQVmFYVmFmNDNXdFBWekotazk3S3Z3VnhoY0xPcEhqS2tGYnd1X0xFQXVSaUtCRjlPVHF2dGVhVVFDcFZNWkdTY1ZIVy1MX2ZUU1RXX2p6b2ZuUGxKemlaMklzSFJo…"
     },
     {
-      "title": "Banks have profited from idle cash for years. AI agents could change that.",
-      "source": "Yahoo Finance",
-      "source_url": "https://finance.yahoo.com",
-      "published": "2026-09-26T15:42:15.000Z",
-      "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxPT2ZjR0IwRGpQSEdUUGJjYzVOaTRNZmNMc1lwYk5PcGo0NWFPY0c4Z0lnWTc4MVlydWxIc3hMa0VjZm5sR2xYY1hQV1RhemZ2STBsOEtzYUdDQ21ZdDg5YUhfc0J5…"
+      "title": "AI agents promise to do everything for you. There may be a big wrinkle in that plan",
+      "source": "CNN",
+      "source_url": "https://www.cnn.com",
+      "published": "2026-09-28T11:00:30.000Z",
+      "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTFBJeG9LaUIzTUU4MnRiMGNlSTFfSDZKQ25iU3FEWWVVUE02TDlZSjdOU1FqczhnRlVQUy1xS3d1RUU2MGJ5WkxHcXc4R2ZieFl0Tlc1NVZ0S2FRNnhTZ0xhYy1BdVZa…"
     },
     "… 8 more"
   ]
