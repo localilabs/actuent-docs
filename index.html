@@ -468,6 +468,31 @@ const ok = crypto.verify(null, Buffer.from(signed), publicKeyFromJwk, Buffer.fro
   <p>Body: <code>{"query": "string"}</code> — search query, domain, or full URL.</p>
   <h3><span class="m">GET</span>https://api.actuent.ai/api/search?q=query</h3>
   <p>Same as POST — useful for quick browser tests. Add <code>Authorization: Bearer YOUR_KEY</code> for Pro. Results include <code>native</code> (the site publishes its own LAWP) and <code>executable</code> (it has action endpoints). Over the rate limit you get <code>429</code>.</p>
+  <h3>Search options</h3>
+  <p>Add any of these to the query string (GET) or the body (POST):</p>
+  <table>
+    <tr><th>Option</th><th>What it does</th></tr>
+    <tr><td><code>limit</code>, <code>offset</code></td><td>Paging, up to 50 results at a time. <code>total</code> says how many there are.</td></tr>
+    <tr><td><code>category</code></td><td>Only this kind of site: <code>restaurant</code>, <code>cafe</code>, <code>hair_beauty</code>, <code>hotel</code>, <code>software</code>, <code>shop_fashion</code>…</td></tr>
+    <tr><td><code>city</code></td><td>Only businesses whose address is in this city.</td></tr>
+    <tr><td><code>open_now=true</code></td><td>Only places open right now.</td></tr>
+    <tr><td><code>lang</code></td><td>Sites in this language (ISO 639-1, e.g. <code>de</code>) first.</td></tr>
+    <tr><td><code>sort</code></td><td><code>relevance</code> (default), <code>popular</code> or <code>fresh</code>.</td></tr>
+  </table>
+  <h3>What's in a response</h3>
+  <p>Each result has <code>snippet</code> (the sentence that best answers the search), <code>score</code> (0–100; the top result is 100), <code>matched</code> (which words matched where) and, for brands with country sites, <code>regional_sites</code>. The response can also have:</p>
+  <ul>
+    <li><code>interpreted_as</code>: the search that was run, when it differs from what was typed. Plain questions work: "where can I buy running shoes in London?" searches "buy running shoes london", and "near me" uses the searcher's city.</li>
+    <li><code>did_you_mean</code>: a spelling correction. When nothing matched, the correction is searched instead and <code>searched_for</code> says so.</li>
+    <li><code>related</code>: related searches to try.</li>
+    <li><code>events</code>: upcoming events, for searches like "concerts copenhagen".</li>
+    <li><code>places</code>: OpenStreetMap places for local searches with no indexed websites yet.</li>
+    <li><code>products</code>: for shopping searches only.</li>
+    <li><code>message</code> and <code>notices</code>: see <a href="#errors">Errors &amp; busy times</a>.</li>
+  </ul>
+  <p>Error pages, bot checks and parked domains are never results. The <code>X-Search-Time</code> header gives the time taken in milliseconds.</p>
+  <h3><span class="m">GET</span>https://api.actuent.ai/api/autocomplete?q=prefix</h3>
+  <p>Site names and searches that start with what's typed: <code>{ "sites": [{ "name", "domain", "category" }], "searches": ["…"] }</code>. Cached, so it's fast enough to call on every keystroke.</p>
   <h3><span class="m">POST</span>https://api.actuent.ai/api/register</h3>
   <p>Register your site. Used by <code>@actuent/sdk</code>. Requires <code>Authorization: Bearer YOUR_KEY</code> and <a href="#sdk">proof you own the domain</a>. Unverified domains return <code>403</code> with a DNS token.</p>
   <h3><span class="m">GET</span>https://api.actuent.ai/api/register?domain=example.com</h3>

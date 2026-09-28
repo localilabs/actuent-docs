@@ -7,6 +7,13 @@
     <description>What's new in Actuent, the search engine for AI agents.</description>
     <language>en</language>
     <item>
+      <title>Search that understands questions, typos and "near me"</title>
+      <link>https://docs.actuent.ai/changelog#2026-09-28-better-search</link>
+      <guid isPermaLink="false">2026-09-28-better-search</guid>
+      <pubDate>Mon, 28 Sep 2026 12:00:00 +0000</pubDate>
+      <description>&lt;ul&gt;&lt;li&gt;Ask in plain words: &quot;where can I buy running shoes in London?&quot; and &quot;coffee near me&quot; just work, and misspellings get a &quot;did you mean&quot;.&lt;/li&gt;&lt;li&gt;Better results: exact brand searches put the brand first, the page that answers the search comes first (&quot;basecamp pricing&quot;), results people open rank higher, and error pages, bot checks and parked domains are gone.&lt;/li&gt;&lt;li&gt;Every result has a snippet and a match score; responses can include related searches and upcoming events.&lt;/li&gt;&lt;li&gt;New search options: limit and offset, category, city, open_now, lang and sort.&lt;/li&gt;&lt;li&gt;Autocomplete: api.actuent.ai/api/autocomplete, used by the search page, which also has shareable links.&lt;/li&gt;&lt;li&gt;SDKs: @actuent/sdk 0.6.0 and actuent 0.4.0 handle busy times politely; the next versions add the new options.&lt;/li&gt;&lt;/ul&gt;</description>
+    </item>
+    <item>
       <title>Clear messages when it's busy, and Pro first</title>
       <link>https://docs.actuent.ai/changelog#2026-09-28-busy-times</link>
       <guid isPermaLink="false">2026-09-28-busy-times</guid>
