@@ -81,7 +81,7 @@
   <div class="top"><a href="https://actuent.ai"><img src="https://api.actuent.ai/assets/actuent-logo.png" alt="Actuent"></a><a href="https://docs.actuent.ai">Docs</a></div>
   <lawpy-mascot state="idle" scale="3" style="float:right"></lawpy-mascot>
   <h1>Privacy Policy</h1>
-  <p class="sub">Last updated: 28 September 2026 (rev. 12)</p>
+  <p class="sub">Last updated: 29 September 2026 (rev. 13)</p>
 
   <p>Actuent ("we", "us") is a search service for AI agents, made by localilabs (Alfred Murray) in Copenhagen, Denmark. This policy explains what data Actuent handles when you or your AI assistant use actuent.ai, api.actuent.ai, agents.actuent.ai (the Actuent MCP server, including the ChatGPT app and Claude connector), humans.actuent.ai, analytics.actuent.ai, docs.actuent.ai and the @actuent/sdk package. We are the data controller.</p>
 
@@ -100,6 +100,8 @@
     <li><strong>Location (optional).</strong> If you use the nearby-places tool, the location and query your assistant provides are sent to OpenStreetMap (Nominatim), or Google Maps Platform where configured, to find places. We do not store them beyond the search log.</li>
     <li><strong>News topics (optional).</strong> If you use the news tool, the topic is sent to Google News to find articles.</li>
     <li><strong>Referrals (Pro).</strong> If you share your referral link, we record clicks and which checkout sessions used your code, and apply a Stripe account credit to your email's Stripe customer. The person you referred sees nothing about you.</li>
+    <li><strong>"Ask this site" widget.</strong> When a visitor asks a question in the widget on a website, the question goes to Actuent to be answered from that site's pages. We keep the question itself, grouped with identical ones and counted, so the site's owner can see what visitors ask. We never keep who asked, their IP address or a cookie, and questions containing an email address or a long number (like a phone or order number) aren't kept at all.</li>
+    <li><strong>Short answers (Pro).</strong> For question searches, the question and short extracts from the top results are sent to our AI provider to write a two-to-three sentence answer with sources.</li>
     <li><strong>Site registrations.</strong> If you register a site via @actuent/sdk or the suggestion form, we store the site information you submit and which API key verified ownership of it.</li>
   </ul>
 
@@ -122,7 +124,8 @@
     <li>If you publish <code>/.well-known/lawp.json</code> (for example with our WordPress plugin), we read and index it like any public page.</li>
     <li>Our WordPress plugin sends no data to us unless you turn on AI bot visits. It downloads Actuent's public signing keys to check that incoming action requests really come from Actuent. Messages sent through its contact action go straight from your site to your admin email; Actuent's action log keeps only the short record described above.</li>
     <li><strong>AI bot visits (optional).</strong> If you add your Pro key to our WordPress plugin or Cloudflare Worker, it sends us your domain, the names of AI bots that visited (such as GPTBot) and daily counts. Nothing about human visitors, no IP addresses and no page URLs. Only you, as the site's verified owner, can see them.</li>
-    <li>When you claim a site with a Pro key, we send one welcome email and then a weekly score email to your account's address (via Resend). Every weekly email has a one-click unsubscribe. We send no marketing email.</li>
+    <li>When you claim a site with a Pro key, we send one welcome email, a weekly score email and a monthly AI-visibility report (how often agents found your site and for which searches, only naming searches made at least twice) to your account's address (via Resend). We also check your site's public pages once a day and email you, and call any webhooks you registered, when opening hours change, a booking or other action link stops working, or product prices change. Every email has a one-click unsubscribe, which stops all of them. We send no marketing email.</li>
+    <li>If you add the "Ask this site" widget, you can see the questions your visitors asked (grouped, without who asked) in Analytics.</li>
     <li>If your site publishes executable actions, we send it a signed test request (<code>test: true</code>, no personal data) once a day and keep the results (success, status code, response time) for 30 days to show its reliability.</li>
     <li>Links Actuent gives to AI agents go through <code>api.actuent.ai/go</code>, which counts one visit for the site per click (the site and the day only; no IP address, cookie or anything about the person) and redirects.</li>
     <li>We read each site's public robots.txt to show which AI bots it blocks.</li>
@@ -155,6 +158,7 @@
     <li>Price watches: until you remove them or delete your data. AI bot visit counts: while the site is claimed.</li>
     <li>Search logs, action logs and Pro history: 12 months, or sooner if you delete your data.</li>
     <li>Endpoint checks for sites' actions: 30 days. Changes to sites' LAWP: 180 days. Product price history: 12 months. Past events: 60 days after they start.</li>
+    <li>Questions asked through the "Ask this site" widget: while the site uses Actuent, deleted with the site's data on request. The state of a claimed site at its last daily check (opening hours, broken links): while the site is claimed.</li>
     <li>Sites people asked Actuent to visit while it was busy: 30 days after the visit. Only the site's domain is stored, not who asked.</li>
     <li>Sign-in tokens from ChatGPT or Claude: access tokens last 1 hour and refresh tokens 90 days. They stop working immediately if your Pro plan is cancelled.</li>
     <li>Account data: kept while your account is active, and deleted on request after cancellation.</li>

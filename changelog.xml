@@ -7,6 +7,13 @@
     <description>What's new in Actuent, the search engine for AI agents.</description>
     <language>en</language>
     <item>
+      <title>Actuent in your terminal, an API playground and alerts for site owners</title>
+      <link>https://docs.actuent.ai/changelog#2026-09-29-terminal-playground-alerts</link>
+      <guid isPermaLink="false">2026-09-29-terminal-playground-alerts</guid>
+      <pubDate>Tue, 29 Sep 2026 22:00:00 +0000</pubDate>
+      <description>&lt;ul&gt;&lt;li&gt;&lt;code&gt;npx actuent&lt;/code&gt;: search, ask a site and similar sites from the terminal, with Lawpy saying hello. &lt;code&gt;npx @actuent/lawp&lt;/code&gt; gets Lawpy too: he dances when your lawp.json is valid.&lt;/li&gt;&lt;li&gt;API Playground at docs.actuent.ai/playground: every endpoint and MCP tool live, with code in JavaScript, Python and curl. Plus a Postman collection.&lt;/li&gt;&lt;li&gt;&quot;A vs B&quot; searches show both sites side by side on humans.actuent.ai, with &quot;people also compare&quot;.&lt;/li&gt;&lt;li&gt;Pro: short answers with sources for question searches (&lt;code&gt;summary&lt;/code&gt;).&lt;/li&gt;&lt;li&gt;Holiday and special opening hours: &quot;open now&quot; is right on holidays. Ratings from more sources, and &lt;code&gt;sort=rating&lt;/code&gt;.&lt;/li&gt;&lt;li&gt;For site owners: questions visitors ask in your widget (Analytics), change alerts by email and webhook, and an &quot;Edit&quot; link from your site page.&lt;/li&gt;&lt;li&gt;Better categories: an AI re-check of the 20,000 best-known sites. Near-empty sites no longer clutter results.&lt;/li&gt;&lt;/ul&gt;</description>
+    </item>
+    <item>
       <title>Ask a site, similar sites, price history and LAWP 0.5</title>
       <link>https://docs.actuent.ai/changelog#2026-09-29-ask-similar-lawp-05</link>
       <guid isPermaLink="false">2026-09-29-ask-similar-lawp-05</guid>

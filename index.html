@@ -278,6 +278,12 @@ client.ask("basecamp.com", "is there a free plan?")["sentences"]
 client.similar("notion.so")["sites"]</code></pre>
   <p><strong>LangChain:</strong> <code>pip install "actuent[langchain]"</code>, then <code>from actuent.langchain import get_tools</code>. <strong>LlamaIndex:</strong> <code>pip install "actuent[llamaindex]"</code>, then <code>from actuent.llama_index import get_tools</code>. Both give an agent three tools: search, ask a site and similar sites. Source: <a href="https://github.com/localilabs/actuent-python">github.com/localilabs/actuent-python</a>.</p>
 
+  <h3>From the terminal</h3>
+  <pre><code>npx actuent search "vegan café copenhagen"
+npx actuent ask basecamp.com "is there a free plan?"
+npx actuent similar notion.so</code></pre>
+  <p>Add <code>--json</code> for raw output, or set <code>ACTUENT_API_KEY</code> for Pro. Lawpy says hello on <code>npx actuent</code>. For LAWP files: <code>npx @actuent/lawp check yoursite.com</code> (Lawpy dances when it's valid).</p>
+  <p>Try every endpoint live in the <a href="/playground">API Playground</a>, or import the <a href="https://api.actuent.ai/actuent.postman_collection.json">Postman collection</a> (Bruno and Insomnia can import <a href="https://api.actuent.ai/openapi.json">openapi.json</a>).</p>
   <h3>Vercel AI SDK and LangChain.js</h3>
   <p>The same three tools (search, ask a site, similar sites) for JavaScript agents, from <code>@actuent/sdk</code>:</p>
   <pre><code>import { generateText } from "ai"
@@ -355,7 +361,9 @@ npx @actuent/lawp test yoursite.com book  # signed test request to an action</co
   <h3 id="ask-widget">"Ask this site" widget</h3>
   <p>A small button in the corner of your site (with Lawpy, our mascot) that answers visitors' questions from your own pages, with a link to the page each answer came from. No AI, no cookies, nothing stored. The better your LAWP, the better its answers.</p>
   <pre><code>&lt;script src="https://api.actuent.ai/ask.js" data-domain="yoursite.com" async&gt;&lt;/script&gt;</code></pre>
-  <p>Options: <code>data-position="left"</code>, <code>data-title="Ask us anything"</code>, <code>data-placeholder="…"</code>.</p>
+  <p>Options: <code>data-position="left"</code>, <code>data-title="Ask us anything"</code>, <code>data-placeholder="…"</code>. See the questions visitors ask (and which your pages couldn't answer) in <a href="https://analytics.actuent.ai">Analytics → My sites</a>.</p>
+  <h3>Change alerts</h3>
+  <p>For claimed sites, Actuent checks your site once a day and emails you (and calls your webhooks with <code>{"event": "site.changed", "changes": [...]}</code>) when opening or holiday hours change, a booking or other action link stops working, or product prices change. Holiday hours come from schema.org <code>OpeningHoursSpecification</code> with <code>validFrom</code>/<code>validThrough</code>, and "open now" respects them.</p>
   <h3>Download your lawp.json</h3>
   <p>Every site page on Actuent has a <strong>Download lawp.json</strong> button: your site's LAWP, made from what Actuent already knows, ready to publish at <code>/.well-known/lawp.json</code>. Or fetch it directly: <code>https://api.actuent.ai/site/yoursite.com?format=lawp</code>.</p>
 
@@ -511,7 +519,7 @@ const ok = crypto.verify(null, Buffer.from(signed), publicKeyFromJwk, Buffer.fro
     <tr><td><code>city</code></td><td>Only businesses whose address is in this city.</td></tr>
     <tr><td><code>open_now=true</code></td><td>Only places open right now.</td></tr>
     <tr><td><code>lang</code></td><td>Sites in this language (ISO 639-1, e.g. <code>de</code>) first.</td></tr>
-    <tr><td><code>sort</code></td><td><code>relevance</code> (default), <code>popular</code> or <code>fresh</code>.</td></tr>
+    <tr><td><code>sort</code></td><td><code>relevance</code> (default), <code>popular</code>, <code>fresh</code> or <code>rating</code> (best rated first).</td></tr>
     <tr><td><code>fast=1</code></td><td>A quick first answer in well under a second: a site with that exact name, local businesses and the best-known matching sites (<code>"partial": true</code>). Show it, then replace it with the full search. GET only.</td></tr>
   </table>
   <h3>What's in a response</h3>
@@ -523,6 +531,7 @@ const ok = crypto.verify(null, Buffer.from(signed), publicKeyFromJwk, Buffer.fro
     <li><code>related</code>: related searches to try.</li>
     <li><code>events</code>: upcoming events, for searches like "concerts copenhagen".</li>
     <li><code>places</code>: OpenStreetMap places for local searches with no indexed websites yet.</li>
+    <li><code>summary</code> (Pro): for question searches, a 2–3 sentence answer written only from the top results, with numbered <code>sources</code>.</li>
     <li><code>near</code>: for a search for places without a city ("cafés"), the city whose places came first: the one you last searched, or where you are.</li>
     <li><code>products</code>: for shopping searches only. Products include <code>price_history</code> (up to 12 prices over 90 days) and <code>lowest_90_days</code> when the price has changed. Shops in the searcher's market (the country of the city in the search, or where the searcher is) come first, and shops in far-off markets are left out.</li>
     <li><code>comparison</code>: for "A vs B" searches, <code>{ "sites": ["notion.so", "obsidian.md"], "tip" }</code>. Both sites are the first two results.</li>
