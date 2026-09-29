@@ -480,6 +480,7 @@ const ok = crypto.verify(null, Buffer.from(signed), publicKeyFromJwk, Buffer.fro
     <tr><td><code>sort</code></td><td><code>relevance</code> (default), <code>popular</code> or <code>fresh</code>.</td></tr>
   </table>
   <h3>What's in a response</h3>
+  <p>A search that is a name ("localilabs", "louvre tickets") puts that site first (<code>matched: "exact name"</code>), followed by the company's other projects. Local searches understand needs like "vegan", "dog friendly", "open late" and "brunch sunday", using each place's features and opening hours.</p>
   <p>Each result has <code>snippet</code> (the sentence that best answers the search), <code>score</code> (0–100; the top result is 100), <code>matched</code> (which words matched where) and, for brands with country sites, <code>regional_sites</code>. The response can also have:</p>
   <ul>
     <li><code>interpreted_as</code>: the search that was run, when it differs from what was typed. Plain questions work: "where can I buy running shoes in London?" searches "buy running shoes london", and "near me" uses the searcher's city.</li>
@@ -487,7 +488,9 @@ const ok = crypto.verify(null, Buffer.from(signed), publicKeyFromJwk, Buffer.fro
     <li><code>related</code>: related searches to try.</li>
     <li><code>events</code>: upcoming events, for searches like "concerts copenhagen".</li>
     <li><code>places</code>: OpenStreetMap places for local searches with no indexed websites yet.</li>
-    <li><code>products</code>: for shopping searches only.</li>
+    <li><code>products</code>: for shopping searches only. Shops in the searcher's market (the country of the city in the search, or where the searcher is) come first, and shops in far-off markets are left out.</li>
+    <li><code>comparison</code>: for "A vs B" searches, <code>{ "sites": ["notion.so", "obsidian.md"], "tip" }</code>. Both sites are the first two results.</li>
+    <li><code>answer</code>: for questions about one site ("does basecamp have a free plan"), <code>{ "domain", "sentences": [{ "text", "url" }], "note" }</code>: sentences from the site's own pages that match the question. That site is the first result.</li>
     <li><code>message</code> and <code>notices</code>: see <a href="#errors">Errors &amp; busy times</a>.</li>
   </ul>
   <p>Error pages, bot checks and parked domains are never results. The <code>X-Search-Time</code> header gives the time taken in milliseconds.</p>

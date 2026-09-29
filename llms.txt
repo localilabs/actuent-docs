@@ -6,7 +6,7 @@ Connect an agent over MCP at https://agents.actuent.ai/api/mcp (free without a k
 
 ## API
 
-- [Search](https://api.actuent.ai/api/search?q=running%20shoes): Ranked LAWP for any query or domain, with products, business details and open-now
+- [Search](https://api.actuent.ai/api/search?q=running%20shoes): Ranked LAWP for any query or domain, with products (from shops in the searcher's market), business details, open-now, events, comparisons ("notion vs obsidian") and answers from a site's own pages ("does basecamp have a free plan")
 - [OpenAPI description](https://api.actuent.ai/openapi.json): The full REST API
 - [Site pages](https://api.actuent.ai/site): What AI agents see on each indexed site, with its agent-readiness score
 - [Actuent's own LAWP](https://api.actuent.ai/.well-known/lawp.json): Example of a native LAWP file with an executable action
