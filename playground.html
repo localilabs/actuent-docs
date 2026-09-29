@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Playground — Actuent</title>
+  <meta name="description" content="Try every Actuent API endpoint and MCP tool in your browser, with live results and code to copy in JavaScript, Python and curl.">
+  <link rel="icon" type="image/png" href="https://api.actuent.ai/assets/actuent-logo.png">
+  <meta property="og:title" content="Actuent API Playground">
+  <meta property="og:description" content="Try every Actuent endpoint and MCP tool live, and copy the code.">
+  <meta property="og:url" content="https://docs.actuent.ai/playground">
+  <meta property="og:image" content="https://api.actuent.ai/og?title=API%20Playground&amp;subtitle=Try%20every%20endpoint%20and%20MCP%20tool%20live&amp;tag=docs.actuent.ai%2Fplayground">
+  <meta name="twitter:card" content="summary_large_image">
+  <style>
+    :root{--bg:#0a0a0a;--surface:#13131a;--raised:#17171f;--border:#2a2a34;--text:#f0f0f0;--muted:#a8a8b6;--soft:#c4c4cf;--accent:#ff8a3d;--good:#4ade80;--bad:#f87171}
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+    main{max-width:1180px;margin:0 auto;padding:40px 16px 80px}
+    .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}
+    .top img{height:20px}.top a{color:var(--muted);font-size:13px;text-decoration:none;margin-left:16px}.top a:hover{color:var(--text)}
+    h1{font-size:30px;letter-spacing:-1px;margin-bottom:8px}
+    .sub{color:var(--muted);font-size:14px;line-height:1.6;margin-bottom:24px;max-width:720px}
+    a{color:var(--accent)}
+    .cols{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:20px;align-items:start}
+    .panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px}
+    .out{position:sticky;top:16px}
+    h2{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin:18px 0 10px}
+    h2:first-child{margin-top:0}
+    label{display:block;font-size:12px;color:var(--muted);margin:10px 0 4px}
+    input,select,textarea{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:7px;padding:8px 10px;font-size:13px;font-family:inherit;outline:none}
+    textarea{font-family:'SF Mono',Menlo,monospace;min-height:90px;resize:vertical}
+    input:focus,select:focus,textarea:focus{border-color:#44444f}
+    .eps{display:flex;flex-wrap:wrap;gap:6px}
+    .ep{background:var(--raised);border:1px solid var(--border);color:var(--soft);border-radius:999px;padding:6px 12px;font-size:12px;cursor:pointer;font-family:inherit}
+    .ep[aria-pressed="true"]{border-color:var(--accent);color:var(--text);background:#1d1610}
+    .btn{background:var(--accent);color:#0a0a0a;border:none;padding:10px 16px;font-size:13px;font-weight:700;border-radius:8px;cursor:pointer;margin-top:14px;width:100%}
+    .btn:disabled{opacity:.5;cursor:default}
+    .muted{color:var(--muted);font-size:12px;line-height:1.6}
+    .tabs{display:flex;gap:4px;margin-bottom:8px}
+    .tab{background:none;border:1px solid transparent;color:var(--muted);padding:5px 10px;border-radius:6px;font-size:12px;cursor:pointer;font-family:inherit}
+    .tab[aria-selected="true"]{border-color:var(--border);color:var(--text);background:var(--raised)}
+    pre{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:14px;overflow:auto;font-size:12px;line-height:1.55;color:#dcdce3;white-space:pre}
+    #result{max-height:60vh}
+    .status{display:flex;align-items:center;gap:10px;margin-bottom:10px;min-height:48px}
+    .copy{float:right;background:none;border:1px solid var(--border);color:var(--soft);border-radius:6px;padding:3px 9px;font-size:11px;cursor:pointer}
+    .k{color:#8ab4ff}.s{color:#a5d6a7}.n{color:#ffcc80}.b{color:#ff8a3d}
+    @media(max-width:860px){.cols{grid-template-columns:1fr}.out{position:static}}
+    :focus-visible{outline:2px solid #8b8bff;outline-offset:2px}
+  </style>
+  <script src="/lawpy.js" defer></script>
+</head>
+<body>
+<main id="main">
+  <div class="top">
+    <a href="/" style="margin:0"><img src="https://api.actuent.ai/assets/actuent-logo.png" alt="Actuent"></a>
+    <div><a href="/">Docs</a><a href="/examples">Examples</a><a href="https://api.actuent.ai/actuent.postman_collection.json">Postman</a><a href="/changelog">Changelog</a></div>
+  </div>
+  <h1>API Playground</h1>
+  <p class="sub">Try every Actuent endpoint and MCP tool live, right here, then copy the code in JavaScript, Python or curl. Free without a key; add a Pro key for Pro results. Also in <a href="https://api.actuent.ai/actuent.postman_collection.json">Postman</a> (or import <a href="https://api.actuent.ai/openapi.json">openapi.json</a> into Bruno or Insomnia).</p>
+
+  <div class="cols">
+    <div class="panel">
+      <h2>Endpoint</h2>
+      <div class="eps" id="eps" role="group" aria-label="Endpoint"></div>
+      <p class="muted" id="epdesc" style="margin-top:10px"></p>
+      <h2>Parameters</h2>
+      <div id="params"></div>
+      <label for="key">Pro API key (optional, stays in this page)</label>
+      <input id="key" type="password" placeholder="ak_..." autocomplete="off">
+      <button class="btn" id="run" onclick="run()">Run</button>
+    </div>
+
+    <div class="out">
+      <div class="panel">
+        <div class="status"><lawpy-mascot id="lawpy" state="wave" loops="2" then="idle" scale="3"></lawpy-mascot><span class="muted" id="status">Pick an endpoint and press Run.</span></div>
+        <div class="tabs" role="tablist">
+          <button class="tab" role="tab" aria-selected="true" data-t="result">Response</button>
+          <button class="tab" role="tab" aria-selected="false" data-t="js">JavaScript</button>
+          <button class="tab" role="tab" aria-selected="false" data-t="py">Python</button>
+          <button class="tab" role="tab" aria-selected="false" data-t="curl">curl</button>
+        </div>
+        <pre id="result" aria-live="polite">{}</pre>
+        <pre id="code" style="display:none"><button class="copy" onclick="copyCode()">Copy</button><code id="codetext"></code></pre>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+var API = "https://api.actuent.ai", MCP = "https://agents.actuent.ai/api/mcp"
+// Each endpoint: its fields, how to call it, and the code people copy.
+var EPS = {
+  search: { title: "Search", desc: "Websites and products as structured LAWP. Topics, names, domains, 'A vs B', questions, prices.",
+    fields: [["q", "running shoes under 800 dkk", "Search"], ["limit", "", "Results (max 50)"], ["category", "", "e.g. restaurant, software"], ["sort", "", "relevance, popular, fresh or rating"], ["open_now", "", "true for places open now"]],
+    url: function (p) { return API + "/api/search?" + qs(p) }, js: function (p) { return 'const results = await client.search(' + str(p.q) + opts(p, ["q"]) + ')' }, py: function (p) { return 'results = client.search(' + str(p.q) + pyopts(p, ["q"]) + ')' } },
+  ask: { title: "Ask a site", desc: "Answer a question from one site's own pages, with the page each sentence came from.",
+    fields: [["domain", "basecamp.com", "Site"], ["q", "is there a free plan", "Question"]],
+    url: function (p) { return API + "/api/ask?" + qs(p) }, js: function (p) { return 'const answer = await client.ask(' + str(p.domain) + ', ' + str(p.q) + ')' }, py: function (p) { return 'answer = client.ask(' + str(p.domain) + ', ' + str(p.q) + ')' } },
+  similar: { title: "Similar sites", desc: "Sites like a given one, with why each is similar.",
+    fields: [["domain", "notion.so", "Site"], ["limit", "", "How many (max 20)"]],
+    url: function (p) { return API + "/api/similar?" + qs(p) }, js: function (p) { return 'const similar = await client.similar(' + str(p.domain) + ')' }, py: function (p) { return 'similar = client.similar(' + str(p.domain) + ')' } },
+  autocomplete: { title: "Autocomplete", desc: "Sites and searches that start with what's typed. Fast enough for every keystroke.",
+    fields: [["q", "not", "Prefix"]],
+    url: function (p) { return API + "/api/autocomplete?" + qs(p) }, js: function (p) { return 'const suggestions = await client.autocomplete(' + str(p.q) + ')' }, py: function (p) { return 'suggestions = client.autocomplete(' + str(p.q) + ')' } },
+  score: { title: "Agent-readiness score", desc: "A site's score out of 100, with each check.",
+    fields: [["domain", "stripe.com", "Site"]],
+    url: function (p) { return API + "/badge.json?" + qs(p) }, js: function (p) { return 'const score = await client.score(' + str(p.domain) + ')' }, py: function (p) { return 'score = client.score(' + str(p.domain) + ')' } },
+  mcp: { title: "MCP tool", desc: "Call any tool on the Actuent MCP server (the same ones ChatGPT and Claude use). Arguments as JSON.",
+    fields: [["tool", "actuent_plan", "Tool", "select"], ["arguments", '{ "location": "Copenhagen" }', "Arguments (JSON)", "textarea"]],
+    js: function (p) { return 'const result = await client.tool(' + str(p.tool) + ', ' + (p.arguments || "{}") + ')' }, py: function (p) { return 'result = client.tool(' + str(p.tool) + ', ' + (p.arguments || "{}").replace(/\btrue\b/g, "True").replace(/\bfalse\b/g, "False").replace(/\bnull\b/g, "None") + ')' } }
+}
+var current = "search", tools = []
+
+function esc(v) { return String(v == null ? "" : v).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c] }) }
+function str(v) { return JSON.stringify(String(v == null ? "" : v)) }
+function values() { var p = {}; document.querySelectorAll("[data-p]").forEach(function (el) { if (el.value.trim()) p[el.getAttribute("data-p")] = el.value.trim() }); return p }
+function qs(p) { return Object.keys(p).map(function (k) { return k + "=" + encodeURIComponent(p[k]) }).join("&") }
+function opts(p, skip) { var o = {}; Object.keys(p).forEach(function (k) { if (skip.indexOf(k) < 0) o[k] = /^\d+$/.test(p[k]) ? Number(p[k]) : p[k] === "true" ? true : p[k] }); return Object.keys(o).length ? ", " + JSON.stringify(o).replace(/"(\w+)":/g, "$1: ") : "" }
+function pyopts(p, skip) { var o = Object.keys(p).filter(function (k) { return skip.indexOf(k) < 0 }); return o.length ? ", " + o.map(function (k) { return k + "=" + (/^\d+$/.test(p[k]) ? p[k] : p[k] === "true" ? "True" : str(p[k])) }).join(", ") : "" }
+function lawpy(state, loops) { var el = document.getElementById("lawpy"); if (el && el.play) el.play(state, loops ? { loops: loops, then: "idle" } : {}) }
+
+function pick(name) {
+  current = name
+  document.querySelectorAll(".ep").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-ep") === name)) })
+  var ep = EPS[name]
+  document.getElementById("epdesc").textContent = ep.desc
+  document.getElementById("params").innerHTML = ep.fields.map(function (f) {
+    var id = "p-" + f[0]
+    if (f[3] === "select") return '<label for="' + id + '">' + esc(f[2]) + '</label><select id="' + id + '" data-p="' + f[0] + '">' + (tools.length ? tools : [{ name: f[1] }]).map(function (t) { return '<option' + (t.name === f[1] ? " selected" : "") + '>' + esc(t.name) + '</option>' }).join("") + '</select>'
+    if (f[3] === "textarea") return '<label for="' + id + '">' + esc(f[2]) + '</label><textarea id="' + id + '" data-p="' + f[0] + '">' + esc(f[1]) + '</textarea>'
+    return '<label for="' + id + '">' + esc(f[2]) + '</label><input id="' + id + '" data-p="' + f[0] + '" value="' + esc(f[1]) + '" placeholder="' + esc(f[2]) + '">'
+  }).join("")
+  document.querySelectorAll("[data-p]").forEach(function (el) { el.addEventListener("input", renderCode); el.addEventListener("keydown", function (e) { if (e.key === "Enter" && el.tagName === "INPUT") run() }) })
+  renderCode()
+}
+
+function renderCode() {
+  var p = values(), ep = EPS[current], key = document.getElementById("key").value.trim()
+  var init = key ? '{ apiKey: process.env.ACTUENT_API_KEY }' : ''
+  var js = 'import { Actuent } from "@actuent/sdk"   // npm i @actuent/sdk\n\nconst client = new Actuent(' + init + ')\n' + ep.js(p)
+  var py = 'from actuent import Actuent   # pip install actuent\n\nclient = Actuent(' + (key ? 'api_key=os.environ["ACTUENT_API_KEY"]' : '') + ')\n' + ep.py(p)
+  var curl = current === "mcp"
+    ? "curl -X POST " + MCP + " \\\n  -H 'Content-Type: application/json'" + (key ? " \\\n  -H \"Authorization: Bearer $ACTUENT_API_KEY\"" : "") + " \\\n  -d '" + JSON.stringify({ jsonrpc: "2.0", id: 1, method: "tools/call", params: { name: p.tool, arguments: safeJson(p.arguments) || {} } }) + "'"
+    : "curl '" + ep.url(p) + "'" + (key ? " \\\n  -H \"Authorization: Bearer $ACTUENT_API_KEY\"" : "")
+  document.getElementById("codetext").dataset.js = js
+  document.getElementById("codetext").dataset.py = py
+  document.getElementById("codetext").dataset.curl = curl
+  var tab = document.querySelector('.tab[aria-selected="true"]').getAttribute("data-t")
+  if (tab !== "result") document.getElementById("codetext").textContent = document.getElementById("codetext").dataset[tab]
+}
+function safeJson(s) { try { return JSON.parse(s || "{}") } catch (e) { return null } }
+
+function highlight(json) {
+  return esc(json).replace(/(&quot;[^&]*?&quot;)(\s*:)?|\b(true|false|null)\b|-?\b\d+(\.\d+)?\b/g, function (m, str, colon, lit) {
+    if (str) return '<span class="' + (colon ? "k" : "s") + '">' + str + '</span>' + (colon || "")
+    if (lit) return '<span class="b">' + m + '</span>'
+    return '<span class="n">' + m + '</span>'
+  })
+}
+
+function run() {
+  var p = values(), ep = EPS[current], key = document.getElementById("key").value.trim()
+  var headers = key ? { "Authorization": "Bearer " + key } : {}
+  var btn = document.getElementById("run"), status = document.getElementById("status")
+  btn.disabled = true; status.textContent = "Running…"; lawpy("think")
+  var t = Date.now(), req
+  if (current === "mcp") {
+    var args = safeJson(p.arguments)
+    if (!args) { status.textContent = "Arguments must be valid JSON."; btn.disabled = false; lawpy("idle"); return }
+    req = fetch(MCP, { method: "POST", headers: Object.assign({ "Content-Type": "application/json" }, headers), body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "tools/call", params: { name: p.tool, arguments: args } }) })
+      .then(function (r) { return r.json().then(function (d) { var text = ((d.result || {}).content || []).map(function (c) { return c.text }).join(""); var data = text; try { data = JSON.parse(text) } catch (e) {} return { status: r.status, data: d.result ? data : d } }) })
+  } else {
+    req = fetch(ep.url(p), { headers: headers }).then(function (r) { return r.json().then(function (d) { return { status: r.status, data: d } }) })
+  }
+  req.then(function (r) {
+    var ms = Date.now() - t
+    status.innerHTML = (r.status < 400 ? '<span style="color:var(--good)">' + r.status + '</span>' : '<span style="color:var(--bad)">' + r.status + '</span>') + " · " + ms + " ms"
+    document.getElementById("result").innerHTML = highlight(JSON.stringify(r.data, null, 2))
+    showTab("result")
+    lawpy(r.status < 400 ? "talk" : "idle", r.status < 400 ? 2 : 0)
+  }).catch(function (e) {
+    status.textContent = "Couldn't reach Actuent: " + e.message
+    lawpy("idle")
+  }).then(function () { btn.disabled = false })
+}
+
+function showTab(t) {
+  document.querySelectorAll(".tab").forEach(function (b) { b.setAttribute("aria-selected", String(b.getAttribute("data-t") === t)) })
+  document.getElementById("result").style.display = t === "result" ? "block" : "none"
+  document.getElementById("code").style.display = t === "result" ? "none" : "block"
+  if (t !== "result") document.getElementById("codetext").textContent = document.getElementById("codetext").dataset[t]
+}
+function copyCode() {
+  var t = document.getElementById("codetext").textContent, b = document.querySelector(".copy")
+  navigator.clipboard.writeText(t).then(function () { b.textContent = "Copied" ; setTimeout(function () { b.textContent = "Copy" }, 1500) })
+}
+
+document.querySelectorAll(".tab").forEach(function (b) { b.addEventListener("click", function () { showTab(b.getAttribute("data-t")) }) })
+document.getElementById("key").addEventListener("input", renderCode)
+document.getElementById("eps").innerHTML = Object.keys(EPS).map(function (k) { return '<button class="ep" data-ep="' + k + '" aria-pressed="false">' + esc(EPS[k].title) + '</button>' }).join("")
+document.querySelectorAll(".ep").forEach(function (b) { b.addEventListener("click", function () { pick(b.getAttribute("data-ep")) }) })
+// The MCP tool list comes from the server itself, so new tools show up here on their own.
+fetch(MCP, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "tools/list" }) })
+  .then(function (r) { return r.json() }).then(function (d) { tools = ((d.result || {}).tools || []).map(function (t) { return { name: t.name } }); if (current === "mcp") pick("mcp") }).catch(function () {})
+var start = new URLSearchParams(location.search).get("endpoint")
+pick(EPS[start] ? start : "search")
+</script>
+</body>
+</html>

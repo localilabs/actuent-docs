@@ -48,6 +48,10 @@
     {
       "src": "lawpy.js",
       "use": "@vercel/static"
+    },
+    {
+      "src": "playground.html",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
@@ -74,6 +78,10 @@
     {
       "src": "/generator/?",
       "dest": "/generator.html"
+    },
+    {
+      "src": "/playground/?",
+      "dest": "/playground.html"
     },
     {
       "src": "/lawpy.js",
