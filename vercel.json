@@ -44,6 +44,10 @@
     {
       "src": "examples.html",
       "use": "@vercel/static"
+    },
+    {
+      "src": "lawpy.js",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
@@ -70,6 +74,14 @@
     {
       "src": "/generator/?",
       "dest": "/generator.html"
+    },
+    {
+      "src": "/lawpy.js",
+      "dest": "/lawpy.js",
+      "headers": {
+        "Content-Type": "application/javascript; charset=utf-8",
+        "Cache-Control": "public, max-age=3600"
+      }
     },
     {
       "src": "/llms.txt",

@@ -73,14 +73,20 @@
     .top img{height:20px}
     .top a{font-size:13px;text-decoration:none}
   </style>
+  <script src="/lawpy.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <main id="main">
   <div class="top"><a href="https://actuent.ai"><img src="https://api.actuent.ai/assets/actuent-logo.png" alt="Actuent"></a><a href="https://docs.actuent.ai">Docs</a></div>
 
-  <h1>Actuent Bot</h1>
-  <p class="sub">The crawler behind Actuent, a search engine for AI agents</p>
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
+    <div>
+      <h1>Actuent Bot</h1>
+      <p class="sub">The crawler behind Actuent, a search engine for AI agents</p>
+    </div>
+    <lawpy-mascot state="think" scale="4" title="Reading websites" style="flex-shrink:0"></lawpy-mascot>
+  </div>
 
   <p>If you've seen this in your logs, it was Actuent:</p>
   <pre><code>Mozilla/5.0 (compatible; Actuent/1.0; +https://docs.actuent.ai/bot)</code></pre>

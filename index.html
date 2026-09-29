@@ -66,6 +66,7 @@
     }
   :focus-visible{outline:2px solid #8b8bff;outline-offset:2px}.cin:focus{border-color:#8b8bff}.skip{position:absolute;left:-999px;top:8px;z-index:100;background:#fff;color:#000;padding:8px 12px;border-radius:6px}.skip:focus{left:8px}
   </style>
+  <script src="/lawpy.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -105,8 +106,13 @@
 
 <main id="main">
   <div style="font-family:'Courier New',monospace;font-size:10px;color:#8e8e9c;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px">DOCS v0.3</div>
-  <h1>Actuent Docs</h1>
-  <p class="sub">The Internet for AI — search any website, get back structured data your AI can actually use.</p>
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
+    <div>
+      <h1>Actuent Docs</h1>
+      <p class="sub">The Internet for AI — search any website, get back structured data your AI can actually use.</p>
+    </div>
+    <lawpy-mascot state="wave" loops="2" then="idle" scale="4" title="Hi, I'm Lawpy" style="flex-shrink:0"></lawpy-mascot>
+  </div>
 
   <h2 id="intro">What is Actuent?</h2>
   <p>The web was built for humans. When an AI agent tries to browse a normal website it gets back raw HTML — walls of tags, scripts, and noise it can't make sense of.</p>
