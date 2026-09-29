@@ -43,6 +43,7 @@
     @media(max-width:860px){.cols{grid-template-columns:1fr}.out{position:static}}
   :focus-visible{outline:2px solid #8b8bff;outline-offset:2px}.cin:focus{border-color:#8b8bff}.skip{position:absolute;left:-999px;top:8px;z-index:100;background:#fff;color:#000;padding:8px 12px;border-radius:6px}.skip:focus{left:8px}
   </style>
+  <script src="/lawpy.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -51,6 +52,7 @@
     <a href="/" style="margin:0"><img src="https://api.actuent.ai/assets/actuent-logo.png" alt="Actuent"></a>
     <div><a href="/">Docs</a><a href="/#checker">Checker</a><a href="/changelog">Changelog</a></div>
   </div>
+  <lawpy-mascot id="genlawpy" state="idle" scale="4" style="float:right" title="Lawpy dances when your lawp.json is valid"></lawpy-mascot>
   <h1>LAWP Generator</h1>
   <p class="sub">Make a <code>lawp.json</code> for your site in a minute. Publish it at <code>https://yoursite.com/.well-known/lawp.json</code> and AI agents using Actuent can read your pages and take your actions. Everything runs in your browser. On WordPress or Cloudflare? The <a href="https://github.com/localilabs/actuent-wordpress/releases/latest">plugin</a> and <a href="https://github.com/localilabs/actuent-cloudflare">Worker</a> do this for you.</p>
 
@@ -101,7 +103,7 @@
         <button class="btn ghost" onclick="download()" style="flex:0 0 auto">Download</button>
         <span id="copy-status" class="muted" style="align-self:center"></span>
       </div>
-      <p class="muted" style="margin-top:12px">Then publish it at <code>/.well-known/lawp.json</code>, or if your platform can't (Shopify, Squarespace, Wix, Webflow), put it online anywhere and add <code>&lt;link rel="lawp" type="application/json" href="…"&gt;</code> to your homepage (<a href="/guides#link">how</a>). Test it with the <a href="/#checker">LAWP Checker</a>. Spec: <a href="https://github.com/localilabs/lawp/blob/main/LAWP.md">LAWP 0.4</a>.</p>
+      <p class="muted" style="margin-top:12px">Then publish it at <code>/.well-known/lawp.json</code>, or if your platform can't (Shopify, Squarespace, Wix, Webflow), put it online anywhere and add <code>&lt;link rel="lawp" type="application/json" href="…"&gt;</code> to your homepage (<a href="/guides#link">how</a>). Test it with the <a href="/#checker">LAWP Checker</a>. Spec: <a href="https://github.com/localilabs/lawp/blob/main/LAWP.md">LAWP 0.5</a>.</p>
     </div>
   </div>
 </main>
@@ -172,7 +174,7 @@ function read() {
     var a = { id: v("id").toLowerCase().replace(/[^a-z0-9_]+/g, "_"), name: v("name"), description: v("description"),
       intent: v("intent").split(",").map(function (t) { return t.trim() }).filter(Boolean), input: input }
     if (v("url")) a.url = v("url")
-    // LAWP 0.4 safety labels.
+    // LAWP 0.4+ safety labels.
     var cost = parseFloat(v("cost"))
     a.safety = { requires_confirmation: el.querySelector('[data-f="confirm"]').checked, costs_money: cost > 0 ? { amount: cost, currency: (v("currency") || "EUR").toUpperCase() } : false, reversible: el.querySelector('[data-f="reversible"]').checked, destructive: false }
     if (el.querySelector('[data-f="quote"]').checked) {
@@ -194,8 +196,8 @@ function read() {
   if (!name) problems.unshift("Add your site's name")
   if (pages["/"].content.length < 40) problems.push("Describe what you do in a sentence or two")
   if (!actions.length) problems.push("Add at least one action (contact is a good start)")
-  var doc = { lawp_version: "0.4", domain: domain, name: name, language: "en", updated_at: new Date().toISOString().slice(0, 19) + "Z", pages: pages, actions: actions }
-  // LAWP 0.4 business details.
+  var doc = { lawp_version: "0.5", domain: domain, name: name, language: "en", updated_at: new Date().toISOString().slice(0, 19) + "Z", pages: pages, actions: actions }
+  // LAWP 0.4+ business details.
   if ($("b-type").value) {
     var hours = $("b-hours").value.split(/\n+/).map(function (line) {
       var m = line.trim().match(/^((?:Mo|Tu|We|Th|Fr|Sa|Su)(?:\s*[-,]\s*(?:Mo|Tu|We|Th|Fr|Sa|Su))*)\s+(\d{1,2}:\d{2})\s*-\s*(\d{1,2}:\d{2})$/)
@@ -226,7 +228,12 @@ function render() {
   var r = read()
   $("output").textContent = JSON.stringify(r.doc, null, 2)
   $("problems").innerHTML = r.problems.length ? r.problems.map(function (p) { return '<div class="bad">○ ' + esc(p) + "</div>" }).join("") : '<div class="ok">✓ Looks valid</div>'
+  // Lawpy dances when the file becomes valid, and thinks while something's missing.
+  var valid = !r.problems.length, lawpy = $("genlawpy")
+  if (lawpy && lawpy.play && valid !== lastValid) lawpy.play(valid ? "dance" : "think", valid ? { loops: 3, then: "idle" } : {})
+  lastValid = valid
 }
+var lastValid = null
 
 function copyOut() {
   navigator.clipboard.writeText($("output").textContent).then(function () { $("copy-status").textContent = "Copied" }, function () { $("copy-status").textContent = "Select the text and copy it" })

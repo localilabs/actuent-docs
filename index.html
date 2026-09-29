@@ -206,6 +206,7 @@ If it says Actuent is busy, wait the retry_after_seconds given before trying aga
     <tr><td>actuent_get_page</td><td>Get LAWP for a specific URL path</td><td><span class="tf free">FREE</span></td></tr>
     <tr><td>actuent_execute_action</td><td>Perform a site action, such as contact or booking, on sites with <a href="#actions">LAWP action endpoints</a> (including WordPress sites with our plugin)</td><td><span class="tf pro">PRO</span></td></tr>
     <tr><td>actuent_compare</td><td>Compare sites side by side, or products (price, stock, 90-day price range, cheaper shops)</td><td><span class="tf free">FREE</span></td></tr>
+    <tr><td>actuent_similar</td><td>Sites like a given one ("alternatives to mailchimp.com"), with why each is similar</td><td><span class="tf free">FREE</span></td></tr>
     <tr><td>actuent_trending</td><td>Top 10 most searched sites and queries this week</td><td><span class="tf free">FREE</span></td></tr>
     <tr><td>actuent_news</td><td>Latest articles on any topic: headlines, sources, links and dates</td><td><span class="tf free">FREE</span></td></tr>
     <tr><td>actuent_nearby</td><td>Places near a location, sorted by distance, with opening hours and an <code>open_now</code> filter (OpenStreetMap)</td><td><span class="tf free">FREE</span></td></tr>
@@ -272,8 +273,22 @@ await register({
   <pre><code>from actuent import Actuent
 client = Actuent()                                   # or Actuent(api_key="ak_...")
 client.search("barber amsterdam")["results"]
-client.products("running shoes under €100")</code></pre>
-  <p><strong>LangChain:</strong> <code>pip install "actuent[langchain]"</code>, then <code>from actuent.langchain import get_tools</code>. <strong>LlamaIndex:</strong> <code>pip install "actuent[llamaindex]"</code>, then <code>from actuent.llama_index import get_tools</code>. Source: <a href="https://github.com/localilabs/actuent-python">github.com/localilabs/actuent-python</a>.</p>
+client.products("running shoes under €100")
+client.ask("basecamp.com", "is there a free plan?")["sentences"]
+client.similar("notion.so")["sites"]</code></pre>
+  <p><strong>LangChain:</strong> <code>pip install "actuent[langchain]"</code>, then <code>from actuent.langchain import get_tools</code>. <strong>LlamaIndex:</strong> <code>pip install "actuent[llamaindex]"</code>, then <code>from actuent.llama_index import get_tools</code>. Both give an agent three tools: search, ask a site and similar sites. Source: <a href="https://github.com/localilabs/actuent-python">github.com/localilabs/actuent-python</a>.</p>
+
+  <h3>Vercel AI SDK and LangChain.js</h3>
+  <p>The same three tools (search, ask a site, similar sites) for JavaScript agents, from <code>@actuent/sdk</code>:</p>
+  <pre><code>import { generateText } from "ai"
+import { actuentTools } from "@actuent/sdk/ai"
+
+const { text } = await generateText({ model, tools: actuentTools(), prompt: "Find a vegan café in Copenhagen open late" })
+
+// LangChain.js
+import { actuentLangChainTools } from "@actuent/sdk/langchain"
+const agent = createReactAgent({ llm, tools: actuentLangChainTools() })</code></pre>
+  <p>Pass <code>{ apiKey: "ak_..." }</code> to use Pro. The client itself also has <code>ask(domain, question)</code> and <code>similar(domain)</code>.</p>
 
   <h2 id="platforms">WordPress &amp; Cloudflare</h2>
   <p>Publish native LAWP without writing code:</p>
@@ -337,6 +352,13 @@ https://api.actuent.ai/badge.svg?domain=yoursite.com&amp;style=card  card with t
 npx @actuent/lawp init yoursite.com > lawp.json
 npx @actuent/lawp test yoursite.com book  # signed test request to an action</code></pre>
 
+  <h3 id="ask-widget">"Ask this site" widget</h3>
+  <p>A small button in the corner of your site (with Lawpy, our mascot) that answers visitors' questions from your own pages, with a link to the page each answer came from. No AI, no cookies, nothing stored. The better your LAWP, the better its answers.</p>
+  <pre><code>&lt;script src="https://api.actuent.ai/ask.js" data-domain="yoursite.com" async&gt;&lt;/script&gt;</code></pre>
+  <p>Options: <code>data-position="left"</code>, <code>data-title="Ask us anything"</code>, <code>data-placeholder="…"</code>.</p>
+  <h3>Download your lawp.json</h3>
+  <p>Every site page on Actuent has a <strong>Download lawp.json</strong> button: your site's LAWP, made from what Actuent already knows, ready to publish at <code>/.well-known/lawp.json</code>. Or fetch it directly: <code>https://api.actuent.ai/site/yoursite.com?format=lawp</code>.</p>
+
   <h2 id="lawp">LAWP Format</h2>
   <p>LAWP (Locali AI Web Protocol) is an open standard for representing websites as structured JSON AI agents can read and act on. Full spec: <a href="https://github.com/localilabs/lawp">github.com/localilabs/lawp</a></p>
   <pre><code>{
@@ -389,6 +411,12 @@ npx @actuent/lawp test yoursite.com book  # signed test request to an action</co
   ]
 }</code></pre>
   <p>Field types: <code>string</code>, <code>number</code>, <code>integer</code>, <code>boolean</code>, <code>date</code>, <code>time</code>, <code>datetime</code>, <code>email</code>, <code>phone</code>, <code>url</code>, <code>enum</code> (with <code>options</code>). Your endpoint receives <code>"input": { "date": "2026-10-03", "time": "14:00", … }</code>; <code>GET</code> endpoints also get each field as a query parameter. <a href="https://github.com/localilabs/lawp/blob/main/LAWP.md#structured-inputs-v03">Full spec</a>.</p>
+  <h3>LAWP 0.5: standard action types</h3>
+  <p>Give a common action a <code>type</code> and every agent knows what it does and which fields to ask for: <code>book_table</code>, <code>book_appointment</code>, <code>check_availability</code>, <code>request_quote</code>, <code>contact</code>, <code>order</code>, <code>search</code> or <code>subscribe</code>. A typed action takes named fields including the standard ones; for example <code>book_table</code> needs <code>date</code>, <code>time</code>, <code>party_size</code>, <code>name</code>, and <code>email</code> or <code>phone</code>. The LAWP Checker tells you what's missing. <a href="https://github.com/localilabs/lawp/blob/main/LAWP.md#standard-action-types-v05">Full list</a>.</p>
+  <pre><code>{ "id": "book_table", "type": "book_table", "name": "Book a table", "description": "Reserve a table", "intent": ["book", "table", "reservation"],
+  "input": { "type": "object", "required": true, "fields": [
+    { "name": "date", "type": "date", "required": true }, { "name": "time", "type": "time", "required": true },
+    { "name": "party_size", "type": "integer", "required": true }, { "name": "name", "required": true }, { "name": "phone", "type": "phone", "required": true } ] } }</code></pre>
   <h3>LAWP 0.4: safety, quotes, results and long-running actions</h3>
   <ul style="margin:0 0 12px 20px;color:#c4c4cf;font-size:14px;line-height:1.8">
     <li><strong>Safety:</strong> add <code>"safety": { "requires_confirmation": true, "costs_money": { "amount": 25, "currency": "EUR" }, "reversible": true }</code>. Actions that cost money, can't be undone, ask for confirmation, or say nothing at all return <code>needs_confirmation</code> to the agent first; it must get the user's OK and call again with <code>confirmed: true</code>.</li>
@@ -495,12 +523,17 @@ const ok = crypto.verify(null, Buffer.from(signed), publicKeyFromJwk, Buffer.fro
     <li><code>related</code>: related searches to try.</li>
     <li><code>events</code>: upcoming events, for searches like "concerts copenhagen".</li>
     <li><code>places</code>: OpenStreetMap places for local searches with no indexed websites yet.</li>
-    <li><code>products</code>: for shopping searches only. Shops in the searcher's market (the country of the city in the search, or where the searcher is) come first, and shops in far-off markets are left out.</li>
+    <li><code>near</code>: for a search for places without a city ("cafés"), the city whose places came first: the one you last searched, or where you are.</li>
+    <li><code>products</code>: for shopping searches only. Products include <code>price_history</code> (up to 12 prices over 90 days) and <code>lowest_90_days</code> when the price has changed. Shops in the searcher's market (the country of the city in the search, or where the searcher is) come first, and shops in far-off markets are left out.</li>
     <li><code>comparison</code>: for "A vs B" searches, <code>{ "sites": ["notion.so", "obsidian.md"], "tip" }</code>. Both sites are the first two results.</li>
     <li><code>answer</code>: for questions about one site ("does basecamp have a free plan"), <code>{ "domain", "sentences": [{ "text", "url" }], "note" }</code>: sentences from the site's own pages that match the question. That site is the first result.</li>
     <li><code>message</code> and <code>notices</code>: see <a href="#errors">Errors &amp; busy times</a>.</li>
   </ul>
   <p>Error pages, bot checks and parked domains are never results. The <code>X-Search-Time</code> header gives the time taken in milliseconds.</p>
+  <h3><span class="m">GET</span>https://api.actuent.ai/api/ask?domain=basecamp.com&amp;q=is there a free plan</h3>
+  <p>Answer a question from one site's own pages: <code>{ "sentences": [{ "text", "url" }], "actions": [...], "note" }</code>, or a <code>message</code> when its pages don't answer it. 30 questions a minute.</p>
+  <h3><span class="m">GET</span>https://api.actuent.ai/api/similar?domain=notion.so</h3>
+  <p>Sites like this one: <code>{ "sites": [{ "domain", "name", "category", "why" }] }</code>, from the same kind of site sharing its main words, and sites people opened for the same searches.</p>
   <h3><span class="m">GET</span>https://api.actuent.ai/api/autocomplete?q=prefix</h3>
   <p>Site names and searches that start with what's typed: <code>{ "sites": [{ "name", "domain", "category" }], "searches": ["…"] }</code>. Cached, so it's fast enough to call on every keystroke.</p>
   <h3><span class="m">POST</span>https://api.actuent.ai/api/register</h3>
@@ -571,8 +604,8 @@ function checkLAWP() {
     }
     var via = { "well-known": "/.well-known/lawp.json", "link-header": "a Link header on the homepage", "html-link": "a <link rel=\"lawp\"> on the homepage", "robots": "a LAWP: line in robots.txt" }[res.discovered_via] || "/.well-known/lawp.json"
     var schema = res.schema_errors && res.schema_errors.length
-      ? '<div style="color:#f0a0a0;margin-top:6px">Schema (LAWP 0.4): '+res.schema_errors.map(escH).join("<br>")+'</div>'
-      : '<div style="color:#4ade80;margin-top:6px">✓ Valid against the LAWP 0.4 JSON Schema</div>'
+      ? '<div style="color:#f0a0a0;margin-top:6px">Schema (LAWP 0.5): '+res.schema_errors.map(escH).join("<br>")+'</div>'
+      : '<div style="color:#4ade80;margin-top:6px">✓ Valid against the LAWP 0.5 JSON Schema</div>'
     var html = box(res.schema_errors && res.schema_errors.length ? "#ff8a3d" : "#4ade80", "✓ Native LAWP found", 'Found via '+escH(via)+(res.lawp_version ? ' · LAWP '+escH(res.lawp_version) : '') + (res.problems.length ? '<br>'+res.problems.map(escH).join("<br>") : '') + schema)
     html += res.actions.map(function(a) {
       var status = a.executable ? '<span class="tf pro">EXECUTABLE</span>' : '<span class="tf free">NO ENDPOINT</span>'

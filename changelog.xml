@@ -7,6 +7,13 @@
     <description>What's new in Actuent, the search engine for AI agents.</description>
     <language>en</language>
     <item>
+      <title>Ask a site, similar sites, price history and LAWP 0.5</title>
+      <link>https://docs.actuent.ai/changelog#2026-09-29-ask-similar-lawp-05</link>
+      <guid isPermaLink="false">2026-09-29-ask-similar-lawp-05</guid>
+      <pubDate>Tue, 29 Sep 2026 20:00:00 +0000</pubDate>
+      <description>&lt;ul&gt;&lt;li&gt;Ask a site: &lt;code&gt;/api/ask&lt;/code&gt; answers a question from one site&#x27;s own pages, with sources. On humans.actuent.ai every result has an &quot;Ask&quot; box.&lt;/li&gt;&lt;li&gt;Similar sites: &lt;code&gt;/api/similar&lt;/code&gt; and the &lt;code&gt;actuent_similar&lt;/code&gt; MCP tool find alternatives to any site.&lt;/li&gt;&lt;li&gt;&quot;Ask this site&quot; widget for site owners: one script tag adds a Lawpy button that answers visitors&#x27; questions from your pages.&lt;/li&gt;&lt;li&gt;Download lawp.json: every site page on Actuent now gives you a ready-to-publish LAWP file.&lt;/li&gt;&lt;li&gt;Price history: products include up to 90 days of prices and a &quot;lowest in 90 days&quot; flag.&lt;/li&gt;&lt;li&gt;Smarter searches: spelling fixes for whole searches (&quot;accouting sofware&quot;), and searches for places without a city favour your own city.&lt;/li&gt;&lt;li&gt;LAWP 0.5: standard action types (book_table, book_appointment, check_availability, request_quote and more).&lt;/li&gt;&lt;li&gt;Tools for the Vercel AI SDK and LangChain.js in @actuent/sdk 0.9, and ask/similar in the Python SDK 0.7.&lt;/li&gt;&lt;li&gt;Businesses in 50 more cities across the US, Australia, Asia, Latin America, Africa and the Middle East.&lt;/li&gt;&lt;/ul&gt;</description>
+    </item>
+    <item>
       <title>Names first, answers from sites, and shopping in your market</title>
       <link>https://docs.actuent.ai/changelog#2026-09-29-names-answers-markets</link>
       <guid isPermaLink="false">2026-09-29-names-answers-markets</guid>
