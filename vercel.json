@@ -52,6 +52,10 @@
     {
       "src": "playground.html",
       "use": "@vercel/static"
+    },
+    {
+      "src": "404.html",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
@@ -131,8 +135,13 @@
       }
     },
     {
-      "src": "/(.*)",
+      "src": "/(index\\.html)?",
       "dest": "/index.html"
+    },
+    {
+      "src": "/(.*)",
+      "status": 404,
+      "dest": "/404.html"
     }
   ]
 }
