@@ -484,6 +484,7 @@ const ok = crypto.verify(null, Buffer.from(signed), publicKeyFromJwk, Buffer.fro
     <tr><td><code>open_now=true</code></td><td>Only places open right now.</td></tr>
     <tr><td><code>lang</code></td><td>Sites in this language (ISO 639-1, e.g. <code>de</code>) first.</td></tr>
     <tr><td><code>sort</code></td><td><code>relevance</code> (default), <code>popular</code> or <code>fresh</code>.</td></tr>
+    <tr><td><code>fast=1</code></td><td>A quick first answer in well under a second: a site with that exact name, local businesses and the best-known matching sites (<code>"partial": true</code>). Show it, then replace it with the full search. GET only.</td></tr>
   </table>
   <h3>What's in a response</h3>
   <p>A search that is a name ("localilabs", "louvre tickets") puts that site first (<code>matched: "exact name"</code>), followed by the company's other projects. Local searches understand needs like "vegan", "dog friendly", "open late" and "brunch sunday", using each place's features and opening hours.</p>
