@@ -162,7 +162,10 @@ function run() {
   var p = values(), ep = EPS[current], key = document.getElementById("key").value.trim()
   var headers = key ? { "Authorization": "Bearer " + key } : {}
   var btn = document.getElementById("run"), status = document.getElementById("status")
-  btn.disabled = true; status.textContent = "Running…"; lawpy("think")
+  btn.disabled = true
+  // Answers that are written for you (Pro summaries, ask a site): Lawpy "writes" while you wait.
+  var writing = /ask|summar/i.test(String(current)) || p.summary === true || p.summary === "true"
+  status.textContent = writing ? "Lawpy is writing the answer…" : "Running…"; lawpy(writing ? "talk" : "think")
   var t = Date.now(), req
   if (current === "mcp") {
     var args = safeJson(p.arguments)
