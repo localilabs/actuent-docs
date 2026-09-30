@@ -60,6 +60,10 @@
     {
       "src": "checklist.html",
       "use": "@vercel/static"
+    },
+    {
+      "src": "slack.html",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
@@ -94,6 +98,10 @@
     {
       "src": "/checklist/?",
       "dest": "/checklist.html"
+    },
+    {
+      "src": "/slack/?",
+      "dest": "/slack.html"
     },
     {
       "src": "/lawpy.js",

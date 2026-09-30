@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Actuent for Slack</title>
+  <meta name="description" content="Add /actuent to your Slack workspace: search the web as AI agents see it, right in a channel.">
+  <link rel="icon" type="image/png" href="https://api.actuent.ai/assets/actuent-logo.png">
+  <meta property="og:title" content="Actuent for Slack">
+  <meta property="og:image" content="https://api.actuent.ai/og?title=Actuent%20for%20Slack&amp;subtitle=%2Factuent%20in%20any%20channel&amp;tag=docs.actuent.ai%2Fslack&amp;lawpy=talk">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:#0a0a0a;color:#f0f0f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+    main{max-width:760px;margin:0 auto;padding:48px 16px 80px}
+    .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:36px}
+    .top img{height:20px}.top a{color:#a8a8b6;font-size:13px;text-decoration:none;margin-left:16px}.top a:hover{color:#f0f0f0}
+    h1{font-size:30px;font-weight:700;letter-spacing:-1px;margin-bottom:10px}
+    h2{font-size:19px;font-weight:700;margin:44px 0 12px;padding-top:36px;border-top:1px solid #2a2a34}
+    h3{font-size:14px;font-weight:600;margin:20px 0 6px;color:#eeeef2}
+    p,li{color:#c4c4cf;line-height:1.7;font-size:14px}
+    p{margin-bottom:12px}
+    ul,ol{margin:0 0 12px 20px}
+    a{color:#ff8a3d}a:hover{color:#f0f0f0}
+    .sub{color:#a8a8b6;font-size:14px;line-height:1.6;margin-bottom:24px}
+    .toc{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+    .toc a{border:1px solid #2a2a34;border-radius:20px;padding:4px 12px;font-size:12px;text-decoration:none;color:#c4c4cf}
+    .toc a:hover{border-color:#ff8a3d;color:#f0f0f0}
+    code{background:#17171f;border:1px solid #2a2a34;color:#f0f0f0;padding:1px 6px;border-radius:4px;font-family:'Courier New',monospace;font-size:12px;overflow-wrap:anywhere}
+    pre{background:#13131a;border:1px solid #2a2a34;border-radius:8px;padding:14px 16px;overflow-x:auto;margin:10px 0 16px}
+    pre code{background:none;border:none;padding:0;font-size:12px;color:#dcdce3;line-height:1.6}
+    .note{background:#13131a;border:1px solid #2a2a34;border-left:3px solid #ff8a3d;border-radius:7px;padding:12px 16px;margin:14px 0}
+    .note p{margin:0;color:#a8a8b6;font-size:13px}
+    table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0 18px}
+    th{text-align:left;color:#8e8e9c;font-size:10px;text-transform:uppercase;letter-spacing:1px;padding:7px 8px;border-bottom:1px solid #2a2a34}
+    td{padding:8px;border-bottom:1px solid #2a2a34;color:#c4c4cf;vertical-align:top}
+    @media(max-width:600px){h1{font-size:24px}table{display:block;overflow-x:auto}}
+  :focus-visible{outline:2px solid #8b8bff;outline-offset:2px}.cin:focus{border-color:#8b8bff}.skip{position:absolute;left:-999px;top:8px;z-index:100;background:#fff;color:#000;padding:8px 12px;border-radius:6px}.skip:focus{left:8px}
+  </style>
+  <script src="/lawpy.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<main id="main">
+  <div class="top">
+    <a href="/" style="margin:0"><img src="https://api.actuent.ai/assets/actuent-logo.png" alt="Actuent"></a>
+    <div><a href="/">Docs</a><a href="/guides">Guides</a><a href="/checklist">Checklist</a></div>
+  </div>
+  <lawpy-mascot state="talk" loops="3" then="idle" scale="4" style="float:right"></lawpy-mascot>
+  <h1>Actuent for Slack</h1>
+  <p class="sub">Type <code>/actuent vegan restaurants copenhagen</code> or <code>/actuent notion vs obsidian</code> in any channel, and Actuent posts the answer there: sites, what they do, products and prices. Free, no account.</p>
+  <h2>Add it to your workspace (2 minutes)</h2>
+  <ol>
+    <li>Go to <a href="https://api.slack.com/apps?new_app=1">api.slack.com/apps</a> → <strong>Create New App</strong> → <strong>From an app manifest</strong>, and pick your workspace.</li>
+    <li>Paste this manifest (YAML), then <strong>Create</strong>:</li>
+  </ol>
+  <pre><code>display_information:
+  name: Actuent
+  description: Search the web as AI agents see it
+  background_color: "#0a0a0a"
+features:
+  bot_user:
+    display_name: Actuent
+    always_online: false
+  slash_commands:
+    - command: /actuent
+      url: https://api.actuent.ai/api/slack
+      description: Search Actuent
+      usage_hint: vegan restaurants copenhagen
+      should_escape: false
+oauth_config:
+  scopes:
+    bot:
+      - commands
+settings:
+  org_deploy_enabled: false
+  socket_mode_enabled: false
+  token_rotation_enabled: false</code></pre>
+  <ol start="3">
+    <li><strong>Install to Workspace</strong>, and allow it.</li>
+    <li>In any channel: <code>/actuent running shoes under 800 dkk</code>.</li>
+  </ol>
+  <div class="note"><p>What's sent: the words after <code>/actuent</code>, your workspace's ID (for a fair-use limit of 20 searches a minute) and Slack's reply address. Actuent doesn't see your messages, channels or users.</p></div>
+</main>
+</body>
+</html>
