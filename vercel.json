@@ -64,6 +64,14 @@
     {
       "src": "slack.html",
       "use": "@vercel/static"
+    },
+    {
+      "src": "stickers.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "stickers/**",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
@@ -102,6 +110,14 @@
     {
       "src": "/slack/?",
       "dest": "/slack.html"
+    },
+    {
+      "src": "/stickers/?",
+      "dest": "/stickers.html"
+    },
+    {
+      "src": "/stickers/(.+)",
+      "dest": "/stickers/$1"
     },
     {
       "src": "/lawpy.js",
