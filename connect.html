@@ -140,7 +140,7 @@ function watch() {
       document.getElementById("xp").style.width = "100%"
       document.getElementById("xptext").textContent = "All levels done!"
       document.querySelectorAll("#levels span").forEach(function (s) { s.className = "won" })
-      document.getElementById("speech").innerHTML = '<div class="who">Lawpy · you won</div><h2>WE’RE IN.</h2><p>Your AI can see the internet now. Ask it something. Anything. Go go go.</p><p class="done">✓ Actuent is connected</p><div class="row"><a class="btn" href="https://humans.actuent.ai" target="_blank" rel="noopener">See what your AI sees</a><a class="btn ghost" href="/stickers">Grab a Lawpy sticker</a></div>'
+      document.getElementById("speech").innerHTML = '<div class="who">Lawpy · you won</div><h2>WE’RE IN.</h2><p>Your AI can see the internet now. Ask it something. Anything. Go go go.</p><p class="done">✓ Actuent is connected</p>' + (d.streak ? '<p>🔥 <strong>' + d.streak + '-day streak</strong> · Lawpy rank: <strong>' + esc(d.level || "Rookie explorer") + '</strong>. Use your AI with Actuent every day to level up (3 days: Trail finder, 7: Internet ranger, 14: Internet legend, 30: Lawpy’s best friend).</p>' : '') + '<div class="row"><a class="btn" href="https://humans.actuent.ai" target="_blank" rel="noopener">See what your AI sees</a><a class="btn ghost" href="/stickers">Grab a Lawpy sticker</a></div>'
       lawpy("dance", 8)
     }).catch(function () {})
   }, 3000)
@@ -156,6 +156,8 @@ document.addEventListener("click", function (e) {
   }
 })
 draw()
+// Back again? If this browser's player already won, show the win (and the streak) straight away.
+fetch("https://api.actuent.ai/api/player?code=" + code).then(function (r) { return r.json() }).then(function (d) { if (d.connected) { level = APPS[app].length - 1; draw() } }).catch(function () {})
 </script>
 </body>
 </html>
