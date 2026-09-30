@@ -74,6 +74,11 @@
       <h2>Pages</h2>
       <div id="pages"></div>
       <button class="btn ghost small" onclick="addPage()">+ Add page</button>
+      <div class="row" style="margin-top:10px;align-items:end">
+        <div><label for="sitemap">Sitemap (optional)</label><input id="sitemap" placeholder="https://yoursite.com/sitemap.xml"></div>
+        <button class="btn ghost small" onclick="fromSitemap()" style="flex:0 0 auto">Build pages from my sitemap</button>
+      </div>
+      <div id="sitemap-status" class="muted">Finds your main pages (pricing, services, booking, contact, about…) and fills in their titles and descriptions.</div>
 
       <h2>Business details (optional)</h2>
       <div class="row">
@@ -266,6 +271,27 @@ function startFromActuent() {
     render()
   }).catch(function () { $("start-status").textContent = "Could not reach Actuent" })
 }
+
+// Pages from the site's sitemap (api.actuent.ai/api/sitemap-pages reads it, since browsers can't).
+function fromSitemap() {
+  var domain = $("domain").value.trim().toLowerCase().replace(/^https?:\/\//, "").replace(/\/.*$/, "")
+  var map = $("sitemap").value.trim()
+  if (!domain && map) { try { domain = new URL(map).hostname; $("domain").value = domain } catch (e) {} }
+  if (!domain) { $("sitemap-status").textContent = "Enter your domain first"; return }
+  $("sitemap-status").textContent = "Reading your sitemap…"
+  lawpyMood("think")
+  fetch("https://api.actuent.ai/api/sitemap-pages?domain=" + encodeURIComponent(domain) + (map ? "&sitemap=" + encodeURIComponent(map) : "")).then(function (r) { return r.json() }).then(function (d) {
+    var paths = Object.keys(d.pages || {})
+    if (!paths.length) { $("sitemap-status").textContent = d.error || d.message || "No pages found"; lawpyMood("idle"); return }
+    // Keep pages already filled in; replace empty placeholders.
+    document.querySelectorAll("[data-page]").forEach(function (el) { if (!el.querySelector('[data-f="title"]').value && !el.querySelector('[data-f="content"]').value) el.remove() })
+    var have = [].map.call(document.querySelectorAll('[data-page] [data-f="path"]'), function (i) { return i.value })
+    paths.filter(function (p) { return have.indexOf(p) < 0 }).forEach(function (p) { addPage(p, d.pages[p].title, d.pages[p].content) })
+    $("sitemap-status").textContent = "Added " + paths.length + " page" + (paths.length === 1 ? "" : "s") + " from your sitemap. Check the descriptions: they come from your pages' meta descriptions."
+    render()
+  }).catch(function () { $("sitemap-status").textContent = "Could not reach Actuent"; lawpyMood("idle") })
+}
+function lawpyMood(state) { var l = $("genlawpy"); if (l && l.play) l.play(state) }
 
 $("presets").innerHTML = Object.keys(PRESETS).map(function (k) { return '<button class="btn ghost small" onclick="addAction(PRESETS.' + k + ')">+ ' + esc(PRESETS[k].name) + "</button>" }).join("")
 document.addEventListener("input", render)
