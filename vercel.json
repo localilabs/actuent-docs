@@ -76,6 +76,10 @@
     {
       "src": "discord.html",
       "use": "@vercel/static"
+    },
+    {
+      "src": "connect.html",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
@@ -110,6 +114,10 @@
     {
       "src": "/checklist/?",
       "dest": "/checklist.html"
+    },
+    {
+      "src": "/(connect|play)/?",
+      "dest": "/connect.html"
     },
     {
       "src": "/slack/?",
