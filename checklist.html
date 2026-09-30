@@ -75,6 +75,8 @@
   </form>
   <div id="cl-summary" class="sub" style="margin:6px 0 0"></div>
   <div id="cl-list"></div>
+  <div id="fixed" style="display:none"><h2>Recently fixed</h2><p class="sub">Sites whose agent-readiness score went up after someone ran this checklist on them.</p><div class="item" id="fixed-list"></div></div>
+
   <h2>Check many sites at once</h2>
   <p>For agencies: paste up to 50 sites, one per line. They're checked one after another (about 5 seconds each), and you can download the results as a spreadsheet (CSV).</p>
   <textarea id="bulk" rows="5" style="width:100%;background:#17171f;border:1px solid #34343f;color:#f0f0f0;padding:10px;border-radius:8px;font-size:13px" placeholder="client-one.com&#10;client-two.dk"></textarea>
@@ -166,6 +168,12 @@ function csv() {
   a.click()
 }
 document.getElementById("plat").addEventListener("click", function (e) { var b = e.target.closest("button"); if (b) { platform = b.getAttribute("data-p"); draw() } })
+// Social proof: sites that got better after using the checklist.
+fetch("https://api.actuent.ai/api/recently-fixed").then(function (r) { return r.json() }).then(function (d) {
+  if (!d.sites || !d.sites.length) return
+  document.getElementById("fixed-list").innerHTML = d.sites.map(function (x) { return '<p><a href="https://api.actuent.ai/site/' + encodeURIComponent(x.domain) + '">' + esc(x.domain) + '</a> <span class="muted">' + x.from + ' → <strong>' + x.to + '</strong></span></p>' }).join("")
+  document.getElementById("fixed").style.display = ""
+}).catch(function () {})
 var q = new URLSearchParams(location.search)
 if (FIX.title[q.get("platform")] || q.get("platform") === "other") platform = q.get("platform")
 draw()
