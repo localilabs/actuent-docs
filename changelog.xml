@@ -7,6 +7,13 @@
     <description>What's new in Actuent, the search engine for AI agents.</description>
     <language>en</language>
     <item>
+      <title>For agencies, Discord, search inside a site and prices in your currency</title>
+      <link>https://docs.actuent.ai/changelog#2026-09-30-agencies-discord</link>
+      <guid isPermaLink="false">2026-09-30-agencies-discord</guid>
+      <pubDate>Wed, 30 Sep 2026 21:00:00 +0000</pubDate>
+      <description>&lt;ul&gt;&lt;li&gt;Search: &quot;why&quot; each result was picked, search inside any site from its Actuent page, and product prices in DKK, EUR, SEK, NOK, GBP, USD, CHF or PLN on humans.actuent.ai.&lt;/li&gt;&lt;li&gt;Trends shows this week&#x27;s top movers: sites whose agent-readiness rose most. Site pages show &quot;open now&quot; by the name.&lt;/li&gt;&lt;li&gt;For agencies: a Clients page in Analytics (up to 20 sites with scores and next fixes), and the checklist checks up to 50 sites at once with a CSV.&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/discord&quot;&gt;Actuent for Discord&lt;/a&gt;, more events from venues&#x27; calendar feeds, and the status page shows speed for search, site pages, autocomplete and badges.&lt;/li&gt;&lt;li&gt;Lawpy has a party hat for launch day, 14 October.&lt;/li&gt;&lt;/ul&gt;</description>
+    </item>
+    <item>
       <title>Better products, brand and deals pages, Slack, a Chrome extension and Lawpy stickers</title>
       <link>https://docs.actuent.ai/changelog#2026-09-30-products-slack-stickers</link>
       <guid isPermaLink="false">2026-09-30-products-slack-stickers</guid>
