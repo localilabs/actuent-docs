@@ -75,6 +75,12 @@
   </form>
   <div id="cl-summary" class="sub" style="margin:6px 0 0"></div>
   <div id="cl-list"></div>
+  <h2>Check many sites at once</h2>
+  <p>For agencies: paste up to 50 sites, one per line. They're checked one after another (about 5 seconds each), and you can download the results as a spreadsheet (CSV).</p>
+  <textarea id="bulk" rows="5" style="width:100%;background:#17171f;border:1px solid #34343f;color:#f0f0f0;padding:10px;border-radius:8px;font-size:13px" placeholder="client-one.com&#10;client-two.dk"></textarea>
+  <div class="row"><button class="btn" id="bulk-btn" type="button" onclick="bulk()">Check all</button><button class="btn" id="bulk-csv" type="button" onclick="csv()" style="background:#2a2a34;color:#f0f0f0;display:none">Download CSV</button></div>
+  <div id="bulk-out"></div>
+
   <h2>Put this check on your own site</h2>
   <p>Agencies and freelancers: let clients check their sites from yours. It only runs when someone clicks.</p>
   <pre><code>&lt;script src="https://api.actuent.ai/checklist.js" async&gt;&lt;/script&gt;</code></pre>
@@ -128,6 +134,36 @@ function check() {
     lawpy(todo ? "talk" : "dance", todo ? 2 : 6)
     draw()
   }).catch(function () { btn.disabled = false; btn.textContent = "Check"; sum.textContent = "Couldn't reach Actuent. Try again."; lawpy("idle") })
+}
+// Many sites: one after another, 5 seconds apart (the checkup allows 12 a minute per visitor).
+var bulkRows = []
+function bulk() {
+  var list = document.getElementById("bulk").value.split(/[\s,]+/).map(function (d) { return d.trim().toLowerCase().replace(/^https?:\/\//, "").replace(/\/.*$/, "") }).filter(Boolean)
+  list = list.filter(function (d, i) { return list.indexOf(d) === i }).slice(0, 50)
+  if (!list.length) return
+  var out = document.getElementById("bulk-out"), btn = document.getElementById("bulk-btn")
+  btn.disabled = true; bulkRows = []
+  out.innerHTML = '<table><tr><th>Site</th><th>Score</th><th>To fix</th></tr><tbody id="bulk-body"></tbody></table><p class="muted" id="bulk-progress"></p>'
+  lawpy("think")
+  var i = 0
+  function next() {
+    if (i >= list.length) { btn.disabled = false; document.getElementById("bulk-progress").textContent = "Done: " + list.length + " sites."; document.getElementById("bulk-csv").style.display = ""; lawpy("dance", 3); return }
+    var d = list[i++]
+    document.getElementById("bulk-progress").textContent = "Checking " + d + " (" + i + " of " + list.length + ")…"
+    fetch("https://api.actuent.ai/api/checkup?domain=" + encodeURIComponent(d)).then(function (r) { return r.json() }).then(function (res) {
+      var todo = res.checks ? res.checks.filter(function (c) { return !c.ok && !c.optional }).map(function (c) { return c.label }) : []
+      bulkRows.push([d, res.reachable ? res.score : "", res.reachable ? todo.join("; ") : (res.message || res.error || "not reachable")])
+      document.getElementById("bulk-body").insertAdjacentHTML("beforeend", "<tr><td><a href=\"/checklist?domain=" + encodeURIComponent(d) + "\">" + esc(d) + "</a></td><td>" + (res.reachable ? res.score + "/100" : "—") + "</td><td>" + esc(res.reachable ? (todo.join(" · ") || "all done") : (res.message || res.error || "not reachable")) + "</td></tr>")
+    }).catch(function () { bulkRows.push([d, "", "could not check"]) }).then(function () { setTimeout(next, 5200) })
+  }
+  next()
+}
+function csv() {
+  var text = "site,score,to fix\n" + bulkRows.map(function (r) { return r.map(function (v) { return '"' + String(v).replace(/"/g, '""') + '"' }).join(",") }).join("\n")
+  var a = document.createElement("a")
+  a.href = URL.createObjectURL(new Blob([text], { type: "text/csv" }))
+  a.download = "agent-readiness.csv"
+  a.click()
 }
 document.getElementById("plat").addEventListener("click", function (e) { var b = e.target.closest("button"); if (b) { platform = b.getAttribute("data-p"); draw() } })
 var q = new URLSearchParams(location.search)
