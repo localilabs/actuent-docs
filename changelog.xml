@@ -7,6 +7,13 @@
     <description>What's new in Actuent, the search engine for AI agents.</description>
     <language>en</language>
     <item>
+      <title>Better products, brand and deals pages, Slack, a Chrome extension and Lawpy stickers</title>
+      <link>https://docs.actuent.ai/changelog#2026-09-30-products-slack-stickers</link>
+      <guid isPermaLink="false">2026-09-30-products-slack-stickers</guid>
+      <pubDate>Wed, 30 Sep 2026 18:00:00 +0000</pubDate>
+      <description>&lt;ul&gt;&lt;li&gt;Products: sizes and colours in stock (&quot;nike shoes size 44&quot;), shops that ship to you first, &quot;cheapest …&quot; sorts by price, &quot;A vs B&quot; compares two products, the same product in several shops is grouped, and kids&#x27; and pet items only when asked for.&lt;/li&gt;&lt;li&gt;New pages: &lt;a href=&quot;https://api.actuent.ai/brand/nike&quot;&gt;brand pages&lt;/a&gt;, &lt;a href=&quot;https://api.actuent.ai/deals&quot;&gt;price drops this week&lt;/a&gt;, &lt;a href=&quot;https://api.actuent.ai/status&quot;&gt;status&lt;/a&gt; (30 days of uptime and speed), and new in a city (e.g. &lt;code&gt;/site/in/copenhagen/new&lt;/code&gt;), with RSS feeds.&lt;/li&gt;&lt;li&gt;Local search: &quot;open sunday&quot;, and vegan, vegetarian and gluten-free from restaurants&#x27; own menus. 38 more Danish, Swedish and German towns.&lt;/li&gt;&lt;li&gt;Site pages show your site in 5 AI assistants: whether ChatGPT, Claude, Perplexity, Gemini and Le Chat can read it.&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/slack&quot;&gt;Actuent for Slack&lt;/a&gt;: &lt;code&gt;/actuent&lt;/code&gt; in any channel. A Chrome extension. A &lt;a href=&quot;https://github.com/localilabs/lawp#github-action&quot;&gt;GitHub Action&lt;/a&gt; that checks your lawp.json on every push. The checklist as an &lt;a href=&quot;/checklist&quot;&gt;embeddable widget&lt;/a&gt;, and an opening-hours check.&lt;/li&gt;&lt;li&gt;The weekly State of the AI web by email: sign up on &lt;a href=&quot;https://api.actuent.ai/state/weekly&quot;&gt;the weekly page&lt;/a&gt;.&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/stickers&quot;&gt;Lawpy stickers&lt;/a&gt; for Slack, Discord and iMessage, and seasonal hats: a witch hat in October, Santa in December.&lt;/li&gt;&lt;/ul&gt;</description>
+    </item>
+    <item>
       <title>Search alerts, tonight's events, trends, change feeds and a checklist</title>
       <link>https://docs.actuent.ai/changelog#2026-09-30-alerts-trends-checklist</link>
       <guid isPermaLink="false">2026-09-30-alerts-trends-checklist</guid>
