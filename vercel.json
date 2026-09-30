@@ -56,6 +56,10 @@
     {
       "src": "404.html",
       "use": "@vercel/static"
+    },
+    {
+      "src": "checklist.html",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
@@ -86,6 +90,10 @@
     {
       "src": "/playground/?",
       "dest": "/playground.html"
+    },
+    {
+      "src": "/checklist/?",
+      "dest": "/checklist.html"
     },
     {
       "src": "/lawpy.js",

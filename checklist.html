@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agent-Ready Checklist — Actuent</title>
+  <meta name="description" content="A tick-box checklist for Shopify, Squarespace, Wix, Webflow and WordPress sites, with a live recheck of what AI agents see.">
+  <link rel="icon" type="image/png" href="https://api.actuent.ai/assets/actuent-logo.png">
+  <meta property="og:title" content="Agent-Ready Checklist — Actuent">
+  <meta property="og:description" content="Tick-box checklist per platform, rechecked live.">
+  <meta property="og:url" content="https://docs.actuent.ai/checklist">
+  <meta property="og:image" content="https://api.actuent.ai/og?title=Agent-ready%20checklist&amp;subtitle=Shopify%2C%20Squarespace%2C%20Wix%2C%20Webflow%2C%20WordPress&amp;tag=docs.actuent.ai%2Fchecklist&amp;lawpy=dance">
+  <meta name="twitter:card" content="summary_large_image">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:#0a0a0a;color:#f0f0f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+    main{max-width:760px;margin:0 auto;padding:48px 16px 80px}
+    .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:36px}
+    .top img{height:20px}.top a{color:#a8a8b6;font-size:13px;text-decoration:none;margin-left:16px}.top a:hover{color:#f0f0f0}
+    h1{font-size:30px;font-weight:700;letter-spacing:-1px;margin-bottom:10px}
+    h2{font-size:19px;font-weight:700;margin:44px 0 12px;padding-top:36px;border-top:1px solid #2a2a34}
+    h3{font-size:14px;font-weight:600;margin:20px 0 6px;color:#eeeef2}
+    p,li{color:#c4c4cf;line-height:1.7;font-size:14px}
+    p{margin-bottom:12px}
+    ul,ol{margin:0 0 12px 20px}
+    a{color:#ff8a3d}a:hover{color:#f0f0f0}
+    .sub{color:#a8a8b6;font-size:14px;line-height:1.6;margin-bottom:24px}
+    .toc{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+    .toc a{border:1px solid #2a2a34;border-radius:20px;padding:4px 12px;font-size:12px;text-decoration:none;color:#c4c4cf}
+    .toc a:hover{border-color:#ff8a3d;color:#f0f0f0}
+    code{background:#17171f;border:1px solid #2a2a34;color:#f0f0f0;padding:1px 6px;border-radius:4px;font-family:'Courier New',monospace;font-size:12px;overflow-wrap:anywhere}
+    pre{background:#13131a;border:1px solid #2a2a34;border-radius:8px;padding:14px 16px;overflow-x:auto;margin:10px 0 16px}
+    pre code{background:none;border:none;padding:0;font-size:12px;color:#dcdce3;line-height:1.6}
+    .note{background:#13131a;border:1px solid #2a2a34;border-left:3px solid #ff8a3d;border-radius:7px;padding:12px 16px;margin:14px 0}
+    .note p{margin:0;color:#a8a8b6;font-size:13px}
+    table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0 18px}
+    th{text-align:left;color:#8e8e9c;font-size:10px;text-transform:uppercase;letter-spacing:1px;padding:7px 8px;border-bottom:1px solid #2a2a34}
+    td{padding:8px;border-bottom:1px solid #2a2a34;color:#c4c4cf;vertical-align:top}
+    @media(max-width:600px){h1{font-size:24px}table{display:block;overflow-x:auto}}
+  :focus-visible{outline:2px solid #8b8bff;outline-offset:2px}.cin:focus{border-color:#8b8bff}.skip{position:absolute;left:-999px;top:8px;z-index:100;background:#fff;color:#000;padding:8px 12px;border-radius:6px}.skip:focus{left:8px}
+    .plat{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}
+    .plat button{background:#13131a;border:1px solid #2a2a34;color:#c4c4cf;border-radius:20px;padding:6px 14px;font-size:13px;cursor:pointer}
+    .plat button[aria-pressed="true"]{border-color:#ff8a3d;color:#f0f0f0}
+    .check{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}.row{display:flex;gap:8px;margin:10px 0}
+    .row input{flex:1;background:#17171f;border:1px solid #34343f;color:#f0f0f0;padding:10px 12px;border-radius:8px;font-size:14px;min-width:0}
+    .btn{background:#ff8a3d;color:#0a0a0a;border:none;border-radius:8px;padding:10px 16px;font-weight:700;cursor:pointer}
+    .btn:disabled{opacity:.6}
+    .item{background:#13131a;border:1px solid #2a2a34;border-radius:9px;padding:12px 14px;margin:10px 0}
+    .item h3{margin:0 0 4px;display:flex;gap:8px;align-items:center}
+    .state{font-size:11px;font-weight:700;border-radius:4px;padding:1px 7px;margin-left:auto}
+    .ok{background:#12301f;color:#4ade80}.no{background:#301414;color:#f87171}.opt{background:#1c1c25;color:#a8a8b6}.wait{background:#1c1c25;color:#8e8e9c}
+    .score{font:700 40px 'Courier New',monospace;letter-spacing:-1px}
+    .item p{margin:4px 0 0;font-size:13px}
+  </style>
+  <script src="/lawpy.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<main id="main">
+  <div class="top">
+    <a href="/" style="margin:0"><img src="https://api.actuent.ai/assets/actuent-logo.png" alt="Actuent"></a>
+    <div><a href="/">Docs</a><a href="/guides">Guides</a><a href="/generator">Generator</a></div>
+  </div>
+  <lawpy-mascot id="cl-lawpy" state="wave" loops="2" then="idle" scale="4" style="float:right"></lawpy-mascot>
+  <h1>Agent-ready checklist</h1>
+  <p class="sub">Pick your platform, enter your site, and work down the list. Every check looks at your live site, so after each fix press <strong>Recheck</strong> and watch it turn green. Lawpy dances when you're done.</p>
+
+  <div class="plat" id="plat" role="group" aria-label="Your platform">
+    <button data-p="shopify">Shopify</button><button data-p="squarespace">Squarespace</button><button data-p="wix">Wix</button><button data-p="webflow">Webflow</button><button data-p="wordpress">WordPress</button><button data-p="other">Other / own server</button>
+  </div>
+  <form class="row" onsubmit="event.preventDefault();check()">
+    <label for="cl-domain" style="position:absolute;left:-999px">Your site</label>
+    <input id="cl-domain" placeholder="yoursite.com" autocomplete="url">
+    <button class="btn" id="cl-btn" type="submit">Check</button>
+  </form>
+  <div id="cl-summary" class="sub" style="margin:6px 0 0"></div>
+  <div id="cl-list"></div>
+  <p class="sub" style="margin-top:24px">Every check also asks Actuent to crawl your site again, so your <a href="https://api.actuent.ai/site">Actuent page</a> and badge catch up within the hour. More detail per platform: <a href="/guides">platform guides</a>.</p>
+</main>
+<script>
+// Fixes per check, per platform. The checks come from api.actuent.ai/api/checkup.
+var ORDER = ["title", "description", "business", "contact", "hours", "ai_bots", "sitemap", "claimed", "lawp", "llms_txt"]
+var FIX = {
+  title: { _: "Give your homepage a clear title: your business name and what you do.", shopify: "Online Store → Preferences → Homepage title.", squarespace: "Pages → Home → ⚙ → SEO → SEO title.", wix: "Pages → Home → ⋯ → SEO basics → Title tag.", webflow: "Pages → Home → ⚙ Page settings → SEO settings → Title tag.", wordpress: "Settings → General → Site Title (or your SEO plugin's homepage title)." },
+  description: { _: "Add a meta description: one or two plain sentences saying what you do, where, and for whom. Agents quote it.", shopify: "Online Store → Preferences → Homepage meta description.", squarespace: "Pages → Home → ⚙ → SEO → SEO description.", wix: "Pages → Home → ⋯ → SEO basics → Meta description.", webflow: "Page settings → SEO settings → Meta description.", wordpress: "Your SEO plugin (Yoast, Rank Math) → homepage meta description." },
+  business: { _: "Publish schema.org data about your business (name, type, address). Make it with the <a href=\"/generator\">LAWP Generator</a>'s business details, or claim your site and fill in the editor.", shopify: "Most themes add Organization data. For a shop with an address, add a LocalBusiness JSON-LD block in Online Store → Themes → Edit code → theme.liquid, before &lt;/head&gt;.", squarespace: "Settings → Business information: fill in name, address and phone. Squarespace adds it to its structured data.", wix: "Settings → Business info: fill in name, address and phone. Custom data goes in Page SEO → Advanced SEO → Structured data markup.", webflow: "Page settings → Custom code → Inside &lt;head&gt;: paste a LocalBusiness JSON-LD block (needs a site plan).", wordpress: "Your SEO plugin's Local SEO / Knowledge Graph settings (Yoast: Settings → Site representation)." },
+  contact: { _: "Show a phone number or email on your homepage (a tel: or mailto: link, or in your business data), so agents can pass it on." },
+  hours: { _: "Add opening hours to your schema.org data (openingHoursSpecification). Agents answer “is it open now?” from these.", squarespace: "Settings → Business information → Business hours.", wix: "Settings → Business info → Business hours.", webflow: "Add openingHoursSpecification to the JSON-LD block in Page settings → Custom code.", shopify: "Add openingHoursSpecification to the LocalBusiness JSON-LD in theme.liquid." },
+  ai_bots: { _: "Let AI assistants in: remove Disallow: / for OAI-SearchBot, ChatGPT-User, Claude-SearchBot, Claude-User and PerplexityBot. They fetch pages when someone asks about you.", shopify: "Online Store → Themes → Edit code → add template robots.txt.liquid, and remove the rules blocking these bots.", squarespace: "Settings → Crawlers: turn off “Block known artificial intelligence crawlers”.", wix: "Marketing & SEO → SEO → Robots.txt editor.", webflow: "Site settings → SEO → Indexing → robots.txt.", wordpress: "Your SEO plugin's robots.txt editor, or the robots.txt file on your server." },
+  sitemap: { _: "Publish a sitemap at /sitemap.xml and list it in robots.txt.", shopify: "Shopify makes /sitemap.xml automatically.", squarespace: "Squarespace makes /sitemap.xml automatically.", wix: "Wix makes /sitemap.xml automatically once the site is published and connected to a domain.", webflow: "Site settings → SEO → Sitemap → Auto-generate sitemap.", wordpress: "WordPress makes /wp-sitemap.xml; your SEO plugin can make /sitemap.xml." },
+  claimed: { _: "Claim your site on Actuent, then you control your pages and actions in the editor, even on platforms that can't host files: <a id=\"claim-link\" href=\"https://analytics.actuent.ai\">Actuent Analytics → My sites</a>." },
+  lawp: { _: "Publish your own LAWP file with your actions. Make it with the <a href=\"/generator\">Generator</a>.", shopify: "Shopify can't host /.well-known files: host the file anywhere (a GitHub Gist works) and link it from theme.liquid: &lt;link rel=\"lawp\" href=\"…\"&gt;. See <a href=\"/guides#link\">linking your LAWP</a>.", squarespace: "Upload the file somewhere public and add &lt;link rel=\"lawp\" href=\"…\"&gt; in Settings → Advanced → Code injection → Header. See <a href=\"/guides#link\">linking your LAWP</a>.", wix: "Host the file anywhere public and add &lt;link rel=\"lawp\" href=\"…\"&gt; with Settings → Custom code (head). See <a href=\"/guides#link\">linking your LAWP</a>.", webflow: "Host the file anywhere public and add &lt;link rel=\"lawp\" href=\"…\"&gt; in Site settings → Custom code → Head code. See <a href=\"/guides#link\">linking your LAWP</a>.", wordpress: "Install the <a href=\"https://github.com/localilabs/actuent-wordpress/releases/latest\">Actuent LAWP plugin</a>: it publishes the file, search and contact actions for you.", other: "Save it as /.well-known/lawp.json on your server." },
+  llms_txt: { _: "Optional: an /llms.txt with a short summary of your site for AI.", wordpress: "The Actuent LAWP plugin publishes one for you.", shopify: "Shopify can't serve root files; skip this one, it's optional.", squarespace: "Not possible on Squarespace; skip this one, it's optional.", wix: "Not possible on Wix; skip this one, it's optional.", webflow: "Not possible on Webflow; skip this one, it's optional." }
+}
+var platform = "shopify", last = null
+function esc(v) { return String(v == null ? "" : v).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c] }) }
+function lawpy(state, loops) { var l = document.getElementById("cl-lawpy"); if (l && l.play) l.play(state, loops ? { loops: loops, then: "idle" } : {}) }
+function draw() {
+  document.querySelectorAll("#plat button").forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-p") === platform ? "true" : "false") })
+  var byId = {}; (last && last.checks || []).forEach(function (c) { byId[c.id] = c })
+  document.getElementById("cl-list").innerHTML = ORDER.map(function (id) {
+    var c = byId[id], fix = FIX[id][platform] || FIX[id]._
+    var state = !c ? '<span class="state wait">not checked</span>' : c.ok ? '<span class="state ok">✓ done</span>' : c.optional ? '<span class="state opt">optional</span>' : '<span class="state no">to do</span>'
+    var label = c ? c.label : ({ title: "Homepage has a title", description: "Homepage has a meta description", business: "Business details as schema.org data", contact: "A phone number or email agents can find", hours: "Opening hours as schema.org data", ai_bots: "robots.txt lets AI assistants in", sitemap: "A sitemap", claimed: "Claimed on Actuent", lawp: "Its own LAWP file", llms_txt: "An llms.txt summary for AI" })[id]
+    return '<div class="item"><h3>' + esc(label) + state + '</h3>' + (c && c.detail ? '<p class="muted">' + esc(c.detail) + '</p>' : '') + (c && c.ok ? '' : '<p>' + fix + (id !== "claimed" && FIX[id]._ !== fix ? '' : '') + '</p>') + '</div>'
+  }).join("")
+  var link = document.getElementById("claim-link"), d = document.getElementById("cl-domain").value.trim()
+  if (link && d) link.href = "https://analytics.actuent.ai/?edit=" + encodeURIComponent(d)
+}
+function check() {
+  var domain = document.getElementById("cl-domain").value.trim().toLowerCase().replace(/^https?:\/\//, "").replace(/\/.*$/, "")
+  if (!domain) return
+  var btn = document.getElementById("cl-btn"), sum = document.getElementById("cl-summary")
+  btn.disabled = true; btn.textContent = "Checking…"; sum.textContent = "Looking at " + domain + " as AI agents do…"
+  lawpy("think")
+  try { history.replaceState(null, "", "?platform=" + platform + "&domain=" + encodeURIComponent(domain)) } catch (e) {}
+  fetch("https://api.actuent.ai/api/checkup?domain=" + encodeURIComponent(domain)).then(function (r) { return r.json() }).then(function (d) {
+    btn.disabled = false; btn.textContent = "Recheck"
+    if (!d.reachable) { sum.textContent = d.message || d.error || "Couldn't check that site."; lawpy("idle"); return }
+    last = d
+    var todo = d.checks.filter(function (c) { return !c.ok && !c.optional }).length
+    sum.innerHTML = '<span class="score">' + d.score + '</span>/100 · ' + (todo ? todo + " thing" + (todo === 1 ? "" : "s") + " to fix" : "all done 🎉") + ' · <a href="' + esc(d.page) + '">your Actuent page</a>'
+    lawpy(todo ? "talk" : "dance", todo ? 2 : 6)
+    draw()
+  }).catch(function () { btn.disabled = false; btn.textContent = "Check"; sum.textContent = "Couldn't reach Actuent. Try again."; lawpy("idle") })
+}
+document.getElementById("plat").addEventListener("click", function (e) { var b = e.target.closest("button"); if (b) { platform = b.getAttribute("data-p"); draw() } })
+var q = new URLSearchParams(location.search)
+if (FIX.title[q.get("platform")] || q.get("platform") === "other") platform = q.get("platform")
+draw()
+if (q.get("domain")) { document.getElementById("cl-domain").value = q.get("domain"); check() }
+</script>
+</body>
+</html>
