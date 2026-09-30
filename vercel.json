@@ -72,6 +72,10 @@
     {
       "src": "stickers/**",
       "use": "@vercel/static"
+    },
+    {
+      "src": "discord.html",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
@@ -110,6 +114,10 @@
     {
       "src": "/slack/?",
       "dest": "/slack.html"
+    },
+    {
+      "src": "/discord/?",
+      "dest": "/discord.html"
     },
     {
       "src": "/stickers/?",
