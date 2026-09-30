@@ -19,3 +19,10 @@ Connect an agent over MCP at https://agents.actuent.ai/api/mcp (free without a k
 - [Errors & busy times](https://docs.actuent.ai/#errors): Responses explain limited or empty results in a `message`; pass it on to the user, and wait `retry_after_seconds` before retrying
 - [LAWP specification](https://github.com/localilabs/lawp/blob/main/LAWP.md): The open format, including executable actions and structured inputs
 - [Changelog](https://docs.actuent.ai/changelog): What's new
+
+## New (30 September 2026)
+- [Agent-ready checklist](https://docs.actuent.ai/checklist): per-platform checklist with a live recheck (GET https://api.actuent.ai/api/checkup?domain=)
+- [Search trends](https://api.actuent.ai/trends.json): most searched this week, by category and city
+- [Change feeds](https://api.actuent.ai/changes.rss): RSS of changes to indexed sites; per site at /site/<domain>/changes.rss
+- Tonight's events: GET https://api.actuent.ai/api/tonight?city=<city>; MCP actuent_events with when: "tonight"
+- Search alerts (Pro): MCP actuent_alert_new

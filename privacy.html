@@ -81,7 +81,7 @@
   <div class="top"><a href="https://actuent.ai"><img src="https://api.actuent.ai/assets/actuent-logo.png" alt="Actuent"></a><a href="https://docs.actuent.ai">Docs</a></div>
   <lawpy-mascot state="idle" scale="3" style="float:right"></lawpy-mascot>
   <h1>Privacy Policy</h1>
-  <p class="sub">Last updated: 29 September 2026 (rev. 13)</p>
+  <p class="sub">Last updated: 30 September 2026 (rev. 14)</p>
 
   <p>Actuent ("we", "us") is a search service for AI agents, made by localilabs (Alfred Murray) in Copenhagen, Denmark. This policy explains what data Actuent handles when you or your AI assistant use actuent.ai, api.actuent.ai, agents.actuent.ai (the Actuent MCP server, including the ChatGPT app and Claude connector), humans.actuent.ai, analytics.actuent.ai, docs.actuent.ai and the @actuent/sdk package. We are the data controller.</p>
 
@@ -96,6 +96,8 @@
     <li><strong>Plans (optional).</strong> If you use the outing planner, the location, date and times your assistant sends go to OpenStreetMap (Nominatim) to find places, like the nearby tool.</li>
     <li><strong>Connected site accounts (Pro).</strong> If you connect your account on a site (so your assistant can, for example, reorder for you), that site gives Actuent an access token. We store it encrypted, linked to your hashed key, and send it only to that site with your actions. You can disconnect any time, or delete it with "Delete my data". We never see your password for that site.</li>
     <li><strong>Price watches (Pro).</strong> When you ask to watch a price or stock, we store the product, your target price and optional webhook URL, linked to your hashed key. When the price drops we email your account's address and, if you gave one, POST the product and prices to your webhook. Remove a watch at any time by asking your assistant.</li>
+    <li><strong>Search alerts (Pro).</strong> When you save a search (in Analytics or by asking your assistant), we store the search, an optional webhook URL and the sites already found for it, linked to your hashed key. Once a day we run the search again and email your account's address (and POST to your webhook) when a new site matches. Remove an alert any time; "Delete my data" removes them all.</li>
+    <li><strong>"What's on tonight near me".</strong> On humans.actuent.ai, this uses the city your connection comes from (as our host, Vercel, reports it) to find tonight's events. The city isn't stored.</li>
     <li><strong>Payment data (Pro).</strong> Payments are processed by Stripe. We do not see or store your card details.</li>
     <li><strong>Location (optional).</strong> If you use the nearby-places tool, the location and query your assistant provides are sent to OpenStreetMap (Nominatim), or Google Maps Platform where configured, to find places. We do not store them beyond the search log.</li>
     <li><strong>News topics (optional).</strong> If you use the news tool, the topic is sent to Google News to find articles.</li>
@@ -111,7 +113,7 @@
     <li>To prevent abuse through rate limits.</li>
     <li>To provide Pro features: memory, search and action history, and analytics.</li>
     <li>To show owners of verified sites how many actions agents ran on their site (counts only, never who or what was sent).</li>
-    <li>To show aggregate, non-personal statistics such as total searches and trending sites.</li>
+    <li>To show aggregate, non-personal statistics such as total searches, trending sites and the public <a href="https://api.actuent.ai/trends">search trends</a> page. Trends only list searches made at least 3 times, never anything with an email address, a link or a long number, and never who searched.</li>
   </ul>
   <p>We do not sell personal data, use it for advertising, or use it to train AI models.</p>
 
@@ -129,6 +131,8 @@
     <li>If your site publishes executable actions, we send it a signed test request (<code>test: true</code>, no personal data) once a day and keep the results (success, status code, response time) for 30 days to show its reliability.</li>
     <li>Links Actuent gives to AI agents go through <code>api.actuent.ai/go</code>, which counts one visit for the site per click (the site and the day only; no IP address, cookie or anything about the person) and redirects.</li>
     <li>We read each site's public robots.txt to show which AI bots it blocks.</li>
+    <li>When someone runs the <a href="/checklist">agent-ready checklist</a> or the LAWP Generator's "build pages from my sitemap" for a site, we fetch that site's public homepage, robots.txt, sitemap and llms.txt (or the pages its sitemap lists) at that moment, and queue the site for a fresh crawl. Nothing about the person running the check is kept beyond the rate limit.</li>
+    <li>When we notice a site's pages or actions change (a new page, a retitled page, an action added or removed), we list the change in public change feeds (<code>api.actuent.ai/changes.rss</code> and <code>/site/&lt;domain&gt;/changes.rss</code>).</li>
     <li><strong>Actuent for Shopify:</strong> the app reads your store's public description, pages, collections and policies (read-only) to build your LAWP. We store an encrypted access token and your store's domain, and delete them when you uninstall. We don't read or store customer or order data.</li>
     <li>We automatically assign each site a category, compare its public score with similar sites, and flag parked domains and duplicates. This uses only public website content.</li>
     <li>You can ask us to correct or remove your site's data, including its public site page, at any time.</li>
@@ -138,13 +142,13 @@
   <p>We use these providers to run Actuent. They process data only on our behalf:</p>
   <ul>
     <li>Vercel (hosting)</li>
-    <li>Supabase (database)</li>
+    <li>Supabase (database, and hosting for public site pages, badges and sitemaps)</li>
     <li>Groq (AI processing of website content and search queries)</li>
     <li>Jina AI (fetching public web pages)</li>
     <li>OpenStreetMap Nominatim or Google Maps Platform (nearby places, only when that tool is used)</li>
     <li>Google News (news topics, only when the news tool is used)</li>
     <li>Stripe (payments and referral credits)</li>
-    <li>Resend (sending the welcome email when you claim a site)</li>
+    <li>Resend (emails to site owners and Pro users: welcome, weekly score, monthly report, change, price and search alerts)</li>
     <li>Mistral AI, GitHub Models (Microsoft), Cloudflare Workers AI, Cohere, Hugging Face and Google Gemini (backup AI processing of public website content only; never search queries or personal data)</li>
     <li>European Central Bank exchange rates via frankfurter.app (currency conversion; no personal data)</li>
     <li>Nager.Date (public holiday dates; no personal data)</li>
@@ -155,7 +159,7 @@
   <p>Old records are deleted automatically every week.</p>
   <ul>
     <li>Rate-limit records: about 10 minutes. Usage counters (searches per hashed IP per hour, used to keep heavy automated use from crowding out other people): up to 2 days.</li>
-    <li>Price watches: until you remove them or delete your data. AI bot visit counts: while the site is claimed.</li>
+    <li>Price watches and search alerts: until you remove them or delete your data. AI bot visit counts: while the site is claimed.</li>
     <li>Search logs, action logs and Pro history: 12 months, or sooner if you delete your data.</li>
     <li>Endpoint checks for sites' actions: 30 days. Changes to sites' LAWP: 180 days. Product price history: 12 months. Past events: 60 days after they start.</li>
     <li>Questions asked through the "Ask this site" widget: while the site uses Actuent, deleted with the site's data on request. The state of a claimed site at its last daily check (opening hours, broken links): while the site is claimed.</li>

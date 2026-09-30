@@ -7,6 +7,13 @@
     <description>What's new in Actuent, the search engine for AI agents.</description>
     <language>en</language>
     <item>
+      <title>Search alerts, tonight's events, trends, change feeds and a checklist</title>
+      <link>https://docs.actuent.ai/changelog#2026-09-30-alerts-trends-checklist</link>
+      <guid isPermaLink="false">2026-09-30-alerts-trends-checklist</guid>
+      <pubDate>Wed, 30 Sep 2026 12:00:00 +0000</pubDate>
+      <description>&lt;ul&gt;&lt;li&gt;Search alerts (Pro): save a search in Analytics → Alerts, or ask your assistant (&lt;code&gt;actuent_alert_new&lt;/code&gt;), and get an email or webhook when a new site matches it.&lt;/li&gt;&lt;li&gt;&quot;What&#x27;s on tonight near me&quot; on humans.actuent.ai, &lt;code&gt;/api/tonight?city=&lt;/code&gt;, and &lt;code&gt;when: &quot;tonight&quot;&lt;/code&gt; in &lt;code&gt;actuent_events&lt;/code&gt;.&lt;/li&gt;&lt;li&gt;Search trends: &lt;a href=&quot;https://api.actuent.ai/trends&quot;&gt;api.actuent.ai/trends&lt;/a&gt; (and &lt;code&gt;/trends.json&lt;/code&gt;): the most searched things this week, by category and city.&lt;/li&gt;&lt;li&gt;Change feeds (RSS): &lt;code&gt;api.actuent.ai/changes.rss&lt;/code&gt; for the whole index and &lt;code&gt;/site/&amp;lt;domain&amp;gt;/changes.rss&lt;/code&gt; per site.&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;/checklist&quot;&gt;Agent-ready checklist&lt;/a&gt; for Shopify, Squarespace, Wix, Webflow and WordPress, rechecked live (&lt;code&gt;/api/checkup&lt;/code&gt;). The &lt;a href=&quot;/generator&quot;&gt;Generator&lt;/a&gt; builds your pages from your sitemap (&lt;code&gt;/api/sitemap-pages&lt;/code&gt;).&lt;/li&gt;&lt;li&gt;humans.actuent.ai speaks Danish, Swedish, Norwegian, German, French, Spanish, Italian, Dutch, Portuguese and Finnish.&lt;/li&gt;&lt;li&gt;Better products: every important word of the search has to match (no more golf clubs for &quot;nike shoes&quot;), kids&#x27; and pet items only when asked for, and no more than two per shop at the top.&lt;/li&gt;&lt;li&gt;Lawpy is everywhere: badges, link previews, emails, 404 pages, the WordPress plugin and a secret search on humans.actuent.ai.&lt;/li&gt;&lt;/ul&gt;</description>
+    </item>
+    <item>
       <title>Actuent in your terminal, an API playground and alerts for site owners</title>
       <link>https://docs.actuent.ai/changelog#2026-09-29-terminal-playground-alerts</link>
       <guid isPermaLink="false">2026-09-29-terminal-playground-alerts</guid>
