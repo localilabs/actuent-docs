@@ -81,7 +81,7 @@
   <div class="top"><a href="https://actuent.ai"><img src="https://api.actuent.ai/assets/actuent-logo.png" alt="Actuent"></a><a href="https://docs.actuent.ai">Docs</a></div>
   <lawpy-mascot state="idle" scale="3" style="float:right"></lawpy-mascot>
   <h1>Privacy Policy</h1>
-  <p class="sub">Last updated: 30 September 2026 (rev. 16)</p>
+  <p class="sub">Last updated: 30 September 2026 (rev. 17)</p>
 
   <p>Actuent ("we", "us") is a search service for AI agents, made by localilabs (Alfred Murray) in Copenhagen, Denmark. This policy explains what data Actuent handles when you or your AI assistant use actuent.ai, api.actuent.ai, agents.actuent.ai (the Actuent MCP server, including the ChatGPT app and Claude connector), humans.actuent.ai, analytics.actuent.ai, docs.actuent.ai and the @actuent/sdk package. We are the data controller.</p>
 
@@ -131,12 +131,12 @@
     <li>If you publish <code>/.well-known/lawp.json</code> (for example with our WordPress plugin), we read and index it like any public page.</li>
     <li>Our WordPress plugin sends no data to us unless you turn on AI bot visits. It downloads Actuent's public signing keys to check that incoming action requests really come from Actuent. Messages sent through its contact action go straight from your site to your admin email; Actuent's action log keeps only the short record described above.</li>
     <li><strong>AI bot visits (optional).</strong> If you add your Pro key to our WordPress plugin or Cloudflare Worker, it sends us your domain, the names of AI bots that visited (such as GPTBot) and daily counts. Nothing about human visitors, no IP addresses and no page URLs. Only you, as the site's verified owner, can see them.</li>
-    <li>When you claim a site with a Pro key, we send one welcome email, a weekly score email and a monthly AI-visibility report (how often agents found your site and for which searches, only naming searches made at least twice) to your account's address (via Resend). We also check your site's public pages once a day and email you, and call any webhooks you registered, when opening hours change, a booking or other action link stops working, or product prices change. Every email has a one-click unsubscribe, which stops all of them. We send no marketing email.</li>
+    <li>When you claim a site with a Pro key, we send one welcome email and a weekly digest (your score, how often agents found your site and for which searches, only naming searches made at least twice, and what agents looked for but didn't find) to your account's address (via Resend), plus a reminder about a week before public holidays if your opening hours don't cover them. We also check your site's public pages once a day and email you, and call any webhooks you registered, when opening hours change, a booking or other action link stops working, or product prices change. Every email has a one-click unsubscribe, which stops all of them. We send no marketing email.</li>
     <li>If you add the "Ask this site" widget, you can see the questions your visitors asked (grouped, without who asked) in Analytics.</li>
     <li>If your site publishes executable actions, we send it a signed test request (<code>test: true</code>, no personal data) once a day and keep the results (success, status code, response time) for 30 days to show its reliability.</li>
     <li>Links Actuent gives to AI agents go through <code>api.actuent.ai/go</code>, which counts one visit for the site per click (the site and the day only; no IP address, cookie or anything about the person) and redirects.</li>
     <li>We read each site's public robots.txt to show which AI bots it blocks.</li>
-    <li>When someone runs the <a href="/checklist">agent-ready checklist</a> or the LAWP Generator's "build pages from my sitemap" for a site, we fetch that site's public homepage, robots.txt, sitemap and llms.txt (or the pages its sitemap lists) at that moment, and queue the site for a fresh crawl. Nothing about the person running the check is kept beyond the rate limit.</li>
+    <li>When someone runs the <a href="/checklist">agent-ready checklist</a> or the LAWP Generator's "build pages from my sitemap" for a site, we fetch that site's public homepage, robots.txt, sitemap and llms.txt (or the pages its sitemap lists) at that moment, and queue the site for a fresh crawl. We note that the site was checked (its domain, first score and dates) to show sites that improved afterwards. Nothing about the person running the check is kept beyond the rate limit.</li>
     <li>When we notice a site's pages or actions change (a new page, a retitled page, an action added or removed), we list the change in public change feeds (<code>api.actuent.ai/changes.rss</code> and <code>/site/&lt;domain&gt;/changes.rss</code>).</li>
     <li><strong>Actuent for Shopify:</strong> the app reads your store's public description, pages, collections and policies (read-only) to build your LAWP. We store an encrypted access token and your store's domain, and delete them when you uninstall. We don't read or store customer or order data.</li>
     <li>We automatically assign each site a category, compare its public score with similar sites, and flag parked domains and duplicates. This uses only public website content.</li>
@@ -164,6 +164,7 @@
   <p>Old records are deleted automatically every week.</p>
   <ul>
     <li>Rate-limit records: about 10 minutes. Usage counters (searches per hashed IP per hour, used to keep heavy automated use from crowding out other people): up to 2 days.</li>
+    <li>Pro keys that come close to their per-minute limit get a one-line heads-up email the next day (counts only).</li>
     <li>Weekly email sign-ups: until you unsubscribe (then the address is kept only as unsubscribed, so we never email it again) or ask us to delete it.</li>
     <li>Price watches and search alerts: until you remove them or delete your data. AI bot visit counts: while the site is claimed.</li>
     <li>Search logs, action logs and Pro history: 12 months, or sooner if you delete your data.</li>

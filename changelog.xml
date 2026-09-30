@@ -7,6 +7,13 @@
     <description>What's new in Actuent, the search engine for AI agents.</description>
     <language>en</language>
     <item>
+      <title>A weekly digest for site owners, dishes with prices, best-of pages and a what's-on widget</title>
+      <link>https://docs.actuent.ai/changelog#2026-09-30-digest-dishes-bestof</link>
+      <guid isPermaLink="false">2026-09-30-digest-dishes-bestof</guid>
+      <pubDate>Wed, 30 Sep 2026 23:00:00 +0000</pubDate>
+      <description>&lt;ul&gt;&lt;li&gt;Site owners get one weekly digest: score, the searches you came up for, visits, and what agents looked for on your site but couldn&#x27;t find. Plus a reminder before public holidays if your hours don&#x27;t cover them.&lt;/li&gt;&lt;li&gt;Search: dishes with prices from local menus (&quot;margherita under 100 kr copenhagen&quot;), shops compared side by side (&quot;zalando vs boozt&quot;), place suggestions as you type (&quot;caf&quot; → cafés in Copenhagen), and better brand spelling (&quot;zalanod&quot; → Zalando).&lt;/li&gt;&lt;li&gt;New pages: the best places per city and category (e.g. &lt;a href=&quot;https://api.actuent.ai/site/in/copenhagen/cafe/best&quot;&gt;best cafés in Copenhagen&lt;/a&gt;), and &quot;recently fixed&quot; sites on the &lt;a href=&quot;/checklist&quot;&gt;checklist&lt;/a&gt;.&lt;/li&gt;&lt;li&gt;A &quot;what&#x27;s on&quot; widget for venues and city sites (&lt;code&gt;whatson.js&lt;/code&gt;), and &lt;code&gt;/api/events&lt;/code&gt;.&lt;/li&gt;&lt;li&gt;Pro keys get a heads-up when they come close to 60 searches a minute. Agents get a &quot;Lawpy says&quot; tip when nothing is found.&lt;/li&gt;&lt;li&gt;www. copies of sites are merged, the ops page shows a data-quality score, and slow searches come with a Lawpy mini game.&lt;/li&gt;&lt;/ul&gt;</description>
+    </item>
+    <item>
       <title>For agencies, Discord, search inside a site and prices in your currency</title>
       <link>https://docs.actuent.ai/changelog#2026-09-30-agencies-discord</link>
       <guid isPermaLink="false">2026-09-30-agencies-discord</guid>
