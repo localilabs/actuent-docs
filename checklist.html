@@ -132,7 +132,7 @@ function check() {
     if (!d.reachable) { sum.textContent = d.message || d.error || "Couldn't check that site."; lawpy("idle"); return }
     last = d
     var todo = d.checks.filter(function (c) { return !c.ok && !c.optional }).length
-    sum.innerHTML = '<span class="score">' + d.score + '</span>/100 · ' + (todo ? todo + " thing" + (todo === 1 ? "" : "s") + " to fix" : "all done 🎉") + ' · <a href="' + esc(d.page) + '">your Actuent page</a>'
+    sum.innerHTML = '<span class="score">' + d.score + '</span>/100 · ' + (todo ? todo + " thing" + (todo === 1 ? "" : "s") + " to fix" : "all done 🎉 <em>Lawpy: “This website is SO tidy. I’d live here. I won’t. But I could.”</em>") + ' · <a href="' + esc(d.page) + '">your Actuent page</a>'
     lawpy(todo ? "talk" : "dance", todo ? 2 : 6)
     draw()
   }).catch(function () { btn.disabled = false; btn.textContent = "Check"; sum.textContent = "Couldn't reach Actuent. Try again."; lawpy("idle") })
