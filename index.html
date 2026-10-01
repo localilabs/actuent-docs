@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Actuent Docs</title>
   <link rel="icon" type="image/png" href="https://api.actuent.ai/assets/actuent-logo.png">
-  <meta name="description" content="Docs for Actuent, the search engine for AI agents: MCP setup, tools, LAWP and the API.">
+  <meta name="description" content="Actuent gives your AI the live internet: what's open now, what's on this weekend, real prices. Connect it to Claude, ChatGPT or Cursor in 30 seconds. Docs for the MCP server, API and LAWP.">
   <link rel="alternate" type="application/rss+xml" title="Actuent changelog" href="https://docs.actuent.ai/changelog.xml">
   <meta property="og:title" content="Actuent Docs">
   <meta property="og:description" content="MCP setup, tools, LAWP and the API for Actuent, the search engine for AI agents.">
@@ -109,15 +109,29 @@
   <div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
     <div>
       <h1>Actuent Docs</h1>
-      <p class="sub">The Internet for AI — search any website, get back structured data your AI can actually use.</p>
+      <p class="sub">Give your AI the live internet. Ask what's open now, what's on this weekend or what something costs, and it actually knows.</p>
     </div>
     <lawpy-mascot state="wave" loops="2" then="idle" scale="4" title="Hi, I'm Lawpy" style="flex-shrink:0"></lawpy-mascot>
   </div>
 
   <h2 id="intro">What is Actuent?</h2>
-  <p>The web was built for humans. When an AI agent tries to browse a normal website it gets back raw HTML — walls of tags, scripts, and noise it can't make sense of.</p>
-  <p>Actuent fixes that. AI agents search Actuent and get back a <strong>LAWP</strong> — a clean, structured JSON version of any website. Every page. Every action. Zero noise.</p>
-  <div class="note"><p>🤖 AI agents connect via <code>agents.actuent.ai</code> — Developers inspect results at <code>humans.actuent.ai</code></p></div>
+  <p>Your AI knows a lot, but not what's true <em>right now</em>: which café is open, what's playing tonight, what a pair of trainers costs today. Ask it and you get a guess, or "I can't browse the internet."</p>
+  <p>Actuent is a search engine built for AI assistants. It reads websites, shops, venues and maps, and hands your AI clean, current answers (opening hours, prices, events, what a company offers), each with a link to the source.</p>
+  <p><a class="btn" href="/connect" style="display:inline-block;background:#ff8a3d;color:#0a0a0a;padding:10px 16px;border-radius:8px;font-weight:700;text-decoration:none">Connect it in 30 seconds →</a> <span style="color:#8e8e9c;font-size:13px;margin-left:8px">Claude, ChatGPT, Cursor, VS Code · free, no account</span></p>
+
+  <h3 id="try">Try these first</h3>
+  <p>Questions your AI can't answer well on its own:</p>
+  <ul>
+    <li>"What's open near me right now?"</li>
+    <li>"What concerts are on in New York this weekend?"</li>
+    <li>"What's the cheapest Hoka Clifton right now?"</li>
+    <li>"Does Notion have a free plan?"</li>
+  </ul>
+
+  <h3 id="why-not-mcp">Isn't this just MCP?</h3>
+  <p>MCP is the plug. Actuent is what comes through it. MCP is the standard way for Claude, ChatGPT and Cursor to use tools, but a plug with nothing behind it does nothing. Actuent is an MCP server with a search index behind it: about 95,000 websites, millions of products with prices, thousands of upcoming events and places with opening hours, kept fresh every day.</p>
+  <p>Underneath, every site is described in <strong>LAWP</strong>, an open JSON format for what a site is and what an AI can do there. You never need to know it to use Actuent, but sites can publish their own (<a href="#lawp">more below</a>).</p>
+  <div class="note"><p>🤖 AI assistants connect via <code>agents.actuent.ai</code> · Developers can see the raw results at <code>humans.actuent.ai</code></p></div>
 
   <h2 id="quickstart">Quickstart</h2>
   <p>No account needed. Works instantly.</p>

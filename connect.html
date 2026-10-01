@@ -64,7 +64,7 @@ var store = { get: function (k) { try { return localStorage.getItem(k) } catch (
 var code = store.get("actuent-player")
 if (!/^[a-z0-9]{8}$/.test(code || "")) { code = Math.random().toString(36).slice(2, 10).padEnd(8, "x"); store.set("actuent-player", code) }
 var MCP = "https://agents.actuent.ai/api/mcp?player=" + code
-var MISSION = "Use Actuent to find me a café in Copenhagen that's open now"
+var MISSION = "Use Actuent to find me a concert in New York this weekend"
 // Discounts on the first month of Pro by golden files found. Codes must exist in Stripe (actuent.ai checkout):
 // flip DISCOUNTS_LIVE to true once they do.
 var DISCOUNTS_LIVE = true
