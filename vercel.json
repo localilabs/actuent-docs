@@ -80,6 +80,10 @@
     {
       "src": "connect.html",
       "use": "@vercel/static"
+    },
+    {
+      "src": "lawpy/*.svg",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
@@ -114,6 +118,14 @@
     {
       "src": "/checklist/?",
       "dest": "/checklist.html"
+    },
+    {
+      "src": "/lawpy/(.+\\.svg)",
+      "dest": "/lawpy/$1",
+      "headers": {
+        "Content-Type": "image/svg+xml",
+        "Cache-Control": "public, max-age=86400"
+      }
     },
     {
       "src": "/(connect|play)/?",

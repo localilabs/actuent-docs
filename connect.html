@@ -3,50 +3,44 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Connect Actuent to your AI — Actuent</title>
-  <meta name="description" content="Give Claude, ChatGPT, Cursor or VS Code the internet in about a minute. Lawpy walks you through it, level by level.">
+  <title>Lawpy's Adventure: give your AI the internet — Actuent</title>
+  <meta name="description" content="A tiny game: help Lawpy give your AI (Claude, ChatGPT, Cursor, VS Code) the internet, collect golden LAWP files and defeat the Hallucinator. About two minutes.">
   <link rel="icon" type="image/png" href="https://api.actuent.ai/assets/actuent-logo.png">
-  <meta property="og:title" content="Connect Actuent to your AI">
-  <meta property="og:description" content="Give your AI the internet in about a minute. Lawpy walks you through it.">
+  <meta property="og:title" content="Lawpy's Adventure: give your AI the internet">
+  <meta property="og:description" content="Collect golden LAWP files, defeat the Hallucinator, and connect your AI to the internet. About two minutes.">
   <meta property="og:url" content="https://docs.actuent.ai/connect">
-  <meta property="og:image" content="https://api.actuent.ai/og?title=Give%20your%20AI%20the%20internet&amp;subtitle=Connect%20in%20about%20a%20minute%2C%20level%20by%20level&amp;tag=docs.actuent.ai%2Fconnect&amp;lawpy=dance">
+  <meta property="og:image" content="https://api.actuent.ai/og?title=Lawpy%27s%20Adventure&amp;subtitle=Defeat%20the%20Hallucinator%20and%20give%20your%20AI%20the%20internet&amp;tag=docs.actuent.ai%2Fconnect&amp;lawpy=dance">
   <meta name="twitter:card" content="summary_large_image">
-  <script src="/lawpy.js" defer></script>
   <style>
-    :root { --bg:#0a0a0a; --surface:#13131a; --surface2:#1a1a23; --border:#2a2a34; --text:#f5f5f7; --muted:#a8a8b6; --soft:#c4c4cf; --accent:#ff8a3d; --good:#4ade80; }
+    :root { --bg:#0a0a0a; --surface:#13131a; --border:#2a2a34; --text:#f5f5f7; --muted:#a8a8b6; --soft:#c4c4cf; --accent:#ff8a3d; --gold:#ffd23f; --good:#4ade80; }
     * { margin:0; padding:0; box-sizing:border-box; }
-    body { background:var(--bg); color:var(--text); font:15px/1.6 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; }
-    main { max-width:720px; margin:0 auto; padding:40px 16px 80px; }
-    a { color:var(--accent); }
-    .top { display:flex; justify-content:space-between; align-items:center; margin-bottom:28px; font-size:13px; }
+    body { background:var(--bg); color:var(--text); font:15px/1.55 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; }
+    main { max-width:960px; margin:0 auto; padding:20px 12px 60px; }
+    .top { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; font-size:13px; }
     .top img { height:20px; } .top a { color:var(--muted); text-decoration:none; margin-left:14px; }
-    h1 { font-size:30px; letter-spacing:-1px; line-height:1.15; margin-bottom:8px; }
-    .sub { color:var(--muted); margin-bottom:22px; }
-    .apps { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:22px; }
-    .apps button { background:var(--surface); color:var(--soft); border:1px solid var(--border); border-radius:999px; padding:8px 16px; font-size:14px; cursor:pointer; }
-    .apps button[aria-pressed="true"] { border-color:var(--accent); color:var(--text); }
-    .xp { height:10px; background:var(--surface2); border-radius:6px; overflow:hidden; margin:6px 0 4px; }
-    .xp span { display:block; height:100%; width:0; background:linear-gradient(90deg,#ff8a3d,#ffd23f); transition:width .5s; }
-    .xptext { font-size:12px; color:var(--muted); margin-bottom:18px; }
-    .stage { display:flex; gap:18px; align-items:flex-start; background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:20px; }
-    .speech { flex:1; }
-    .speech .who { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--accent); font-weight:700; }
-    .speech h2 { font-size:21px; margin:4px 0 8px; }
-    .speech p { color:var(--soft); margin-bottom:10px; }
-    .steps { margin:6px 0 12px 20px; color:var(--soft); }
-    .steps li { margin:4px 0; }
-    code, .link { background:#0d0d12; border:1px solid var(--border); border-radius:6px; padding:1px 6px; font-family:'SF Mono',Menlo,monospace; font-size:13px; }
-    .link { display:block; padding:12px; margin:10px 0; word-break:break-all; font-size:14px; }
-    .row { display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; }
-    .btn { background:var(--accent); color:#0a0a0a; border:0; border-radius:9px; padding:11px 18px; font-weight:800; font-size:14px; cursor:pointer; text-decoration:none; display:inline-block; }
-    .btn.ghost { background:none; color:var(--soft); border:1px solid var(--border); font-weight:600; }
-    .done { color:var(--good); font-weight:700; }
-    .waiting { color:var(--muted); font-size:13px; margin-top:8px; }
-    .levels { display:flex; gap:6px; margin-top:16px; }
-    .levels span { flex:1; height:6px; border-radius:4px; background:var(--surface2); }
-    .levels span.on { background:var(--accent); } .levels span.won { background:var(--good); }
-    .note { margin-top:26px; font-size:13px; color:var(--muted); }
-    @media (max-width:600px) { .stage { flex-direction:column; } h1 { font-size:24px; } }
+    .game { position:relative; border:2px solid var(--border); border-radius:14px; overflow:hidden; background:#1b2a4a; }
+    canvas { display:block; width:100%; height:auto; image-rendering:pixelated; image-rendering:crisp-edges; cursor:pointer; }
+    .hud { position:absolute; top:8px; left:10px; right:10px; display:flex; justify-content:space-between; align-items:center; pointer-events:none; font:700 13px 'SF Mono',Menlo,monospace; text-shadow:0 2px 0 #000; }
+    .hud button { pointer-events:auto; background:rgba(0,0,0,.45); color:#fff; border:1px solid rgba(255,255,255,.25); border-radius:8px; padding:4px 8px; font:inherit; cursor:pointer; }
+    .panel { position:absolute; left:50%; top:30px; transform:translateX(-50%); width:min(92%,620px); background:rgba(10,10,14,.92); border:2px solid #000; box-shadow:0 0 0 2px rgba(255,255,255,.12), 0 8px 0 rgba(0,0,0,.35); border-radius:12px; padding:14px 16px; }
+    .panel .who { font:800 11px 'SF Mono',Menlo,monospace; letter-spacing:2px; text-transform:uppercase; color:var(--accent); }
+    .panel h2 { font-size:19px; margin:2px 0 6px; }
+    .panel p { color:var(--soft); font-size:14px; margin-bottom:6px; }
+    .panel ol { margin:4px 0 6px 20px; color:var(--soft); font-size:14px; }
+    .panel code, .panel .link { background:#000; border:1px solid var(--border); border-radius:6px; padding:1px 6px; font:13px 'SF Mono',Menlo,monospace; color:#fff; }
+    .panel .link { display:block; padding:8px; margin:6px 0; word-break:break-all; }
+    .row { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+    .btn { background:var(--accent); color:#0a0a0a; border:0; border-bottom:3px solid #b85a1d; border-radius:9px; padding:9px 14px; font-weight:800; font-size:14px; cursor:pointer; text-decoration:none; display:inline-block; }
+    .btn:active { transform:translateY(2px); border-bottom-width:1px; }
+    .btn.ghost { background:#22222c; color:#fff; border-bottom-color:#000; }
+    .btn.ai { background:#f5f5f7; border-bottom-color:#999; color:#0a0a0a; }
+    .waiting { color:var(--gold); font:700 13px 'SF Mono',Menlo,monospace; margin-top:6px; }
+    .below { margin-top:14px; font-size:13px; color:var(--muted); }
+    @media (max-width:640px) {
+      .panel { top:auto; }
+      .panel { position:static; transform:none; width:auto; margin:10px 0 0; border-radius:12px; }
+      .game { overflow:visible; border:0; } canvas { border:2px solid var(--border); border-radius:14px; }
+    }
   </style>
 </head>
 <body>
@@ -55,109 +49,293 @@
     <a href="/" style="margin:0"><img src="https://api.actuent.ai/assets/actuent-logo.png" alt="Actuent"></a>
     <div><a href="/">Docs</a><a href="https://humans.actuent.ai">Try a search</a></div>
   </div>
-  <h1>Give your AI the internet</h1>
-  <p class="sub">About a minute. Lawpy walks you through it, one level at a time. Free, no account.</p>
-  <div class="apps" id="apps" role="group" aria-label="Your AI app">
-    <button data-app="claude">Claude</button><button data-app="chatgpt">ChatGPT</button><button data-app="claudecode">Claude Code</button><button data-app="cursor">Cursor</button><button data-app="vscode">VS Code</button>
+  <div class="game" id="game">
+    <canvas id="c" width="320" height="240" aria-label="Lawpy's Adventure: a game that walks you through connecting Actuent to your AI"></canvas>
+    <div class="hud"><span id="hud-level">LAWPY'S ADVENTURE</span><span><span id="hud-gold">★ 0/10</span> <button id="mute" aria-label="Sound on or off">🔊</button></span></div>
+    <div class="panel" id="panel" aria-live="polite"></div>
   </div>
-  <div class="xp"><span id="xp"></span></div>
-  <div class="xptext" id="xptext"></div>
-  <div class="stage">
-    <lawpy-mascot id="lawpy" state="wave" loops="2" then="idle" scale="6"></lawpy-mascot>
-    <div class="speech" id="speech" aria-live="polite"></div>
-  </div>
-  <div class="levels" id="levels"></div>
-  <p class="note">Stuck? Every app shows “Actuent” in its list of connectors or tools once it’s added. Using a Pro key? Sign in with it when your app asks. Questions: <a href="mailto:support@localilabs.com">support@localilabs.com</a>.</p>
+  <p class="below">Golden LAWP files are hidden in every scene: tap them to collect. The more you find, the bigger your discount on your first month of Actuent Pro. Stuck? <a href="mailto:support@localilabs.com" style="color:var(--accent)">support@localilabs.com</a></p>
 </main>
 <script>
-// A player code rides along in the connector link, so the last level can see your first real search
-// (api.actuent.ai/api/player). It's random, stored only in this browser, and says nothing about you.
-var code = ""
-try { code = localStorage.getItem("actuent-player") || "" } catch (e) {}
-if (!/^[a-z0-9]{8}$/.test(code)) { code = Math.random().toString(36).slice(2, 10).padEnd(8, "x"); try { localStorage.setItem("actuent-player", code) } catch (e) {} }
+// ───────────────────────── Player, link and the real steps ─────────────────────────
+// A random player code rides along in the connector link, so the boss level can see your AI's first
+// real search (api.actuent.ai/api/player). It's made here, kept in this browser, and says nothing about you.
+var store = { get: function (k) { try { return localStorage.getItem(k) } catch (e) { return null } }, set: function (k, v) { try { localStorage.setItem(k, v) } catch (e) {} } }
+var code = store.get("actuent-player")
+if (!/^[a-z0-9]{8}$/.test(code || "")) { code = Math.random().toString(36).slice(2, 10).padEnd(8, "x"); store.set("actuent-player", code) }
 var MCP = "https://agents.actuent.ai/api/mcp?player=" + code
 var MISSION = "Use Actuent to find me a café in Copenhagen that's open now"
+// Discounts on the first month of Pro by golden files found. Codes must exist in Stripe (actuent.ai checkout):
+// flip DISCOUNTS_LIVE to true once they do.
+var DISCOUNTS_LIVE = false
+var DISCOUNTS = [[8, 30, "LAWPY30"], [4, 20, "LAWPY20"], [1, 10, "LAWPY10"]]
 function esc(v) { return String(v).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c] }) }
-function lawpy(state, loops) { var l = document.getElementById("lawpy"); if (l && l.play) l.play(state, loops ? { loops: loops, then: "idle" } : {}) }
-function copyBtn(text, label) { return '<button class="btn" data-copy="' + esc(text) + '">' + (label || "Copy") + '</button>' }
 
-// Each app's levels: [title, Lawpy's words (HTML), button row (HTML)]. The last level of every app waits for the first search.
-var APPS = {
-  claude: [
-    ["Sneak into the settings", "<p>Right! First we sneak into Claude's settings. Don't worry, I've done this loads. Mostly on purpose.</p><ol class='steps'><li>Open Claude (web or the desktop app).</li><li>Click your name → <strong>Settings</strong> → <strong>Connectors</strong>.</li></ol>", "<a class='btn' href='https://claude.ai/settings/connectors' target='_blank' rel='noopener'>Open Claude's connectors</a>"],
-    ["Grab the magic link", "<p>This is the secret door. Copy it. Guard it with your life. (Or don't, it's free.)</p><div class='link'>" + esc(MCP) + "</div>", copyBtn(MCP, "Copy the link")],
-    ["Plant it", "<p>Now we plant it in Claude.</p><ol class='steps'><li>Click <strong>Add custom connector</strong>.</li><li>Name: <code>Actuent</code> · URL: paste the link.</li><li>Click <strong>Add</strong>. (Pro? Sign in with your key when asked.)</li></ol>", ""],
-    ["First mission", "<p>Last level. Start a new chat and ask Claude this. I'll be watching. Very closely. Blinking loudly.</p><div class='link'>" + esc(MISSION) + "</div>", copyBtn(MISSION, "Copy the mission")]
-  ],
-  chatgpt: [
-    ["Find the secret switch", "<p>ChatGPT hides this bit behind a switch. Sneaky. We're sneakier.</p><ol class='steps'><li>Open ChatGPT → <strong>Settings</strong> → <strong>Apps &amp; Connectors</strong>.</li><li>Open <strong>Advanced settings</strong> and turn on <strong>Developer mode</strong>.</li></ol>", "<a class='btn' href='https://chatgpt.com/#settings/Connectors' target='_blank' rel='noopener'>Open ChatGPT settings</a>"],
-    ["Grab the magic link", "<p>Copy the secret door.</p><div class='link'>" + esc(MCP) + "</div>", copyBtn(MCP, "Copy the link")],
-    ["Plant it", "<p>Back in Apps &amp; Connectors:</p><ol class='steps'><li>Click <strong>Create</strong>.</li><li>Name: <code>Actuent</code> · MCP server URL: paste the link · Authentication: <strong>No authentication</strong> (or OAuth with a Pro key).</li><li>Tick that you trust it, then <strong>Create</strong>.</li></ol>", ""],
-    ["First mission", "<p>New chat, pick <strong>Developer mode</strong> in the tools menu, then ask this:</p><div class='link'>" + esc(MISSION) + "</div>", copyBtn(MISSION, "Copy the mission")]
-  ],
-  claudecode: [
-    ["One command", "<p>Terminal people! My favourite. One command and we're in:</p><div class='link'>claude mcp add --transport http actuent " + esc(MCP) + "</div>", copyBtn("claude mcp add --transport http actuent " + MCP, "Copy the command")],
-    ["First mission", "<p>Start <code>claude</code> and ask:</p><div class='link'>" + esc(MISSION) + "</div>", copyBtn(MISSION, "Copy the mission")]
-  ],
-  cursor: [
-    ["One click", "<p>Cursor lets me in with one click. Love that for us.</p>", "<a class='btn' id='cursor-link' href='#'>Add Actuent to Cursor</a>"],
-    ["First mission", "<p>In Cursor's chat (Agent mode), ask:</p><div class='link'>" + esc(MISSION) + "</div>", copyBtn(MISSION, "Copy the mission")]
-  ],
-  vscode: [
-    ["One click", "<p>VS Code, one click. I'll be in Copilot's toolbox in no time.</p>", "<a class='btn' id='vscode-link' href='#'>Add Actuent to VS Code</a>"],
-    ["First mission", "<p>Open Copilot Chat in <strong>Agent</strong> mode and ask:</p><div class='link'>" + esc(MISSION) + "</div>", copyBtn(MISSION, "Copy the mission")]
-  ]
+var AIS = {
+  claude: { name: "Claude", settings: "<ol><li>Open Claude (web or desktop app).</li><li>Click your name → <strong>Settings</strong> → <strong>Connectors</strong>.</li></ol>", open: "https://claude.ai/settings/connectors",
+    plant: "<ol><li>Click <strong>Add custom connector</strong>.</li><li>Name: <code>Actuent</code> · URL: paste the magic link.</li><li>Click <strong>Add</strong>.</li></ol>", ask: "Start a new chat and ask Claude:" },
+  chatgpt: { name: "ChatGPT", settings: "<ol><li>Open ChatGPT → <strong>Settings</strong> → <strong>Apps &amp; Connectors</strong>.</li><li>In <strong>Advanced settings</strong>, turn on <strong>Developer mode</strong>.</li></ol>", open: "https://chatgpt.com/#settings/Connectors",
+    plant: "<ol><li>Click <strong>Create</strong>.</li><li>Name: <code>Actuent</code> · MCP server URL: paste the magic link · Authentication: <strong>No authentication</strong>.</li><li>Tick that you trust it → <strong>Create</strong>.</li></ol>", ask: "New chat → pick <strong>Developer mode</strong> in the tools menu → ask:" },
+  claudecode: { name: "Claude Code", settings: "<p>No settings to sneak into: a terminal command does it all. Lawpy approves.</p>", open: null,
+    plant: "<p>Run this in your terminal:</p><div class='link'>claude mcp add --transport http actuent " + esc(MCP) + "</div>", plantCopy: "claude mcp add --transport http actuent " + MCP, ask: "Start <code>claude</code> and ask:" },
+  cursor: { name: "Cursor", settings: "<p>Cursor has a secret one-click door. Lawpy found it.</p>", open: null,
+    plant: "<p>Click the button and say yes in Cursor.</p>", deeplink: function () { return "cursor://anysphere.cursor-deeplink/mcp/install?name=actuent&config=" + btoa(JSON.stringify({ url: MCP })) }, ask: "In Cursor's chat (Agent mode), ask:" },
+  vscode: { name: "VS Code", settings: "<p>VS Code has a one-click door too. Sneaky.</p>", open: null,
+    plant: "<p>Click the button and allow it in VS Code.</p>", deeplink: function () { return "vscode:mcp/install?" + encodeURIComponent(JSON.stringify({ name: "actuent", type: "http", url: MCP })) }, ask: "Open Copilot Chat in <strong>Agent</strong> mode and ask:" }
 }
-var app = "claude", level = 0, poll = null
-try { var saved = JSON.parse(localStorage.getItem("actuent-connect") || "{}"); if (APPS[saved.app]) { app = saved.app; level = Math.min(saved.level || 0, APPS[app].length - 1) } } catch (e) {}
 
-function save() { try { localStorage.setItem("actuent-connect", JSON.stringify({ app: app, level: level })) } catch (e) {} }
-function draw() {
-  var levels = APPS[app], L = levels[level], last = level === levels.length - 1
-  document.querySelectorAll("#apps button").forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-app") === app ? "true" : "false") })
-  document.getElementById("xp").style.width = Math.round(level / levels.length * 100) + "%"
-  document.getElementById("xptext").textContent = "Level " + (level + 1) + " of " + levels.length
-  document.getElementById("levels").innerHTML = levels.map(function (_, i) { return '<span class="' + (i < level ? "won" : i === level ? "on" : "") + '"></span>' }).join("")
-  document.getElementById("speech").innerHTML = '<div class="who">Lawpy · level ' + (level + 1) + '</div><h2>' + L[0] + '</h2>' + L[1] +
-    '<div class="row">' + L[2] + (last ? "" : '<button class="btn ghost" id="next">Done, next level →</button>') + (level ? '<button class="btn ghost" id="back">← Back</button>' : "") + '</div>' +
-    (last ? '<div class="waiting" id="waiting">Waiting for your first search… (I can tell when it arrives)</div>' : "")
-  var cursor = document.getElementById("cursor-link")
-  if (cursor) cursor.href = "cursor://anysphere.cursor-deeplink/mcp/install?name=actuent&config=" + btoa(JSON.stringify({ url: MCP }))
-  var vscode = document.getElementById("vscode-link")
-  if (vscode) vscode.href = "vscode:mcp/install?" + encodeURIComponent(JSON.stringify({ name: "actuent", type: "http", url: MCP }))
-  clearInterval(poll)
-  if (last) watch()
-  save()
+// ───────────────────────── Sprites (Lawpy's sheets, same site so the badge can be saved) ─────────────────────────
+var SHEETS = { idle: [14, 1, 11], blink: [14, 1, 11], wave: [14, 6, 11], talk: [14, 8, 11], think: [17, 6, 11], dance: [18, 12, 12] }
+var sprite = {}
+Object.keys(SHEETS).forEach(function (k) {
+  var img = new Image()
+  img.onload = function () {
+    var s = SHEETS[k], off = document.createElement("canvas")
+    off.width = s[0] * s[1]; off.height = s[2]
+    off.getContext("2d").drawImage(img, 0, 0, off.width, off.height)
+    sprite[k] = off
+  }
+  img.src = "/lawpy/" + k + ".svg"
+})
+function drawLawpy(g, state, frame, x, y, scale, flip) {
+  var sh = SHEETS[state], img = sprite[state]
+  if (!img) return
+  var f = frame % sh[1], w = sh[0], h = sh[2]
+  g.save()
+  if (flip) { g.translate(x + w * scale, 0); g.scale(-1, 1); x = 0 }
+  g.drawImage(img, f * w, 0, w, h, Math.round(x), Math.round(y - h * scale), w * scale, h * scale)
+  g.restore()
 }
-// The win: the first search through the connector carries this page's player code.
+
+// ───────────────────────── Sound (tiny chiptune, Web Audio) ─────────────────────────
+var audio = null, muted = store.get("actuent-mute") === "1", musicTimer = null
+function ctx() { if (!audio) { try { audio = new (window.AudioContext || window.webkitAudioContext)() } catch (e) {} } return audio }
+function beep(freq, len, type, vol, when) {
+  var a = ctx(); if (!a || muted) return
+  var o = a.createOscillator(), v = a.createGain(), t = a.currentTime + (when || 0)
+  o.type = type || "square"; o.frequency.value = freq
+  v.gain.setValueAtTime(vol || 0.05, t); v.gain.exponentialRampToValueAtTime(0.0001, t + len)
+  o.connect(v); v.connect(a.destination); o.start(t); o.stop(t + len)
+}
+var SFX = {
+  coin: function () { beep(988, 0.08, "square", 0.06); beep(1319, 0.18, "square", 0.06, 0.08) },
+  click: function () { beep(660, 0.06, "square", 0.04) },
+  step: function () { beep(220, 0.03, "triangle", 0.03) },
+  win: function () { [523, 659, 784, 1047, 784, 1047].forEach(function (f, i) { beep(f, 0.16, "square", 0.06, i * 0.12) }) },
+  boss: function () { beep(110, 0.4, "sawtooth", 0.04); beep(98, 0.5, "sawtooth", 0.04, 0.3) }
+}
+var MELODY = [[523, 0], [659, 1], [784, 2], [659, 3], [587, 4], [698, 5], [880, 6], [698, 7], [523, 8], [659, 9], [784, 10], [1047, 11], [988, 12], [784, 13], [659, 14], [587, 15]]
+function music(on) {
+  clearInterval(musicTimer)
+  if (!on || muted) return
+  var bar = function () { MELODY.forEach(function (n) { beep(n[0], 0.14, "square", 0.018, n[1] * 0.18) }); [131, 131, 175, 196].forEach(function (f, i) { beep(f, 0.6, "triangle", 0.03, i * 0.72) }) }
+  bar(); musicTimer = setInterval(bar, 2880)
+}
+
+// ───────────────────────── The world ─────────────────────────
+var c = document.getElementById("c"), g = c.getContext("2d")
+g.imageSmoothingEnabled = false
+// Scenes: [name, sky top, sky bottom, what's in it]
+var SCENES = [
+  { name: "The Meadow", sky: ["#5ec3ff", "#bfe9ff"], draw: meadow },
+  { name: "The Whispering Forest", sky: ["#2f8f8f", "#9fd8c8"], draw: forest },
+  { name: "The Pixel Internet", sky: ["#4b3b8f", "#e48bb5"], draw: city },
+  { name: "The Gate of Settings", sky: ["#ff9a4d", "#ffd9a0"], draw: gate },
+  { name: "The Hallucinator's Fog", sky: ["#1a1030", "#4a3060"], draw: fog }
+]
+// Golden LAWP files: [scene, x, y]
+var GOLD = [[0, 40, 96], [0, 250, 80], [1, 120, 70], [1, 210, 104], [2, 60, 60], [2, 180, 44], [2, 290, 90], [3, 30, 70], [3, 270, 60], [4, 150, 50]]
+var got = {}; try { got = JSON.parse(store.get("actuent-gold") || "{}") } catch (e) {}
+var state = { scene: 0, x: 60, walking: false, walkT: 0, anim: "wave", ai: store.get("actuent-ai") || null, won: false, bossHp: 1, fade: 0, t: 0 }
+
+function ground(top, grass, dirt) {
+  g.fillStyle = grass; g.fillRect(0, top, 320, 6)
+  g.fillStyle = dirt; g.fillRect(0, top + 6, 320, 240 - top - 6)
+  g.fillStyle = "rgba(0,0,0,.12)"; for (var i = 0; i < 320; i += 8) g.fillRect(i + ((i / 8) % 2) * 3, top + 10 + ((i / 8) % 3) * 6, 3, 2)
+  g.fillStyle = grass; for (var j = 0; j < 320; j += 6) g.fillRect(j, top - 2 + (j % 12 === 0 ? -1 : 0), 2, 2)
+}
+function tree(x, base, h, leaf) { g.fillStyle = "#6b4226"; g.fillRect(x + 6, base - h, 4, h); g.fillStyle = leaf; g.fillRect(x, base - h - 14, 16, 14); g.fillRect(x + 3, base - h - 20, 10, 6); g.fillStyle = "rgba(255,255,255,.12)"; g.fillRect(x + 2, base - h - 12, 4, 3) }
+function cloud(x, y) { g.fillStyle = "rgba(255,255,255,.85)"; g.fillRect(x, y, 22, 6); g.fillRect(x + 5, y - 4, 12, 4) }
+function meadow() {
+  cloud((state.t * 0.01) % 360 - 30, 24); cloud((state.t * 0.006 + 160) % 360 - 30, 40)
+  g.fillStyle = "#7fd36b"; g.fillRect(0, 120, 320, 12) // hills
+  tree(10, 142, 10, "#3fa34d"); tree(282, 142, 14, "#2f8f3d")
+  // signposts for picking your AI
+  ;["Claude", "ChatGPT", "Code", "Cursor", "VS Code"].forEach(function (t, i) { var x = 96 + i * 30; g.fillStyle = "#8a5a2b"; g.fillRect(x + 6, 122, 2, 20); g.fillStyle = "#c58b4e"; g.fillRect(x, 116, 26, 8); g.fillStyle = "#2b1608"; g.font = "5px monospace"; g.fillText(t, x + 2, 122) })
+  ground(142, "#4caf50", "#8b5a2b")
+}
+function forest() {
+  for (var i = 0; i < 9; i++) tree(i * 38 - 6, 142, 22 + (i % 3) * 8, i % 2 ? "#1f6f3f" : "#2a8a4a")
+  g.fillStyle = "rgba(255,255,200,.25)"; for (var k = 0; k < 6; k++) g.fillRect((k * 53 + state.t * 0.02) % 320, 60 + (k * 17) % 50, 2, 2) // fireflies
+  ground(142, "#3c8f3c", "#6b4226")
+}
+function city() {
+  // the pixel internet: websites as buildings, one cookie-banner monster, an empty lot (parked domain)
+  var bs = [[10, 60, "#2d2a4a", "www"], [52, 80, "#3a2f5f", ".com"], [110, 50, "#2d2a4a", "shop"], [200, 90, "#3a2f5f", "blog"], [250, 70, "#2d2a4a", ".dk"]]
+  bs.forEach(function (b) { g.fillStyle = b[2]; g.fillRect(b[0], 142 - b[1], 36, b[1]); g.fillStyle = "#ffd23f"; for (var y = 142 - b[1] + 8; y < 136; y += 10) for (var x = b[0] + 5; x < b[0] + 32; x += 9) if ((x + y + Math.floor(state.t / 900)) % 3) g.fillRect(x, y, 4, 4); g.fillStyle = "#fff"; g.font = "6px monospace"; g.fillText(b[3], b[0] + 4, 142 - b[1] - 2) })
+  g.fillStyle = "#555"; g.fillRect(156, 138, 36, 4); g.fillStyle = "#aaa"; g.font = "5px monospace"; g.fillText("PARKED", 160, 134)
+  // cookie monster banner
+  g.fillStyle = "#c58b4e"; g.beginPath(); g.arc(300, 120 + Math.sin(state.t / 300) * 2, 8, 0, 7); g.fill(); g.fillStyle = "#5a3418"; g.fillRect(296, 116, 2, 2); g.fillRect(302, 122, 2, 2)
+  ground(142, "#5a5a7a", "#2a2a3a")
+}
+function gate() {
+  g.fillStyle = "#7a6a5a"; g.fillRect(200, 60, 100, 82); g.fillStyle = "#5a4a3a"; for (var x = 200; x < 300; x += 12) g.fillRect(x, 54, 8, 8)
+  g.fillStyle = "#2b1608"; g.fillRect(236, 96, 28, 46); g.fillStyle = "#ffd23f"; g.fillRect(258, 118, 3, 3)
+  g.fillStyle = "#fff"; g.font = "6px monospace"; g.fillText("SETTINGS", 228, 80)
+  tree(20, 142, 12, "#e08a2a"); tree(60, 142, 8, "#d06a1a")
+  ground(142, "#c9a227", "#8b5a2b")
+}
+function fog() {
+  // The Hallucinator: a foggy ghost that makes AIs guess
+  var hx = 220, hy = 70 + Math.sin(state.t / 400) * 6, a = state.won ? Math.max(0, 1 - state.fade) : 0.9
+  if (a > 0) {
+    g.globalAlpha = a
+    g.fillStyle = "#e8e0ff"; g.fillRect(hx - 22, hy - 18, 44, 34); g.fillRect(hx - 18, hy - 24, 36, 6)
+    for (var i = 0; i < 5; i++) g.fillRect(hx - 22 + i * 9, hy + 16, 6, 4 + ((i + Math.floor(state.t / 200)) % 2) * 3)
+    g.fillStyle = "#3a1060"; g.fillRect(hx - 10, hy - 8, 5, 6); g.fillRect(hx + 5, hy - 8, 5, 6); g.fillRect(hx - 6, hy + 4, 12, 3)
+    g.fillStyle = "#fff"; g.font = "bold 8px monospace"; g.fillText("???", hx + 24, hy - 14 + Math.sin(state.t / 150) * 2)
+    g.globalAlpha = 1
+    g.fillStyle = "rgba(220,210,255,.10)"; for (var k = 0; k < 7; k++) g.fillRect((k * 61 + state.t * 0.015) % 340 - 20, 40 + k * 12, 60, 8)
+  } else {
+    for (var s = 0; s < 14; s++) { g.fillStyle = s % 2 ? "#ffd23f" : "#ff8a3d"; g.fillRect(hx + Math.cos(s + state.t / 300) * (20 + s * 3), hy + Math.sin(s * 2 + state.t / 300) * (10 + s * 2), 3, 3) }
+  }
+  ground(142, "#4a3a6a", "#24183a")
+}
+
+function drawGold() {
+  GOLD.forEach(function (f, i) {
+    if (f[0] !== state.scene || got[i]) return
+    var y = f[2] + Math.sin(state.t / 250 + i) * 3
+    g.fillStyle = "#b8860b"; g.fillRect(f[1] - 1, y - 1, 12, 14)
+    g.fillStyle = "#ffd23f"; g.fillRect(f[1], y, 10, 12); g.fillStyle = "#fff6b0"; g.fillRect(f[1] + 1, y + 1, 3, 2)
+    g.fillStyle = "#7a5200"; g.font = "bold 6px monospace"; g.fillText("{}", f[1] + 2, y + 9)
+  })
+}
+
+var frame = 0, lastFrame = 0
+var prevNow = 0
+function render(now) {
+  // Movement goes by time, not frames, so slow phones (and background tabs) play at the same speed.
+  var dt = prevNow ? Math.min(250, now - prevNow) : 16; prevNow = now
+  state.t = now
+  var sc = SCENES[state.scene]
+  var sky = g.createLinearGradient(0, 0, 0, 240); sky.addColorStop(0, sc.sky[0]); sky.addColorStop(1, sc.sky[1])
+  g.fillStyle = sky; g.fillRect(0, 0, 320, 240)
+  // The world is drawn 60px down: the panel floats in the sky above it.
+  g.save(); g.translate(0, 60)
+  sc.draw()
+  drawGold()
+  if (now - lastFrame > 110) { frame++; lastFrame = now; if (state.walking && frame % 2) SFX.step() }
+  // walking to the next scene: Lawpy dances off the right edge, then in from the left
+  if (state.walking) {
+    state.walkT += dt
+    state.x += dt * 0.13
+    if (state.x > 330) { state.scene = Math.min(state.scene + 1, SCENES.length - 1); state.x = -30; showScene() }
+    if (state.scene_arrived && state.x >= 60) { state.walking = false; state.scene_arrived = false; state.anim = "wave"; setTimeout(function () { if (!state.walking) state.anim = "idle" }, 1500) }
+  }
+  if (state.won && state.fade < 1.2) state.fade += dt / 1500
+  drawLawpy(g, state.walking ? "dance" : state.anim, frame, state.x, 142, 2, false)
+  g.restore()
+  requestAnimationFrame(render)
+}
+
+// ───────────────────────── Levels (the overlay panel) ─────────────────────────
+var panel = document.getElementById("panel")
+function count() { return Object.keys(got).length }
+function hud() {
+  document.getElementById("hud-gold").textContent = "★ " + count() + "/10"
+  document.getElementById("hud-level").textContent = state.won ? "YOU WON!" : "LEVEL " + (state.scene + 1) + "/5 · " + SCENES[state.scene].name.toUpperCase()
+}
+function walkOn() { SFX.click(); state.walking = true; state.walkT = 0 }
+function showScene() { state.scene_arrived = true; state.title = 120; store.set("actuent-scene", String(state.scene)); hud(); drawPanel() }
+function copy(text, btn) { (navigator.clipboard ? navigator.clipboard.writeText(text) : Promise.reject()).then(function () { btn.textContent = "Copied ✓"; SFX.coin(); state.anim = "dance"; setTimeout(function () { state.anim = "idle" }, 1500) }, function () { btn.textContent = "Select it and copy" }) }
+
+function drawPanel() {
+  var ai = AIS[state.ai] || AIS.claude, s = state.scene, html = ""
+  if (s === 0) html = '<div class="who">Lawpy · level 1</div><h2>Pick your AI</h2><p>Hi! I’m Lawpy. I run around the internet fetching things for AIs. Mostly on purpose. Which AI are we upgrading today?</p><div class="row">' +
+    Object.keys(AIS).map(function (k) { return '<button class="btn ai" data-ai="' + k + '">' + AIS[k].name + '</button>' }).join("") + '</div>'
+  if (s === 1) html = '<div class="who">Lawpy · level 2</div><h2>Sneak into the settings</h2><p>Shh. We’re sneaking into ' + esc(ai.name) + '. I’ve done this loads.</p>' + ai.settings +
+    '<div class="row">' + (ai.open ? '<a class="btn" href="' + ai.open + '" target="_blank" rel="noopener">Open ' + esc(ai.name) + '</a>' : "") + '<button class="btn ghost" data-next>I’m in, walk on →</button></div>'
+  if (s === 2) html = '<div class="who">Lawpy · level 3</div><h2>Grab the magic link</h2><p>The Pixel Internet! Somewhere in here is the secret door for your AI. Found it:</p><div class="link">' + esc(MCP) + '</div><div class="row"><button class="btn" data-copy="' + esc(MCP) + '">Grab it (copy)</button><button class="btn ghost" data-next>Got it, walk on →</button></div>'
+  if (s === 3) html = '<div class="who">Lawpy · level 4</div><h2>Plant it at the gate</h2>' + ai.plant +
+    '<div class="row">' + (ai.plantCopy ? '<button class="btn" data-copy="' + esc(ai.plantCopy) + '">Copy the command</button>' : "") + (ai.deeplink ? '<a class="btn" href="' + esc(ai.deeplink()) + '">Add Actuent to ' + esc(ai.name) + '</a>' : "") + (!ai.plantCopy && !ai.deeplink ? '<button class="btn" data-copy="' + esc(MCP) + '">Copy the link again</button>' : "") + '<button class="btn ghost" data-next>Planted! Onwards →</button></div>'
+  if (s === 4 && !state.won) { html = '<div class="who">Boss · the Hallucinator</div><h2>Defeat the Hallucinator!</h2><p>This foggy ghost makes AIs guess and make things up. Only real facts from the internet can blow it away. ' + ai.ask + '</p><div class="link">' + esc(MISSION) + '</div><div class="row"><button class="btn" data-copy="' + esc(MISSION) + '">Copy the attack</button></div><div class="waiting" id="waiting">Waiting for your AI’s first real search…</div>'; watch() }
+  if (s === 4 && state.won) html = winPanel()
+  if (s > 0 && !state.won) html += '<div class="row" style="margin-top:4px"><button class="btn ghost" data-back style="padding:4px 10px;font-size:12px">← Back</button></div>'
+  panel.innerHTML = html
+}
+
+// The boss falls when this browser's player code shows up in a real search (api.actuent.ai/api/player).
+var poll = null
 function watch() {
+  clearInterval(poll); SFX.boss()
   var tries = 0
   poll = setInterval(function () {
-    if (++tries > 200) { clearInterval(poll); return }
-    fetch("https://api.actuent.ai/api/player?code=" + code).then(function (r) { return r.json() }).then(function (d) {
-      if (!d.connected) return
-      clearInterval(poll)
-      document.getElementById("xp").style.width = "100%"
-      document.getElementById("xptext").textContent = "All levels done!"
-      document.querySelectorAll("#levels span").forEach(function (s) { s.className = "won" })
-      document.getElementById("speech").innerHTML = '<div class="who">Lawpy · you won</div><h2>WE’RE IN.</h2><p>Your AI can see the internet now. Ask it something. Anything. Go go go.</p><p class="done">✓ Actuent is connected</p>' + (d.streak ? '<p>🔥 <strong>' + d.streak + '-day streak</strong> · Lawpy rank: <strong>' + esc(d.level || "Rookie explorer") + '</strong>. Use your AI with Actuent every day to level up (3 days: Trail finder, 7: Internet ranger, 14: Internet legend, 30: Lawpy’s best friend).</p>' : '') + '<div class="row"><a class="btn" href="https://humans.actuent.ai" target="_blank" rel="noopener">See what your AI sees</a><a class="btn ghost" href="/stickers">Grab a Lawpy sticker</a></div>'
-      lawpy("dance", 8)
-    }).catch(function () {})
+    if (++tries > 300) return clearInterval(poll)
+    fetch("https://api.actuent.ai/api/player?code=" + code).then(function (r) { return r.json() }).then(function (d) { if (d.connected) { clearInterval(poll); win(d) } }).catch(function () {})
   }, 3000)
 }
+var lastPlayer = {}
+function win(d) {
+  lastPlayer = d || {}
+  state.won = true; state.fade = 0; state.anim = "dance"; SFX.win(); store.set("actuent-won", "1")
+  hud(); panel.innerHTML = winPanel()
+}
+function discount() { var n = count(); for (var i = 0; i < DISCOUNTS.length; i++) if (n >= DISCOUNTS[i][0]) return DISCOUNTS[i]; return null }
+function winPanel() {
+  var d = discount(), p = lastPlayer
+  return '<div class="who">You won</div><h2>WE’RE IN. The Hallucinator is gone!</h2><p>Your AI can see the internet now. Ask it something. Anything. Go go go.</p>' +
+    '<p>★ You found <strong>' + count() + ' of 10</strong> golden LAWP files.' + (d ? (DISCOUNTS_LIVE ? ' That’s <strong>' + d[1] + '% off</strong> your first month of Pro: use code <code>' + d[2] + '</code> at <a href="https://actuent.ai" style="color:var(--accent)">actuent.ai</a>.' : ' That’s worth <strong>' + d[1] + '% off</strong> your first month of Pro, unlocking on launch day.') : " Find some to unlock a Pro discount.") + '</p>' +
+    (p.streak ? '<p>🔥 ' + p.streak + '-day streak · rank: <strong>' + esc(p.level || "Rookie explorer") + '</strong></p>' : '') +
+    '<div class="row"><button class="btn" id="badge-btn">Get your badge</button><a class="btn ghost" href="https://humans.actuent.ai" target="_blank" rel="noopener">See what your AI sees</a><a class="btn ghost" href="/stickers">Lawpy stickers</a></div>'
+}
+// A shareable badge image: "Defeated the Hallucinator", with Lawpy and the date.
+function badge() {
+  var b = document.createElement("canvas"); b.width = 600; b.height = 315
+  var x = b.getContext("2d"); x.imageSmoothingEnabled = false
+  x.fillStyle = "#0a0a0a"; x.fillRect(0, 0, 600, 315); x.strokeStyle = "#ffd23f"; x.lineWidth = 8; x.strokeRect(12, 12, 576, 291)
+  if (sprite.dance) x.drawImage(sprite.dance, 4 * 18, 0, 18, 12, 40, 110, 144, 96)
+  x.fillStyle = "#ffd23f"; x.font = "bold 18px monospace"; x.fillText("LAWPY'S ADVENTURE", 210, 80)
+  x.fillStyle = "#fff"; x.font = "bold 30px sans-serif"; x.fillText("Defeated the", 210, 135); x.fillText("Hallucinator", 210, 172)
+  x.fillStyle = "#c4c4cf"; x.font = "18px sans-serif"; x.fillText("★ " + count() + "/10 golden LAWP files · " + new Date().toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }), 210, 215)
+  x.fillStyle = "#ff8a3d"; x.font = "bold 16px sans-serif"; x.fillText("My AI has the internet now: actuent.ai", 210, 255)
+  b.toBlob(function (blob) {
+    var file = new File([blob], "lawpy-badge.png", { type: "image/png" })
+    if (navigator.canShare && navigator.canShare({ files: [file] })) navigator.share({ files: [file], title: "I defeated the Hallucinator", text: "My AI has the internet now, thanks to Lawpy. docs.actuent.ai/connect" }).catch(function () {})
+    else { var a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "lawpy-badge.png"; a.click() }
+  })
+}
+
+// ───────────────────────── Input ─────────────────────────
 document.addEventListener("click", function (e) {
-  var b = e.target.closest("button"); if (!b) return
-  if (b.hasAttribute("data-app")) { app = b.getAttribute("data-app"); level = 0; lawpy("wave", 2); draw(); return }
-  if (b.id === "next") { level++; lawpy(level === APPS[app].length - 1 ? "talk" : "dance", 2); draw(); return }
-  if (b.id === "back") { level--; draw(); return }
-  if (b.hasAttribute("data-copy")) {
-    var t = b.getAttribute("data-copy")
-    ;(navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(function () { b.textContent = "Copied ✓"; lawpy("dance", 2) }, function () { b.textContent = "Select it and copy" })
-  }
+  var t = e.target.closest("button, a"); if (!t) return
+  if (!audio) { ctx(); music(true) }
+  if (t.id === "mute") { muted = !muted; store.set("actuent-mute", muted ? "1" : "0"); t.textContent = muted ? "🔇" : "🔊"; music(!muted); return }
+  if (t.hasAttribute("data-ai")) { state.ai = t.getAttribute("data-ai"); store.set("actuent-ai", state.ai); walkOn(); return }
+  if (t.hasAttribute("data-next")) { walkOn(); return }
+  if (t.hasAttribute("data-back")) { SFX.click(); state.scene = Math.max(0, state.scene - 1); state.x = 60; state.title = 120; clearInterval(poll); hud(); drawPanel(); return }
+  if (t.hasAttribute("data-copy")) { copy(t.getAttribute("data-copy"), t); return }
+  if (t.id === "badge-btn") { badge(); return }
 })
-draw()
-// Back again? If this browser's player already won, show the win (and the streak) straight away.
-fetch("https://api.actuent.ai/api/player?code=" + code).then(function (r) { return r.json() }).then(function (d) { if (d.connected) { level = APPS[app].length - 1; draw() } }).catch(function () {})
+// Golden files: tap them on the canvas.
+c.addEventListener("click", function (e) {
+  if (!audio) { ctx(); music(true) }
+  var r = c.getBoundingClientRect(), px = (e.clientX - r.left) / r.width * 320, py = (e.clientY - r.top) / r.height * 240 - 60
+  GOLD.forEach(function (f, i) {
+    if (f[0] !== state.scene || got[i]) return
+    if (px > f[1] - 6 && px < f[1] + 16 && py > f[2] - 6 && py < f[2] + 18) { got[i] = 1; store.set("actuent-gold", JSON.stringify(got)); SFX.coin(); state.anim = "dance"; setTimeout(function () { if (!state.walking) state.anim = "idle" }, 1200); hud() }
+  })
+})
+document.getElementById("mute").textContent = muted ? "🔇" : "🔊"
+
+// ───────────────────────── Start ─────────────────────────
+var savedScene = Number(store.get("actuent-scene") || 0)
+if (state.ai && savedScene > 0) state.scene = Math.min(savedScene, 4)
+state.title = 120
+hud(); drawPanel()
+requestAnimationFrame(render)
+// Already won in this browser? Show the win (and the streak) straight away.
+fetch("https://api.actuent.ai/api/player?code=" + code).then(function (r) { return r.json() }).then(function (d) { if (d.connected) { state.scene = 4; lastPlayer = d; state.won = true; state.fade = 2; state.anim = "dance"; hud(); panel.innerHTML = winPanel() } }).catch(function () {})
 </script>
 </body>
 </html>
