@@ -107,7 +107,7 @@ async function main() {
   <meta property="og:title" content="Tool Examples — Actuent">
   <meta property="og:description" content="A real request and response for every Actuent MCP tool.">
   <meta property="og:url" content="https://docs.actuent.ai/examples">
-  <meta property="og:image" content="https://api.actuent.ai/og?title=Tool%20Examples&amp;subtitle=A%20real%20request%20and%20response%20for%20every%20tool&amp;tag=docs.actuent.ai%2Fexamples">
+  <meta property="og:image" content="https://api.actuent.ai/og?v=2&title=Tool%20Examples&amp;subtitle=A%20real%20request%20and%20response%20for%20every%20tool&amp;tag=docs.actuent.ai%2Fexamples">
   <meta name="twitter:card" content="summary_large_image">
   <style>${style}</style>
 </head>
