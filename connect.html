@@ -73,14 +73,14 @@ function esc(v) { return String(v).replace(/[&<>"']/g, function (c) { return { "
 
 var AIS = {
   claude: { name: "Claude", settings: "<ol><li>Open Claude (web or desktop app).</li><li>Click your name → <strong>Settings</strong> → <strong>Connectors</strong>.</li></ol>", open: "https://claude.ai/settings/connectors",
-    plant: "<ol><li>Click <strong>Add custom connector</strong>.</li><li>Name: <code>Actuent</code> · URL: paste the Actuent link.</li><li>Click <strong>Add</strong>.</li></ol>", ask: "Start a new chat and ask Claude:" },
-  chatgpt: { name: "ChatGPT", settings: "<ol><li>Open ChatGPT → <strong>Settings</strong> → <strong>Apps &amp; Connectors</strong>.</li><li>In <strong>Advanced settings</strong>, turn on <strong>Developer mode</strong>. It sounds techy, but it’s just the switch that lets ChatGPT use add-ons like Actuent.</li></ol>", open: "https://chatgpt.com/#settings/Connectors",
-    plant: "<ol><li>Click <strong>Create</strong>.</li><li>Name: <code>Actuent</code> · MCP server URL: paste the Actuent link · Authentication: leave it as it is (<strong>OAuth</strong>).</li><li>Tick that you trust it → <strong>Create</strong>.</li><li>An Actuent page opens: click <strong>Continue free</strong>. No account, no key, no payment.</li></ol>", ask: "New chat → pick <strong>Developer mode</strong> in the tools menu → ask:" },
-  claudecode: { name: "Claude Code", settings: "<p>No settings needed: one terminal command does it all. Lawpy approves.</p>", open: null,
+    plant: "<ol><li>Click <strong>Add custom connector</strong>.</li><li>Name: <code>Actuent</code> · URL: paste the magic link.</li><li>Click <strong>Add</strong>.</li></ol>", ask: "Start a new chat and ask Claude:" },
+  chatgpt: { name: "ChatGPT", settings: "<ol><li>Open ChatGPT → <strong>Settings</strong> → <strong>Plugins</strong>.</li><li>In <strong>Advanced settings</strong>, turn on <strong>Developer mode</strong>. It sounds techy, but it’s just the switch that lets ChatGPT use add-ons like Actuent.</li></ol>", open: "https://chatgpt.com/#settings/Connectors",
+    plant: "<ol><li>Click <strong>Create</strong>.</li><li>Name: <code>Actuent</code> · MCP server URL: paste the magic link · Authentication: leave it as it is (<strong>OAuth</strong>).</li><li>Tick that you trust it → <strong>Create</strong>.</li><li>An Actuent page opens: click <strong>Continue free</strong>. No account, no key, no payment.</li></ol>", ask: "New chat → pick <strong>Developer mode</strong> in the tools menu → ask:" },
+  claudecode: { name: "Claude Code", settings: "<p>No settings to sneak into: a terminal command does it all. Lawpy approves.</p>", open: null,
     plant: "<p>Run this in your terminal:</p><div class='link'>claude mcp add --transport http actuent " + esc(MCP) + "</div>", plantCopy: "claude mcp add --transport http actuent " + MCP, ask: "Start <code>claude</code> and ask:" },
-  cursor: { name: "Cursor", settings: "<p>Cursor has a one-click button for this. Lawpy found it.</p>", open: null,
+  cursor: { name: "Cursor", settings: "<p>Cursor has a secret one-click door. Lawpy found it.</p>", open: null,
     plant: "<p>Click the button and say yes in Cursor.</p>", deeplink: function () { return "cursor://anysphere.cursor-deeplink/mcp/install?name=actuent&config=" + btoa(JSON.stringify({ url: MCP })) }, ask: "In Cursor's chat (Agent mode), ask:" },
-  vscode: { name: "VS Code", settings: "<p>VS Code has a one-click button too.</p>", open: null,
+  vscode: { name: "VS Code", settings: "<p>VS Code has a one-click door too. Sneaky.</p>", open: null,
     plant: "<p>Click the button and allow it in VS Code.</p>", deeplink: function () { return "vscode:mcp/install?" + encodeURIComponent(JSON.stringify({ name: "actuent", type: "http", url: MCP })) }, ask: "Open Copilot Chat in <strong>Agent</strong> mode and ask:" }
 }
 
@@ -252,12 +252,12 @@ function copy(text, btn) { (navigator.clipboard ? navigator.clipboard.writeText(
 
 function drawPanel() {
   var ai = AIS[state.ai] || AIS.claude, s = state.scene, html = ""
-  if (s === 0) html = '<div class="who">Lawpy · level 1</div><h2>Pick your AI</h2><p>Hi! I’m Lawpy. In about two minutes we’ll add <strong>Actuent</strong> to your AI: a free add-on that lets it look things up live, like what’s open, what’s on tonight and real prices. Nothing gets installed or hacked. You just paste one link into your AI’s settings. Which AI do you use?</p><div class="row">' +
+  if (s === 0) html = '<div class="who">Lawpy · level 1</div><h2>Pick your AI</h2><p>Hi! I’m Lawpy. I run around the internet fetching things for AIs. Mostly on purpose. In two minutes we’ll give yours <strong>Actuent</strong>, a free add-on that lets it look things up live: what’s open, what’s on tonight, real prices. Which AI are we upgrading today?</p><div class="row">' +
     Object.keys(AIS).map(function (k) { return '<button class="btn ai" data-ai="' + k + '">' + AIS[k].name + '</button>' }).join("") + '</div>'
-  if (s === 1) html = '<div class="who">Lawpy · level 2</div><h2>Open the settings</h2><p>First, open ' + esc(ai.name) + '’s settings. That’s where AIs keep their add-ons.</p>' + ai.settings +
+  if (s === 1) html = '<div class="who">Lawpy · level 2</div><h2>Sneak into the settings</h2><p>Shh. We’re sneaking into ' + esc(ai.name) + '. I’ve done this loads.</p>' + ai.settings +
     '<div class="row">' + (ai.open ? '<a class="btn" href="' + ai.open + '" target="_blank" rel="noopener">Open ' + esc(ai.name) + '</a>' : "") + '<button class="btn ghost" data-next>I’m in, walk on →</button></div>'
-  if (s === 2) html = '<div class="who">Lawpy · level 3</div><h2>Copy the Actuent link</h2><p>This is Actuent’s address. Your AI uses it to look things up for you:</p><div class="link">' + esc(MCP) + '</div><div class="row"><button class="btn" data-copy="' + esc(MCP) + '">Grab it (copy)</button><button class="btn ghost" data-next>Got it, walk on →</button></div>'
-  if (s === 3) html = '<div class="who">Lawpy · level 4</div><h2>Add it to ' + esc(ai.name) + '</h2>' + ai.plant +
+  if (s === 2) html = '<div class="who">Lawpy · level 3</div><h2>Grab the magic link</h2><p>The Pixel Internet! Somewhere in here is the secret door for your AI. Found it:</p><div class="link">' + esc(MCP) + '</div><div class="row"><button class="btn" data-copy="' + esc(MCP) + '">Grab it (copy)</button><button class="btn ghost" data-next>Got it, walk on →</button></div>'
+  if (s === 3) html = '<div class="who">Lawpy · level 4</div><h2>Plant it at the gate</h2>' + ai.plant +
     '<div class="row">' + (ai.plantCopy ? '<button class="btn" data-copy="' + esc(ai.plantCopy) + '">Copy the command</button>' : "") + (ai.deeplink ? '<a class="btn" href="' + esc(ai.deeplink()) + '">Add Actuent to ' + esc(ai.name) + '</a>' : "") + (!ai.plantCopy && !ai.deeplink ? '<button class="btn" data-copy="' + esc(MCP) + '">Copy the link again</button>' : "") + '<button class="btn ghost" data-next>Planted! Onwards →</button></div>'
   if (s === 4 && !state.won) { html = '<div class="who">Boss · the Hallucinator</div><h2>Defeat the Hallucinator!</h2><p>This foggy ghost makes AIs guess and make things up. Only real facts from the internet can blow it away. ' + ai.ask + '</p><div class="link">' + esc(MISSION) + '</div><div class="row"><button class="btn" data-copy="' + esc(MISSION) + '">Copy the attack</button></div><div class="waiting" id="waiting">Waiting for your AI’s first real search…</div>'; watch() }
   if (s === 4 && state.won) html = winPanel()
