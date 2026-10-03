@@ -36,6 +36,15 @@
     .btn.ai { background:#f5f5f7; border-bottom-color:#999; color:#0a0a0a; }
     .waiting { color:var(--gold); font:700 13px 'SF Mono',Menlo,monospace; margin-top:6px; }
     .below { margin-top:14px; font-size:13px; color:var(--muted); }
+    .title-card { text-align:center; padding:6px 0 2px; }
+    .title-card .logo { font:900 30px/1.05 'SF Mono',Menlo,monospace; letter-spacing:3px; color:var(--gold); text-shadow:3px 3px 0 #b85a1d, 6px 6px 0 #000; }
+    .title-card .sub { font:700 12px 'SF Mono',Menlo,monospace; letter-spacing:2px; color:var(--soft); margin:8px 0 12px; text-transform:uppercase; }
+    .blink { animation:blink 1s steps(1) infinite; } @keyframes blink { 50% { opacity:0 } }
+    .say { min-height:66px; font-size:16px; color:#fff; }
+    .say .caret { display:inline-block; width:8px; height:14px; background:var(--gold); margin-left:2px; vertical-align:-2px; }
+    .next-hint { font:700 11px 'SF Mono',Menlo,monospace; color:var(--muted); letter-spacing:1px; text-align:right; }
+    .tech { font-size:13px; } .tech .link { font-size:12px; }
+    @media (prefers-reduced-motion:reduce) { .blink { animation:none } }
     @media (max-width:640px) {
       .panel { top:auto; }
       .panel { position:static; transform:none; width:auto; margin:10px 0 0; border-radius:12px; }
@@ -218,13 +227,13 @@ function render(now) {
   // Movement goes by time, not frames, so slow phones (and background tabs) play at the same speed.
   var dt = prevNow ? Math.min(250, now - prevNow) : 16; prevNow = now
   state.t = now
-  var sc = SCENES[state.scene]
+  var sc = SCENES[state.introScene != null ? state.introScene : state.scene]
   var sky = g.createLinearGradient(0, 0, 0, 240); sky.addColorStop(0, sc.sky[0]); sky.addColorStop(1, sc.sky[1])
   g.fillStyle = sky; g.fillRect(0, 0, 320, 240)
   // The world is drawn 60px down: the panel floats in the sky above it.
   g.save(); g.translate(0, 60)
   sc.draw()
-  drawGold()
+  if (intro === null) drawGold()
   if (now - lastFrame > 110) { frame++; lastFrame = now; if (state.walking && frame % 2) SFX.step() }
   // walking to the next scene: Lawpy dances off the right edge, then in from the left
   if (state.walking) {
@@ -250,9 +259,57 @@ function walkOn() { SFX.click(); state.walking = true; state.walkT = 0 }
 function showScene() { state.scene_arrived = true; state.title = 120; store.set("actuent-scene", String(state.scene)); hud(); drawPanel() }
 function copy(text, btn) { (navigator.clipboard ? navigator.clipboard.writeText(text) : Promise.reject()).then(function () { btn.textContent = "Copied ✓"; SFX.coin(); state.anim = "dance"; setTimeout(function () { state.anim = "idle" }, 1500) }, function () { btn.textContent = "Select it and copy" }) }
 
+// ───────────────────────── Title screen and Lawpy's intro ─────────────────────────
+// intro: "title" (press start), a number (which story line), "tech" (the shortcut), or null (playing).
+var INTRO = [
+  { a: "wave", t: "Oh! A human! Hi hi hi! I’m LAWPY." },
+  { a: "talk", t: "I’m an explorer. I run all over the internet fetching real facts for AIs. Mostly on purpose." },
+  { a: "think", scene: 4, t: "But your AI is stuck in the fog. The HALLUCINATOR keeps whispering guesses at it. “That café is probably open!” (It is not open.)" },
+  { a: "talk", t: "So here’s the plan: we sneak into your AI’s settings, grab the magic link, plant it at the gate… and blast the Hallucinator with REAL facts." },
+  { a: "dance", t: "5 levels. About 2 minutes. And 10 golden LAWP files hidden along the way. Shiny ones. ✨" },
+  { a: "wave", t: "Ready, partner?" }
+]
+var intro = null, typing = null, typed = ""
+function blip() { if (!muted) beep(520 + Math.random() * 160, 0.03, "square", 0.025) }
+function sayLine(i) {
+  var line = INTRO[i]; intro = i; state.anim = line.a; state.introScene = line.scene != null ? line.scene : 0
+  typed = ""; clearInterval(typing); drawPanel()
+  var el = document.getElementById("say"), n = 0
+  typing = setInterval(function () {
+    n++; typed = line.t.slice(0, n)
+    if (el) el.innerHTML = esc(typed) + '<span class="caret blink"></span>'
+    if (n % 2) blip()
+    if (n >= line.t.length) { clearInterval(typing); typing = null }
+  }, 28)
+}
+function advance() {
+  if (intro === "title") { SFX.click(); sayLine(0); return }
+  if (typeof intro !== "number") return
+  if (typing) { clearInterval(typing); typing = null; var el = document.getElementById("say"); if (el) el.textContent = INTRO[intro].t; return }
+  if (intro < INTRO.length - 1) { SFX.click(); sayLine(intro + 1); return }
+}
+function startGame() { clearInterval(typing); typing = null; intro = null; state.introScene = null; state.anim = "wave"; store.set("actuent-intro", "1"); SFX.coin(); hud(); drawPanel() }
+function introPanel() {
+  if (intro === "title") return '<div class="title-card"><div class="logo">LAWPY’S<br>ADVENTURE</div><div class="sub">Give your AI the live internet · 5 levels · 2 min</div>' +
+    '<div class="row" style="justify-content:center"><button class="btn" data-start>▶ PRESS START</button></div>' +
+    '<p style="margin-top:10px;font-size:12px" class="blink">tap or press Enter</p>' +
+    '<div class="row" style="justify-content:center;margin-top:2px"><button class="btn ghost" data-tech style="padding:5px 10px;font-size:12px">⚡ I’m technical, skip to the URL</button></div></div>'
+  if (intro === "tech") return '<div class="who">Speedrun mode</div><h2>Here’s the magic link</h2><div class="tech">' +
+    '<p>Remote MCP server (streamable HTTP). No key needed; on OAuth prompts pick “Continue free”.</p><div class="link">' + esc(MCP) + '</div>' +
+    '<p>Claude Code:</p><div class="link">claude mcp add --transport http actuent ' + esc(MCP) + '</div>' +
+    '<p>Claude / ChatGPT: add it as a custom connector (ChatGPT: Settings → Plugins → Developer mode). Cursor / VS Code: one-click buttons in the normal levels.</p>' +
+    '<p>Then ask: <code>' + esc(MISSION) + '</code>. The boss level sees your first real call through this link.</p></div>' +
+    '<div class="row"><button class="btn" data-copy="' + esc(MCP) + '">Copy URL</button><button class="btn ghost" data-boss>Skip to the boss fight →</button><button class="btn ghost" data-play>Play the full game</button></div>'
+  var line = INTRO[intro], last = intro === INTRO.length - 1
+  return '<div class="who">Lawpy · the explorer</div><div class="say" id="say">' + esc(typed) + '</div>' +
+    (last ? '<div class="row"><button class="btn" data-play>LET’S GO! ▶</button><button class="btn ghost" data-tech>⚡ I’m technical</button></div>'
+          : '<div class="row" style="justify-content:space-between;align-items:center"><button class="btn ghost" data-skip style="padding:5px 10px;font-size:12px">Skip story</button><span class="next-hint blink">tap / Enter ▶</span></div>')
+}
+
 function drawPanel() {
+  if (intro !== null) { panel.innerHTML = introPanel(); return }
   var ai = AIS[state.ai] || AIS.claude, s = state.scene, html = ""
-  if (s === 0) html = '<div class="who">Lawpy · level 1</div><h2>Pick your AI</h2><p>Hi! I’m Lawpy. I run around the internet fetching things for AIs. Mostly on purpose. In two minutes we’ll give yours <strong>Actuent</strong>, a free add-on that lets it look things up live: what’s open, what’s on tonight, real prices. Which AI are we upgrading today?</p><div class="row">' +
+  if (s === 0) html = '<div class="who">Lawpy · level 1</div><h2>Pick your AI</h2><p>Right. First stop: which AI are we upgrading today? We’re giving it <strong>Actuent</strong>, a free add-on that lets it look things up live: what’s open, what’s on tonight, real prices.</p><div class="row">' +
     Object.keys(AIS).map(function (k) { return '<button class="btn ai" data-ai="' + k + '">' + AIS[k].name + '</button>' }).join("") + '</div>'
   if (s === 1) html = '<div class="who">Lawpy · level 2</div><h2>Sneak into the settings</h2><p>Shh. We’re sneaking into ' + esc(ai.name) + '. I’ve done this loads.</p>' + ai.settings +
     '<div class="row">' + (ai.open ? '<a class="btn" href="' + ai.open + '" target="_blank" rel="noopener">Open ' + esc(ai.name) + '</a>' : "") + '<button class="btn ghost" data-next>I’m in, walk on →</button></div>'
@@ -328,11 +385,22 @@ document.addEventListener("click", function (e) {
   if (t.hasAttribute("data-next")) { walkOn(); return }
   if (t.hasAttribute("data-back")) { SFX.click(); state.scene = Math.max(0, state.scene - 1); state.x = 60; state.title = 120; clearInterval(poll); hud(); drawPanel(); return }
   if (t.hasAttribute("data-copy")) { copy(t.getAttribute("data-copy"), t); return }
+  if (t.hasAttribute("data-start")) { advance(); return }
+  if (t.hasAttribute("data-skip") || t.hasAttribute("data-play")) { startGame(); return }
+  if (t.hasAttribute("data-tech")) { SFX.click(); clearInterval(typing); typing = null; intro = "tech"; state.introScene = 2; state.anim = "talk"; drawPanel(); return }
+  if (t.hasAttribute("data-boss")) { startGame(); state.ai = state.ai || "claudecode"; store.set("actuent-ai", state.ai); state.scene = 4; state.x = 60; hud(); drawPanel(); return }
   if (t.id === "badge-btn") { badge(); return }
+})
+// The story moves on with a click on the dialogue box or the game, Enter, Space or →.
+panel.addEventListener("click", function (e) { if (typeof intro === "number" && !e.target.closest("button, a")) advance() })
+document.addEventListener("keydown", function (e) {
+  if (intro === null || intro === "tech" || /input|textarea/i.test(String(e.target.tagName))) return
+  if (e.key === "Enter" || e.key === " " || e.key === "ArrowRight") { e.preventDefault(); if (!audio) { ctx(); music(true) } if (intro === INTRO.length - 1 && !typing) startGame(); else advance() }
 })
 // Golden files: tap them on the canvas.
 c.addEventListener("click", function (e) {
   if (!audio) { ctx(); music(true) }
+  if (typeof intro === "number" || intro === "title") { advance(); return }
   var r = c.getBoundingClientRect(), px = (e.clientX - r.left) / r.width * 320, py = (e.clientY - r.top) / r.height * 240 - 60
   GOLD.forEach(function (f, i) {
     if (f[0] !== state.scene || got[i]) return
@@ -345,10 +413,12 @@ document.getElementById("mute").textContent = muted ? "🔇" : "🔊"
 var savedScene = Number(store.get("actuent-scene") || 0)
 if (state.ai && savedScene > 0) state.scene = Math.min(savedScene, 4)
 state.title = 120
-hud(); drawPanel()
+// First visit: the title screen and Lawpy's intro. Back again: straight to where you were.
+if (!(store.get("actuent-intro") === "1" || (state.ai && savedScene > 0))) { intro = "title"; state.anim = "wave"; document.getElementById("hud-level").textContent = "LAWPY'S ADVENTURE" }
+if (intro === null) hud(); drawPanel()
 requestAnimationFrame(render)
 // Already won in this browser? Show the win (and the streak) straight away.
-fetch("https://api.actuent.ai/api/player?code=" + code).then(function (r) { return r.json() }).then(function (d) { if (d.connected) { state.scene = 4; lastPlayer = d; state.won = true; state.fade = 2; state.anim = "dance"; hud(); panel.innerHTML = winPanel() } }).catch(function () {})
+fetch("https://api.actuent.ai/api/player?code=" + code).then(function (r) { return r.json() }).then(function (d) { if (d.connected) { intro = null; state.introScene = null; state.scene = 4; lastPlayer = d; state.won = true; state.fade = 2; state.anim = "dance"; hud(); panel.innerHTML = winPanel() } }).catch(function () {})
 </script>
 </body>
 </html>
