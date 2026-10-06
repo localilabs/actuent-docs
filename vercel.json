@@ -183,6 +183,10 @@
       "dest": "/terms.html"
     },
     {
+      "src": "/ai-ready",
+      "dest": "/ai-ready.html"
+    },
+    {
       "src": "/bot",
       "dest": "/bot.html"
     },
