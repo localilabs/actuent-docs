@@ -18,6 +18,10 @@
       "use": "@vercel/static"
     },
     {
+      "src": "ai-ready.html",
+      "use": "@vercel/static"
+    },
+    {
       "src": "actuent.mcpb",
       "use": "@vercel/static"
     },
