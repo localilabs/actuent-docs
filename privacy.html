@@ -81,7 +81,7 @@
   <div class="top"><a href="https://actuent.ai"><img src="https://api.actuent.ai/assets/actuent-logo.png" alt="Actuent"></a><a href="https://docs.actuent.ai">Docs</a></div>
   <lawpy-mascot state="idle" scale="3" style="float:right"></lawpy-mascot>
   <h1>Privacy Policy</h1>
-  <p class="sub">Last updated: 5 October 2026 (rev. 18)</p>
+  <p class="sub">Last updated: 7 October 2026 (rev. 19)</p>
 
   <p>Actuent ("we", "us") is a search service for AI agents, made by localilabs (Alfred Murray) in Copenhagen, Denmark. This policy explains what data Actuent handles when you or your AI assistant use actuent.ai, api.actuent.ai, agents.actuent.ai (the Actuent MCP server, including the ChatGPT app and Claude connector), humans.actuent.ai, analytics.actuent.ai, docs.actuent.ai and the @actuent/sdk package. We are the data controller.</p>
 
@@ -96,6 +96,10 @@
     <li><strong>Plans (optional).</strong> If you use the outing planner, the location, date and times your assistant sends go to OpenStreetMap (Nominatim) to find places, like the nearby tool.</li>
     <li><strong>Connected site accounts (Pro).</strong> If you connect your account on a site (so your assistant can, for example, reorder for you), that site gives Actuent an access token. We store it encrypted, linked to your hashed key, and send it only to that site with your actions. You can disconnect any time, or delete it with "Delete my data". We never see your password for that site.</li>
     <li><strong>Price watches (Pro).</strong> When you ask to watch a price or stock, we store the product, your target price and optional webhook URL, linked to your hashed key. When the price drops we email your account's address and, if you gave one, POST the product and prices to your webhook. Remove a watch at any time by asking your assistant.</li>
+    <li><strong>Messages to businesses (Pro).</strong> When you ask your assistant to send a business a question, a message or a booking request (and approve the exact text), we email it to the address the business publishes on its own website, with your email as reply-to so the business answers you directly, and send you a receipt. We store the message, the business's domain and address, your reply-to address, your name if you gave it, booking details (date, time, party size) and its status, linked to your hashed key. A business that claimed its site on Actuent also sees it in Analytics. We send these emails through Resend.</li>
+    <li><strong>Page watches (Pro).</strong> When you ask your assistant to watch a page ("tell me when tickets go on sale"), we store the page address, the words to look for, an optional webhook URL and a fingerprint of the page's text, linked to your hashed key, and read the page once a day.</li>
+    <li><strong>Pages read for you.</strong> When your assistant reads a page with Actuent, the page's public text is saved to our index (it's public website content, not anything about you), and a site we didn't know is queued to be indexed.</li>
+    <li><strong>Your location and preferences.</strong> If your assistant passes your area (for example "Brooklyn") or preferences (for example "vegetarian") with a request, they're used for that request only and not stored.</li>
     <li><strong>Search alerts (Pro).</strong> When you save a search (in Analytics or by asking your assistant), we store the search, an optional webhook URL and the sites already found for it, linked to your hashed key. Once a day we run the search again and email your account's address (and POST to your webhook) when a new site matches. Remove an alert any time; "Delete my data" removes them all.</li>
     <li><strong>"What's on tonight near me".</strong> On humans.actuent.ai, this uses the city your connection comes from (as our host, Vercel, reports it) to find tonight's events. The city isn't stored.</li>
     <li><strong>Weekly email (optional).</strong> If you sign up for the weekly "State of the AI web" email, we keep your email address, a random token for the confirm and unsubscribe links, and the dates you signed up, confirmed and unsubscribed. Nothing is sent until you confirm, and every email has a one-click unsubscribe. Emails go out through Resend.</li>
@@ -140,6 +144,7 @@
     <li>When we notice a site's pages or actions change (a new page, a retitled page, an action added or removed), we list the change in public change feeds (<code>api.actuent.ai/changes.rss</code> and <code>/site/&lt;domain&gt;/changes.rss</code>).</li>
     <li><strong>Actuent for Shopify:</strong> the app reads your store's public description, pages, collections and policies (read-only) to build your LAWP. We store an encrypted access token and your store's domain, and delete them when you uninstall. We don't read or store customer or order data.</li>
     <li>We automatically assign each site a category, compare its public score with similar sites, and flag parked domains and duplicates. This uses only public website content.</li>
+    <li><strong>Messages from AI users.</strong> People can ask their assistant to send your business a question or message through Actuent. It's emailed to the address your website publishes (or, if you claimed your site, to your account), with the sender's email as reply-to. Every email has a one-click link to stop these messages for your domain; we then keep only your domain on a "no messages" list. Booking requests are only sent to businesses that claimed their site.</li>
     <li>You can ask us to correct or remove your site's data, including its public site page, at any time.</li>
   </ul>
 
@@ -166,6 +171,7 @@
     <li>Rate-limit records: about 10 minutes. Usage counters (searches per hashed IP per hour, used to keep heavy automated use from crowding out other people): up to 2 days. For Pro keys, how many times a day each Actuent tool was used (counts only, linked to your hashed key, shown to you in Analytics): 35 days.</li>
     <li>Pro keys that come close to their per-minute limit get a one-line heads-up email the next day (counts only).</li>
     <li>Weekly email sign-ups: until you unsubscribe (then the address is kept only as unsubscribed, so we never email it again) or ask us to delete it.</li>
+    <li>Messages to businesses (and their booking details and status): 12 months. Page watches: until you remove them or delete your data. Businesses' "no messages" choice: kept so it keeps working.</li>
     <li>Price watches and search alerts: until you remove them or delete your data. AI bot visit counts: while the site is claimed.</li>
     <li>Search logs, action logs and Pro history: 12 months, or sooner if you delete your data.</li>
     <li>Endpoint checks for sites' actions: 30 days. Changes to sites' LAWP: 180 days. Product price history: 12 months. Past events: 60 days after they start.</li>
