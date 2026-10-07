@@ -371,11 +371,26 @@ function tryPanel() {
     return '<div class="row" style="align-items:center;gap:8px;margin-top:6px"><span style="color:var(--accent);min-width:90px">' + esc(q[0]) + '</span><span style="flex:1">\u201c' + esc(q[1]) + '\u201d</span><button class="btn ghost" data-copy="' + esc(q[1]) + '">Copy</button></div>'
   }).join("") + '</div>'
 }
+function weeklyPanel() {
+  return '<form class="weekly-signup" style="margin-top:14px"><strong>★ What your AI learned this week</strong><p style="margin:6px 0">One short email a week: new things your AI can do, events near you to try. Unsubscribe in one click.</p><div class="row"><input type="email" required placeholder="you@example.com" style="flex:1;min-width:180px;padding:8px;border-radius:6px;border:1px solid var(--border,#2a2a34);background:#0a0a0a;color:#f0f0f0"><button class="btn" type="submit">Sign me up</button></div><div class="weekly-msg" style="margin-top:6px;font-size:13px"></div></form>'
+}
+
+// "What your AI learned this week": the weekly email, double opt-in (api.actuent.ai/api/newsletter).
+document.addEventListener("submit", function (ev) {
+  var f = ev.target
+  if (!f || !f.classList || !f.classList.contains("weekly-signup")) return
+  ev.preventDefault()
+  var email = f.querySelector("input").value.trim(), out = f.querySelector(".weekly-msg")
+  fetch("https://api.actuent.ai/api/newsletter", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: email }) })
+    .then(function (r) { out.textContent = r.ok ? "Check your inbox to confirm. Lawpy will write once a week." : "That didn't work. Check the address?" })
+    .catch(function () { out.textContent = "Couldn't reach Actuent. Try again?" })
+})
+
 function winPanel() {
   var d = discount(), p = lastPlayer
   return '<div class="who">You won</div><h2>WE’RE IN. The Hallucinator is gone!</h2><p>Your AI can see the internet now. Ask it something. Anything. Go go go.</p>' + tryPanel() + autoPanel() +
     '<p>★ You found <strong>' + count() + ' of 10</strong> golden LAWP files.' + (d ? (DISCOUNTS_LIVE ? ' That’s <strong>' + d[1] + '% off</strong> your first month of Actuent Pro: use code <code>' + d[2] + '</code> at <a href="https://actuent.ai" style="color:var(--accent)">actuent.ai</a>.' : ' That’s worth <strong>' + d[1] + '% off</strong> your first month of Actuent Pro, unlocking on launch day.') : " Find some to unlock an Actuent Pro discount.") + '</p>' +
-    (p.streak ? '<p>🔥 ' + p.streak + '-day streak · rank: <strong>' + esc(p.level || "Rookie explorer") + '</strong></p>' : '') +
+    weeklyPanel() + (p.streak ? '<p>🔥 ' + p.streak + '-day streak · rank: <strong>' + esc(p.level || "Rookie explorer") + '</strong></p>' : '') +
     '<div class="row"><button class="btn" id="badge-btn">Get your badge</button><button class="btn ghost" id="invite-btn">Invite a friend</button><a class="btn ghost" href="https://humans.actuent.ai" target="_blank" rel="noopener">See what your AI sees</a><a class="btn ghost" href="/stickers">Lawpy stickers</a></div>'
 }
 // "Invite a friend": the phone's share sheet, or the link copied on a computer.
