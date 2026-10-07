@@ -91,7 +91,7 @@ var AIS = {
     plant: "<p>Click the button and say yes in Cursor.</p>", deeplink: function () { return "cursor://anysphere.cursor-deeplink/mcp/install?name=actuent&config=" + btoa(JSON.stringify({ url: MCP })) }, ask: "In Cursor's chat (Agent mode), ask:" },
   vscode: { name: "VS Code", settings: "<p>VS Code has a one-click door too. Sneaky.</p>", open: null,
     plant: "<p>Click the button and allow it in VS Code.</p>", deeplink: function () { return "vscode:mcp/install?" + encodeURIComponent(JSON.stringify({ name: "actuent", type: "http", url: MCP })) }, ask: "Open Copilot Chat in <strong>Agent</strong> mode and ask:" },
-  other: { name: "Another app", settings: "<p>Lawpy knows the side doors of these apps too. Find yours:</p>", open: null,
+  other: { name: "Another app", called: "your app", settings: "<p>Lawpy knows the side doors of these apps too. Find yours:</p>", open: null,
     plant: "<p><strong>Gemini CLI</strong>: in <code>~/.gemini/settings.json</code> add</p><div class='link'>\"mcpServers\": { \"actuent\": { \"httpUrl\": \"" + esc(MCP) + "\" } }</div>" +
       "<p><strong>Windsurf</strong>: Settings → Cascade → MCP servers → View raw config, add</p><div class='link'>\"actuent\": { \"serverUrl\": \"" + esc(MCP) + "\" }</div>" +
       "<p><strong>Zed</strong>: in settings.json under <code>context_servers</code> add</p><div class='link'>\"actuent\": { \"url\": \"" + esc(MCP) + "\" }</div>" +
@@ -318,7 +318,7 @@ function drawPanel() {
   var ai = AIS[state.ai] || AIS.claude, s = state.scene, html = ""
   if (s === 0) html = '<div class="who">Lawpy · level 1</div><h2>Pick your AI</h2><p>Right. First stop: which AI are we upgrading today? We’re giving it <strong>Actuent</strong>, a free add-on that lets it look things up live: what’s open, what’s on tonight, real prices.</p><div class="row">' +
     Object.keys(AIS).map(function (k) { return '<button class="btn ai" data-ai="' + k + '">' + AIS[k].name + '</button>' }).join("") + '</div>'
-  if (s === 1) html = '<div class="who">Lawpy · level 2</div><h2>Sneak into the settings</h2><p>Shh. We’re sneaking into ' + esc(ai.name) + '. I’ve done this loads.</p>' + ai.settings +
+  if (s === 1) html = '<div class="who">Lawpy · level 2</div><h2>Sneak into the settings</h2><p>Shh. We’re sneaking into ' + esc(ai.called || ai.name) + '. I’ve done this loads.</p>' + ai.settings +
     '<div class="row">' + (ai.open ? '<a class="btn" href="' + ai.open + '" target="_blank" rel="noopener">Open ' + esc(ai.name) + '</a>' : "") + '<button class="btn ghost" data-next>I’m in, walk on →</button></div>'
   if (s === 2) html = '<div class="who">Lawpy · level 3</div><h2>Grab the magic link</h2><p>The Pixel Internet! Somewhere in here is the secret door for your AI. Found it:</p><div class="link">' + esc(MCP) + '</div><div class="row"><button class="btn" data-copy="' + esc(MCP) + '">Grab it (copy)</button><button class="btn ghost" data-next>Got it, walk on →</button></div>'
   if (s === 3) html = '<div class="who">Lawpy · level 4</div><h2>Plant it at the gate</h2>' + ai.plant +
