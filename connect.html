@@ -368,8 +368,17 @@ function winPanel() {
   return '<div class="who">You won</div><h2>WE’RE IN. The Hallucinator is gone!</h2><p>Your AI can see the internet now. Ask it something. Anything. Go go go.</p>' + tryPanel() + autoPanel() +
     '<p>★ You found <strong>' + count() + ' of 10</strong> golden LAWP files.' + (d ? (DISCOUNTS_LIVE ? ' That’s <strong>' + d[1] + '% off</strong> your first month of Actuent Pro: use code <code>' + d[2] + '</code> at <a href="https://actuent.ai" style="color:var(--accent)">actuent.ai</a>.' : ' That’s worth <strong>' + d[1] + '% off</strong> your first month of Actuent Pro, unlocking on launch day.') : " Find some to unlock an Actuent Pro discount.") + '</p>' +
     (p.streak ? '<p>🔥 ' + p.streak + '-day streak · rank: <strong>' + esc(p.level || "Rookie explorer") + '</strong></p>' : '') +
-    '<div class="row"><button class="btn" id="badge-btn">Get your badge</button><a class="btn ghost" href="https://humans.actuent.ai" target="_blank" rel="noopener">See what your AI sees</a><a class="btn ghost" href="/stickers">Lawpy stickers</a></div>'
+    '<div class="row"><button class="btn" id="badge-btn">Get your badge</button><button class="btn ghost" id="invite-btn">Invite a friend</button><a class="btn ghost" href="https://humans.actuent.ai" target="_blank" rel="noopener">See what your AI sees</a><a class="btn ghost" href="/stickers">Lawpy stickers</a></div>'
 }
+// "Invite a friend": the phone's share sheet, or the link copied on a computer.
+document.addEventListener("click", function (ev) {
+  if (!ev.target || ev.target.id !== "invite-btn") return
+  var text = "I just gave my AI the live internet with Actuent (and beat the Hallucinator 👾). Your turn, it takes 2 minutes:"
+  var url = "https://docs.actuent.ai/connect"
+  if (navigator.share) { navigator.share({ title: "Lawpy's Adventure", text: text, url: url }).catch(function () {}); return }
+  if (navigator.clipboard) navigator.clipboard.writeText(text + " " + url).then(function () { ev.target.textContent = "Link copied ✓" }).catch(function () {})
+})
+
 // A shareable badge image: "Defeated the Hallucinator", with Lawpy and the date.
 function badge() {
   var b = document.createElement("canvas"); b.width = 600; b.height = 315
