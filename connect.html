@@ -90,7 +90,14 @@ var AIS = {
   cursor: { name: "Cursor", settings: "<p>Cursor has a secret one-click door. Lawpy found it.</p>", open: null,
     plant: "<p>Click the button and say yes in Cursor.</p>", deeplink: function () { return "cursor://anysphere.cursor-deeplink/mcp/install?name=actuent&config=" + btoa(JSON.stringify({ url: MCP })) }, ask: "In Cursor's chat (Agent mode), ask:" },
   vscode: { name: "VS Code", settings: "<p>VS Code has a one-click door too. Sneaky.</p>", open: null,
-    plant: "<p>Click the button and allow it in VS Code.</p>", deeplink: function () { return "vscode:mcp/install?" + encodeURIComponent(JSON.stringify({ name: "actuent", type: "http", url: MCP })) }, ask: "Open Copilot Chat in <strong>Agent</strong> mode and ask:" }
+    plant: "<p>Click the button and allow it in VS Code.</p>", deeplink: function () { return "vscode:mcp/install?" + encodeURIComponent(JSON.stringify({ name: "actuent", type: "http", url: MCP })) }, ask: "Open Copilot Chat in <strong>Agent</strong> mode and ask:" },
+  other: { name: "Another app", settings: "<p>Lawpy knows the side doors of these apps too. Find yours:</p>", open: null,
+    plant: "<p><strong>Gemini CLI</strong>: in <code>~/.gemini/settings.json</code> add</p><div class='link'>\"mcpServers\": { \"actuent\": { \"httpUrl\": \"" + esc(MCP) + "\" } }</div>" +
+      "<p><strong>Windsurf</strong>: Settings → Cascade → MCP servers → View raw config, add</p><div class='link'>\"actuent\": { \"serverUrl\": \"" + esc(MCP) + "\" }</div>" +
+      "<p><strong>Zed</strong>: in settings.json under <code>context_servers</code> add</p><div class='link'>\"actuent\": { \"url\": \"" + esc(MCP) + "\" }</div>" +
+      "<p><strong>Cline</strong>: MCP Servers → Remote Servers → name <code>actuent</code>, URL: the magic link.</p>" +
+      "<p><strong>Goose</strong>: run <code>goose configure</code> → Add Extension → Remote Extension (Streamable HTTP) → URL: the magic link.</p>" +
+      "<p>Anything else that speaks MCP: add a remote (HTTP) server with the magic link.</p>", ask: "Open your app's AI chat and ask:" }
 }
 
 // ───────────────────────── Sprites (Lawpy's sheets, same site so the badge can be saved) ─────────────────────────
@@ -346,7 +353,8 @@ var AUTO_WHERE = {
   chatgpt: "ChatGPT → <strong>Settings</strong> → <strong>Personalization</strong> → custom instructions",
   claudecode: "your project’s <code>CLAUDE.md</code>",
   cursor: "Cursor → <strong>Settings</strong> → <strong>Rules</strong>",
-  vscode: "your <code>.github/copilot-instructions.md</code>"
+  vscode: "your <code>.github/copilot-instructions.md</code>",
+  other: "your app's custom instructions or rules"
 }
 function autoPanel() {
   return '<div class="auto" style="margin-top:14px;padding:12px;border:1px dashed var(--accent);border-radius:8px"><strong>★ Bonus level: make it automatic</strong><p style="margin:6px 0">Sneak this line into ' + (AUTO_WHERE[state.ai] || AUTO_WHERE.claude) + ', and your AI grabs Actuent by itself, no asking:</p>' +
