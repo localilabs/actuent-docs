@@ -217,30 +217,20 @@ If it says Actuent is busy, wait the retry_after_seconds given before trying aga
   <p>See a real request and response for every tool on <a href="/examples">Tool examples</a> (regenerated weekly from live calls).</p>
   <table>
     <tr><th>Tool</th><th>What it does</th><th>Tier</th></tr>
-    <tr><td>actuent_search</td><td>Search Actuent — ranked LAWP for any query or domain</td><td><span class="tf free">FREE</span></td></tr>
-    <tr><td>actuent_get_actions</td><td>Get a site's actions, whether each is executable, and the JSON Schema of its input</td><td><span class="tf free">FREE</span></td></tr>
-    <tr><td>actuent_get_page</td><td>Read any public page live: text, products with price and stock (Shopify sizes with cart links), events, opening hours, booking links and forms, recipe, FAQ, links</td><td><span class="tf free">FREE</span></td></tr>
-    <tr><td>actuent_about</td><td>Everything about one named thing (artist, brand, venue, company): what it is, official site, Wikipedia summary, upcoming events and products with prices</td><td><span class="tf free">FREE</span></td></tr>
-    <tr><td>actuent_contact_business</td><td>Email a business a question or message for the user (they reply to the user directly), or a booking request to businesses that claimed their site; the user approves the exact text first and gets a receipt</td><td><span class="tf pro">PRO</span></td></tr>
-    <tr><td>actuent_watch_page</td><td>Get an email (or webhook) when a page changes, or when words appear or disappear ("tickets on sale", "sold out"); checked daily</td><td><span class="tf pro">PRO</span></td></tr>
-    <tr><td>actuent_execute_action</td><td>Perform a site action, such as contact or booking, on sites with <a href="#actions">LAWP action endpoints</a> (including WordPress sites with our plugin)</td><td><span class="tf pro">PRO</span></td></tr>
+    <tr><td>actuent_search</td><td>Search Actuent: places, products, events and sites for any query. <code>kind</code>: <code>web</code> (default), <code>similar</code> (sites like a <code>domain</code>), <code>trending</code>, <code>news</code> (latest articles on a topic)</td><td><span class="tf free">FREE</span></td></tr>
+    <tr><td>actuent_events</td><td>Upcoming events (concerts, comedy, classes, markets) by city, dates and topic; <code>when</code> (tonight, this weekend…); tickets, calendar and directions links</td><td><span class="tf free">FREE</span></td></tr>
+    <tr><td>actuent_nearby</td><td>Places near a location with opening hours and <code>open_now</code>; <code>kind: "service"</code> finds a service or dish with its price ("skin fade under €30")</td><td><span class="tf free">FREE</span></td></tr>
+    <tr><td>actuent_plan</td><td>A timed outing (dinner 19:00, then drinks) with places open when you'd arrive; <code>kind: "trip"</code> + <code>days</code> for a 1–4 day city trip with where to stay</td><td><span class="tf free">FREE</span></td></tr>
+    <tr><td>actuent_get_page</td><td>Read any public page live (<code>url</code>): text, products with price and stock, events, hours, booking links. <code>domain</code> alone: a one-paragraph summary. Add <code>question</code> to answer it from the site's own pages</td><td><span class="tf free">FREE</span></td></tr>
+    <tr><td>actuent_about</td><td>Everything about one named thing (artist, brand, venue, company): what it is, official site, summary, upcoming events</td><td><span class="tf free">FREE</span></td></tr>
     <tr><td>actuent_compare</td><td>Compare sites side by side, or products (price, stock, 90-day price range, cheaper shops)</td><td><span class="tf free">FREE</span></td></tr>
-    <tr><td>actuent_similar</td><td>Sites like a given one ("alternatives to mailchimp.com"), with why each is similar</td><td><span class="tf free">FREE</span></td></tr>
-    <tr><td>actuent_trending</td><td>Top 10 most searched sites and queries this week</td><td><span class="tf free">FREE</span></td></tr>
-    <tr><td>actuent_news</td><td>Latest articles on any topic: headlines, sources, links and dates</td><td><span class="tf free">FREE</span></td></tr>
-    <tr><td>actuent_nearby</td><td>Places near a location, sorted by distance, with opening hours and an <code>open_now</code> filter (OpenStreetMap)</td><td><span class="tf free">FREE</span></td></tr>
     <tr><td>actuent_cart</td><td>A ready checkout link per shop for products from search (Shopify): the user reviews and pays on the shop's site</td><td><span class="tf free">FREE</span></td></tr>
-    <tr><td>actuent_trip</td><td>A 1–4 day city trip: where to stay and a timed plan for each day, plus events</td><td><span class="tf free">FREE</span></td></tr>
-    <tr><td>actuent_find_service</td><td>A service or dish with its price at local businesses, e.g. "skin fade under €30" in Amsterdam</td><td><span class="tf free">FREE</span></td></tr>
-    <tr><td>actuent_ask_site</td><td>Answer a question from one site's own pages, in its own words</td><td><span class="tf free">FREE</span></td></tr>
-    <tr><td>actuent_plan</td><td>A timed outing (e.g. dinner 19:00, then drinks) with places open when you'd arrive, walking times and events that day</td><td><span class="tf free">FREE</span></td></tr>
-    <tr><td>actuent_events</td><td>Upcoming events (concerts, classes, workshops) that websites publish, by city, dates and topic; <code>when</code> (tonight, today, tomorrow, this weekend…), genres for concerts, and for each event tickets, add-to-calendar and directions links</td><td><span class="tf free">FREE</span></td></tr>
-    <tr><td>actuent_watch_price</td><td>Watch a product and get an email (or webhook) when its price drops or it's back in stock; list and remove watches</td><td><span class="tf pro">PRO</span></td></tr>
-    <tr><td>actuent_alert_new</td><td>Save a search and get an email (or webhook) when a new site matching it appears; list and remove alerts</td><td><span class="tf pro">PRO</span></td></tr>
-    <tr><td>actuent_accounts</td><td>Connect, list and disconnect the user's own accounts on sites, for actions like "reorder my last order"</td><td><span class="tf pro">PRO</span></td></tr>
-    <tr><td>actuent_action_status</td><td>Check a long-running action that returned <code>pending</code></td><td><span class="tf pro">PRO</span></td></tr>
-    <tr><td>actuent_history</td><td>Full search history for this API key</td><td><span class="tf pro">PRO</span></td></tr>
-    <tr><td>actuent_summarise</td><td>One paragraph summary of any domain</td><td><span class="tf free">FREE</span></td></tr>
+    <tr><td>actuent_actions</td><td>A site's actions and their input (<code>domain</code>), performing one (<code>action_id</code>, on sites with <a href="#actions">LAWP action endpoints</a>), or checking a pending one (<code>status_url</code>)</td><td><span class="tf free">FREE</span> / <span class="tf pro">PRO</span></td></tr>
+    <tr><td>actuent_contact_business</td><td>Email a business a question or message for the user (they reply to the user directly), or a booking request to a claimed site</td><td><span class="tf pro">PRO</span></td></tr>
+    <tr><td>actuent_watch</td><td>Email (or webhook) when something changes. <code>kind</code>: <code>price</code> (a product's price drops or it's back in stock), <code>page</code> (a page changes, or words appear or disappear), <code>new_sites</code> (a saved search); <code>action: "list"</code> or <code>"remove"</code></td><td><span class="tf pro">PRO</span></td></tr>
+    <tr><td>actuent_account</td><td>The user's own data: <code>kind: "history"</code> (every search with this key) or <code>"accounts"</code> (connected site accounts)</td><td><span class="tf pro">PRO</span></td></tr>
+    <tr><td>actuent_feedback</td><td>Report a wrong, outdated or missing answer so it gets fixed</td><td><span class="tf free">FREE</span></td></tr>
+    <tr><td colspan="3" style="color:var(--muted,#888)">Older tool names (actuent_similar, actuent_trip, actuent_watch_price, actuent_ask_site and the rest) still work when called; they're just listed as part of the tools above since 8 Oct 2026.</td></tr>
   </table>
 
   <h3>Prompts and resources</h3>
@@ -336,11 +326,11 @@ const agent = createReactAgent({ llm, tools: actuentLangChainTools() })</code></
   <h3>Checkout links</h3>
   <p>Products from Shopify shops include a <code>cart_url</code> that opens the shop's checkout with the item in the basket. <code>actuent_cart</code> builds one link for several items. Nothing is bought until the user pays on the shop's site.</p>
   <h3>Price-drop alerts (Pro)</h3>
-  <p>Ask your assistant to watch a product (<code>actuent_watch_price</code>). Actuent checks watched prices daily and emails you, or POSTs to your webhook, when the price drops, optionally only at or below a target price.</p>
+  <p>Ask your assistant to watch a product (<code>actuent_watch</code>, <code>kind: "price"</code>). Actuent checks watched prices daily and emails you, or POSTs to your webhook, when the price drops, optionally only at or below a target price.</p>
   <h3>Business details and open now</h3>
   <p>Sites that publish schema.org business data (as most shops, restaurants and salons do for Google) get a <code>business</code> object: address, phone, email, opening hours, price range and location. Results with opening hours include <code>open_now</code>, in the business's own time zone. When sites publish them, <code>business</code> also has a star <code>rating</code> and <code>offers</code>: services, menu items and their prices (e.g. "Skin fade, 25 EUR").</p>
   <h3>Filters and public holidays</h3>
-  <p><code>actuent_nearby</code>, <code>actuent_plan</code> and <code>actuent_trip</code> take <code>filters</code>: <code>vegan</code>, <code>vegetarian</code>, <code>gluten_free</code>, <code>wheelchair</code>, <code>outdoor_seating</code>, <code>wifi</code>, <code>kids</code>, <code>dogs</code> (from OpenStreetMap). On public holidays, places whose hours say they close on holidays show as closed, and results include <code>public_holiday</code>.</p>
+  <p><code>actuent_nearby</code> and <code>actuent_plan</code> (also trips) take <code>filters</code>: <code>vegan</code>, <code>vegetarian</code>, <code>gluten_free</code>, <code>wheelchair</code>, <code>outdoor_seating</code>, <code>wifi</code>, <code>kids</code>, <code>dogs</code> (from OpenStreetMap). On public holidays, places whose hours say they close on holidays show as closed, and results include <code>public_holiday</code>.</p>
   <h3>Links for users</h3>
   <p>Every result and product has a <code>visit_url</code>. Give that link to the user: it goes straight to the site and lets the site's owner see how many visits came from AI agents (a count per day, nothing about the person).</p>
   <h3>Nearby places and events</h3>
