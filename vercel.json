@@ -88,6 +88,10 @@
     {
       "src": "lawpy/*.svg",
       "use": "@vercel/static"
+    },
+    {
+      "src": "visible.html",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
@@ -185,6 +189,10 @@
     {
       "src": "/terms",
       "dest": "/terms.html"
+    },
+    {
+      "src": "/visible/?",
+      "dest": "/visible.html"
     },
     {
       "src": "/ai-ready",

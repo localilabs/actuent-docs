@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Can AI Find Your Business? — Actuent</title>
+  <meta name="description" content="When people ask ChatGPT or Claude where to go, they answer from what they can read on your site. See your score in 10 seconds. Free, no sign-up.">
+  <meta property="og:title" content="Can AI find your business?">
+  <meta property="og:description" content="See how well ChatGPT, Claude and other AI assistants can read your website. Free score in 10 seconds.">
+  <meta property="og:url" content="https://docs.actuent.ai/visible">
+  <meta property="og:image" content="https://api.actuent.ai/og?v=2&amp;title=Can%20AI%20find%20your%20business%3F&amp;subtitle=Free%20score%20in%2010%20seconds&amp;tag=docs.actuent.ai%2Fvisible">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/png" href="https://api.actuent.ai/assets/actuent-logo.png">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:#0a0a0a;color:#f0f0f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+    main{margin:0 auto;padding:40px 16px 80px;max-width:720px}
+    a{color:#ff8a3d}
+    a:hover{color:#f0f0f0}
+    .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:48px}
+    .top img{height:20px}
+    .top a{font-size:13px;text-decoration:none}
+    .hero{text-align:center}
+    h1{font-size:36px;font-weight:800;letter-spacing:-1.2px;line-height:1.15;margin:14px 0 12px}
+    .sub{color:#a8a8b6;font-size:15px;line-height:1.6;max-width:540px;margin:0 auto 28px}
+    .crow{display:flex;gap:8px;max-width:520px;margin:0 auto}
+    .cin{flex:1;min-width:0;background:#13131a;border:1px solid #2a2a34;color:#f0f0f0;padding:13px 14px;font-size:15px;border-radius:9px;outline:none}
+    .cin:focus{border-color:#8b8bff}
+    .cbtn{background:#ff8a3d;color:#0a0a0a;border:none;padding:13px 20px;font-size:14px;font-weight:700;border-radius:9px;cursor:pointer;white-space:nowrap}
+    .cbtn:disabled{opacity:.6;cursor:wait}
+    .hint{color:#8e8e9c;font-size:12px;margin-top:10px}
+    #out{margin-top:40px}
+    .card{background:#13131a;border:1px solid #2a2a34;border-radius:12px;padding:22px;margin-bottom:16px}
+    .card h2{font-size:12px;color:#8e8e9c;text-transform:uppercase;letter-spacing:1.5px;font-weight:600;margin-bottom:14px}
+    .score{display:flex;gap:22px;align-items:center}
+    .ring{--p:0;--c:#ff8a3d;width:116px;height:116px;min-width:116px;border-radius:50%;background:conic-gradient(var(--c) calc(var(--p)*1%),#24242e 0);display:grid;place-items:center}
+    .ring div{width:92px;height:92px;border-radius:50%;background:#13131a;display:grid;place-items:center;font-size:32px;font-weight:800}
+    .ring small{display:block;font-size:11px;color:#8e8e9c;font-weight:500;text-align:center;margin-top:-4px}
+    .say{font-size:16px;line-height:1.55;color:#eeeef2}
+    .say b{color:#ff8a3d}
+    .seen-name{font-size:18px;font-weight:700;margin-bottom:6px}
+    .seen-text{color:#c4c4cf;font-size:14px;line-height:1.6}
+    .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+    .chip{background:#1c1c25;color:#c4c4cf;font-size:12px;padding:4px 10px;border-radius:99px}
+    .fix{display:flex;gap:12px;padding:12px 0;border-top:1px solid #2a2a34}
+    .fix:first-of-type{border-top:none;padding-top:0}
+    .num{width:24px;height:24px;min-width:24px;border-radius:50%;background:#ff8a3d;color:#0a0a0a;font-weight:800;font-size:12px;display:grid;place-items:center}
+    .fix p{color:#c4c4cf;font-size:14px;line-height:1.55}
+    .fix p b{color:#f0f0f0}
+    .ok{color:#7ddc9a;font-size:14px;line-height:1.6}
+    .btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+    .btn{display:inline-block;background:#1c1c25;color:#f0f0f0;border:1px solid #2a2a34;padding:10px 14px;font-size:13px;font-weight:600;border-radius:8px;text-decoration:none;cursor:pointer}
+    .btn:hover{border-color:#8b8bff;color:#f0f0f0}
+    .btn.main{background:#ff8a3d;color:#0a0a0a;border-color:#ff8a3d}
+    .err{color:#ff9a9a;font-size:14px;text-align:center}
+    .how{margin-top:56px;color:#a8a8b6;font-size:14px;line-height:1.7}
+    .how h2{font-size:17px;color:#f0f0f0;margin-bottom:10px}
+    .how p{margin-bottom:12px}
+    .think{text-align:center;color:#a8a8b6;font-size:14px}
+    :focus-visible{outline:2px solid #8b8bff;outline-offset:2px}
+    @media(max-width:560px){h1{font-size:27px}.crow{flex-direction:column}.score{flex-direction:column;text-align:center}}
+  </style>
+  <script src="/lawpy.js" defer></script>
+</head>
+<body>
+<main>
+  <div class="top">
+    <a href="https://actuent.ai"><img src="https://api.actuent.ai/assets/actuent-logo.png" alt="Actuent"></a>
+    <a href="/checklist">Full checklist →</a>
+  </div>
+
+  <div class="hero">
+    <lawpy-mascot state="wave" scale="5" then="idle"></lawpy-mascot>
+    <h1>Can AI find your business?</h1>
+    <p class="sub">People now ask ChatGPT and Claude where to eat, shop and book. They answer from what they can read on your website. I'm Lawpy: give me your site and I'll show you what they see.</p>
+    <form class="crow" id="f">
+      <input class="cin" id="d" placeholder="yourbusiness.com" autocomplete="url" autocapitalize="off" spellcheck="false" aria-label="Your website">
+      <button class="cbtn" id="go">Check my site</button>
+    </form>
+    <p class="hint">Free, no sign-up, about 10 seconds.</p>
+  </div>
+
+  <div id="out" aria-live="polite"></div>
+
+  <div class="how">
+    <h2>What this checks</h2>
+    <p>AI assistants don't look at your site the way people do. They read the text and the hidden details behind it: what your business is called, what it does, where it is, when it's open and how to reach you. If those are missing, the assistant guesses, or picks a competitor whose site it can read.</p>
+    <p>The score is out of 100 and checks your live site right now. Most fixes take a few minutes in Shopify, Squarespace, Wix, Webflow or WordPress, and the <a href="/checklist">full checklist</a> walks you through each one.</p>
+  </div>
+</main>
+
+<script>
+var API = "https://api.actuent.ai"
+var CHECKLIST = "https://docs.actuent.ai/checklist"
+function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c] }) }
+function clean(s) { return s.trim().toLowerCase().replace(/^https?:\/\//, "").replace(/^www\./, "").split(/[\/?#\s]/)[0] }
+
+// Each check in plain words for a business owner: what's wrong and why it matters.
+var PLAIN = {
+  business: "<b>AI can't read your business name, type and address.</b> This is the big one for showing up when people ask for places near them.",
+  ai_bots: "<b>Your site blocks AI assistants.</b> They can't read it at all, so they answer about you from other sites, or not at all.",
+  claimed: "<b>You haven't claimed your business on Actuent.</b> It's free, and lets you decide what AI assistants say about you.",
+  description: "<b>There's no short description of what you do.</b> AI assistants often quote this line word for word.",
+  contact: "<b>AI can't find a phone number or email.</b> So it can't tell people how to reach you.",
+  hours: "<b>Your opening hours aren't in a form AI can read.</b> So it can't say whether you're open right now.",
+  sitemap: "<b>There's no sitemap.</b> AI may miss pages, like your menu, prices or booking page.",
+  title: "<b>Your homepage has no clear title.</b> AI can't tell what your business is called.",
+  hours_match: "<b>Your opening hours disagree with each other</b> on your page and in your site's data. AI may give people the wrong hours.",
+  llms_txt: "<b>There's no short summary written for AI</b> (an llms.txt file). Nice to have, not urgent.",
+  lawp: "<b>AI can't take actions on your site yet</b>, like booking or ordering for someone. Nice to have, not urgent."
+}
+
+function verdict(score) {
+  if (score >= 80) return "Ooh, shiny. I can read you properly, and so can the AI assistants. You're ahead of most sites I visit."
+  if (score >= 50) return "Found you! But I had to squint. Fix the bits below and AI assistants stop guessing about you."
+  return "Oof. When I go looking for you, I mostly find fog. Right now AI assistants are guessing about you, or sending people elsewhere."
+}
+
+function ring(score) {
+  var c = score >= 80 ? "#7ddc9a" : score >= 50 ? "#ff8a3d" : "#ff6b6b"
+  return '<div class="ring" style="--p:' + score + ';--c:' + c + '"><div><span>' + score + '<small>/ 100</small></span></div></div>'
+}
+
+function shareLinks(domain, score) {
+  var link = "https://docs.actuent.ai/visible?site=" + encodeURIComponent(domain)
+  var text = "Can AI find " + domain + "? It scored " + score + "/100 on Actuent. How does your site do?"
+  return '<div class="btns">' +
+    '<button class="btn" id="copy" data-link="' + esc(link) + '">Copy link</button>' +
+    '<a class="btn" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=' + encodeURIComponent(text) + '&url=' + encodeURIComponent(link) + '">Share on X</a>' +
+    '<a class="btn" target="_blank" rel="noopener" href="https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(link) + '">Share on LinkedIn</a>' +
+    '</div>'
+}
+
+function seenCard(site) {
+  if (!site) return ""
+  var home = site.pages && (site.pages["/"] || site.pages[Object.keys(site.pages)[0]])
+  var acts = (site.actions || []).slice(0, 6).map(function (a) { return '<span class="chip">' + esc(a.name) + '</span>' }).join("")
+  return '<div class="card"><h2>What AI sees about you</h2>' +
+    '<div class="seen-name">' + esc(site.name || site.domain) + '</div>' +
+    '<p class="seen-text">' + esc(home && home.content ? home.content : "Not much. There's no clear description of what you do.") + '</p>' +
+    (acts ? '<div class="chips">' + acts + '</div><p class="hint" style="text-align:left">Things AI thinks people can do on your site.</p>' : "") +
+    '</div>'
+}
+
+function fixesCard(domain, checks) {
+  var bad = checks.filter(function (c) { return !c.ok && PLAIN[c.id] })
+  bad.sort(function (a, b) { return (a.optional ? 1 : 0) - (b.optional ? 1 : 0) || b.points - a.points })
+  var top = bad.slice(0, 3)
+  var body = top.length
+    ? top.map(function (c, i) { return '<div class="fix"><span class="num">' + (i + 1) + '</span><p>' + PLAIN[c.id] + '</p></div>' }).join("")
+    : '<p class="ok">Nothing big to fix. Lawpy approves. 🧡</p>'
+  var more = bad.length > 3 ? '<p class="hint" style="text-align:left;margin-top:8px">+ ' + (bad.length - 3) + ' smaller fixes in the full checklist.</p>' : ""
+  return '<div class="card"><h2>' + (top.length ? "Fix these first" : "Fixes") + '</h2>' + body + more +
+    '<div class="btns"><a class="btn main" href="' + CHECKLIST + '?domain=' + encodeURIComponent(domain) + '">Fix it step by step →</a>' +
+    '<a class="btn" href="' + API + '/site/' + encodeURIComponent(domain) + '">Claim your business (free)</a></div></div>'
+}
+
+function run(domain) {
+  var out = document.getElementById("out"), go = document.getElementById("go")
+  if (!/\.[a-z]{2,}$/.test(domain)) { out.innerHTML = '<p class="err">That doesn\'t look like a website. Try something like yourbusiness.com.</p>'; return }
+  go.disabled = true
+  out.innerHTML = '<div class="think"><lawpy-mascot state="think" scale="4" loops="99"></lawpy-mascot><p>Lawpy is sneaking around ' + esc(domain) + '…</p></div>'
+  history.replaceState(null, "", "?site=" + encodeURIComponent(domain))
+  var check = fetch(API + "/api/checkup?domain=" + encodeURIComponent(domain)).then(function (r) {
+    if (r.status === 429) throw new Error("busy")
+    return r.json()
+  })
+  var seen = fetch(API + "/api/search?limit=1&q=" + encodeURIComponent(domain)).then(function (r) { return r.json() }).then(function (d) {
+    var s = d.results && d.results[0]
+    return s && clean(s.domain || "") === domain ? s : null
+  }).catch(function () { return null })
+  Promise.all([check, seen]).then(function (res) {
+    var d = res[0], site = res[1]
+    if (!d || d.reachable === false) {
+      out.innerHTML = '<p class="err">I couldn\'t reach ' + esc(domain) + '. Check the spelling, or try again in a minute.</p>'
+      return
+    }
+    var score = Math.max(0, Math.min(100, Math.round(d.score || 0)))
+    out.innerHTML =
+      '<div class="card"><h2>Your score</h2><div class="score">' + ring(score) +
+      '<div><p class="say">' + esc(verdict(score)) + '</p></div></div>' + shareLinks(domain, score) + '</div>' +
+      fixesCard(domain, d.checks || []) +
+      seenCard(site) +
+      '<div class="card"><h2>See it from the other side</h2><p class="seen-text">Actuent is how AI assistants read live websites. Connect it to your own ChatGPT or Claude and ask about your business.</p>' +
+      '<div class="btns"><a class="btn" href="https://docs.actuent.ai/connect">Connect Actuent to your AI</a></div></div>'
+    var copy = document.getElementById("copy")
+    if (copy) copy.onclick = function () {
+      var link = copy.getAttribute("data-link")
+      ;(navigator.clipboard ? navigator.clipboard.writeText(link) : Promise.reject()).then(function () { copy.textContent = "Copied!" }, function () { prompt("Copy this link:", link) })
+    }
+  }).catch(function (e) {
+    out.innerHTML = '<p class="err">' + (e && e.message === "busy" ? "Lots of people are checking right now. Try again in a minute." : "Something went wrong. Try again in a minute.") + '</p>'
+  }).then(function () { go.disabled = false })
+}
+
+document.getElementById("f").addEventListener("submit", function (e) {
+  e.preventDefault()
+  run(clean(document.getElementById("d").value))
+})
+var start = new URLSearchParams(location.search).get("site")
+if (start) { document.getElementById("d").value = clean(start); run(clean(start)) }
+</script>
+</body>
+</html>
