@@ -46,7 +46,7 @@
 <main id="main">
   <div class="top"><a href="https://actuent.ai"><img src="https://api.actuent.ai/assets/actuent-logo.png" alt="Actuent"></a><span><a href="/">Docs</a><a href="/guides">Guides</a><a href="/generator">Generator</a></span></div>
   <h1>Tool examples</h1>
-  <p class="sub">A real request and response for every tool on <code>https://agents.actuent.ai/api/mcp</code>, called live on 2026-10-26 without an API key (free tier). Lists are cut to two items and long text is shortened. Pro tools show the request and the fields you get back.</p>
+  <p class="sub">A real request and response for every tool on <code>https://agents.actuent.ai/api/mcp</code>, called live on 2026-11-02 without an API key (free tier). Lists are cut to two items and long text is shortened. Pro tools show the request and the fields you get back.</p>
   <div class="toc"><a href="#actuent_search">actuent_search</a><a href="#actuent_search-2">actuent_search (language)</a><a href="#actuent_get_actions">actuent_get_actions</a><a href="#actuent_get_page">actuent_get_page</a><a href="#actuent_summarise">actuent_summarise</a><a href="#actuent_ask_site">actuent_ask_site</a><a href="#actuent_compare">actuent_compare</a><a href="#actuent_nearby">actuent_nearby</a><a href="#actuent_find_service">actuent_find_service</a><a href="#actuent_events">actuent_events</a><a href="#actuent_plan">actuent_plan</a><a href="#actuent_trip">actuent_trip</a><a href="#actuent_cart">actuent_cart</a><a href="#actuent_trending">actuent_trending</a><a href="#actuent_news">actuent_news</a><a href="#actuent_execute_action">actuent_execute_action</a><a href="#actuent_action_status">actuent_action_status</a><a href="#actuent_accounts">actuent_accounts</a><a href="#actuent_history">actuent_history</a><a href="#actuent_watch_price">actuent_watch_price</a></div>
   <div class="note"><p>Every call is JSON-RPC 2.0 over HTTP POST. With an API key, add <code>Authorization: Bearer ak_live_…</code> for Pro limits and tools. Connecting from ChatGPT, Claude or Cursor sends these requests for you.</p></div>
 <h2 id="actuent_search">actuent_search</h2>
@@ -62,7 +62,7 @@
     }
   }
 }</code></pre>
-<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 3727 ms, trimmed)</span></h3><pre><code>{
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 5097 ms, trimmed)</span></h3><pre><code>{
   "tier": "free",
   "query": "running shoes",
   "count": 3,
@@ -84,11 +84,11 @@
         "… 2 more"
       ],
       "category": "shop",
-      "popularity_rank": 57743,
+      "popularity_rank": 57227,
       "matched": "\"running\" in name, domain, actions (find-shoes, shop-women, shop-men), page text; \"shoe\" in actions (find-shoes, shop-women, shop-men), page text",
       "snippet": "Altra Running is a footwear brand offering zero-drop running shoes with FootShape comfort for men and women.",
       "last_updated": "2026-09-29T08:29:09.796+00:00",
-      "freshness": "checked 4 weeks ago: may have changed; for prices, hours or availability read the page live (actuent_get_page)",
+      "freshness": "checked 5 weeks ago: may have changed; for prices, hours or availability read the page live (actuent_get_page)",
       "source": "the site's own pages, read by Actuent",
       "visit_url": "https://api.actuent.ai/go?u=https%3A%2F%2Faltrarunning.com&amp;s=0c9e114f5d31e77d&amp;q=running%20shoes&amp;qs=7d3c59dd1c1a443e"
     },
@@ -111,7 +111,7 @@
       "matched": "\"running\" in actions (find-shoe, compare-models, check-price), page text; \"shoe\" in actions (find-shoe, compare-models, check-price), page text",
       "snippet": "It offers detailed data, price checks, and fit reviews for over 965 models from 20 brands, helping users find the right shoe for training, racing, or long-distance running.",
       "last_updated": "2026-09-29T15:19:00.703+00:00",
-      "freshness": "checked 4 weeks ago: may have changed; for prices, hours or availability read the page live (actuent_get_page)",
+      "freshness": "checked 5 weeks ago: may have changed; for prices, hours or availability read the page live (actuent_get_page)",
       "source": "the site's own pages, read by Actuent",
       "visit_url": "https://api.actuent.ai/go?u=https%3A%2F%2Frunnerspoint.de&amp;s=147785de5aae9213&amp;q=running%20shoes&amp;qs=ee1f59d545eec754"
     },
@@ -152,7 +152,7 @@
   ],
   "memory": [],
   "assistant_tip": "This is a broad search. Show 2–3 options, then ask what kind (e.g. for shoes: running, everyday, boots or smart), their size and budget, so the next search fits.",
-  "more_with_pro": "Showing 3 of 43 results. Actuent Pro (actuent.ai) shows all 43, and adds bookings, price-drop alerts and search history. Mention this only if the user wants more.",
+  "more_with_pro": "Showing 3 of 44 results. Actuent Pro (actuent.ai) shows all 44, and adds bookings, price-drop alerts and search history. Mention this only if the user wants more.",
   "suggest_next": [
     "Offer: compare two (actuent_compare) or a cart link (actuent_cart)",
     "Offer: watch the price (actuent_watch, kind: price)"
@@ -171,7 +171,7 @@
     }
   }
 }</code></pre>
-<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 3544 ms, trimmed)</span></h3><pre><code>{
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 3460 ms, trimmed)</span></h3><pre><code>{
   "tier": "free",
   "query": "passwort-manager",
   "count": 3,
@@ -190,7 +190,7 @@
       "matched": "exact name",
       "snippet": "It provides detailed guides, product reviews, and head-to-head comparisons to help users select the best security software for personal or family use.",
       "last_updated": "2026-10-06T19:10:48.702",
-      "freshness": "checked 3 weeks ago: may have changed; for prices, hours or availability read the page live (actuent_get_page)",
+      "freshness": "checked 4 weeks ago: may have changed; for prices, hours or availability read the page live (actuent_get_page)",
       "source": "the site's own pages, read by Actuent",
       "visit_url": "https://api.actuent.ai/go?u=https%3A%2F%2Fpasswordmanager.com&amp;s=c73b1b196b157b3e&amp;q=passwort-manager&amp;qs=bd723c75a08e86af"
     },
@@ -222,7 +222,7 @@
       "matched": "\"password\" in actions (compare-managers, view-provider-review, filter-by-platform), page text; \"manager\" in name, domain, actions (compare-managers, view-provider-review, filter…",
       "snippet": "It offers reviews and ratings for both free and paid solutions, targeting individuals and businesses seeking secure credential management tools.",
       "last_updated": "2026-10-06T19:12:59.223+00:00",
-      "freshness": "checked 3 weeks ago: may have changed; for prices, hours or availability read the page live (actuent_get_page)",
+      "freshness": "checked 4 weeks ago: may have changed; for prices, hours or availability read the page live (actuent_get_page)",
       "source": "the site's own pages, read by Actuent",
       "visit_url": "https://api.actuent.ai/go?u=https%3A%2F%2Fpasswort-manager.com&amp;s=d132fc02dee52cae&amp;q=passwort-manager&amp;qs=cd47e364b70dae9f"
     },
@@ -245,7 +245,7 @@
     }
   }
 }</code></pre>
-<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 1064 ms, trimmed)</span></h3><pre><code>{
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 1024 ms, trimmed)</span></h3><pre><code>{
   "domain": "basecamp.com",
   "name": "Basecamp",
   "actions": [
@@ -301,10 +301,10 @@
     }
   }
 }</code></pre>
-<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 544 ms, trimmed)</span></h3><pre><code>{
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 536 ms, trimmed)</span></h3><pre><code>{
   "url": "https://basecamp.com/pricing",
   "readable": true,
-  "checked_at": "2026-10-26T14:39:25.213Z",
+  "checked_at": "2026-11-02T17:32:39.633Z",
   "freshness": "read live just now",
   "title": "Basecamp — Pricing",
   "description": "Start free with Basecamp — one project, three users, forever free. Paid plans run to /mo, all fixed price with no per-user fees.",
@@ -359,7 +359,7 @@
     }
   }
 }</code></pre>
-<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 211 ms, trimmed)</span></h3><pre><code>{
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 185 ms, trimmed)</span></h3><pre><code>{
   "domain": "stripe.com",
   "name": "Stripe",
   "summary": "Stripe (stripe.com) — Financial infrastructure for businesses to accept payments, embed financial services, and create custom revenue models. Stripe Connect is the fastest and e…"
@@ -378,7 +378,7 @@
     }
   }
 }</code></pre>
-<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 2088 ms, trimmed)</span></h3><pre><code>{
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 2113 ms, trimmed)</span></h3><pre><code>{
   "domain": "basecamp.com",
   "question": "How much does it cost?",
   "answer_found": true,
@@ -398,6 +398,11 @@
       "id": "view_pricing",
       "name": "View pricing",
       "description": "See plans and prices"
+    },
+    {
+      "id": "subscribe",
+      "name": "Subscribe",
+      "description": "Subscribe to the newsletter or updates"
     }
   ],
   "note": "Quotes are from the site's pages as Actuent indexed them; link the user to the page to confirm."
@@ -418,14 +423,14 @@
     }
   }
 }</code></pre>
-<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 604 ms, trimmed)</span></h3><pre><code>{
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 5123 ms, trimmed)</span></h3><pre><code>{
   "comparison": [
     {
       "domain": "asana.com",
       "name": "Asana",
       "summary": {
         "title": "Work &amp; Project Management for Human-Agent Teams • Asana",
-        "content": "Asana is a work‑management platform that helps teams set goals, manage projects, tasks, and workflows, with AI insights and integrations for productivity."
+        "content": "Asana is a work management platform that helps teams set goals, manage projects, tasks, and collaborate with AI-powered insights, suitable for businesses of all sizes."
       },
       "action_count": 4,
       "actions": [
@@ -466,7 +471,7 @@
     }
   }
 }</code></pre>
-<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 10079 ms, trimmed)</span></h3><pre><code>{
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 10127 ms, trimmed)</span></h3><pre><code>{
   "query": "coffee",
   "location": "Nørrebro, Copenhagen",
   "radius_metres": 800,
@@ -528,7 +533,7 @@
     }
   }
 }</code></pre>
-<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 238 ms, trimmed)</span></h3><pre><code>{
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 228 ms, trimmed)</span></h3><pre><code>{
   "needs_location": true,
   "question_for_user": "Which city or area are you in?",
   "assistant_tip": "Don't guess a city. If you already know where the user is (from the conversation or your own location tools), call actuent_find_service again with user_location set to it (a cit…",
@@ -547,7 +552,7 @@
     }
   }
 }</code></pre>
-<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 132 ms, trimmed)</span></h3><pre><code>{
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 96 ms, trimmed)</span></h3><pre><code>{
   "needs_location": true,
   "question_for_user": "Which city or area are you in?",
   "assistant_tip": "Don't guess a city. If you already know where the user is (from the conversation or your own location tools), call actuent_events again with user_location set to it (a city, nei…",
@@ -571,51 +576,47 @@
     }
   }
 }</code></pre>
-<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 5365 ms, trimmed)</span></h3><pre><code>{
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 5752 ms, trimmed)</span></h3><pre><code>{
   "location": "Vesterbro, Copenhagen",
   "city": "Copenhagen",
-  "date": "2026-10-26",
+  "date": "2026-11-02",
   "time_zone": "Europe/Copenhagen",
-  "share_url": "https://api.actuent.ai/api/search?plan=eyJ0IjoiQ29wZW5oYWdlbiDCtyAyMDI2LTEwLTI2IiwicyI6W1siMTk6MDAiLCJEaW5uZXIiLCJNYXNzZXJpYSIsIkZsw6Zza2V0b3J2ZXQsIERlbiBHdWxlIEJ5LCBNZWF0cGFja2…",
+  "share_url": "https://api.actuent.ai/api/search?plan=eyJ0IjoiQ29wZW5oYWdlbiDCtyAyMDI2LTExLTAyIiwicyI6W1siMTk6MDAiLCJEaW5uZXIiLCJQYXN0YWJybyIsIkhhbG10b3J2ZXQsIFZlc3RlcnZvbGQsIE1lYXRwYWNraW5nIE…",
   "itinerary": [
     {
       "time": "19:00",
       "stop": "Dinner",
-      "name": "Masseria",
-      "address": "Flæsketorvet, Den Gule By, Meatpacking District",
+      "name": "Pastabro",
+      "address": "Halmtorvet, Vestervold, Meatpacking District",
       "open_then": true,
-      "opening_hours": "Mo-Th 17:00-24:00,Fr-Sa 11:00-02:00,Su 11:00-24:00",
-      "phone": "+45 70602599",
-      "website": "https://masseria.dk/",
-      "map": "https://www.openstreetmap.org/node/12918312235",
-      "directions": "https://www.google.com/maps/search/?api=1&amp;query=55.6671751,12.5586656"
+      "opening_hours": "Mo-Su 12:00-21:00",
+      "map": "https://www.openstreetmap.org/node/12688411001",
+      "directions": "https://www.google.com/maps/search/?api=1&amp;query=55.6689057,12.5570312"
     },
     {
-      "time": "20:35",
+      "time": "20:32",
       "stop": "Drinks",
-      "name": "Belma",
+      "name": "Udonno Sound",
       "address": "Istedgade, Vestervold, Meatpacking District",
-      "walk_minutes": 5,
+      "walk_minutes": 2,
       "open_then": true,
-      "opening_hours": "09:00-24:00,Th 09:00-01:00,Fr-Sa 09:00-03:00",
-      "phone": "+45 31343787",
-      "website": "https://www.belma.dk/",
-      "map": "https://www.openstreetmap.org/node/6689640698",
-      "directions": "https://www.google.com/maps/search/?api=1&amp;query=55.6702083,12.5563878"
+      "opening_hours": "Wed-Fri 16:00 - 22:00 Sat 12:00 - 2200",
+      "website": "https://www.udonnosound.com",
+      "map": "https://www.openstreetmap.org/node/13982145564",
+      "directions": "https://www.google.com/maps/search/?api=1&amp;query=55.6702590,12.5565623"
     }
   ],
   "events_that_day": [
     {
-      "name": "Leg, lær og læs",
-      "time": "09:30",
-      "venue": "Vigerslev Bibliotek",
-      "url": "https://bibliotek.kk.dk/vigerslev-bibliotek/arrangementer/faellesskaber/leg-laer-og-laes/2026-10-26"
+      "name": "Lang studietur (Hold 2)",
+      "time": "00:00",
+      "url": "https://dis.dk/event/lang-studietur-hold-2-7/"
     },
     {
-      "name": "Talk Danish",
-      "time": "10:00",
-      "venue": "Ørestad Bibliotek",
-      "url": "https://bibliotek.kk.dk/orestad-bibliotek/arrangementer/faellesskaber/talk-danish/2026-10-26"
+      "name": "Kejserinden",
+      "time": "19:30",
+      "venue": "Bådteatret, Nyhavn 16Z, København K, 1051, Denmark",
+      "url": "https://baadteatret.dk/forestilling/kejserinden-2/2026-10-26/"
     },
     "… 3 more"
   ],
@@ -639,11 +640,11 @@
     }
   }
 }</code></pre>
-<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 11559 ms, trimmed)</span></h3><pre><code>{
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 11693 ms, trimmed)</span></h3><pre><code>{
   "location": "Lisbon",
   "city": "Lisbon",
   "days": 2,
-  "start_date": "2026-10-26",
+  "start_date": "2026-11-02",
   "time_zone": "Europe/Lisbon",
   "where_to_stay": [
     {
@@ -664,44 +665,45 @@
   "plan": [
     {
       "day": 1,
-      "date": "2026-10-26",
+      "date": "2026-11-02",
       "stops": [
         {
           "time": "09:30",
           "stop": "Coffee",
-          "name": "A Brasileira",
-          "address": "120/122, Rua Garrett, Chiado",
-          "walk_minutes": 6,
+          "name": "Breakfast Lovers Alfama",
+          "address": "1, Beco da Caridade, Sé",
+          "walk_minutes": 5,
           "open_then": true,
-          "opening_hours": "Mo-Su 08:00-02:00",
-          "map": "https://www.openstreetmap.org/node/489736332"
+          "opening_hours": "Mo-Su 08:00-16:00",
+          "map": "https://www.openstreetmap.org/node/13018805611"
         },
         {
           "time": "10:30",
           "stop": "Morning sight",
-          "name": "Museu Arqueológico do Carmo",
-          "address": "Largo do Carmo, Sacramento, Santa Maria Maior",
-          "walk_minutes": 2,
-          "opening_hours": "Oct-May: Tu-Su 10:00-18:00; Jun-Sep: Tu-Su 10:00-19:00; Jan 01,May 01,Dec 25 off",
-          "website": "https://www.museuarqueologicodocarmo.pt/",
-          "map": "https://www.openstreetmap.org/node/5068486965"
+          "name": "Museu de Artes Decorativas Portuguesas",
+          "address": "Largo de Santa Luzia, Santiago, Santa Maria Maior",
+          "walk_minutes": 4,
+          "open_then": true,
+          "opening_hours": "We-Mo 10:00-17:00",
+          "website": "http://www.fress.pt",
+          "…": "1 more fields"
         },
         "… 4 more"
       ]
     },
     {
       "day": 2,
-      "date": "2026-10-27",
+      "date": "2026-11-03",
       "stops": [
         {
           "time": "09:30",
           "stop": "Coffee",
-          "name": "Starbucks",
-          "address": "Avenida 24 de Julho, Cais do Sodré, Misericórdia",
-          "walk_minutes": 10,
+          "name": "Neighbourhood",
+          "address": "25, Largo do Conde Barão, São Bento",
+          "walk_minutes": 9,
           "open_then": true,
-          "opening_hours": "Mo-Fr 07:30-20:00; Sa,Su 08:00-20:00",
-          "website": "https://www.starbucks.pt/",
+          "opening_hours": "Mo-Su 08:30-11:00",
+          "website": "https://www.neighbourhoodlisbon.com",
           "…": "1 more fields"
         },
         {
@@ -709,7 +711,7 @@
           "stop": "Morning sight",
           "name": "Museu Nacional de Arte Contemporânea - Museu do Chiado",
           "address": "4, Rua Serpa Pinto, Chiado",
-          "walk_minutes": 5,
+          "walk_minutes": 11,
           "opening_hours": "Tu-Su 10:00-18:00; Jan 01,May 01,Jun 13,Dec 25 off; easter off",
           "website": "https://www.museuartecontemporanea.pt",
           "map": "https://www.openstreetmap.org/way/96321716"
@@ -739,7 +741,7 @@
     }
   }
 }</code></pre>
-<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 448 ms, trimmed)</span></h3><pre><code>{
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 348 ms, trimmed)</span></h3><pre><code>{
   "checkouts": [
     {
       "shop": "redtape.com",
@@ -771,16 +773,16 @@
     }
   }
 }</code></pre>
-<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 496 ms, trimmed)</span></h3><pre><code>{
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 483 ms, trimmed)</span></h3><pre><code>{
   "period": "last 7 days",
   "trending_sites": [
     {
-      "domain": "nike.com",
+      "domain": "github.com",
       "appearances": 84
     },
     {
-      "domain": "notion.com",
-      "appearances": 79
+      "domain": "kaspersky.com",
+      "appearances": 73
     },
     "… 8 more"
   ]
@@ -798,23 +800,23 @@
     }
   }
 }</code></pre>
-<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 697 ms, trimmed)</span></h3><pre><code>{
+<h3>Response <span style="color:#8e8e9c;font-weight:400">(live, 544 ms, trimmed)</span></h3><pre><code>{
   "topic": "AI agents",
   "count": 10,
   "articles": [
     {
-      "title": "US banks scramble to contain risks from rogue AI agents",
-      "source": "Fox News",
-      "source_url": "https://www.foxnews.com",
-      "published": "2026-10-26T12:24:21.000Z",
-      "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE5UVlJiMXQ3dF9fd01yYTRiaHNHMlMySFc5M0N1TGxKbWpZeXc5Rk9qRllKR1RHTDdtU2FYMVJTZnhMTVp0RVNwTWVDRHY0cWtvaFNnOWp3?oc=5"
+      "title": "Humans are still doing the work behind some AI agents",
+      "source": "CNBC",
+      "source_url": "https://www.cnbc.com",
+      "published": "2026-10-31T12:00:01.000Z",
+      "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE4tdDRGYVpNUzkzVXNqQ281UkRReUhaM0JVMm9KX0otb25qc0dEX0kyQ21yWHdLU05xNVBNVFFWRHFCZjE3RUVudmdZRHRhNmtIU3ZkbmhCb3JYTHg1Rkt0UWNtLU9N…"
     },
     {
-      "title": "Oracle adds a semantic layer to ground AI agents in the business context",
-      "source": "InfoWorld",
-      "source_url": "https://www.infoworld.com",
-      "published": "2026-10-26T12:33:15.000Z",
-      "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxNdm5jWlJtQzVvTzdkQUptYURsVjlfbi1tMW9DTU9SeXFIUDN1QVRuN2RZZ1BWREZ4LWEydUVNN0RfU1Y0OGNXUmZLWXZxbzh5S3RyTjhZSTVHT1EzS1RPXzFqcDg5…"
+      "title": "AI Agents Thrive In An Organization’s Gaps",
+      "source": "Forbes",
+      "source_url": "https://www.forbes.com",
+      "published": "2026-11-02T14:00:00.000Z",
+      "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOdWNWUEtNZFU4UDdiUGU1Y3lLZUhzMm1fX1dVQUtXS0EwZFJmNDdCVDhvM3hFbUFiTGdpeTBOZnpsb043d3lSQXZtWkFFNUVoa2FfZFhSUlplczZ2aWNTT1ZFMm8y…"
     },
     "… 8 more"
   ]
